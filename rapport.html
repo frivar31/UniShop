@@ -225,9 +225,10 @@
           Diagrammes
         </h3>            
     </div>
+    <img src="diagCUV2.svg">
+
   </div>
 </div>
-<img src="acheteur.png">
 
 
 <div class="jumbotron p-6 p-md-2  rounded bg-primary">
@@ -242,15 +243,65 @@
 
 <div id="bloc">
   <div class="grille first">
-    <p><b>Cas d'utilisation :</b> S'inscrire comme Acheteur </p>
-    <p><b> But :</b> Permettre à un utilisateur de s'inscrire en tant qu'acheteur sur la plateforme UniShop.</p>
+    <p><b>Cas d'utilisation :</b> Passer une commande</p>
+    <p><b> But :</b> Un acheteur desire passer une commande pour les produits qu'il a mis dans le panier</p>
+
+    <p><b>Préconditions:  </b> L'acheteur doit avoir un compte unishop et des produits dans son panier.</p>
+    <p><b>Acteurs: </b> Acheteur souhaite passer une commande</p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>L'acheteur se connecte à son compte
+      </li>
+      <li>L'acheteur selectione des produits.
+      </li>
+      <li>L'acheteur accède à son panier d'achat.
+      </li>  
+      <li>L'acheteur fournit les informations de paiement et de livraison.
+      </li> 
+      <li>L'acheteur confirme la commande.
+      </li> 
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+    <p>Si les informations de paiement fournies sont incorrectes ou incomplètes, 
+    le système affiche un message d'erreur et demande à l'acheteur de les corriger.</p>
+    <p><b>Postconditions : </b> La commande est passée avec succès, 
+      et l'acheteur peut suivre l'état de sa commande sur la plateforme.</p>
+   
+  </div>
+  <div class="grille">
+    <p><b>Cas d'utilisation :</b>: Consulter l'etat de la Commande </p>
+    <p><b> But :</b>l'acheteur desire consulter l'état actuel de sa commande.</p>
+
+    <p><b>Préconditions:  </b>L'acheteur doit être connecté à son compte et avoir deja passé une commande.</p>
+    <p><b>Acteurs: </b>Acheteur </p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>L'acheteur se connecte à son compte 
+      </li>
+      <li>L'acheteur accède à la section "suivi de commande" de son compte.
+      </li>
+      <li>Le système affiche la liste des commandes passées par l'acheteur.
+      </li>  
+      <li>Le système affiche l'état actuel de la commande
+      </li>
+      <li>L'acheteur peut accéder aux détails de la commande
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+<p>Si la commande n'a pas encore été expédiée, l'acheteur peut avoir la possibilité d'annuler la commande</p>
+    <p><b>Postconditions : </b>L'acheteur peut consulter l'état de sa commande actuelleet être informé des mises à jour concernant la livraison.</p>
+   
+  </div>
+  <div class="grille">
+    <p><b>Cas d'utilisation :</b> Creer un compte acheteur </p>
+    <p><b> But :</b> l'utilisateur desire s'inscrire en tant qu'acheteur. </p>
     <p><b>Préconditions:</b> L'utilisateur ne doit pas être déjà inscrit en tant qu'acheteur.</p>
     <p><b>Acteurs : </b>l’utilisateur (Acheteur)</p>
     <p><b>Scénario principal : </b></p>
     <ol>
       <li>L'utilisateur accède à la page d'inscription sur UniShop.
       </li>
-      <li>L'utilisateur remplit le formulaire d'inscription en fournissant son nom, prénom, pseudo (unique), adresse courriel, et numéro de téléphone.
+      <li>L'utilisateur remplit le formulaire d'inscription en fournissant son nom, prénom, adresse courriel, et numéro de téléphone.
       </li>
       <li>
         L'utilisateur soumet le formulaire d'inscription.
@@ -261,85 +312,34 @@
     </ol>
     <p><b>Scénario alternatif : </b></p>
 
-  <p> Si le pseudo ou l'adresse courriel fournis par l'utilisateur sont déjà associés à un compte existant, 
-    le système affiche un message d'erreur et demande à l'utilisateur de choisir un autre pseudo ou une autre adresse courriel.</p>
-    <p><b>Postconditions  :</b> L'utilisateur est inscrit en tant qu'acheteur sur la plateforme UniShop et peut désormais accéder à son 
-      compte pour commencer à utiliser les fonctionnalités de la plateforme.</p>
-   
+  <p> Si l'adresse courriel fournis par l'utilisateur sont déjà associés à un compte existant, le système affiche un message d'erreur.</p>
+    <p><b>Postconditions  :</b> L'utilisateur est inscrit en tant qu'acheteur sur UniShop et peut désormais accéder à son 
+      compte pour commencer à lutiliser.</p>
   </div>
-
-  <div class="grille">
-    <p><b>Cas d'utilisation :</b> Passer une commande</p>
-    <p><b> But :</b></p>
-
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
-    <p><b>Scénario principal : </b></p>
-    <ol>
-      <li>
-      </li>
-      <li>
-      </li>
-      <li>
-      </li>  
-    </ol>
-    <p><b>Scénario alternatif : </b></p>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    <p><b>Postconditions : </b></p>
-   
-  </div>
-  <div class="grille">
-    <p><b>Cas d'utilisation :</b> </p>
-    <p><b> But :</b></p>
-
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
-    <p><b>Scénario principal : </b></p>
-    <ol>
-      <li>
-      </li>
-      <li>
-      </li>
-      <li>
-      </li>  
-    </ol>
-    <p><b>Scénario alternatif : </b></p>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    <p><b>Postconditions : </b></p>
-   
-  </div>
+ 
   <div class="grille first">
-    <p><b>Cas d'utilisation :</b> </p>
-    <p><b> But :</b></p>
+    <p><b>Cas d'utilisation :</b>Confimer reception de commande </p>
+    <p><b> But :</b>l'acheteur desire confirmer la réception de sa commande </p>
 
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
+    <p><b>Préconditions:  </b>L'acheteur lui a ete livree une commande </p>
+    <p><b>Acteurs: </b> acheteur</p>
     <p><b>Scénario principal : </b></p>
     <ol>
-      <li>
+      <li>L'acheteur se connecte à son compte
       </li>
-      <li>
+      <li>Le système affiche les détails de la commande
       </li>
-      <li>
+      <li>L'acheteur confirme la réception de la commande
       </li>  
+
     </ol>
-    <p><b>Scénario alternatif : </b></p>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    <p><b>Postconditions : </b></p>
+    <p><b>Scénario alternatif : </b> Si l'acheteur constate un problème avec la commande, il peut choisir de ne pas confirmer la réception et signaler le problème à la place</p>
+
+    <p><b>Postconditions : </b>: La commande est marquée comme livré pour l'acheteur, et le vendeur est informé que la commande a été reçue</p>
    
   </div>
+
+
   <div class="grille ">
     <p><b>Cas d'utilisation :</b> </p>
     <p><b> But :</b></p>
@@ -356,11 +356,7 @@
       </li>  
     </ol>
     <p><b>Scénario alternatif : </b></p>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
+
     <p><b>Postconditions : </b></p>
    
   </div>
@@ -380,11 +376,7 @@
       </li>  
     </ol>
     <p><b>Scénario alternatif : </b></p>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
+
     <p><b>Postconditions : </b></p>
    
   </div>
@@ -404,11 +396,126 @@
       </li>  
     </ol>
     <p><b>Scénario alternatif : </b></p>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
+
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille ">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class=" grille first" >
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille ">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille ">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille first">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+
     <p><b>Postconditions : </b></p>
    
   </div>
@@ -428,11 +535,7 @@
       </li>  
     </ol>
     <p><b>Scénario alternatif : </b></p>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
+
     <p><b>Postconditions : </b></p>
    
   </div>
@@ -452,17 +555,14 @@
       </li>  
     </ol>
     <p><b>Scénario alternatif : </b></p>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
+
     <p><b>Postconditions : </b></p>
    
   </div>
-  <div class=" grille last first" >
+  <div class="grille last first">
     <p><b>Cas d'utilisation :</b> </p>
     <p><b> But :</b></p>
+
     <p><b>Préconditions:  </b></p>
     <p><b>Acteurs: </b></p>
     <p><b>Scénario principal : </b></p>
@@ -475,16 +575,10 @@
       </li>  
     </ol>
     <p><b>Scénario alternatif : </b></p>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
-    3a<br>
+
     <p><b>Postconditions : </b></p>
    
   </div>
-  
-  
 </div>
 
 
