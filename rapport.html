@@ -31,7 +31,26 @@
 		.col {
 			border-right: double 2px black;
 		}
+    #bloc{
+      display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+     
+		}
+    .grille{
+      width: 30%;
+			border-right : 2px black solid;
+      border-top : 2px black solid;
+			padding: 10px;
+			margin: 4px;
+    }
 
+  .last{
+    border-bottom: 2px black solid;
+  }
+  .first{
+    border-left : 2px black solid;
+}
 </style>
   </head>
 
@@ -221,36 +240,254 @@
   </div>
 </div>
 
-<div class="container">
-<div class="row">
-  <div class="col-md-8 blog-main">
-    <h3 class="pb-3 mb-4 font-italic border-bottom">
-      titre
-    </h3>
+<div id="bloc">
+  <div class="grille first">
+    <p><b>Cas d'utilisation :</b> S'inscrire comme Acheteur </p>
+    <p><b> But :</b> Permettre à un utilisateur de s'inscrire en tant qu'acheteur sur la plateforme UniShop.</p>
+    <p><b>Préconditions:</b> L'utilisateur ne doit pas être déjà inscrit en tant qu'acheteur.</p>
+    <p><b>Acteurs : </b>l’utilisateur (Acheteur)</p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>L'utilisateur accède à la page d'inscription sur UniShop.
+      </li>
+      <li>L'utilisateur remplit le formulaire d'inscription en fournissant son nom, prénom, pseudo (unique), adresse courriel, et numéro de téléphone.
+      </li>
+      <li>
+        L'utilisateur soumet le formulaire d'inscription.
+      </li>  
+      <li>
+        le système crée un compte acheteur pour l'utilisateur et lui envoie un email de confirmation.
+      </li>
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
 
-    <div class="blog-post">
-<p>
-      Cas d'utilisation : nom du CU en expression verbale.<br>
-      But : mise en contexte, description brève, préconditions nécessaires.<br>
-      Préconditions : préconditions nécessaires avant d'entammer le scéanrio principal.<br>
-      Acteurs : Acteur 1 (principal), Acteur 2 (secondaire).<br>
-      Scénario principal : description étape par étape, ordonnée numériquement<br>
-      1. Étape 1<br>
-      1.1. Étape 1.1<br>
-      2. Étape 2<br>
-      3. Étape 3<br>
-      Scénarios alternatifs : ramifications du déroulement principal, alternatives possibles à certaines étapes<br>
-      1a.1. remplace étape 1 du scenario principal<br>
-      1b.1. autre remplacement de la même étape<br>
-      1b.2. suit 1b.1 indépendamment du scénario principal<br>
-      Postconditions : État du système lorsque le scénario principal achève avec succès.<br>
-    </p>
-    </div>
-    
+  <p> Si le pseudo ou l'adresse courriel fournis par l'utilisateur sont déjà associés à un compte existant, 
+    le système affiche un message d'erreur et demande à l'utilisateur de choisir un autre pseudo ou une autre adresse courriel.</p>
+    <p><b>Postconditions  :</b> L'utilisateur est inscrit en tant qu'acheteur sur la plateforme UniShop et peut désormais accéder à son 
+      compte pour commencer à utiliser les fonctionnalités de la plateforme.</p>
+   
+  </div>
 
+  <div class="grille">
+    <p><b>Cas d'utilisation :</b> Passer une commande</p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille first">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille ">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille first ">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille last">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class="grille last">
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  <div class=" grille last first" >
+    <p><b>Cas d'utilisation :</b> </p>
+    <p><b> But :</b></p>
+    <p><b>Préconditions:  </b></p>
+    <p><b>Acteurs: </b></p>
+    <p><b>Scénario principal : </b></p>
+    <ol>
+      <li>
+      </li>
+      <li>
+      </li>
+      <li>
+      </li>  
+    </ol>
+    <p><b>Scénario alternatif : </b></p>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    3a<br>
+    <p><b>Postconditions : </b></p>
+   
+  </div>
+  
+  
 </div>
-</div>
-</div>
+
+
 
 <div class="jumbotron p-3 p-md-5 text-white rounded bg-success">
   <div class="col-md-6 px-0">
