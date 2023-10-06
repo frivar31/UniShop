@@ -467,164 +467,317 @@
    
   </div>
   <div class="grille">
-    <p><b>Cas d'utilisation :</b> </p>
-    <p><b> But :</b></p>
+    <p><b>Cas d'utilisation :</b> Confirmer la réception d'un retour</p>
+    <p><b>But :</b> Permettre aux revendeurs de confirmer la réception d'un retour de produit renvoyé par un acheteur.</p>
 
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
+    <p><b>Préconditions:  </b>
+    <ul>
+      <li>Le revendeur est connecté à son compte sur UniShop.</li>
+      <li>Un acheteur a signalé un retour de produit, et le produit retourné a été réceptionné à l'entrepôt du revendeur.</li>
+    </ul>
+    </p>
+    <p><b>Acteurs: </b>
+    <ul>
+      <li>Acteur principal : Revendeur</li>
+    </ul>
+    </p>
     <p><b>Scénario principal : </b></p>
     <ol>
-      <li>
-      </li>
-      <li>
-      </li>
-      <li>
-      </li>  
+      <li>Le revendeur accède à la gestion des retours ou des produits renvoyés.</li>
+      <li>Le revendeur sélectionne le retour spécifique pour lequel il souhaite confirmer la réception.</li>
+      <li>Le revendeur confirme la réception du produit en cliquant sur un bouton dédié.</li>
+      <li>Le système met à jour l'état du retour à "Livré".</li>
     </ol>
-    <p><b>Scénario alternatif : </b></p>
-
-    <p><b>Postconditions : </b></p>
-   
-  </div>
-  <div class=" grille first" >
-    <p><b>Cas d'utilisation :</b> </p>
-    <p><b> But :</b></p>
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
-    <p><b>Scénario principal : </b></p>
+    <p><b>Scénarios alternatifs : </b></p>
     <ol>
-      <li>
+      <li><b>L'article retourné ne correspond pas aux détails du retour :</b>
+        <ol>
+          <li>Le système génère un e-mail informant le client que l'article ne correspond pas aux détails du retour et demande des informations supplémentaires.</li>
+        </ol>
       </li>
-      <li>
+      <li><b>Le client annule le retour :</b>
+        <ol>
+          <li>Le système met à jour le statut du retour en tant qu'annulé.</li>
+          <li>Le système génère un e-mail de confirmation d'annulation et l'envoie au client.</li>
+        </ol>
       </li>
-      <li>
-      </li>  
     </ol>
-    <p><b>Scénario alternatif : </b></p>
 
-    <p><b>Postconditions : </b></p>
-   
+    <p><b>Postconditions : </b> Le retour est marqué comme "Livré".</p>
   </div>
-  <div class="grille ">
-    <p><b>Cas d'utilisation :</b> </p>
-    <p><b> But :</b></p>
 
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
-    <p><b>Scénario principal : </b></p>
-    <ol>
-      <li>
-      </li>
-      <li>
-      </li>
-      <li>
-      </li>  
-    </ol>
-    <p><b>Scénario alternatif : </b></p>
-
-    <p><b>Postconditions : </b></p>
-   
-  </div>
-  <div class="grille ">
-    <p><b>Cas d'utilisation :</b> </p>
-    <p><b> But :</b></p>
-
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
-    <p><b>Scénario principal : </b></p>
-    <ol>
-      <li>
-      </li>
-      <li>
-      </li>
-      <li>
-      </li>  
-    </ol>
-    <p><b>Scénario alternatif : </b></p>
-
-    <p><b>Postconditions : </b></p>
-   
-  </div>
   <div class="grille first">
-    <p><b>Cas d'utilisation :</b> </p>
-    <p><b> But :</b></p>
+    <p><b>Cas d'utilisation :</b> Traiter une commande prête à être expédiée</p>
+    <p><b>But :</b> Permettre aux revendeurs de mettre à jour l'état d'une commande produite.</p>
 
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
-    <p><b>Scénario principal : </b></p>
+    <p><b>Préconditions:</b>
+    <ul>
+      <li>Le revendeur est connecté à son compte sur UniShop.</li>
+      <li>L'acheteur a effectué le paiement.</li>
+      <li>La commande a été produite.</li>
+    </ul>
+    </p>
+    <p><b>Acteurs:</b>
+    <ul>
+      <li>Acteur principal : Revendeur</li>
+    </ul>
+    </p>
+    <p><b>Scénario principal :</b></p>
+    <ol>
+      <li>Le revendeur accède à la liste des commandes en attente d'expédition.</li>
+      <li>Le revendeur sélectionne une commande spécifique pour laquelle il souhaite changer l'état.</li>
+      <li>Le revendeur met à jour l'état de la commande à "En livraison" lorsque les produits sont prêts à être expédiés.</li>
+      <li>Le système enregistre la mise à jour de l'état et notifie l'acheteur de la progression de la commande.</li>
+      <li>Le revendeur fournit le nom de la compagnie d'expédition ainsi que le numéro de suivi de la livraison.</li>
+      <li>Le système informe l'acheteur du nom de la compagnie d'expédition et du numéro de suivi pour qu'il puisse suivre la livraison.</li>
+    </ol>
+
+    <p><b>Postconditions :</b> L'état de la commande est mis à jour à "En livraison", et l'acheteur est informé de la progression de la commande, y compris des informations sur la livraison.</p>
+  </div>
+
+  <div class="grille">
+    <p><b>Cas d'utilisation :</b> Confirmer la réception d'une commande</p>
+    <p><b>But :</b> Permettre aux acheteurs de confirmer la réception d'une commande après qu'elle ait été livrée.</p>
+
+    <p><b>Préconditions:</b>
+    <ul>
+      <li>L'acheteur est connecté à son compte sur UniShop.</li>
+      <li>Une commande a été passée et est en cours de livraison.</li>
+      <li>L'acheteur a reçu les produits de la commande à son domicile.</li>
+    </ul>
+    </p>
+    <p><b>Acteurs:</b>
+    <ul>
+      <li>Acteur principal : Acheteur</li>
+    </ul>
+    </p>
+    <p><b>Scénario principal :</b>
+    <ol>
+      <li>L'acheteur accède à son historique de commandes.</li>
+      <li>L'acheteur sélectionne la commande pour laquelle il souhaite confirmer la réception.</li>
+      <li>L'acheteur confirme la réception de la commande en cliquant sur un bouton dédié.</li>
+      <li>Le système met à jour l'état de la commande à "Livré".</li>
+      <li>Le système enregistre la confirmation de réception de la commande par l'acheteur.</li>
+    </ol>
+
+    <p><b>Postconditions :</b> La commande est marquée comme "Livré" et l'acheteur a confirmé la réception des produits.</p>
+  </div>
+
+  <div class="grille">
+    <p><b>Cas d'utilisation :</b> Gérer un problème</p>
+    <p><b>But :</b> Permettre aux revendeurs de gérer un problème signalé par un acheteur concernant un produit ou une commande sur UniShop.</p>
+
+    <p><b>Préconditions:</b>
+    <ul>
+      <li>Le revendeur est connecté à son compte sur UniShop.</li>
+      <li>Un acheteur a signalé un problème avec un produit ou une commande.</li>
+    </ul>
+    </p>
+    <p><b>Acteurs:</b>
+    <ul>
+      <li>Acteur principal : Revendeur</li>
+    </ul>
+    </p>
+    <p><b>Scénario principal :</b>
+    <ol>
+      <li>Le revendeur accède à la liste des problèmes signalés par les acheteurs.</li>
+      <li>Le revendeur sélectionne le problème spécifique qu'il souhaite gérer.</li>
+      <li>Le revendeur examine la description du problème faite par l'acheteur.</li>
+      <li>Le revendeur propose une solution au problème.</li>
+      <li>Le système enregistre la proposition de solution du revendeur.</li>
+      <li>L'acheteur est notifié de la solution proposée par le revendeur.</li>
+      <li>L'acheteur peut accepter ou refuser la solution proposée.</li>
+      <li>Si la solution est acceptée par l'acheteur, le revendeur prend les mesures nécessaires pour résoudre le problème.</li>
+      <li>Le système met à jour l'état du problème en fonction de la progression de la résolution.</li>
+    </ol>
+
+    <p><b>Scénarios alternatifs :</b>
     <ol>
       <li>
+        Si la solution est refusée, le revendeur est notifié.
       </li>
       <li>
+        Le revendeur va modifier sa solution au problème.
       </li>
       <li>
-      </li>  
+        L’acheteur est notifié de la nouvelle solution.
+      </li>
     </ol>
-    <p><b>Scénario alternatif : </b></p>
+    </p>
 
-    <p><b>Postconditions : </b></p>
-   
+    <p><b>Postconditions :</b> Au minimum, une solution a été présentée à l’acheteur pour résoudre son problème.</p>
   </div>
+
+  <div class="grille first">
+    <p><b>Cas d'utilisation :</b> Modifier son profil</p>
+    <p><b>But :</b> Permettre aux utilisateurs (acheteurs et revendeurs) de modifier les informations de leur profil sur UniShop.</p>
+
+    <p><b>Préconditions:</b>
+    <ul>
+      <li>L'utilisateur est connecté à son compte sur UniShop.</li>
+      <li>L'utilisateur souhaite mettre à jour les informations de son profil.</li>
+    </ul>
+    </p>
+    <p><b>Acteurs:</b>
+    <ul>
+      <li>Acteur principal : Acheteur ou revendeur</li>
+    </ul>
+    </p>
+    <p><b>Scénario principal :</b>
+    <ol>
+      <li>L'utilisateur accède à la page de gestion de profil.</li>
+      <li>L'utilisateur sélectionne les informations qu'il souhaite modifier parmi les données existantes (par exemple, nom, prénom, adresse courriel, téléphone, adresse d'expédition, etc.).</li>
+      <li>L'utilisateur effectue les modifications souhaitées.</li>
+      <li>Le système vérifie la validité des nouvelles informations fournies.</li>
+      <li>Le système enregistre les modifications apportées au profil de l'utilisateur.</li>
+      <li>Le système notifie l'utilisateur de la réussite de la mise à jour de son profil.</li>
+    </ol>
+
+    <p><b>Scénarios alternatifs :</b>
+    <ol>
+      <li>
+        L’utilisateur quitte sans sauvegarder.
+      </li>
+      <li>
+        Le système n’enregistre pas les modifications apportées.
+      </li>
+      <li>
+        L’utilisateur rentre un mauvais format de donnée.
+      </li>
+      <li>
+        Le système notifie l’utilisateur qu’il y a un mauvais format de donnée.
+      </li>
+      <li>
+        Le système empêche de sauvegarder les changements.
+      </li>
+    </ol>
+    </p>
+
+    <p><b>Postconditions :</b> Le profil de l'utilisateur est mis à jour avec les informations modifiées et enregistrées avec succès.</p>
+  </div>
+
+
+  <div class="grille">
+    <p><b>Cas d'utilisation :</b> Retirer un produit du panier</p>
+    <p><b>But :</b> Permettre aux utilisateurs (acheteurs) de retirer un produit de leur panier d'achat sur UniShop.</p>
+
+    <p><b>Préconditions:</b>
+    <ul>
+      <li>L'acheteur est connecté à son compte sur UniShop.</li>
+      <li>Le produit que l'acheteur souhaite retirer est actuellement dans son panier.</li>
+    </ul>
+    </p>
+    <p><b>Acteurs:</b>
+    <ul>
+      <li>Acteur principal : Acheteur</li>
+    </ul>
+    </p>
+    <p><b>Scénario principal :</b>
+    <ol>
+      <li>L'acheteur accède à son panier d'achat.</li>
+      <li>L'acheteur visualise les produits qui sont actuellement dans son panier.</li>
+      <li>L'acheteur sélectionne le produit qu'il souhaite retirer.</li>
+      <li>L'acheteur clique sur le bouton de retrait.</li>
+      <li>Le système confirme la demande de retrait du produit.</li>
+      <li>Le système retire le produit du panier de l'acheteur.</li>
+      <li>Le panier de l'acheteur est mis à jour.</li>
+      <li>Le système notifie l'acheteur que le produit a été retiré avec succès du panier.</li>
+    </ol>
+
+    <p><b>Postconditions :</b> Le produit est retiré avec succès du panier de l'acheteur, et le panier est mis à jour pour refléter ce changement.</p>
+  </div>
+
   <div class="grille last">
-    <p><b>Cas d'utilisation :</b> </p>
-    <p><b> But :</b></p>
+    <p><b>Cas d'utilisation :</b> Ajouter un produit dans le panier</p>
+    <p><b>But :</b> Permettre aux utilisateurs (acheteurs) d'ajouter un produit à leur panier d'achat sur UniShop.</p>
 
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
-    <p><b>Scénario principal : </b></p>
+    <p><b>Préconditions:</b>
+    <ul>
+      <li>L'acheteur est connecté à son compte sur UniShop.</li>
+      <li>Le produit que l'acheteur souhaite ajouter est disponible sur la plateforme.</li>
+    </ul>
+    </p>
+    <p><b>Acteurs:</b>
+    <ul>
+      <li>Acteur principal : Acheteur</li>
+    </ul>
+    </p>
+    <p><b>Scénario principal :</b>
     <ol>
-      <li>
-      </li>
-      <li>
-      </li>
-      <li>
-      </li>  
+      <li>L'acheteur navigue sur la plateforme et trouve un produit qu'il souhaite acheter.</li>
+      <li>L'acheteur sélectionne le produit en cliquant sur celui-ci.</li>
+      <li>Le système affiche les détails du produit, y compris le prix et la quantité disponible.</li>
+      <li>L'acheteur clique sur un bouton d'ajout au panier.</li>
+      <li>Le système confirme l'ajout du produit au panier.</li>
+      <li>Le système met à jour le panier de l'acheteur en y ajoutant le produit.</li>
     </ol>
-    <p><b>Scénario alternatif : </b></p>
 
-    <p><b>Postconditions : </b></p>
-   
+    <p><b>Postconditions :</b> Le produit est ajouté avec succès au panier de l'acheteur, et le panier est mis à jour pour refléter cet ajout.</p>
   </div>
+
+  <div class="grille first last">
+    <p><b>Cas d'utilisation :</b> Rechercher un produit</p>
+    <p><b>But :</b> Permettre aux utilisateurs (acheteurs et revendeurs) de rechercher des produits sur la plateforme UniShop.</p>
+
+    <p><b>Préconditions:</b>
+    <ul>
+      <li>L'utilisateur accède à la plateforme UniShop.</li>
+    </ul>
+    </p>
+    <p><b>Acteurs:</b>
+    <ul>
+      <li>Acteur principal : Acheteur</li>
+    </ul>
+    </p>
+    <p><b>Scénario principal :</b>
+    <ol>
+      <li>L'utilisateur accède à la fonction de recherche sur la plateforme UniShop.</li>
+      <li>L'utilisateur entre un mot-clé de recherche dans le champ de recherche.</li>
+      <li>Le système effectue une recherche en utilisant le mot-clé fourni.</li>
+      <li>Le système affiche les résultats de la recherche correspondants au mot-clé.</li>
+      <li>L'utilisateur peut consulter les détails des produits trouvés.</li>
+    </ol>
+
+    <p><b>Scénarios alternatifs :</b>
+    <ol>
+      <li>Le système ne trouve aucun produit correspondant.</li>
+      <li>Le système recommande des produits similaires.</li>
+    </ol>
+    </p>
+
+    <p><b>Postconditions :</b> L'utilisateur peut voir les produits correspondant à sa recherche et consulter les détails de ces produits.</p>
+  </div>
+
+
   <div class="grille last">
-    <p><b>Cas d'utilisation :</b> </p>
-    <p><b> But :</b></p>
+    <p><b>Cas d'utilisation :</b> Évaluer un produit</p>
+    <p><b>But :</b> Permettre aux acheteurs de laisser une évaluation sur un produit qu'ils ont acheté sur UniShop.</p>
 
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
-    <p><b>Scénario principal : </b></p>
+    <p><b>Préconditions:</b>
+    <ul>
+      <li>L'acheteur est connecté à son compte sur UniShop.</li>
+      <li>L'acheteur a acheté le produit sur lequel il souhaite laisser une évaluation.</li>
+      <li>Le produit a été livré et marqué comme "livré" par le vendeur.</li>
+    </ul>
+    </p>
+    <p><b>Acteurs:</b>
+    <ul>
+      <li>Acteur principal : Acheteur</li>
+    </ul>
+    </p>
+    <p><b>Scénario principal :</b>
     <ol>
-      <li>
-      </li>
-      <li>
-      </li>
-      <li>
-      </li>  
+      <li>L'acheteur accède à la page du produit qu'il souhaite évaluer.</li>
+      <li>L'acheteur clique sur un bouton pour laisser une évaluation.</li>
+      <li>L'acheteur saisit son évaluation et éventuellement des commentaires sur le produit.</li>
+      <li>L'acheteur attribue une note de 1 à 5 étoiles au produit.</li>
+      <li>Le système enregistre l'évaluation de l'acheteur pour ce produit.</li>
+      <li>Le système met à jour les métriques liées au produit, y compris la note moyenne et le nombre d'évaluations.</li>
     </ol>
-    <p><b>Scénario alternatif : </b></p>
 
-    <p><b>Postconditions : </b></p>
-   
+    <p><b>Postconditions :</b> L'évaluation de l'acheteur est enregistrée avec succès pour le produit.</p>
   </div>
-  <div class="grille last first">
-    <p><b>Cas d'utilisation :</b> </p>
-    <p><b> But :</b></p>
 
-    <p><b>Préconditions:  </b></p>
-    <p><b>Acteurs: </b></p>
-    <p><b>Scénario principal : </b></p>
-    <ol>
-      <li>
-      </li>
-      <li>
-      </li>
-      <li>
-      </li>  
-    </ol>
-    <p><b>Scénario alternatif : </b></p>
-
-    <p><b>Postconditions : </b></p>
-   
-  </div>
 </div>
 
 
