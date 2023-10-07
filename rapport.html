@@ -440,16 +440,16 @@
       </ol>
       <p><b>Scénario alternatif : </b>Acheteur souhaite de changer son commentaire ou son enlever son like</p>
 
-      <p><b>Postconditions : </b>: L'acheteur a accès aux métriques de ses activités sur UniShop.</p>
+      <p><b>Postconditions : </b> L'acheteur a accès aux métriques de ses activités sur UniShop.</p>
 
     </div>
     <div class="grille first ">
-      <p><b>Cas d'utilisation :</b>Trouver un revendeur (Acheteur): </p>
+      <p><b>Cas d'utilisation :</b> Trouver un revendeur (Acheteur): </p>
       <p><b> But :</b> Permet à un acheteur de rechercher des revendeurs en fonction de critères tels que le nom,
         l'adresse, ou les catégories de produits vendus.</p>
 
-      <p><b>Préconditions : </b>: L'acheteur est connecté et avoir un compte</p>
-      <p><b>Acteurs : </b>: Acheteur (principal).</p>
+      <p><b>Préconditions : </b> L'acheteur est connecté et avoir un compte</p>
+      <p><b>Acteurs : </b> Acheteur</p>
       <p><b>Scénario principal : </b></p>
       <ol>
         <li>L'acheteur accède à la fonction de recherche de revendeurs.
@@ -464,18 +464,17 @@
       </ol>
       <p><b>Scénario alternatif : </b>Si acheteur regarde évaluations des revendeurs et il souhaite de ne plus afficher
         les produits proposer par ce revendeur .</p>
-      <p>1. Aucun revendeur trouvé.<br>
-        • Si la recherche de l'acheteur ne correspond à aucun revendeur enregistré dans la base de données, le système
-        devrait afficher un message indiquant qu'aucun revendeur n'a été trouvé et suggérer à l'acheteur de modifier ses
-        critères de recherche.<br>
-        2. Revendeur inactif.<br>
-        • Si l'acheteur consulte le profil d'un revendeur et constate que ce revendeur est inactif ou n'a pas publié de
-        produits depuis longtemps, le système pourrait afficher un avertissement pour informer l'acheteur de la
-        situation.<br>
-        3. Mauvaise correspondance des critères.<br>
-        • Si l'acheteur utilise des critères de recherche très spécifiques qui ne correspondent à aucun revendeur, le
-        système devrait encourager l'acheteur à élargir ses critères de recherche pour augmenter les chances de trouver
-        un revendeur correspondant.<br>
+        <ol>
+          <li><b>Aucun revendeur trouvé</b><ul><li>Si la recherche de l'acheteur ne correspond à aucun revendeur enregistré dans la base de données, le système
+            devrait afficher un message indiquant qu'aucun revendeur n'a été trouvé et suggérer à l'acheteur de modifier ses
+            critères de recherche.</li></ul></li>
+            <li><b>Revendeur inactif</b><ul><li>Si l'acheteur consulte le profil d'un revendeur et constate que ce revendeur est inactif ou n'a pas publié de
+              produits depuis longtemps, le système pourrait afficher un avertissement pour informer l'acheteur de la
+              situation.</li></ul></li>
+            <li><b>Mauvaise correspondance des critères</b><ul><li>Si l'acheteur utilise des critères de recherche très spécifiques qui ne correspondent à aucun revendeur, le
+              système devrait encourager l'acheteur à élargir ses critères de recherche pour augmenter les chances de trouver
+              un revendeur correspondant.</li></ul></li>
+        </ol>
 
       </p>
       <p><b>Postconditions : </b>L'acheteur a la possibilité de trouver des revendeurs sur UniShop en fonction de
