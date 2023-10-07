@@ -296,11 +296,11 @@
 
   <div id="bloc">
     <div class="grille first">
-      <p><b>Cas d'utilisation :</b> Passer une commande</p>
+    <p><b>Cas d'utilisation :</b> Passer une commande</p>
       <p><b> But :</b> Un acheteur desire passer une commande pour les produits qu'il a mis dans le panier</p>
 
-      <p><b>Préconditions: </b> L'acheteur doit avoir un compte unishop et des produits dans son panier.</p>
-      <p><b>Acteurs: </b> Acheteur souhaite passer une commande</p>
+      <p><b>Préconditions : </b> L'acheteur doit avoir un compte unishop et des produits dans son panier.</p>
+      <p><b>Acteurs : </b> Acheteur</p>
       <p><b>Scénario principal : </b></p>
       <ol>
         <li>L'acheteur se connecte à son compte
@@ -322,11 +322,11 @@
 
     </div>
     <div class="grille">
-      <p><b>Cas d'utilisation :</b>: Consulter l'etat de la Commande </p>
-      <p><b> But :</b>l'acheteur desire consulter l'état actuel de sa commande.</p>
+      <p><b>Cas d'utilisation :</b> Consulter l'état de la commande </p>
+      <p><b> But :</b> L'acheteur désire consulter l'état actuel de sa commande.</p>
 
-      <p><b>Préconditions: </b>L'acheteur doit être connecté à son compte et avoir deja passé une commande.</p>
-      <p><b>Acteurs: </b>Acheteur </p>
+      <p><b>Préconditions : </b>L'acheteur doit être connecté à son compte et avoir deja passé une commande.</p>
+      <p><b>Acteurs : </b>Acheteur </p>
       <p><b>Scénario principal : </b></p>
       <ol>
         <li>L'acheteur se connecte à son compte
@@ -348,9 +348,9 @@
     </div>
     <div class="grille">
       <p><b>Cas d'utilisation :</b> Creer un compte acheteur </p>
-      <p><b> But :</b> l'utilisateur desire s'inscrire en tant qu'acheteur. </p>
-      <p><b>Préconditions:</b> L'utilisateur ne doit pas être déjà inscrit en tant qu'acheteur.</p>
-      <p><b>Acteurs : </b>l’utilisateur (Acheteur)</p>
+      <p><b> But :</b> L'utilisateur désire s'inscrire en tant qu'acheteur. </p>
+      <p><b>Préconditions :</b> L'utilisateur ne doit pas être déjà inscrit en tant qu'acheteur.</p>
+      <p><b>Acteurs : </b>Acheteur</p>
       <p><b>Scénario principal : </b></p>
       <ol>
         <li>L'utilisateur accède à la page d'inscription sur UniShop.
@@ -370,16 +370,15 @@
       <p> Si l'adresse courriel fournis par l'utilisateur sont déjà associés à un compte existant, le système affiche un
         message d'erreur.</p>
       <p><b>Postconditions :</b> L'utilisateur est inscrit en tant qu'acheteur sur UniShop et peut désormais accéder à
-        son
-        compte pour commencer à lutiliser.</p>
+        son compte pour commencer à lutiliser.</p>
     </div>
 
     <div class="grille first">
-      <p><b>Cas d'utilisation :</b>Confimer reception de commande </p>
-      <p><b> But :</b>l'acheteur desire confirmer la réception de sa commande </p>
+      <p><b>Cas d'utilisation :</b> Confimer la réception d'une commande </p>
+      <p><b> But :</b> L'acheteur désire confirmer la réception de sa commande </p>
 
-      <p><b>Préconditions: </b>L'acheteur lui a ete livree une commande </p>
-      <p><b>Acteurs: </b> acheteur</p>
+      <p><b>Préconditions : </b>L'acheteur à reçu sa commande </p>
+      <p><b>Acteurs : </b> Acheteur</p>
       <p><b>Scénario principal : </b></p>
       <ol>
         <li>L'acheteur se connecte à son compte
@@ -393,7 +392,7 @@
       <p><b>Scénario alternatif : </b> Si l'acheteur constate un problème avec la commande, il peut choisir de ne pas
         confirmer la réception et signaler le problème à la place</p>
 
-      <p><b>Postconditions : </b>: La commande est marquée comme livré pour l'acheteur, et le vendeur est informé que la
+      <p><b>Postconditions : </b> La commande est marquée comme livré pour l'acheteur, et le vendeur est informé que la
         commande a été reçue</p>
 
     </div>
@@ -401,18 +400,18 @@
 
     <div class="grille ">
       <p><b>Cas d'utilisation :</b> Retourner ou échange de produit : </p>
-      <p><b> But :</b>donner à l’acheteur l’opportunité de retourner ou d’échanger des articles de sa commande.</p>
+      <p><b> But :</b> Donner à l’acheteur l’opportunité de retourner ou d’échanger des articles de sa commande.</p>
 
-      <p><b>Préconditions: </b>Il a un compte , La commande est en possession de l'acheteur depuis moins de 30 jours ,Le
+      <p><b>Préconditions : </b>Il a un compte , La commande est en possession de l'acheteur depuis moins de 30 jours , Le
         produit n'a pas été retourné précédemment pour la même raison. </p>
-      <p><b>Acteurs: </b> l’utilisateur (Acheteur).</p>
+      <p><b>Acteurs : </b> Acheteur</p>
       <p><b>Scénario principal : </b></p>
       <ol>
         <li>L'acheteur accède à la section des retours ou échanges.
         </li>
         <li>L'acheteur sélectionne la commande pour laquelle il souhaite retourner ou échanger des articles.
         </li>
-        <li>L'acheteur spécifie les produits à retourner ou échanger et la raison de la demande .
+        <li>L'acheteur spécifie les produits à retourner ou échanger et la raison de la demande.
         </li>
         <li>Le système génère un numéro de suivi de retour et indique à l'acheteur où envoyer les produits.
         </li>
@@ -420,9 +419,9 @@
         </li>
         <li>En cas de retour, l'acheteur reçoit un remboursement.
         </li>
-
-    <p><b>Préconditions:  </b>: L'acheteur est connecté et a un compte</p>
-    <p><b>Acteurs: </b>: Acheteur (principal).</p>
+      </ol>
+    <p><b>Préconditions : </b> L'acheteur est connecté et a un compte</p>
+    <p><b>Acteurs : </b> Acheteur</p>
     <p><b>Scénario principal : </b></p>
     <ol>
       <li>L'acheteur accède à la fonction de recherche de revendeurs.
@@ -442,11 +441,11 @@
     </div>
     <div class="grille">
       <p><b>Cas d'utilisation :</b> Afficher métriques activités :</p>
-      <p><b> But :</b>Permet à un acheteur d'accéder à des métriques qui lui permettent d'évaluer ses activités sur
+      <p><b> But :</b> Permet à un acheteur d'accéder à des métriques qui lui permettent d'évaluer ses activités sur
         UniShop.</p>
 
-      <p><b>Préconditions: </b>L'acheteur est connecté</p>
-      <p><b>Acteurs: </b>: Acheteur (principal).</p>
+      <p><b>Préconditions : </b>L'acheteur est connecté</p>
+      <p><b>Acteurs : </b> Acheteur</p>
       <p><b>Scénario principal : </b>L'acheteur accède à la section des métriques des activités de son compte comme
         nombre totale de commande et d’articles achetés.</p>
       <ol>
@@ -467,16 +466,16 @@
       </ol>
       <p><b>Scénario alternatif : </b>Acheteur souhaite de changer son commentaire ou son enlever son like</p>
 
-      <p><b>Postconditions : </b>: L'acheteur a accès aux métriques de ses activités sur UniShop.</p>
+      <p><b>Postconditions : </b> L'acheteur a accès aux métriques de ses activités sur UniShop.</p>
 
     </div>
     <div class="grille first ">
-      <p><b>Cas d'utilisation :</b>Trouver un revendeur (Acheteur): </p>
+      <p><b>Cas d'utilisation :</b> Trouver un revendeur (Acheteur): </p>
       <p><b> But :</b> Permet à un acheteur de rechercher des revendeurs en fonction de critères tels que le nom,
         l'adresse, ou les catégories de produits vendus.</p>
 
-      <p><b>Préconditions: </b>: L'acheteur est connecté et avoir un compte</p>
-      <p><b>Acteurs: </b>: Acheteur (principal).</p>
+      <p><b>Préconditions : </b> L'acheteur est connecté et avoir un compte</p>
+      <p><b>Acteurs : </b> Acheteur</p>
       <p><b>Scénario principal : </b></p>
       <ol>
         <li>L'acheteur accède à la fonction de recherche de revendeurs.
@@ -491,18 +490,17 @@
       </ol>
       <p><b>Scénario alternatif : </b>Si acheteur regarde évaluations des revendeurs et il souhaite de ne plus afficher
         les produits proposer par ce revendeur .</p>
-      <p>1. Aucun revendeur trouvé.<br>
-        • Si la recherche de l'acheteur ne correspond à aucun revendeur enregistré dans la base de données, le système
-        devrait afficher un message indiquant qu'aucun revendeur n'a été trouvé et suggérer à l'acheteur de modifier ses
-        critères de recherche.<br>
-        2. Revendeur inactif.<br>
-        • Si l'acheteur consulte le profil d'un revendeur et constate que ce revendeur est inactif ou n'a pas publié de
-        produits depuis longtemps, le système pourrait afficher un avertissement pour informer l'acheteur de la
-        situation.<br>
-        3. Mauvaise correspondance des critères.<br>
-        • Si l'acheteur utilise des critères de recherche très spécifiques qui ne correspondent à aucun revendeur, le
-        système devrait encourager l'acheteur à élargir ses critères de recherche pour augmenter les chances de trouver
-        un revendeur correspondant.<br>
+        <ol>
+          <li><b>Aucun revendeur trouvé</b><ul><li>Si la recherche de l'acheteur ne correspond à aucun revendeur enregistré dans la base de données, le système
+            devrait afficher un message indiquant qu'aucun revendeur n'a été trouvé et suggérer à l'acheteur de modifier ses
+            critères de recherche.</li></ul></li>
+            <li><b>Revendeur inactif</b><ul><li>Si l'acheteur consulte le profil d'un revendeur et constate que ce revendeur est inactif ou n'a pas publié de
+              produits depuis longtemps, le système pourrait afficher un avertissement pour informer l'acheteur de la
+              situation.</li></ul></li>
+            <li><b>Mauvaise correspondance des critères</b><ul><li>Si l'acheteur utilise des critères de recherche très spécifiques qui ne correspondent à aucun revendeur, le
+              système devrait encourager l'acheteur à élargir ses critères de recherche pour augmenter les chances de trouver
+              un revendeur correspondant.</li></ul></li>
+        </ol>
 
       </p>
       <p><b>Postconditions : </b>L'acheteur a la possibilité de trouver des revendeurs sur UniShop en fonction de
@@ -514,9 +512,9 @@
       <p><b>Cas d'utilisation :</b> Offrir un produit (Revendeur)</p>
       <p><b> But :</b>Permet à un revendeur de proposer un produit à la vente sur UniShop.</p>
 
-      <p><b>Préconditions: </b>
+      <p><b>Préconditions : </b>
         Le revendeur a un compte et a un produit à offrir</p>
-      <p><b>Acteurs: </b>Revendeur (principal).</p>
+      <p><b>Acteurs : </b>Revendeur (principal).</p>
       <p><b>Scénario principal : </b></p>
       <ol>
         <li>1. Le revendeur accède à la section de proposition de produit.
@@ -548,14 +546,14 @@
       <p><b>But :</b> Permettre aux revendeurs de confirmer la réception d'un retour de produit renvoyé par un acheteur.
       </p>
 
-      <p><b>Préconditions: </b>
+      <p><b>Préconditions : </b>
       <ul>
         <li>Le revendeur est connecté à son compte sur UniShop.</li>
         <li>Un acheteur a signalé un retour de produit, et le produit retourné a été réceptionné à l'entrepôt du
           revendeur.</li>
       </ul>
       </p>
-      <p><b>Acteurs: </b>
+      <p><b>Acteurs : </b>
       <ul>
         <li>Acteur principal : Revendeur</li>
       </ul>
@@ -590,14 +588,14 @@
       <p><b>Cas d'utilisation :</b> Traiter une commande prête à être expédiée</p>
       <p><b>But :</b> Permettre aux revendeurs de mettre à jour l'état d'une commande produite.</p>
 
-      <p><b>Préconditions:</b>
+      <p><b>Préconditions :</b>
       <ul>
         <li>Le revendeur est connecté à son compte sur UniShop.</li>
         <li>L'acheteur a effectué le paiement.</li>
         <li>La commande a été produite.</li>
       </ul>
       </p>
-      <p><b>Acteurs:</b>
+      <p><b>Acteurs :</b>
       <ul>
         <li>Acteur principal : Revendeur</li>
       </ul>
@@ -622,14 +620,14 @@
       <p><b>Cas d'utilisation :</b> Confirmer la réception d'une commande</p>
       <p><b>But :</b> Permettre aux acheteurs de confirmer la réception d'une commande après qu'elle ait été livrée.</p>
 
-      <p><b>Préconditions:</b>
+      <p><b>Préconditions :</b>
       <ul>
         <li>L'acheteur est connecté à son compte sur UniShop.</li>
         <li>Une commande a été passée et est en cours de livraison.</li>
         <li>L'acheteur a reçu les produits de la commande à son domicile.</li>
       </ul>
       </p>
-      <p><b>Acteurs:</b>
+      <p><b>Acteurs :</b>
       <ul>
         <li>Acteur principal : Acheteur</li>
       </ul>
@@ -652,13 +650,13 @@
       <p><b>But :</b> Permettre aux revendeurs de gérer un problème signalé par un acheteur concernant un produit ou une
         commande sur UniShop.</p>
 
-      <p><b>Préconditions:</b>
+      <p><b>Préconditions :</b>
       <ul>
         <li>Le revendeur est connecté à son compte sur UniShop.</li>
         <li>Un acheteur a signalé un problème avec un produit ou une commande.</li>
       </ul>
       </p>
-      <p><b>Acteurs:</b>
+      <p><b>Acteurs :</b>
       <ul>
         <li>Acteur principal : Revendeur</li>
       </ul>
@@ -699,13 +697,13 @@
       <p><b>But :</b> Permettre aux utilisateurs (acheteurs et revendeurs) de modifier les informations de leur profil
         sur UniShop.</p>
 
-      <p><b>Préconditions:</b>
+      <p><b>Préconditions :</b>
       <ul>
         <li>L'utilisateur est connecté à son compte sur UniShop.</li>
         <li>L'utilisateur souhaite mettre à jour les informations de son profil.</li>
       </ul>
       </p>
-      <p><b>Acteurs:</b>
+      <p><b>Acteurs :</b>
       <ul>
         <li>Acteur principal : Acheteur ou revendeur</li>
       </ul>
@@ -751,13 +749,13 @@
       <p><b>But :</b> Permettre aux utilisateurs (acheteurs) de retirer un produit de leur panier d'achat sur UniShop.
       </p>
 
-      <p><b>Préconditions:</b>
+      <p><b>Préconditions :</b>
       <ul>
         <li>L'acheteur est connecté à son compte sur UniShop.</li>
         <li>Le produit que l'acheteur souhaite retirer est actuellement dans son panier.</li>
       </ul>
       </p>
-      <p><b>Acteurs:</b>
+      <p><b>Acteurs :</b>
       <ul>
         <li>Acteur principal : Acheteur</li>
       </ul>
@@ -782,13 +780,13 @@
       <p><b>Cas d'utilisation :</b> Ajouter un produit dans le panier</p>
       <p><b>But :</b> Permettre aux utilisateurs (acheteurs) d'ajouter un produit à leur panier d'achat sur UniShop.</p>
 
-      <p><b>Préconditions:</b>
+      <p><b>Préconditions :</b>
       <ul>
         <li>L'acheteur est connecté à son compte sur UniShop.</li>
         <li>Le produit que l'acheteur souhaite ajouter est disponible sur la plateforme.</li>
       </ul>
       </p>
-      <p><b>Acteurs:</b>
+      <p><b>Acteurs :</b>
       <ul>
         <li>Acteur principal : Acheteur</li>
       </ul>
@@ -812,12 +810,12 @@
       <p><b>But :</b> Permettre aux utilisateurs (acheteurs et revendeurs) de rechercher des produits sur la plateforme
         UniShop.</p>
 
-      <p><b>Préconditions:</b>
+      <p><b>Préconditions :</b>
       <ul>
         <li>L'utilisateur accède à la plateforme UniShop.</li>
       </ul>
       </p>
-      <p><b>Acteurs:</b>
+      <p><b>Acteurs :</b>
       <ul>
         <li>Acteur principal : Acheteur</li>
       </ul>
@@ -848,14 +846,14 @@
       <p><b>But :</b> Permettre aux acheteurs de laisser une évaluation sur un produit qu'ils ont acheté sur UniShop.
       </p>
 
-      <p><b>Préconditions:</b>
+      <p><b>Préconditions :</b>
       <ul>
         <li>L'acheteur est connecté à son compte sur UniShop.</li>
         <li>L'acheteur a acheté le produit sur lequel il souhaite laisser une évaluation.</li>
         <li>Le produit a été livré et marqué comme "livré" par le vendeur.</li>
       </ul>
       </p>
-      <p><b>Acteurs:</b>
+      <p><b>Acteurs :</b>
       <ul>
         <li>Acteur principal : Acheteur</li>
       </ul>
