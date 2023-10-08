@@ -376,10 +376,10 @@
       <li> L'acheteur peut suivre l'état de la commande.</li>
       <li>En cas de retour, l'acheteur reçoit un remboursement.</li>
       </ol>
-      <p><b>Scénario alternatif :</b>1.a L'acheteur veut échanger un produit.
+      <p><b>Scénario alternatif :</b>
       <ol type="1">
-        <li>a L'acheteur paie la différence de prix, le cas échéant.
-        b L'acheteur spécifie les produits à retourner ou échanger et la raison de la demande</li>
+        <li>a L'acheteur paie la différence de prix, le cas échéant.<BR>
+        1.b L'acheteur spécifie les produits à retourner ou échanger et la raison de la demande</li>
         <li> a Le système génère un numéro de suivi de retour et indique à l'acheteur où envoyer les produits.</li>
         <li>a L'acheteur peut suivre l'état de livraison des produits de remplacement</li> 
       </ol>
@@ -549,7 +549,7 @@
         <li>Le système informe l'acheteur du nom de la compagnie d'expédition et du numéro de suivi pour qu'il puisse
           suivre la livraison.</li>
       </ol>
-
+      <p><b>Scénarios alternatifs :</b> N/A
       <p><b>Postconditions :</b> L'état de la commande est mis à jour à "En livraison", et l'acheteur est informé de la
         progression de la commande, y compris des informations sur la livraison.</p>
     </div>
@@ -579,7 +579,7 @@
         <li>Le système met à jour l'état de la commande à "Livré".</li>
         <li>Le système enregistre la confirmation de réception de la commande par l'acheteur.</li>
       </ol>
-
+      <p><b>Scénarios alternatifs :</b> N/A
       <p><b>Postconditions :</b> La commande est marquée comme "Livré" et l'acheteur a confirmé la réception des
         produits.</p>
     </div>
@@ -660,21 +660,15 @@
 
       <p><b>Scénarios alternatifs :</b>
       <ol>
-        <li>
-          L’utilisateur quitte sans sauvegarder.
-        </li>
-        <li>
-          Le système n’enregistre pas les modifications apportées.
-        </li>
-        <li>
-          L’utilisateur rentre un mauvais format de donnée.
-        </li>
-        <li>
-          Le système notifie l’utilisateur qu’il y a un mauvais format de donnée.
-        </li>
-        <li>
-          Le système empêche de sauvegarder les changements.
-        </li>
+          2.a L’utilisateur quitte sans sauvegarder.<br>
+
+          2.b Le système n’enregistre pas les modifications apportées.<br>
+
+          2.c L’utilisateur rentre un mauvais format de donnée.<br>
+
+          2.d Le système notifie l’utilisateur qu’il y a un mauvais format de donnée.<br>
+
+          3.a Le système empêche de sauvegarder les changements.<br>
       </ol>
       </p>
 
@@ -710,7 +704,7 @@
         <li>Le panier de l'acheteur est mis à jour.</li>
         <li>Le système notifie l'acheteur que le produit a été retiré avec succès du panier.</li>
       </ol>
-
+      <p><b>Scénarios alternatifs :</b> N/A
       <p><b>Postconditions :</b> Le produit est retiré avec succès du panier de l'acheteur, et le panier est mis à jour
         pour refléter ce changement.</p>
     </div>
@@ -739,7 +733,7 @@
         <li>Le système confirme l'ajout du produit au panier.</li>
         <li>Le système met à jour le panier de l'acheteur en y ajoutant le produit.</li>
       </ol>
-
+      <p><b>Scénarios alternatifs :</b> N/A
       <p><b>Postconditions :</b> Le produit est ajouté avec succès au panier de l'acheteur, et le panier est mis à jour
         pour refléter cet ajout.</p>
     </div>
@@ -770,8 +764,8 @@
 
       <p><b>Scénarios alternatifs :</b>
       <ol>
-        <li>Le système ne trouve aucun produit correspondant.</li>
-        <li>Le système recommande des produits similaires.</li>
+        4.a Le système ne trouve aucun produit correspondant.<br>
+        5.a Le système recommande des produits similaires.
       </ol>
       </p>
 
@@ -807,7 +801,7 @@
         <li>Le système met à jour les métriques liées au produit, y compris la note moyenne et le nombre d'évaluations.
         </li>
       </ol>
-
+      <p><b>Scénarios alternatifs :</b> N/A
       <p><b>Postconditions :</b> L'évaluation de l'acheteur est enregistrée avec succès pour le produit.</p>
     </div>
 
