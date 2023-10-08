@@ -298,7 +298,7 @@
         </li>
       </ol>
       <p><b>Scénario alternatif : </b></p>
-      <p>Si les informations de paiement fournies sont incorrectes ou incomplètes,
+      <p>4.a Si les informations de paiement fournies sont incorrectes ,
         le système affiche un message d'erreur et demande à l'acheteur de les corriger.</p>
       <p><b>Postconditions : </b> La commande est passée avec succès,
         et l'acheteur peut suivre l'état de sa commande sur la plateforme.</p>
@@ -324,8 +324,8 @@
         </li>
       </ol>
       <p><b>Scénario alternatif : </b></p>
-      <p>Si la commande n'a pas encore été expédiée, l'acheteur peut avoir la possibilité d'annuler la commande</p>
-      <p><b>Postconditions : </b>L'acheteur peut consulter l'état de sa commande actuelleet être informé des mises à
+      <p>4.a Si la commande n'a pas encore été expédiée, l'acheteur peut avoir la possibilité d'annuler la commande</p>
+      <p><b>Postconditions : </b>L'acheteur peut consulter l'état de sa commande actuelle et être informé des mises à
         jour concernant la livraison.</p>
 
     </div>
@@ -347,10 +347,13 @@
         <li>
           le système crée un compte acheteur pour l'utilisateur et lui envoie un email de confirmation.
         </li>
+        <li>
+          Le système vérifie l'unicité du pseudo et de l'adresse courriel.
+        </li>
       </ol>
       <p><b>Scénario alternatif : </b></p>
 
-      <p> Si l'adresse courriel fournis par l'utilisateur sont déjà associés à un compte existant, le système affiche un
+      <p> 5.a Si l'adresse courriel fournis par l'utilisateur sont déjà associés à un compte existant, le système affiche un
         message d'erreur.</p>
       <p><b>Postconditions :</b> L'utilisateur est inscrit en tant qu'acheteur sur UniShop et peut désormais accéder à
         son compte pour commencer à lutiliser.</p>
@@ -358,34 +361,8 @@
 
  
 
+
     <div class="grille first">
-      <p><b>Cas d'utilisation :</b> Confimer la réception d'une commande </p>
-      <p><b> But :</b> L'acheteur désire confirmer la réception de sa commande </p>
-
-      <p><b>Préconditions : </b>L'acheteur à reçu sa commande </p>
-      <p><b>Acteurs : </b> Acheteur</p>
-      <p><b>Scénario principal : </b></p>
-      <ol>
-        <li>L'acheteur se connecte à son compte
-        </li>
-        <li>Le système affiche les détails de la commande
-        </li>
-        <li>L'acheteur confirme la réception de la commande
-        </li>
-
-      </ol>
-      <p><b>Scénario alternatif : </b> <br>
-        <ol>
-          3.a Si l'acheteur constate un problème avec la commande, il peut choisir de ne pas
-        confirmer la réception et signaler le problème à la place</ol>
-          
-      <p><b>Postconditions : </b> La commande est marquée comme livré pour l'acheteur, et le vendeur est informé que la
-        commande a été reçue</p>
-
-    </div>
-
-
-    <div class="grille ">
       <p><b>Cas d'utilisation :</b> Retourner ou échange de produit : </p>
       <p><b> But :</b> Donner à l’acheteur l’opportunité de retourner ou d’échanger des articles de sa commande.</p>
 
@@ -887,18 +864,11 @@
           Risques de volatilité :
         </h3>
         <ol>
-          <li>Volatilité économique : Les récessions économiques pourraient avoir un impact sur le pouvoir d'achat des utilisateurs, ce qui pourrait entraîner une réduction des achats en ligne.</li>
-<<<<<<< Updated upstream
+          <li>Fluctuations des prix des produits: Les récessions économiques pourraient avoir un impact sur le pouvoir d'achat des utilisateurs, ce qui pourrait entraîner une réduction des achats en ligne.</li>
+          <li>Concurrence des prix : La concurrence sur le marché des produits peuvent influencer la demande pour les produits d'UniShop. comme si un concurrent propose des prix plus bas, cela peut attirer les acheteurs et réduire les ventes d'UniShop.</li>
         </ol>
-=======
         </ul>
-        1-Les donnes personnelles de lacheteur ou vendeur pourrait être accessible à des gens mal intentionnés si ces données ne sont pas protégées adéquatement.<br>
-        2-Les pannes de serveurs pourraient affecter la disponibilité de la plateforme, ce qui aurait un impact sur l'expérience des utilisateurs.<br>
-        3-Charge élevée inattendue, si la plateforme connaît soudainement une augmentation significative du nombre d'utilisateurs, elle pourrait ne pas être en mesure de gérer la charge.<br>
-        4-Si les pages et les fonctionnalités d'UniShop prennent trop de temps à se charger, les utilisateurs peuvent être frustrés et abandonner leurs achats.<br>
-        5-les bugs qui pourrais arriver lors du payement des produits alors l'utilisateur aura peut etre paye deux fois larticle.<br>
-        6-Si le système de notification ne fonctionne pas alors lutilisateur pourrais avoir deja recu sa commande sans le savoir.<br>
->>>>>>> Stashed changes
+
       </div>
     </div>
   </div>
@@ -956,6 +926,17 @@
       </div>
     </div>
   </div>
+
+  
+
+  <div class="jumbotron p-3 p-md-5 text-white rounded " style="background-color: rgb(123, 221, 81)">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Utilisation de GitHub</h1>
+
+    </div>
+  </div>
+  <img src="git2.PNG">
+  <img src="git1.PNG">
 
 
 </body>
