@@ -375,9 +375,11 @@
         </li>
 
       </ol>
-      <p><b>Scénario alternatif : </b> Si l'acheteur constate un problème avec la commande, il peut choisir de ne pas
-        confirmer la réception et signaler le problème à la place</p>
-
+      <p><b>Scénario alternatif : </b> <br>
+        <ol>
+          3.a Si l'acheteur constate un problème avec la commande, il peut choisir de ne pas
+        confirmer la réception et signaler le problème à la place</ol>
+          
       <p><b>Postconditions : </b> La commande est marquée comme livré pour l'acheteur, et le vendeur est informé que la
         commande a été reçue</p>
 
@@ -391,37 +393,28 @@
       <p><b>Préconditions : </b>Il a un compte , La commande est en possession de l'acheteur depuis moins de 30 jours , Le
         produit n'a pas été retourné précédemment pour la même raison. </p>
       <p><b>Acteurs : </b> Acheteur</p>
-      <p><b>Scénario principal : </b></p>
-      <ol>
-        <li>L'acheteur accède à la section des retours ou échanges.
-        </li>
-        <li>L'acheteur sélectionne la commande pour laquelle il souhaite retourner ou échanger des articles.
-        </li>
-        <li>L'acheteur spécifie les produits à retourner ou échanger et la raison de la demande.
-        </li>
-        <li>Le système génère un numéro de suivi de retour et indique à l'acheteur où envoyer les produits.
-        </li>
-        <li>L'acheteur peut suivre l'état de la commande.
-        </li>
-        <li>En cas de retour, l'acheteur reçoit un remboursement.
-        </li>
+      <p><b>Scénario principal : </b>
+      <ol type="1">
+      <li>L'acheteur accède à la section des retours ou échanges.</li>
+      <li>  L'acheteur sélectionne la commande pour laquelle il souhaite retourner ou échanger des articles.</li>
+      <li> L'acheteur peut suivre l'état de la commande.</li>
+      <li>En cas de retour, l'acheteur reçoit un remboursement.</li>
       </ol>
-    <p><b>Préconditions : </b> L'acheteur est connecté et a un compte</p>
-    <p><b>Acteurs : </b> Acheteur</p>
-    <p><b>Scénario principal : </b></p>
-    <ol>
-      <li>L'acheteur accède à la fonction de recherche de revendeurs.
-      </li>
-      <li>L'acheteur sélectionne les produits de remplacement.
-      </li>
-      <li>L'acheteur paie la différence de prix, le cas échéant.
-      </li>
-      <li>L'acheteur peut suivre l'état de livraison des produits de remplacement.
-      </li>
-    </ol>
-      <p><b>Postconditions : </b>
-        <ul><li>L'état de la commande et L'inventaire du revendeur est mis à jour.</li></ul>
-      </p>
+      <p><b>Scénario alternatif :</b>1.a L'acheteur veut échanger un produit.
+      <ol type="1">
+        <li>a L'acheteur paie la différence de prix, le cas échéant.
+        b L'acheteur spécifie les produits à retourner ou échanger et la raison de la demande</li>
+        <li> a Le système génère un numéro de suivi de retour et indique à l'acheteur où envoyer les produits.</li>
+        <li>a L'acheteur peut suivre l'état de livraison des produits de remplacement</li> 
+      </ol>
+    
+
+
+      
+      
+    <p><b>Préconditions : </b> : L'état de la commande est mis à jour et L'inventaire du revendeur est mis à jour.</p>
+    
+  
 
     </div>
     <div class="grille">
@@ -431,25 +424,19 @@
 
       <p><b>Préconditions : </b>L'acheteur est connecté</p>
       <p><b>Acteurs : </b> Acheteur</p>
-      <p><b>Scénario principal : </b>L'acheteur accède à la section des métriques des activités de son compte comme
-        nombre totale de commande et d’articles achetés.</p>
-      <ol>
-        <li>Le système affiche diverses métriques relatives aux activités de l'acheteur, y compris :
-        </li>
-        <li>Nombre total de commandes passées.
-        </li>
-        <li>Nombre d'articles achetés.
-        </li>
-        <li>Nombre de « likes » reçus sur ses évaluations.
-        </li>
-        <li>Note moyenne donnée aux produits.
-        </li>
-        <li>Nombre d'évaluations laissées par l'acheteur.
-        </li>
-        <li>L'acheteur peut interagir avec les métriques.
-        </li>
-      </ol>
-      <p><b>Scénario alternatif : </b>Acheteur souhaite de changer son commentaire ou son enlever son like</p>
+      <b>Scénario principal : </b>
+        <ol type="1">
+          <li>L'acheteur accède à la section des métriques des activités de son compte comme
+        nombre totale de commande et d’articles achetés</li>
+        <li>il peut accéder a son profil</li>
+        <li>il peut accéder aux èvaluations du vendeur</li>.</ol>
+      
+      <p><b>Scénario alternatif :</b>
+        <ol>
+          <li>a acceder a son historique de commande</li>
+          <li>a l'acheteur peux modifier ses coordonnèes comme changer son email ou changer les informations de la carte de credit</li>
+        <li>a Acheteur souhaite de changer son commentaire ou son enlever son like </li>
+        </ol></p>
 
       <p><b>Postconditions : </b> L'acheteur a accès aux métriques de ses activités sur UniShop.</p>
 
@@ -462,32 +449,27 @@
       <p><b>Préconditions : </b> L'acheteur est connecté et avoir un compte</p>
       <p><b>Acteurs : </b> Acheteur</p>
       <p><b>Scénario principal : </b></p>
-      <ol>
-        <li>L'acheteur accède à la fonction de recherche de revendeurs.
+      <ol type="1">
+        <li> L'acheteur entre des critères de recherche tels que le nom, l'adresse, ou les catégories de produits.
         </li>
-        <li>L'acheteur entre des critères de recherche tels que le nom, l'adresse, ou les catégories de produits.
+        <li>Le système affiche une liste de revendeurs correspondant à la recherche
         </li>
         <li>Le système affiche une liste de revendeurs correspondant aux critères de recherche.
         </li>
-        <li>L'acheteur peut consulter le profil de chaque revendeur pour en savoir plus sur leurs offres et leurs
-          évaluations.
+        <li>L'acheteur peut consulter le profil de chaque revendeur pour en savoir plus sur leurs offres et leurs évaluations.
         </li>
       </ol>
-      <p><b>Scénario alternatif : </b>Si acheteur regarde évaluations des revendeurs et il souhaite de ne plus afficher
-        les produits proposer par ce revendeur .</p>
+      <p><b>Scénario alternatif : </b>
         <ol>
-          <li><b>Aucun revendeur trouvé</b><ul><li>Si la recherche de l'acheteur ne correspond à aucun revendeur enregistré dans la base de données, le système
-            devrait afficher un message indiquant qu'aucun revendeur n'a été trouvé et suggérer à l'acheteur de modifier ses
-            critères de recherche.</li></ul></li>
-            <li><b>Revendeur inactif</b><ul><li>Si l'acheteur consulte le profil d'un revendeur et constate que ce revendeur est inactif ou n'a pas publié de
-              produits depuis longtemps, le système pourrait afficher un avertissement pour informer l'acheteur de la
-              situation.</li></ul></li>
-            <li><b>Mauvaise correspondance des critères</b><ul><li>Si l'acheteur utilise des critères de recherche très spécifiques qui ne correspondent à aucun revendeur, le
-              système devrait encourager l'acheteur à élargir ses critères de recherche pour augmenter les chances de trouver
-              un revendeur correspondant.</li></ul></li>
-        </ol>
+          <li>a le cas aucun revendeur trouvè: Si la recherche de l'acheteur ne correspond à aucun revendeur enregistré dans la base de données, le système devrait
+          afficher un message indiquant qu'aucun revendeur n'a été trouvé et suggérer à l'acheteur de modifier ses critères de
+          recherche.</li>
+      
+      </ol>
+ .</p>
+       
 
-      </p>
+      
       <p><b>Postconditions : </b>L'acheteur a la possibilité de trouver des revendeurs sur UniShop en fonction de
         critères spécifiques, ce qui facilite la recherche de produits et de vendeurs correspondant à ses préférences.
       </p>
@@ -500,7 +482,7 @@
         Le revendeur a un compte et a un produit à offrir</p>
       <p><b>Acteurs : </b>Revendeur</p>
       <p><b>Scénario principal : </b></p>
-      <ol>
+      <ol type="1">
         <li>Le revendeur accède à la section de proposition de produit.
         </li>
         <li>Le revendeur remplit les informations requises pour le produit.
@@ -513,10 +495,9 @@
       <p><b>Scénario alternatif : </b>
         <ol>
           <li>Le revendeur souhaite modifier un produit existant.</li>
-          <li>Le revendeur accède à la liste de ses produits déjà proposés.</li>
-          <li>Le revendeur sélectionne le produit qu'il souhaite modifier.</li>
+          
           <li>Le système met à jour les informations du produit.</li>
-          <li>Le produit ne satisfait pas les critères de qualité.</li>
+        
         </ol>
       </p>
 
