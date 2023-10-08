@@ -98,25 +98,22 @@
       </div>
       <div class="col-md-2">
         <h4>Ibrahim Melzi</h4>
-        <h4></h4>
-        <h4></h4>
-        <br>
-        <h4></h4>
+        <h4>20066033</h4>
+        <h4>ibrahim.melzi<br>@umontreal.ca</h4>
+        <h4>80h</h4>
       </div>
       <div class="col-md-2">
         <h4>Olivier Déry-Prévost</h4>
-        <h4></h4>
-        <h4></h4>
-        <br>
-        <h4></h4>
+        <h4>20214548</h4>
+        <h4>olivier.dery-prevost<br>@umontreal.ca</h4>
+        <h4>80h</h4>
 
       </div>
       <div class="col-md-2">
         <h4>Sidya Galakho</h4>
-        <h4></h4>
-        <h4></h4>
-        <br>
-        <h4></h4>
+        <h4>20207299</h4>
+        <h4>sidya.galakho<br>@umontreal.ca</h4>
+        <h4>80h</h4>
 
 
       </div>
@@ -359,6 +356,8 @@
         son compte pour commencer à lutiliser.</p>
     </div>
 
+ 
+
     <div class="grille first">
       <p><b>Cas d'utilisation :</b> Confimer la réception d'une commande </p>
       <p><b> But :</b> L'acheteur désire confirmer la réception de sa commande </p>
@@ -441,7 +440,7 @@
       <p><b>Postconditions : </b> L'acheteur a accès aux métriques de ses activités sur UniShop.</p>
 
     </div>
-    <div class="grille first ">
+    <div class="grille ">
       <p><b>Cas d'utilisation :</b> Trouver un revendeur (Acheteur): </p>
       <p><b> But :</b> Permet à un acheteur de rechercher des revendeurs en fonction de critères tels que le nom,
         l'adresse, ou les catégories de produits vendus.</p>
@@ -475,7 +474,7 @@
       </p>
 
     </div>
-    <div class="grille ">
+    <div class="grille first  ">
       <p><b>Cas d'utilisation :</b> Offrir un produit (Revendeur)</p>
       <p><b> But :</b> Permet à un revendeur de proposer un produit à la vente sur UniShop.</p>
       <p><b>Préconditions : </b>
@@ -552,7 +551,7 @@
       <p><b>Postconditions : </b> Le retour est marqué comme "Livré".</p>
     </div>
 
-    <div class="grille first">
+    <div class="grille ">
       <p><b>Cas d'utilisation :</b> Traiter une commande prête à être expédiée</p>
       <p><b>But :</b> Permettre aux revendeurs de mettre à jour l'état d'une commande produite.</p>
 
@@ -584,13 +583,14 @@
         progression de la commande, y compris des informations sur la livraison.</p>
     </div>
 
-    <div class="grille">
+    <div class="grille first">
       <p><b>Cas d'utilisation :</b> Confirmer la réception d'une commande</p>
       <p><b>But :</b> Permettre aux acheteurs de confirmer la réception d'une commande après qu'elle ait été livrée.</p>
 
       <p><b>Préconditions :</b>
       <ul>
-        <li>L'acheteur est connecté à son compte sur UniShop.</li>
+        <li>
+          L'acheteur est connecté à son compte sur UniShop.</li>
         <li>Une commande a été passée et est en cours de livraison.</li>
         <li>L'acheteur a reçu les produits de la commande à son domicile.</li>
       </ul>
@@ -660,7 +660,7 @@
       <p><b>Postconditions :</b> Au minimum, une solution a été présentée à l’acheteur pour résoudre son problème.</p>
     </div>
 
-    <div class="grille first">
+    <div class="grille ">
       <p><b>Cas d'utilisation :</b> Modifier son profil</p>
       <p><b>But :</b> Permettre aux utilisateurs (acheteurs et revendeurs) de modifier les informations de leur profil
         sur UniShop.</p>
@@ -712,7 +712,7 @@
     </div>
 
 
-    <div class="grille">
+    <div class="grille last first">
       <p><b>Cas d'utilisation :</b> Retirer un produit du panier</p>
       <p><b>But :</b> Permettre aux utilisateurs (acheteurs) de retirer un produit de leur panier d'achat sur UniShop.
       </p>
@@ -744,7 +744,7 @@
         pour refléter ce changement.</p>
     </div>
 
-    <div class="grille last">
+    <div class="grille ">
       <p><b>Cas d'utilisation :</b> Ajouter un produit dans le panier</p>
       <p><b>But :</b> Permettre aux utilisateurs (acheteurs) d'ajouter un produit à leur panier d'achat sur UniShop.</p>
 
@@ -773,7 +773,7 @@
         pour refléter cet ajout.</p>
     </div>
 
-    <div class="grille first last">
+    <div class="grille last">
       <p><b>Cas d'utilisation :</b> Rechercher un produit</p>
       <p><b>But :</b> Permettre aux utilisateurs (acheteurs et revendeurs) de rechercher des produits sur la plateforme
         UniShop.</p>
@@ -809,7 +809,7 @@
     </div>
 
 
-    <div class="grille last">
+    <div class="grille first last">
       <p><b>Cas d'utilisation :</b> Évaluer un produit</p>
       <p><b>But :</b> Permettre aux acheteurs de laisser une évaluation sur un produit qu'ils ont acheté sur UniShop.
       </p>
@@ -888,7 +888,17 @@
         </h3>
         <ol>
           <li>Volatilité économique : Les récessions économiques pourraient avoir un impact sur le pouvoir d'achat des utilisateurs, ce qui pourrait entraîner une réduction des achats en ligne.</li>
+<<<<<<< Updated upstream
         </ol>
+=======
+        </ul>
+        1-Les donnes personnelles de lacheteur ou vendeur pourrait être accessible à des gens mal intentionnés si ces données ne sont pas protégées adéquatement.<br>
+        2-Les pannes de serveurs pourraient affecter la disponibilité de la plateforme, ce qui aurait un impact sur l'expérience des utilisateurs.<br>
+        3-Charge élevée inattendue, si la plateforme connaît soudainement une augmentation significative du nombre d'utilisateurs, elle pourrait ne pas être en mesure de gérer la charge.<br>
+        4-Si les pages et les fonctionnalités d'UniShop prennent trop de temps à se charger, les utilisateurs peuvent être frustrés et abandonner leurs achats.<br>
+        5-les bugs qui pourrais arriver lors du payement des produits alors l'utilisateur aura peut etre paye deux fois larticle.<br>
+        6-Si le système de notification ne fonctionne pas alors lutilisateur pourrais avoir deja recu sa commande sans le savoir.<br>
+>>>>>>> Stashed changes
       </div>
     </div>
   </div>
@@ -915,22 +925,7 @@
 
         <P>
           <ol>
-          <li><b>Hypothèse :</b> La disponibilité et la performance du système, l'équipe de développement devra utiliser
-            une architecture cloud pour
-            s'assurer que le système reste disponible 24 heures sur 24.
-            Une autre hypothèse serait que pour répondre aux exigences de Conformité réglementaire, l'équipe de
-            développement devra
-            collaborer avec des experts juridiques.
-            En ce qui concerne l'Intégration avec les services de paiement, nous pouvons supposer que le système devra
-            prendre en
-            charge plusieurs fournisseurs de services de paiement pour répondre aux préférences des acheteurs.
-            Pour Facilité d'utilisation et Accessibilité, nous pourrions supposer que le système devra être convivial,
-            avec une
-            interface utilisateur intuitive pour aider les utilisateurs à trouver rapidement les produits dont ils ont
-            besoin.
 
-
-          </li>
           <li><b> Intégration avec les services de paiement : </b>Le système doit être capable d'intégrer différents
             services de paiement en ligne sécurisés pour permettre aux acheteurs
             de payer.
