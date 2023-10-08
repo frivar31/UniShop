@@ -510,20 +510,14 @@
         <li>Le système met à jour l'état du retour à "Livré".</li>
       </ol>
       <p><b>Scénarios alternatifs : </b></p>
-      <ol>
-        <li><b>L'article retourné ne correspond pas aux détails du retour :</b>
-          <ol>
-            <li>Le système génère un e-mail informant le client que l'article ne correspond pas aux détails du retour et
-              demande des informations supplémentaires.</li>
-          </ol>
-        </li>
-        <li><b>Le client annule le retour :</b>
-          <ol>
-            <li>Le système met à jour le statut du retour en tant qu'annulé.</li>
-            <li>Le système génère un e-mail de confirmation d'annulation et l'envoie au client.</li>
-          </ol>
-        </li>
-      </ol>
+      <ul type="none">
+        <li>1.1.1 L'article retourné ne correspond pas aux détails du retour</li>
+        <li>1.1.2 Le système génère un e-mail informant le client que l'article ne correspond pas aux détails du retour et demande des informations supplémentaires.</li>
+
+        <li>1.2.1 Le client annule le retour </li>
+        <li>1.2.2 Le système met à jour le statut du retour en tant qu'annulé.</li>
+        <li>1.2.3 Le système génère un e-mail de confirmation d'annulation et l'envoie au client.</li>
+      </ul>
 
       <p><b>Postconditions : </b> Le retour est marqué comme "Livré".</p>
     </div>
@@ -621,17 +615,17 @@
       </ol>
 
       <p><b>Scénarios alternatifs :</b>
-      <ol>
+      <ul type="none">
         <li>
-          Si la solution est refusée, le revendeur est notifié.
+          4.1 Si la solution est refusée, le revendeur est notifié.
         </li>
         <li>
-          Le revendeur va modifier sa solution au problème.
+          4.2 Le revendeur va modifier sa solution au problème.
         </li>
         <li>
-          L’acheteur est notifié de la nouvelle solution.
+          4.3 L’acheteur est notifié de la nouvelle solution.
         </li>
-      </ol>
+      </ul>
       </p>
 
       <p><b>Postconditions :</b> Au minimum, une solution a été présentée à l’acheteur pour résoudre son problème.</p>
