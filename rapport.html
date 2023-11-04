@@ -1,109 +1,131 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <!-- Bootstrap core CSS -->
-    <link href="bootstrap.min.css" rel="stylesheet">
-<style>
-  body {
-    margin: 0%;
-    width: 99%;
-    background-color: #e7e7e7;
-    border: 2px solid rgba(0, 0, 0, 0);
-  }
-  	table {
-			border: outset 2px black;
-			border-collapse: collapse;
-		}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-		th {
-			border-bottom: double 2px black;
-		}
-
-		td {
-			border-bottom: solid 1px black;
-		}
-
-		.col {
-			border-right: double 2px black;
-		}
-    #bloc{
-      display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-     
-		}
-    .grille{
-      width: 30%;
-			border-right : 2px black solid;
-      border-top : 2px black solid;
-			padding: 10px;
-			margin: 4px;
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0%;
+      width: 99%;
+      background-color: #e7e7e7;
+      border: 2px solid rgba(0, 0, 0, 0);
     }
 
-  .last{
-    border-bottom: 2px black solid;
-  }
-  .first{
-    border-left : 2px black solid;
-}
-</style>
-  </head>
+    table {
+      border: outset 2px black;
+      border-collapse: collapse;
+    }
 
-  <body>
-   
-    <main role="main"style="background-color: aquamarine;">
+    th {
+      border-bottom: double 2px black;
+    }
 
-        <div class="container" >
-          <h1 class="display-3"><b>UniShop</b></h1>
-          <p><a class="btn btn-primary btn-lg" href="#" role="button">lien vers le GitHub &raquo;</a></p>
-          <p><a class="btn btn-primary btn-lg" href="#" role="button">lien vers le VP &raquo;</a></p>
-        </div>
+    td {
+      border-bottom: solid 1px black;
+    }
+
+    .col {
+      border-right: double 2px black;
+    }
+
+    #bloc {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+
+    }
+
+    .grille {
+      width: 30%;
+      border-right: 2px black solid;
+      border-top: 2px black solid;
+      padding: 10px;
+      margin: 4px;
+    }
+
+    .last {
+      border-bottom: 2px black solid;
+    }
+
+    .first {
+      border-left: 2px black solid;
+    }
+    
+    #center {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main role="main" style="background-color: aquamarine;">
+
+    <div class="container">
+      <h1 class="display-3"><b>UniShop</b></h1>
+      <p><a class="btn btn-primary btn-lg" href="https://github.com/frivar31/devoir1-ift2255" role="button">lien vers le GitHub &raquo;</a></p>
+      <p><a class="btn btn-primary btn-lg" href="file:///C:/Users/Asus/source/repos/devoir1-ift2255/diagCU.svg" role="button">lien vers le VP &raquo;</a></p>
+    </div>
 
 
-      <div class="container">
-        <h1  class="display-3">Equipe: CodeZilla</h1>
+    <div class="container">
+      <h1 class="display-3">Équipe: CodeZilla</h1>
+    </div>
+    <br>
+    <div class="row" id="center">
+      <div class="col-md-1">
+        <h4>Nom : </h4>
+        <h4>Matricule :</h4>
+        <h4>Email :</h4>
+        <br>
+        <h4>Temps mis:</h4>
       </div>
-<br>
+      <div class="col-md-2">
+        <h4>Tarek mekki daouadji</h4>
+        <h4> 20174482 </h4>
+        <h4> tarek.mekki.daouadji<br> @umontreal.ca</h4>
 
-        <div class="row">
-          <div class="col-md-1">
-            <h4>Nom : </h4>
-            <h4>Matricule :</h4>
-            <h4>Email :</h4>
-            <h4>Temps mis:</h4>
-          </div>
-          <div class="col-md-2">
-            <h4>Tarek mekki daouadji</h4>
-            <p> </p>
-          </div>
-          <div class="col-md-2">
-            <h4>Ibrahim Melzi</h4>
-            <p> </p>
+        <h4> 80h </h4>
+      </div>
+      <div class="col-md-2">
+        <h4>Ibrahim Melzi</h4>
+        <h4>20066033</h4>
+        <h4>ibrahim.melzi<br>@umontreal.ca</h4>
+        <h4>80h</h4>
+      </div>
+      <div class="col-md-2">
+        <h4>Olivier Déry-Prévost</h4>
+        <h4>20214548</h4>
+        <h4>olivier.dery-prevost<br>@umontreal.ca</h4>
+        <h4>80h</h4>
 
-          </div>
-          <div class="col-md-2">
-            <h4>Olivier Déry-Prévost</h4>
-            <p></p>
+      </div>
+      <div class="col-md-2">
+        <h4>Sidya Galakho</h4>
+        <h4>20207299</h4>
+        <h4>sidya.galakho<br>@umontreal.ca</h4>
+        <h4>80h</h4>
 
-          </div>
-          <div class="col-md-2">
-            <h4>Sidya Galakho</h4>
-            <p> </p>
-          </div>
-        </div>
-        <hr>
-      </div> <!-- /container -->
 
-    </main>
+      </div>
+    </div>
+    <hr>
+    </div> <!-- /container -->
+
+  </main>
 
   <div class="container">
     <h2>Distribution des tâches:</h2>
-      <table cellpadding="15px">
+    <table cellpadding="15px">
       <thead>
         <tr>
           <th class="col">Tâche</th>
@@ -113,121 +135,138 @@
           <th>Sidya Galakho</th>
         </tr>
       </thead>
-  
+
       <tbody>
         <tr>
           <td class="col">Glossaire</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>30%</td>
+          <td>20%</td>
+          <td>20%</td>
+          <td>30%</td>
         </tr>
         <tr>
           <td class="col">Diagramme de cas d'utilisation</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>20%</td>
+          <td>10%</td>
+          <td>20%</td>
+          <td>50%</td>
         </tr>
         <tr>
           <td class="col">Cas d'utilisation</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>25%</td>
+          <td>25%</td>
+          <td>25%</td>
+          <td>25%</td>
         </tr>
         <tr>
           <td class="col">Risques</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>50%</td>
+          <td>20%</td>
+          <td>15%</td>
+          <td>15%</td>
         </tr>
         <tr>
           <td class="col">Exigences non-fonctionnelles</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="col">Analyse</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="col">Diagramme d'activité UML</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>10%</td>
+          <td>50%</td>
+          <td>30%</td>
+          <td>10%</td>
         </tr>
       </tbody>
     </table>
   </div>
   <br>
 
+  <div class="jumbotron p-3 p-md-5 text-white rounded bg-danger">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Hypothese</h1>
+      <p class="lead my-3">
+        tout les points important auxquels nous avions discuter </p>
+    </div>
+  </div>
 
-    <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-        <div class="col-md-6 px-0">
-          <h1 class="display-4 font-italic">Tâche 1 : Glossaire</h1>
-          <p class="lead my-3">
-            Après s'être familiarisé avec le domaine d'affaires de UniShop, produisez un glossaire composé d'une description brève des termes clés, tel qu'illustré dans la Figure 11.3 du livre (p. 322).
-            
-            Chaque terme avec son explication vaut 1 point. Chaque explication ne devra pas dépasser 50 mots. Vous aurez tous les points si vous produisez au moins 10 termes avec explications.</p>
-        </div>
-      </div>
- 
-    <main role="main" class="container">
-      <div class="row">
-        <div class="col-md-8 blog-main">
-          <h3 class="pb-3 mb-4 font-italic border-bottom">
-            Glossaire:
-          </h3>
-          <p class=" lead my-4">1-Acheteur : Un utilisateur d'UniShop qui achète des produits pour ses besoins d'études.</p>
-          <p class=" lead my-4">2-Vendeur  : Un utilisateur d'UniShop qui propose des produits d'etudes a vendre </p>
-          <p class=" lead my-4">3-Panier d'Achats : Une fonctionnalité permettant aux Acheteur de regrouper les produits qu'ils souhaitent acheter avant de finaliser leur commande.</p>
-          <p class=" lead my-4">4-Catégories de Produits : Différentes groupes auxquels les produits d'UniShop peuvent appartenir, facilitant la recherche pour les utilisateurs exemple : 
-            Livres et manuels, Ressources d'apprentissage ,Articles de papeterie, Matériel informatique et Équipement de bureau.      
-              </p>
-          <p class=" lead my-4">5-Confirmation de Commande : un message envoyée à l'acheteur pour confirmer que sa commande a été reçue et est en cours de traitement.</p>
-          <p class=" lead my-4">6-Gestionnaire de Compte : L'interface où les utilisateurs peuvent modifier leurs informations personnelles, suivre leurs commandes et gérer leurs paramètres de compte.</p>
-          <p class=" lead my-4">7-Mode de Livraison : Les options disponibles pour la livraison des produits, telles que la livraison standard, le retrait en magasin, etc.</p>
-          <p class=" lead my-4">8-Évaluation du Vendeur : les commentaires laissés par les acheteurs sur la performance et la fiabilité d'un vendeur .</p>
-          <p class=" lead my-4">9-Mode de Paiement : La méthode utilisé par un acheteur lors de l'achat de produits sur UniShop comme master card, visa ...</p>
-          <p class=" lead my-4">10-Mode Suivi : Une fonctionnalité qui permet aux utilisateurs de surveiller l'état de leurs commandes.      </p>
-          <p class=" lead my-4">11-Catalogue de produits : liste détaillée des produits à vendre , avec des descriptions, des images, et des prix, permettant aux clients de parcourir et d'acheter facilement en ligne.</p>
-          <p class=" lead my-4">12-Commande: demande d'achat où le client choisit des produits, indique les quantités et fournit les informations de livraison et de paiement.</p>
-          <p class=" lead my-4">13-Retour de produit : démarche effectuée par un client pour renvoyer un article acheté, généralement en raison d'un problème de qualité ou de non-conformité, en vue d'un remboursement ou d'un échange.</p>
-          <p class=" lead my-4">14- Rabais : réduction de prix appliquée à un produit ou à une commande, généralement en réponse à une promotion ou une offre spéciale, afin d'inciter à l'achat ou de récompenser la fidélité du client.</p>
-          <p class=" lead my-4">15-Etat d'une commande : phase actuelle de traitement de ladite commande, pouvant inclure "En attente de paiement," "En cours de préparation," "Expédiée," etc. Cela permet aux clients de suivre l'avancement de leur achat.</p>
+  <main role="main" class="container">
+    <div class="row" id="center">
+      <div class="col-md-8 blog-main">
+        <p class=" lead my-4"><b>Tache 1 :</b> on a essaye de reperer chaque terme qui pourrais avoir une relation avec notre platforme puis on les a trier pour laisser que plus pertinent.</p>
 
+        <p class=" lead my-4"><b>Tache 2 et 3: </b> Nous partons du principe qu'une fois qu'un utilisateur (qu'il soit acheteur ou vendeur) a créé un compte sur notre plateforme, il doit être connecté pour accéder à toutes les fonctionnalités prévues dans les différents cas d'utilisation. De plus, nous supposons qu'un vendeur qui souhaite acheter des produits doit avoir un compte acheteur, et réciproquement. Dans le but de simplifier notre conception, nous envisageons la mise en place d'un système centralisé de grande envergure qui agira comme un acteur secondaire essentiel dans l'ensemble du système.</p>
+
+        <p class=" lead my-4"><b>Tache 4 :</b> on a analyse les facteurs qui pourraient affecteur notre platforme tout en se basant sur les risques proposer dans le chapitre 7 qui sont les Risques Techniques, Risques de Performance,Risques Politiques, Légaux, Éthiques sur UniShop
+        et les Risques de Volatilité puis on a essaye de les classes par ordre de sévérité.</p>
+
+        <p class=" lead my-4"><b>Tache 5 :</b> on a detaille tout les Exigences non-fonctionnelles que notre plateforme pourrais avoir comme la Disponibilité et la Performance du système,
+           s'assurer que le système reste disponible 24 heures sur 24.
+          </p>
       </div>
 
     </main>
 
-    <div class="jumbotron p-3 p-md-5 text-white rounded bg-info">
-      <div class="col-md-6 px-0">
-        <h1 class="display-4 font-italic">Tâche 2 : Diagramme de cas d'utilisation UML</h1>
-        <p class="lead my-3">
-          Identifiez les différents cas d'utilisation du système à construire. Vous devez les représenter
-           sous forme d'un diagramme de cas d'utilisation UML en utilisant l'outil Visual Paradigm (VPP). 
-           Vous serez également évalué sur l'utilisation appropriée des éléments UML. Un ordre de grandeur d'une dizaine de cas d'utilisations est attendu.</p>
+
+  <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Tâche 1 : Glossaire</h1>
+      <p class="lead my-3">
+        Après s'être familiarisé avec le domaine d'affaires de UniShop, produisez un glossaire composé d'une description
+        brève des termes clés, tel qu'illustré dans la Figure 11.3 du livre (p. 322).
+
+        Chaque terme avec son explication vaut 1 point. Chaque explication ne devra pas dépasser 50 mots. Vous aurez
+        tous les points si vous produisez au moins 10 termes avec explications.</p>
+    </div>
+  </div>
+  <main role="main" class="container">
+    <div class="row" id="center">
+      <div class="col-md-8 blog-main">
+        <h3 class="pb-3 mb-4 font-italic border-bottom">
+          Glossaire:
+        </h3>
+        <ol>
+          <li class="lead my-4"><b>Acheteur</b> : Un utilisateur d'UniShop qui achète des produits d'études.</li>
+          <li class="lead my-4"><b>Vendeur</b> : Un utilisateur d'UniShop qui propose des produits d'études à vendre.</li>
+          <li class="lead my-4"><b>Panier d'Achats :</b> Une fonctionnalité permettant aux acheteurs de regrouper les produits qu'ils souhaitent acheter avant de finaliser la commande.</li>
+          <li class="lead my-4"><b>Catégories de Produits :</b> Différents groupes auxquels les produits d'UniShop peuvent appartenir, facilitant la recherche pour les utilisateurs, par exemple : Livres et manuels, Ressources d'apprentissage, Articles de papeterie, Matériel informatique et Équipement de bureau.</li>
+          <li class="lead my-4"><b>Confirmation de Commande :</b> Un message envoyé à l'acheteur pour confirmer que sa commande a été reçue et est en cours de traitement.</li>
+          <li class="lead my-4"><b>Gestionnaire de Compte :</b> L'interface où les utilisateurs peuvent modifier leurs informations personnelles, suivre leurs commandes et gérer leurs paramètres de compte.</li>
+          <li class="lead my-4"><b>Mode de Livraison :</b> Les options disponibles pour la livraison des produits, telles que la livraison standard ou le retrait en magasin.</li>
+          <li class="lead my-4"><b>Évaluation du Vendeur :</b> Les commentaires laissés par les acheteurs sur la performance et la fiabilité d'un vendeur.</li>
+          <li class="lead my-4"><b>Mode de Paiement :</b> La méthode utilisée par un acheteur lors de l'achat de produits sur UniShop, comme master card, visa ou paypal.</li>
+          <li class="lead my-4"><b>Mode Suivi :</b> Une fonctionnalité qui permet aux utilisateurs de surveiller l'état de leurs commandes.</li>
+          <li class="lead my-4"><b>Catalogue de produits :</b> Liste détaillée des produits à vendre, avec des descriptions, des images, et des prix, permettant aux clients de parcourir et d'acheter facilement en ligne.</li>
+          <li class="lead my-4"><b>Commande :</b> Demande d'achat où le client choisit des produits, indique les quantités et fournit les informations de livraison et de paiement.</li>
+          <li class="lead my-4"><b>Retour de produit :</b> Démarche effectuée par un client pour renvoyer un article acheté, généralement en raison d'un problème de qualité ou de non-conformité, en vue d'un remboursement ou d'un échange.</li>
+          <li class="lead my-4"><b>Rabais :</b> Réduction de prix appliquée à un produit ou à une commande, généralement en réponse à une promotion ou une offre spéciale, afin d'inciter à l'achat ou de récompenser la fidélité du client.</li>
+          <li class="lead my-4"><b>État d'une commande :</b> Phase actuelle de traitement de ladite commande, pouvant inclure "En attente de paiement," "En cours de préparation," "Expédiée," etc. Cela permet aux clients de suivre l'avancement de leur achat.</li>
+        </ol>
       </div>
     </div>
 
-    <div class="container">
-    <div class="row">
+  </main>
+
+  <div class="jumbotron p-3 p-md-5 text-white rounded bg-info">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Tâche 2 : Diagramme de cas d'utilisation UML</h1>
+      <p class="lead my-3">
+        Identifiez les différents cas d'utilisation du système à construire. Vous devez les représenter
+        sous forme d'un diagramme de cas d'utilisation UML en utilisant l'outil Visual Paradigm (VPP).
+        Vous serez également évalué sur l'utilisation appropriée des éléments UML. Un ordre de grandeur d'une dizaine de
+        cas d'utilisations est attendu. </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row" id="center">
       <div class="col-md-8 blog-main">
         <h3 class="pb-3 mb-4 font-italic border-bottom">
           Diagrammes
-        </h3>            
+        </h3>
+      </div>
+      <img src="diagCU.svg">
+
     </div>
     <img src="diagCUV2.svg">
 
   </div>
+<<<<<<< HEAD
 </div>
 
 
@@ -580,56 +619,673 @@
    
   </div>
 </div>
+=======
 
 
+  <div class="jumbotron p-6 p-md-2  rounded bg-primary">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Tâche 3 : Cas d'utilisation</h1>
+      <p class="lead my-3">
+        Rédigez la description de chaque cas d'utilisation directement dans le rapport.html en utilisant le format
+        suivant. Vous pouvez copier le code source HTML de l'exemple ci-dessous.
 
-<div class="jumbotron p-3 p-md-5 text-white rounded bg-success">
-  <div class="col-md-6 px-0">
-    <h1 class="display-4 font-italic">Tâche 4 : Risques</h1>
-    <p class="lead my-3">
-      Identifiez 5 risques potentiels du projet et classez-les par ordre de sévérité (voir la page 28 dans les diapositives des exigences (Chapitre 7) des notes de cours et page 90 du livre)
-      
-   </p>
+      </p>
+    </div>
   </div>
-</div>
 
-<div class="container">
-<div class="row">
-  <div class="col-md-8 blog-main">
-    <h3 class="pb-3 mb-4 font-italic border-bottom">
-      titre
-    </h3>
+  <div id="bloc">
+    <div class="grille first">
+    <p><b>Cas d'utilisation :</b> Passer une commande</p>
+      <p><b> But :</b> Un acheteur desire passer une commande pour les produits qu'il a mis dans le panier</p>
 
-</div>
-</div>
-</div>
+      <p><b>Préconditions : </b> L'acheteur doit avoir un compte unishop et des produits dans son panier.</p>
+      <p><b>Acteurs : </b> Acheteur</p>
+      <p><b>Scénario principal : </b></p>
+      <ol>
+        <li>L'acheteur se connecte à son compte
+        </li>
+        <li>L'acheteur selectione des produits.
+        </li>
+        <li>L'acheteur accède à son panier d'achat.
+        </li>
+        <li>L'acheteur fournit les informations de paiement et de livraison.
+        </li>
+        <li>L'acheteur confirme la commande.
+        </li>
+      </ol>
+      <p><b>Scénario alternatif : </b></p>
+      <p>4.a Si les informations de paiement fournies sont incorrectes ,
+        le système affiche un message d'erreur et demande à l'acheteur de les corriger.</p>
+      <p><b>Postconditions : </b> La commande est passée avec succès,
+        et l'acheteur peut suivre l'état de sa commande sur la plateforme.</p>
+
+    </div>
+    <div class="grille">
+      <p><b>Cas d'utilisation :</b> Consulter l'état de la commande </p>
+      <p><b> But :</b> L'acheteur désire consulter l'état actuel de sa commande.</p>
+
+      <p><b>Préconditions : </b>L'acheteur doit être connecté à son compte et avoir deja passé une commande.</p>
+      <p><b>Acteurs : </b>Acheteur </p>
+      <p><b>Scénario principal : </b></p>
+      <ol>
+        <li>L'acheteur se connecte à son compte
+        </li>
+        <li>L'acheteur accède à la section "suivi de commande" de son compte.
+        </li>
+        <li>Le système affiche la liste des commandes passées par l'acheteur.
+        </li>
+        <li>Le système affiche l'état actuel de la commande
+        </li>
+        <li>L'acheteur peut accéder aux détails de la commande
+        </li>
+      </ol>
+      <p><b>Scénario alternatif : </b></p>
+      <p>4.a Si la commande n'a pas encore été expédiée, l'acheteur peut avoir la possibilité d'annuler la commande</p>
+      <p><b>Postconditions : </b>L'acheteur peut consulter l'état de sa commande actuelle et être informé des mises à
+        jour concernant la livraison.</p>
+
+    </div>
+    <div class="grille">
+      <p><b>Cas d'utilisation :</b> Creer un compte acheteur </p>
+      <p><b> But :</b> L'utilisateur désire s'inscrire en tant qu'acheteur. </p>
+      <p><b>Préconditions :</b> L'utilisateur ne doit pas être déjà inscrit en tant qu'acheteur.</p>
+      <p><b>Acteurs : </b>Acheteur</p>
+      <p><b>Scénario principal : </b></p>
+      <ol>
+        <li>L'utilisateur accède à la page d'inscription sur UniShop.
+        </li>
+        <li>L'utilisateur remplit le formulaire d'inscription en fournissant son nom, prénom, adresse courriel, et
+          numéro de téléphone.
+        </li>
+        <li>
+          L'utilisateur soumet le formulaire d'inscription.
+        </li>
+        <li>
+          le système crée un compte acheteur pour l'utilisateur et lui envoie un email de confirmation.
+        </li>
+        <li>
+          Le système vérifie l'unicité du pseudo et de l'adresse courriel.
+        </li>
+      </ol>
+      <p><b>Scénario alternatif : </b></p>
+
+      <p> 5.a Si l'adresse courriel fournis par l'utilisateur sont déjà associés à un compte existant, le système affiche un
+        message d'erreur.</p>
+      <p><b>Postconditions :</b> L'utilisateur est inscrit en tant qu'acheteur sur UniShop et peut désormais accéder à
+        son compte pour commencer à lutiliser.</p>
+    </div>
+
+ 
 
 
+    <div class="grille first">
+      <p><b>Cas d'utilisation :</b> Retourner ou échange de produit : </p>
+      <p><b> But :</b> Donner à l’acheteur l’opportunité de retourner ou d’échanger des articles de sa commande.</p>
 
-<div class="jumbotron p-3 p-md-5 text-white rounded bg-warning">
-  <div class="col-md-6 px-0">
-    <h1 class="display-4 font-italic">Tâche 5 : Exigences non-fonctionnelles</h1>
-    <p class="lead my-3">
-      Identifiez 5 besoins ou contraintes non-fonctionnelles du système.
-      
-   </p>
-  </div>
-</div>
-
-<div class="container">
-<div class="row">
-  <div class="col-md-8 blog-main">
-    <h3 class="pb-3 mb-4 font-italic border-bottom">
-      titre
-    </h3>
-
+      <p><b>Préconditions : </b>Il a un compte , La commande est en possession de l'acheteur depuis moins de 30 jours , Le
+        produit n'a pas été retourné précédemment pour la même raison. </p>
+      <p><b>Acteurs : </b> Acheteur</p>
+      <p><b>Scénario principal : </b>
+      <ol type="1">
+      <li>L'acheteur accède à la section des retours ou échanges.</li>
+      <li>  L'acheteur sélectionne la commande pour laquelle il souhaite retourner ou échanger des articles.</li>
+      <li> L'acheteur peut suivre l'état de la commande.</li>
+      <li>En cas de retour, l'acheteur reçoit un remboursement.</li>
+      <li>L'acheteur veut échanger un produit.</li>
+      </ol>
+      <p><b>Scénario alternatif :</b>
+      <ol type="1">
+        1.a L'acheteur spécifie les produits à retourner ou échanger et la raison de la demande<BR>
+        4.a Le système génère un numéro de suivi de retour et indique à l'acheteur où envoyer les produits.<BR>
+        5.a L'acheteur paie la différence de prix .<BR>
+      </ol>
     
 
-</div>
-</div>
-</div>
+
+      
+      
+    <p><b>Préconditions : </b> : L'état de la commande est mis à jour et L'inventaire du revendeur est mis à jour.</p>
+    
+  
+>>>>>>> main
+
+    </div>
+    <div class="grille">
+      <p><b>Cas d'utilisation :</b> Afficher métriques activités :</p>
+      <p><b> But :</b> Permet à un acheteur d'accéder à des métriques qui lui permettent d'évaluer ses activités sur
+        UniShop.</p>
+
+      <p><b>Préconditions : </b>L'acheteur est connecté</p>
+      <p><b>Acteurs : </b> Acheteur</p>
+      <b>Scénario principal : </b>
+        <ol type="1">
+          <li>L'acheteur accède à la section des métriques des activités de son compte comme
+        nombre totale de commande et d’articles achetés</li>
+        <li>il peut accéder a son profil</li>
+        <li>il peut accéder aux èvaluations du vendeur</li>.</ol>
+      
+      <p><b>Scénario alternatif :</b>
+        <ol>
+          <li>a acceder a son historique de commande</li>
+          <li>a l'acheteur peux modifier ses coordonnèes comme changer son email ou changer les informations de la carte de credit</li>
+        <li>a Acheteur souhaite de changer son commentaire ou son enlever son like </li>
+        </ol></p>
+
+      <p><b>Postconditions : </b> L'acheteur a accès aux métriques de ses activités sur UniShop.</p>
+
+    </div>
+    <div class="grille ">
+      <p><b>Cas d'utilisation :</b> Trouver un revendeur (Acheteur): </p>
+      <p><b> But :</b> Permet à un acheteur de rechercher des revendeurs en fonction de critères tels que le nom,
+        l'adresse, ou les catégories de produits vendus.</p>
+
+      <p><b>Préconditions : </b> L'acheteur est connecté et avoir un compte</p>
+      <p><b>Acteurs : </b> Acheteur</p>
+      <p><b>Scénario principal : </b></p>
+      <ol type="1">
+        <li> L'acheteur entre des critères de recherche tels que le nom, l'adresse, ou les catégories de produits.
+        </li>
+        <li>Le système affiche une liste de revendeurs correspondant à la recherche
+        </li>
+        <li>Le système affiche une liste de revendeurs correspondant aux critères de recherche.
+        </li>
+        <li>L'acheteur peut consulter le profil de chaque revendeur pour en savoir plus sur leurs offres et leurs évaluations.
+        </li>
+      </ol>
+      <p><b>Scénario alternatif : </b>
+        <ol>
+          <li>a le cas aucun revendeur trouvè: Si la recherche de l'acheteur ne correspond à aucun revendeur enregistré dans la base de données, le système devrait
+          afficher un message indiquant qu'aucun revendeur n'a été trouvé et suggérer à l'acheteur de modifier ses critères de
+          recherche.</li>
+      
+      </ol>
+ .</p>
+       
+
+      
+      <p><b>Postconditions : </b>L'acheteur a la possibilité de trouver des revendeurs sur UniShop en fonction de
+        critères spécifiques, ce qui facilite la recherche de produits et de vendeurs correspondant à ses préférences.
+      </p>
+
+    </div>
+    <div class="grille first  ">
+      <p><b>Cas d'utilisation :</b> Offrir un produit (Revendeur)</p>
+      <p><b> But :</b> Permet à un revendeur de proposer un produit à la vente sur UniShop.</p>
+      <p><b>Préconditions : </b>
+        Le revendeur a un compte et a un produit à offrir</p>
+      <p><b>Acteurs : </b>Revendeur</p>
+      <p><b>Scénario principal : </b></p>
+      <ol type="1">
+        <li>Le revendeur accède à la section de proposition de produit.
+        </li>
+        <li>Le revendeur remplit les informations requises pour le produit.
+        </li>
+        <li>Le revendeur peut ajouter des images et des vidéos pour promouvoir le produit.
+        </li>
+        <li>Le système génère un identifiant unique pour le produit ajouter.
+        </li>
+      </ol>
+      <p><b>Scénario alternatif : </b>
+        <ol>
+          1.1 Le revendeur souhaite modifier un produit existant.<br>
+          
+          3.1 Le système met à jour les informations du produit
+        
+        </ol>
+      </p>
+
+      <p><b>Postconditions : </b>
+        <ul>
+          <li>Le produit est ajouté à la liste des produits proposés par le revendeur sur UniShop.</li>
+          <li>Le produit est visible pour les acheteurs sur la plateforme.</li>
+        </ul>
+      </p>
+
+    </div>
+    <div class="grille">
+      <p><b>Cas d'utilisation :</b> Confirmer la réception d'un retour</p>
+      <p><b>But :</b> Permettre aux revendeurs de confirmer la réception d'un retour de produit renvoyé par un acheteur.
+      </p>
+
+      <p><b>Préconditions : </b>
+      <ul>
+        <li>Le revendeur est connecté à son compte sur UniShop.</li>
+        <li>Un acheteur a signalé un retour de produit, et le produit retourné a été réceptionné à l'entrepôt du
+          revendeur.</li>
+      </ul>
+      </p>
+      <p><b>Acteurs : </b>
+      <ul>
+        <li>Acteur principal : Revendeur</li>
+      </ul>
+      </p>
+      <p><b>Scénario principal : </b></p>
+      <ol>
+        <li>Le revendeur accède à la gestion des retours ou des produits renvoyés.</li>
+        <li>Le revendeur sélectionne le retour spécifique pour lequel il souhaite confirmer la réception.</li>
+        <li>Le revendeur confirme la réception du produit en cliquant sur un bouton dédié.</li>
+        <li>Le système met à jour l'état du retour à "Livré".</li>
+      </ol>
+      <p><b>Scénarios alternatifs : </b></p>
+      <ul type="none">
+        <li>1.1.1 L'article retourné ne correspond pas aux détails du retour</li>
+        <li>1.1.2 Le système génère un e-mail informant le client que l'article ne correspond pas aux détails du retour et demande des informations supplémentaires.</li>
+
+        <li>1.2.1 Le client annule le retour </li>
+        <li>1.2.2 Le système met à jour le statut du retour en tant qu'annulé.</li>
+        <li>1.2.3 Le système génère un e-mail de confirmation d'annulation et l'envoie au client.</li>
+      </ul>
+
+      <p><b>Postconditions : </b> Le retour est marqué comme "Livré".</p>
+    </div>
+
+    <div class="grille ">
+      <p><b>Cas d'utilisation :</b> Traiter une commande prête à être expédiée</p>
+      <p><b>But :</b> Permettre aux revendeurs de mettre à jour l'état d'une commande produite.</p>
+
+      <p><b>Préconditions :</b>
+      <ul>
+        <li>Le revendeur est connecté à son compte sur UniShop.</li>
+        <li>L'acheteur a effectué le paiement.</li>
+        <li>La commande a été produite.</li>
+      </ul>
+      </p>
+      <p><b>Acteurs :</b>
+      <ul>
+        <li>Acteur principal : Revendeur</li>
+      </ul>
+      </p>
+      <p><b>Scénario principal :</b></p>
+      <ol>
+        <li>Le revendeur accède à la liste des commandes en attente d'expédition.</li>
+        <li>Le revendeur sélectionne une commande spécifique pour laquelle il souhaite changer l'état.</li>
+        <li>Le revendeur met à jour l'état de la commande à "En livraison" lorsque les produits sont prêts à être
+          expédiés.</li>
+        <li>Le système enregistre la mise à jour de l'état et notifie l'acheteur de la progression de la commande.</li>
+        <li>Le revendeur fournit le nom de la compagnie d'expédition ainsi que le numéro de suivi de la livraison.</li>
+        <li>Le système informe l'acheteur du nom de la compagnie d'expédition et du numéro de suivi pour qu'il puisse
+          suivre la livraison.</li>
+      </ol>
+      <p><b>Scénarios alternatifs :</b> N/A
+      <p><b>Postconditions :</b> L'état de la commande est mis à jour à "En livraison", et l'acheteur est informé de la
+        progression de la commande, y compris des informations sur la livraison.</p>
+    </div>
+
+    <div class="grille first">
+      <p><b>Cas d'utilisation :</b> Confirmer la réception d'une commande</p>
+      <p><b>But :</b> Permettre aux acheteurs de confirmer la réception d'une commande après qu'elle ait été livrée.</p>
+
+      <p><b>Préconditions :</b>
+      <ul>
+        <li>
+          L'acheteur est connecté à son compte sur UniShop.</li>
+        <li>Une commande a été passée et est en cours de livraison.</li>
+        <li>L'acheteur a reçu les produits de la commande à son domicile.</li>
+      </ul>
+      </p>
+      <p><b>Acteurs :</b>
+      <ul>
+        <li>Acteur principal : Acheteur</li>
+      </ul>
+      </p>
+      <p><b>Scénario principal :</b>
+      <ol>
+        <li>L'acheteur accède à son historique de commandes.</li>
+        <li>L'acheteur sélectionne la commande pour laquelle il souhaite confirmer la réception.</li>
+        <li>L'acheteur confirme la réception de la commande en cliquant sur un bouton dédié.</li>
+        <li>Le système met à jour l'état de la commande à "Livré".</li>
+        <li>Le système enregistre la confirmation de réception de la commande par l'acheteur.</li>
+      </ol>
+      <p><b>Scénarios alternatifs :</b> N/A
+      <p><b>Postconditions :</b> La commande est marquée comme "Livré" et l'acheteur a confirmé la réception des
+        produits.</p>
+    </div>
+
+    <div class="grille">
+      <p><b>Cas d'utilisation :</b> Gérer un problème</p>
+      <p><b>But :</b> Permettre aux revendeurs de gérer un problème signalé par un acheteur concernant un produit ou une
+        commande sur UniShop.</p>
+
+      <p><b>Préconditions :</b>
+      <ul>
+        <li>Le revendeur est connecté à son compte sur UniShop.</li>
+        <li>Un acheteur a signalé un problème avec un produit ou une commande.</li>
+      </ul>
+      </p>
+      <p><b>Acteurs :</b>
+      <ul>
+        <li>Acteur principal : Revendeur</li>
+      </ul>
+      </p>
+      <p><b>Scénario principal :</b>
+      <ol>
+        <li>Le revendeur accède à la liste des problèmes signalés par les acheteurs.</li>
+        <li>Le revendeur sélectionne le problème spécifique qu'il souhaite gérer.</li>
+        <li>Le revendeur examine la description du problème faite par l'acheteur.</li>
+        <li>Le revendeur propose une solution au problème.</li>
+        <li>Le système enregistre la proposition de solution du revendeur.</li>
+        <li>L'acheteur est notifié de la solution proposée par le revendeur.</li>
+        <li>L'acheteur peut accepter ou refuser la solution proposée.</li>
+        <li>Si la solution est acceptée par l'acheteur, le revendeur prend les mesures nécessaires pour résoudre le
+          problème.</li>
+        <li>Le système met à jour l'état du problème en fonction de la progression de la résolution.</li>
+      </ol>
+
+      <p><b>Scénarios alternatifs :</b>
+      <ul type="none">
+        <li>
+          4.1 Si la solution est refusée, le revendeur est notifié.
+        </li>
+        <li>
+          4.2 Le revendeur va modifier sa solution au problème.
+        </li>
+        <li>
+          4.3 L’acheteur est notifié de la nouvelle solution.
+        </li>
+      </ul>
+      </p>
+
+      <p><b>Postconditions :</b> Au minimum, une solution a été présentée à l’acheteur pour résoudre son problème.</p>
+    </div>
+
+    <div class="grille ">
+      <p><b>Cas d'utilisation :</b> Modifier son profil</p>
+      <p><b>But :</b> Permettre aux utilisateurs (acheteurs et revendeurs) de modifier les informations de leur profil
+        sur UniShop.</p>
+
+      <p><b>Préconditions :</b>
+      <ul>
+        <li>L'utilisateur est connecté à son compte sur UniShop.</li>
+        <li>L'utilisateur souhaite mettre à jour les informations de son profil.</li>
+      </ul>
+      </p>
+      <p><b>Acteurs :</b>
+      <ul>
+        <li>Acteur principal : Acheteur ou revendeur</li>
+      </ul>
+      </p>
+      <p><b>Scénario principal :</b>
+      <ol>
+        <li>L'utilisateur accède à la page de gestion de profil.</li>
+        <li>L'utilisateur sélectionne les informations qu'il souhaite modifier parmi les données existantes (par
+          exemple, nom, prénom, adresse courriel, téléphone, adresse d'expédition, etc.).</li>
+        <li>L'utilisateur effectue les modifications souhaitées.</li>
+        <li>Le système vérifie la validité des nouvelles informations fournies.</li>
+        <li>Le système enregistre les modifications apportées au profil de l'utilisateur.</li>
+        <li>Le système notifie l'utilisateur de la réussite de la mise à jour de son profil.</li>
+      </ol>
+
+      <p><b>Scénarios alternatifs :</b>
+      <ol>
+          2.a L’utilisateur quitte sans sauvegarder.<br>
+
+          2.b Le système n’enregistre pas les modifications apportées.<br>
+
+          2.c L’utilisateur rentre un mauvais format de donnée.<br>
+
+          2.d Le système notifie l’utilisateur qu’il y a un mauvais format de donnée.<br>
+
+          3.a Le système empêche de sauvegarder les changements.<br>
+      </ol>
+      </p>
+
+      <p><b>Postconditions :</b> Le profil de l'utilisateur est mis à jour avec les informations modifiées et
+        enregistrées avec succès.</p>
+    </div>
 
 
-  </body>
+    <div class="grille last first">
+      <p><b>Cas d'utilisation :</b> Retirer un produit du panier</p>
+      <p><b>But :</b> Permettre aux utilisateurs (acheteurs) de retirer un produit de leur panier d'achat sur UniShop.
+      </p>
+
+      <p><b>Préconditions :</b>
+      <ul>
+        <li>L'acheteur est connecté à son compte sur UniShop.</li>
+        <li>Le produit que l'acheteur souhaite retirer est actuellement dans son panier.</li>
+      </ul>
+      </p>
+      <p><b>Acteurs :</b>
+      <ul>
+        <li>Acteur principal : Acheteur</li>
+      </ul>
+      </p>
+      <p><b>Scénario principal :</b>
+      <ol>
+        <li>L'acheteur accède à son panier d'achat.</li>
+        <li>L'acheteur visualise les produits qui sont actuellement dans son panier.</li>
+        <li>L'acheteur sélectionne le produit qu'il souhaite retirer.</li>
+        <li>L'acheteur clique sur le bouton de retrait.</li>
+        <li>Le système confirme la demande de retrait du produit.</li>
+        <li>Le système retire le produit du panier de l'acheteur.</li>
+        <li>Le panier de l'acheteur est mis à jour.</li>
+        <li>Le système notifie l'acheteur que le produit a été retiré avec succès du panier.</li>
+      </ol>
+      <p><b>Scénarios alternatifs :</b> N/A
+      <p><b>Postconditions :</b> Le produit est retiré avec succès du panier de l'acheteur, et le panier est mis à jour
+        pour refléter ce changement.</p>
+    </div>
+
+    <div class="grille ">
+      <p><b>Cas d'utilisation :</b> Ajouter un produit dans le panier</p>
+      <p><b>But :</b> Permettre aux utilisateurs (acheteurs) d'ajouter un produit à leur panier d'achat sur UniShop.</p>
+
+      <p><b>Préconditions :</b>
+      <ul>
+        <li>L'acheteur est connecté à son compte sur UniShop.</li>
+        <li>Le produit que l'acheteur souhaite ajouter est disponible sur la plateforme.</li>
+      </ul>
+      </p>
+      <p><b>Acteurs :</b>
+      <ul>
+        <li>Acteur principal : Acheteur</li>
+      </ul>
+      </p>
+      <p><b>Scénario principal :</b>
+      <ol>
+        <li>L'acheteur navigue sur la plateforme et trouve un produit qu'il souhaite acheter.</li>
+        <li>L'acheteur sélectionne le produit en cliquant sur celui-ci.</li>
+        <li>Le système affiche les détails du produit, y compris le prix et la quantité disponible.</li>
+        <li>L'acheteur clique sur un bouton d'ajout au panier.</li>
+        <li>Le système confirme l'ajout du produit au panier.</li>
+        <li>Le système met à jour le panier de l'acheteur en y ajoutant le produit.</li>
+      </ol>
+      <p><b>Scénarios alternatifs :</b> N/A
+      <p><b>Postconditions :</b> Le produit est ajouté avec succès au panier de l'acheteur, et le panier est mis à jour
+        pour refléter cet ajout.</p>
+    </div>
+
+    <div class="grille last">
+      <p><b>Cas d'utilisation :</b> Rechercher un produit</p>
+      <p><b>But :</b> Permettre aux utilisateurs (acheteurs et revendeurs) de rechercher des produits sur la plateforme
+        UniShop.</p>
+
+      <p><b>Préconditions :</b>
+      <ul>
+        <li>L'utilisateur accède à la plateforme UniShop.</li>
+      </ul>
+      </p>
+      <p><b>Acteurs :</b>
+      <ul>
+        <li>Acteur principal : Acheteur</li>
+      </ul>
+      </p>
+      <p><b>Scénario principal :</b>
+      <ol>
+        <li>L'utilisateur accède à la fonction de recherche sur la plateforme UniShop.</li>
+        <li>L'utilisateur entre un mot-clé de recherche dans le champ de recherche.</li>
+        <li>Le système effectue une recherche en utilisant le mot-clé fourni.</li>
+        <li>Le système affiche les résultats de la recherche correspondants au mot-clé.</li>
+        <li>L'utilisateur peut consulter les détails des produits trouvés.</li>
+      </ol>
+
+      <p><b>Scénarios alternatifs :</b>
+      <ol>
+        4.a Le système ne trouve aucun produit correspondant.<br>
+        5.a Le système recommande des produits similaires.
+      </ol>
+      </p>
+
+      <p><b>Postconditions :</b> L'utilisateur peut voir les produits correspondant à sa recherche et consulter les
+        détails de ces produits.</p>
+    </div>
+
+
+    <div class="grille first last">
+      <p><b>Cas d'utilisation :</b> Évaluer un produit</p>
+      <p><b>But :</b> Permettre aux acheteurs de laisser une évaluation sur un produit qu'ils ont acheté sur UniShop.
+      </p>
+
+      <p><b>Préconditions :</b>
+      <ul>
+        <li>L'acheteur est connecté à son compte sur UniShop.</li>
+        <li>L'acheteur a acheté le produit sur lequel il souhaite laisser une évaluation.</li>
+        <li>Le produit a été livré et marqué comme "livré" par le vendeur.</li>
+      </ul>
+      </p>
+      <p><b>Acteurs :</b>
+      <ul>
+        <li>Acteur principal : Acheteur</li>
+      </ul>
+      </p>
+      <p><b>Scénario principal :</b>
+      <ol>
+        <li>L'acheteur accède à la page du produit qu'il souhaite évaluer.</li>
+        <li>L'acheteur clique sur un bouton pour laisser une évaluation.</li>
+        <li>L'acheteur saisit son évaluation et éventuellement des commentaires sur le produit.</li>
+        <li>L'acheteur attribue une note de 1 à 5 étoiles au produit.</li>
+        <li>Le système enregistre l'évaluation de l'acheteur pour ce produit.</li>
+        <li>Le système met à jour les métriques liées au produit, y compris la note moyenne et le nombre d'évaluations.
+        </li>
+      </ol>
+      <p><b>Scénarios alternatifs :</b> N/A
+      <p><b>Postconditions :</b> L'évaluation de l'acheteur est enregistrée avec succès pour le produit.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="jumbotron p-3 p-md-5 text-white rounded bg-success">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Tâche 4 : Risques</h1>
+      <p class="lead my-3">
+        Identifiez 5 risques potentiels du projet et classez-les par ordre de sévérité (voir la page 28 dans les
+        diapositives des exigences (Chapitre 7) des notes de cours et page 90 du livre)
+      </p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row" id="center">
+      <div class="col-md-8 blog-main">
+        <h3 class="pb-3 mb-4 font-italic border-bottom">
+          Risques techniques :
+        </h3>
+        <ol>
+          <li>Pannes de serveurs : Les pannes de serveurs ou les problèmes d'hébergement pourraient affecter la disponibilité de la plateforme, ce qui aurait un impact sur l'expérience des utilisateurs.</li>
+          <li>Problème au niveau du paiments: Les articles pourraient être chargé en double lors d'un problème</li>
+          <li>Problèmes de développement : Des problèmes techniques pendant le développement de l'outil UniShop, tels que des erreurs de programmation, des problèmes d'intégration ou des retards de livraison de composants clés, pourraient entraîner des retards dans le projet.</li>
+          <li>Problème de notification: Si le système de notifications ne fonctionne pas alors l'utilisateur pourrait avoir déjà recu sa commande sans le savoir</li>
+        </ol>
+    
+        <h3 class="pb-3 mb-4 font-italic border-bottom">
+          Risques de performance :
+        </h3>
+        <ol>
+          <li>Charge élevée inattendue : Si la plateforme connaît soudainement une augmentation significative du nombre d'utilisateurs, elle pourrait ne pas être en mesure de gérer la charge, entraînant des temps d'arrêt et une mauvaise performance.</li>
+          <li>Problème de latence : Si les pages et les fonctionnalités d'UniShop prennent trop de temps à se charger, les utilisateurs peuvent être frustrés et abandonner leurs achats</li>
+        </ol>
+    
+        <h3 class="pb-3 mb-4 font-italic border-bottom">
+          Risques politiques, légaux, éthiques :
+        </h3>
+        <ol>
+          <li>Fuite de données : Les données personnelles de l'acheteur ou du vendeur pourraient être accessible à des gens mal intentionnés si ces données ne sont pas protégées adéquatement</li>
+          <li>Conformité réglementaire : Les réglementations en matière de commerce en ligne, de protection des consommateurs et de protection des données sont en constante évolution. Le non-respect de ces réglementations pourrait entraîner des amendes et des sanctions légales.</li>
+          <li>Problèmes d'éthique : Les préoccupations liées à l'éthique, telles que la manipulation des évaluations, les pratiques de tarification trompeuses ou les conflits d'intérêts entre les utilisateurs, pourraient ternir la réputation de la plateforme.</li>
+        </ol>
+    
+        <h3 class="pb-3 mb-4 font-italic border-bottom">
+          Risques de volatilité :
+        </h3>
+        <ol>
+          <li>Fluctuations des prix des produits: Les récessions économiques pourraient avoir un impact sur le pouvoir d'achat des utilisateurs, ce qui pourrait entraîner une réduction des achats en ligne.</li>
+          <li>Concurrence des prix : La concurrence sur le marché des produits peuvent influencer la demande pour les produits d'UniShop. comme si un concurrent propose des prix plus bas, cela peut attirer les acheteurs et réduire les ventes d'UniShop.</li>
+        </ol>
+        </ul>
+       
+      </div> <h5>(Tout est ordonné par ordre de sévérité pour chaques catégories mentionnées)</h5>
+    </div>
+  
+  </div>
+
+
+
+
+  <div class="jumbotron p-3 p-md-5 text-white rounded bg-warning">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Tâche 5 : Exigences non-fonctionnelles</h1>
+      <p class="lead my-3">
+        Identifiez 5 besoins ou contraintes non-fonctionnelles du système.
+
+      </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row" id="center">
+      <div class="col-md-8 blog-main">
+        <h3 class="pb-3 mb-4 font-italic border-bottom">
+          Exigences non-fonctionnelles
+        </h3>
+
+        <P>
+          <ol>
+
+          <li><b> Intégration avec les services de paiement : </b>Le système doit être capable d'intégrer différents
+            services de paiement en ligne sécurisés pour permettre aux acheteurs
+            de payer.
+          </li>
+          <li><b>Disponibilité et performance : </b>Le système doit être hautement disponible pour les utilisateurs,
+            avec un temps de fonctionnement minimal. De plus, il doit offrir des performances rapides pour assurer une
+            expérience utilisateur fluide, y compris des temps de chargement rapides des pages et des réponses rapides
+            aux requêtes.
+
+          </li>
+          <li><b>Temps de réponse :</b> Le système doit garantir des temps de réponse rapides pour les interactions de
+            l'utilisateur, y compris la recherche de produits, le chargement de pages, la validation de commandes, etc.
+            Les temps de réponse devraient être inférieurs à une certaine limite, par exemple, moins de 2 secondes, pour
+            assurer une expérience utilisateur fluide.
+
+          </li>
+          <li><b>Conformité réglementaire : </b>Le système doit être conforme aux réglementations locales, nationales et
+            internationales relatives au commerce électronique, à la protection des consommateurs, à la protection des
+            données et à d'autres aspects légaux. Il doit également respecter les normes d'éthique et de responsabilité
+            envers les utilisateurs.
+
+          </li>
+          <li><b>Facilité d'utilisation et accessibilité :</b> Le système doit être convivial.
+          </li>
+        </ol>
+        </P>
+
+      </div>
+    </div>
+  </div>
+
+  
+
+  <div class="jumbotron p-3 p-md-5 text-white rounded " style="background-color: rgb(123, 221, 81)">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Utilisation de GitHub</h1>
+
+      <p><a class="btn btn-primary btn-lg" href="https://github.com/frivar31/devoir1-ift2255/pulse" role="button">lien vers insights github &raquo;</a></p>
+
+    </div>
+  </div>
+  <img src="git2.PNG">
+  <img src="git1.PNG">
+
+
+</body>
 </html>
-
