@@ -4,7 +4,7 @@ import Data.Entities.Order;
 
 import java.util.List;
 
-public class Client {
+public class Client extends User{
 
     private String shipAddress;
     private List<Order> orders;
@@ -20,6 +20,7 @@ public class Client {
                   String pseudo,
                   int number,
                   String shipAddress) {
+        super(firstName,lastName,email,pseudo,number);
         this.shipAddress = shipAddress;
     }
 

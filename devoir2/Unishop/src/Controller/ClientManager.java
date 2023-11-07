@@ -1,18 +1,20 @@
 package Controller;
 
+import Data.Entities.Users.Client;
+import Data.Entities.Users.User;
+
 import java.util.InputMismatchException;
 import java.util.Map;
 
 public class ClientManager implements UserManager {
-    private Provider provider ;
 
-
-    public boolean register(UserProfile userProfile) throws InputMismatchException {
+    @Override
+    public boolean register(User user) throws InputMismatchException {
         return false;
     }
 
-    public boolean modifyProfile(UserProfile userProfile,
-                                 Map<String, String> newValToOption) throws InputMismatchException {
+    @Override
+    public boolean modifyProfile(User user, Map<String, String> newValToOption) throws InputMismatchException {
         return false;
     }
 }
