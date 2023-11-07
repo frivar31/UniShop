@@ -4,13 +4,38 @@ import java.util.Date;
 
 public class Book extends Product {
 
-    private String ISBN ;
-    private String author ;
-    private String editor ;
-    private String genre ;
-    private Date pubDate ;
-    private int editorNum ;
-    private int volNum ;
+    private String ISBN;
+    private String author;
+    private String editor;
+    private String genre;
+    private Date pubDate;
+    private int editorNum;
+    private int volNum;
+
+    public Book(String title,
+                String desc,
+                String category,
+                Date date,
+                int initialQuantity,
+                double price,
+                int points,
+                String ISBN,
+                String author,
+                String editor,
+                String genre,
+                Date pubDate,
+                int editorNum,
+                int volNum
+    ) {
+        super(title, desc, category, date, initialQuantity, price, points);
+        this.ISBN = ISBN;
+        this.author = author;
+        this.editor = editor;
+        this.genre = genre;
+        this.pubDate = pubDate;
+        this.editorNum = editorNum;
+        this.volNum = volNum;
+    }
 
     public String getISBN() {
         return ISBN;
@@ -66,31 +91,6 @@ public class Book extends Product {
 
     public void setVolNum(int volNum) {
         this.volNum = volNum;
-    }
-
-    public Book(String title,
-                String desc,
-                String category,
-                Date date,
-                int initialQuantity,
-                double price,
-                int points,
-                String ISBN,
-                String author,
-                String editor,
-                String genre,
-                Date pubDate,
-                int editorNum,
-                int volNum
-                ) {
-        super(title, desc, category, date, initialQuantity, price, points);
-        this.ISBN = ISBN ;
-        this.author = author ;
-        this.editor = editor ;
-        this.genre = genre ;
-        this.pubDate = pubDate ;
-        this.editorNum = editorNum ;
-        this.volNum = volNum ;
     }
 
 
