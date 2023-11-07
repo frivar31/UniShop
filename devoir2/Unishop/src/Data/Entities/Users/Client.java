@@ -1,14 +1,41 @@
 package Data.Entities.Users;
 
-public class Client implements User{
+import Data.Entities.Order;
 
-    private ClientProfile clientProfile ;
-    public Client(ClientProfile clientProfile) {
-        this.clientProfile = clientProfile;
+import java.util.List;
+
+public class Client {
+
+    private String shipAddress;
+    private List<Order> orders;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String pseudo;
+    private int number;
+
+    public Client(String firstName,
+                  String lastName,
+                  String email,
+                  String pseudo,
+                  int number,
+                  String shipAddress) {
+        this.shipAddress = shipAddress;
     }
 
-    @Override
-    public UserProfile getProfile() {
-        return this.clientProfile ;
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void addOrder(Order order) {
+        this.orders.add(order);
+    }
+
+    public String getShipAddress() {
+        return this.shipAddress;
+    }
+
+    public void setShipAddress(String shipAddress) {
+        this.shipAddress = shipAddress;
     }
 }
