@@ -2,11 +2,11 @@ package Data.Entities.Products;
 
 import java.util.Date;
 
-public class Article extends Product {
+public class Hardware extends Product {
 
     private String brand ;
+    private Date lauchDate ;
     private String model ;
-    private String subCategory ;
 
     public String getBrand() {
         return brand;
@@ -14,6 +14,14 @@ public class Article extends Product {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public Date getLauchDate() {
+        return lauchDate;
+    }
+
+    public void setLauchDate(Date lauchDate) {
+        this.lauchDate = lauchDate;
     }
 
     public String getModel() {
@@ -32,18 +40,21 @@ public class Article extends Product {
         this.subCategory = subCategory;
     }
 
-    public Article(String title,
-                   String desc,
-                   String category,
-                   Date date,
-                   int initialQuantity,
-                   double price,
-                   int points,
-                   String brand,
-                   String model,
-                   String subCategory) {
+    private String subCategory ;
+    public Hardware(String title,
+                    String desc,
+                    String category,
+                    Date date,
+                    int initialQuantity,
+                    double price,
+                    int points,
+                    String brand,
+                    String model,
+                    Date launchDate,
+                    String subCategory) {
         super(title, desc, category, date, initialQuantity, price, points);
         this.brand = brand ;
+        this.lauchDate = launchDate ;
         this.model = model ;
         this.subCategory = subCategory ;
     }

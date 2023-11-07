@@ -2,12 +2,7 @@ package Data.Entities.Products;
 
 import java.util.Date;
 
-public class Article extends Product {
-
-    private String brand ;
-    private String model ;
-    private String subCategory ;
-
+public class DesktopTool extends Product {
     public String getBrand() {
         return brand;
     }
@@ -32,16 +27,19 @@ public class Article extends Product {
         this.subCategory = subCategory;
     }
 
-    public Article(String title,
-                   String desc,
-                   String category,
-                   Date date,
-                   int initialQuantity,
-                   double price,
-                   int points,
-                   String brand,
-                   String model,
-                   String subCategory) {
+    private String brand ;
+    private String model ;
+    private String subCategory ;
+    public DesktopTool(String title,
+                       String desc,
+                       String category,
+                       Date date,
+                       int initialQuantity,
+                       double price,
+                       int points,
+                       String brand,
+                       String model,
+                       String subCategory) {
         super(title, desc, category, date, initialQuantity, price, points);
         this.brand = brand ;
         this.model = model ;
