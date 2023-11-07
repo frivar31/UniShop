@@ -38,5 +38,5 @@ Thumbs.db
 
 # for the project #
 ###################
-.xml
-.iml
+*.xml
+*.iml
