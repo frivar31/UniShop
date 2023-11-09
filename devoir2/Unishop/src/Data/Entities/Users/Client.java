@@ -21,6 +21,7 @@ public class Client extends User{
                   String shipAddress) {
         super(firstName,lastName,email,pseudo,number);
         this.shipAddress = shipAddress;
+        this.shoppingCart=new ShoppingCart();
     }
 
     public List<Order> getOrders() {
