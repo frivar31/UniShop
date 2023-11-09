@@ -18,7 +18,7 @@ public class Client extends User{
                   String lastName,
                   String email,
                   String pseudo,
-                  int number,
+                  Long number,
                   String shipAddress) {
         super(firstName,lastName,email,pseudo,number);
         this.shipAddress = shipAddress;

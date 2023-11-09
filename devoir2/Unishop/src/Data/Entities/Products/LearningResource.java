@@ -14,7 +14,19 @@ public class LearningResource extends Product {
     private String ISBN;
 
 
-    public LearningResource(String title, String desc, String category, Date date, int initialQuantity, double price, int points, String ISBN, String auteur, String organisation, Date publishDate, Type type, String editionNumber) {
+    public LearningResource(String title,
+                            String desc,
+                            String category,
+                            Date date,
+                            int initialQuantity,
+                            double price,
+                            int points,
+                            String ISBN,
+                            String auteur,
+                            String organisation,
+                            Date publishDate,
+                            Type type,
+                            String editionNumber) {
         super(title, desc, category, date, initialQuantity, price, points);
         this.ISBN = ISBN;
         this.auteur = auteur;

@@ -1,4 +1,4 @@
-package Controller;
+package Controller.UserController;
 
 public class ProviderManager {
 

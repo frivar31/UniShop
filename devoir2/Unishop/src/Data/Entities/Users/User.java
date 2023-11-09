@@ -9,10 +9,10 @@ public class User {
     private int number;
 
     public User(String firstName,
-                  String lastName,
-                  String email,
-                  String pseudo,
-                  int number) {
+                String lastName,
+                String email,
+                String pseudo,
+                Long number) {
     }
 
 
