@@ -8,11 +8,6 @@ public class Client extends User{
 
     private String shipAddress;
     private List<Order> orders;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String pseudo;
-    private int number;
 
     public Client(String firstName,
                   String lastName,
