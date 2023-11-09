@@ -1,7 +1,7 @@
-import Controller.UserController.ClientManager;
 import Data.Entities.Users.Client;
 import Utils.PrintUtil;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Driver {
@@ -12,13 +12,20 @@ public class Driver {
         System.out.println("Choisissez une option: ");
         System.out.println("1. S'inscrire");
         System.out.println("2. Se connecter");
-        int option = Integer.parseInt(scanner.nextLine());
+
+        int option = scanner.nextInt();
         if (option == 1) {
             System.out.println("Choisissez une option d'inscription");
             System.out.println("1. Vendeur");
             System.out.println("2. Acheteur");
-            option = Integer.parseInt(scanner.nextLine());
+            try {
+                option = scanner.nextInt();
+            }
+            catch (InputMismatchException e) {
+                System.err.println("Ooops! option d'inscription doit etre chiffre 1 ou 2");
+            }
             if (option == 2) {
+                scanner = new Scanner(System.in) ;
                 System.out.print("Saisissez votre Prenom: ");
                 String firstName = scanner.nextLine();
 
@@ -32,18 +39,15 @@ public class Driver {
                 String email = scanner.nextLine();
 
                 scanner = new Scanner(System.in);
-                System.out.print("Saisissez votre numero: ");
-                String stream = scanner.nextLine();
-                long number = Long.parseLong(stream);
+                System.out.print("Saisissez votre numero: ") ;
+                long number = scanner.nextLong() ;
 
                 scanner = new Scanner(System.in);
                 System.out.print("Saisissez votre adresse de livraison: ");
                 String shipAddress = scanner.nextLine();
 
                 Client client = new Client(firstName, lastName, email, pseudo, number, shipAddress);
-                ClientManager clientManager = new ClientManager();
 
-                clientManager.register(client);
             }
 
         }
