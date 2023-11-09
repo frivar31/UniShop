@@ -1,14 +1,17 @@
 package Data.Entities.Products;
 
+import Data.Entities.Catalog;
+
 import java.util.Date;
 
 public class Product {
-
+    private static int counter = 0;
+    private int id;
     private String title;
     private String desc;
     private String category;
     private Date date;
-    private int initialQuantity;
+    private int quantity;
     private double price;
     private int points = 1;
 
@@ -16,18 +19,21 @@ public class Product {
                    String desc,
                    String category,
                    Date date,
-                   int initialQuantity,
+                   int quantity,
                    double price,
                    int points) {
+        this.id=counter++;
         this.title = title;
         this.desc = desc;
         this.category = category;
         this.date = date;
-        this.initialQuantity = initialQuantity;
+        this.quantity = quantity;
         this.price = price;
         this.points = points;
     }
-
+    public int getId(){
+        return id;
+    }
     public String getTitle() {
         return title;
     }
@@ -60,12 +66,12 @@ public class Product {
         this.date = date;
     }
 
-    public int getInitialQuantity() {
-        return initialQuantity;
+    public int getquantity() {
+        return quantity;
     }
 
-    public void setInitialQuantity(int initialQuantity) {
-        this.initialQuantity = initialQuantity;
+    public void setquantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public double getPrice() {
@@ -86,12 +92,13 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "{" +
+                "id='" + id + '\'' +
                 "title='" + title + '\'' +
                 ", desc='" + desc + '\'' +
                 ", category='" + category + '\'' +
                 ", date=" + date +
-                ", initialQuantity=" + initialQuantity +
+                ", quantity=" + quantity +
                 ", price=" + price +
                 ", points=" + points +
                 '}';

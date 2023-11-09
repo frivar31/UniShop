@@ -1,11 +1,20 @@
+import Data.Entities.Products.Product;
 import Data.Entities.Users.Client;
+import Data.Entities.Users.Seller;
 import Utils.PrintUtil;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Driver {
     public static void main(String[] args) {
+
+        Product product1=new Product("title","desc","cat",new Date(2023,11,01),5,1,1);
+        System.out.println(product1.getId());
+        Product product2=new Product("title","desc","cat",new Date(2023,11,01),5,1,1);
+        System.out.println(product2.getId());
+        Product product3=new Product("title","desc","cat",new Date(2023,11,01),5,1,1);
+        Seller seller=new Seller("olivier","dery","o@o.com","zupooli",514l,new ArrayList<Product>(Arrays.asList(product1,product2,product3)));
+        System.out.println(seller);
         PrintUtil.welcomeMessage("Bienvenue dans la Plateforme Unishop !!!");
 
         Scanner scanner = new Scanner(System.in);
