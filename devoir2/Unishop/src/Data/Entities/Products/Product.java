@@ -1,15 +1,15 @@
 package Data.Entities.Products;
-import java.math.BigDecimal;
-import java.util.Date ;
+
+import java.util.Date;
 
 public class Product {
 
-    private String title ;
-    private String desc ;
-    private String category ;
-    private Date date ;
-    private int initialQuantity ;
-    private double price ;
+    private String title;
+    private String desc;
+    private String category;
+    private Date date;
+    private int initialQuantity;
+    private double price;
     private int points = 1;
 
     public Product(String title,
@@ -82,5 +82,18 @@ public class Product {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "title='" + title + '\'' +
+                ", desc='" + desc + '\'' +
+                ", category='" + category + '\'' +
+                ", date=" + date +
+                ", initialQuantity=" + initialQuantity +
+                ", price=" + price +
+                ", points=" + points +
+                '}';
     }
 }
