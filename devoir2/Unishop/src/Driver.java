@@ -1,3 +1,4 @@
+import Data.Entities.Catalog;
 import Data.Entities.Products.Product;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
@@ -89,6 +90,10 @@ public class Driver {
                     shipAddress = scanner.nextLine();
                 } catch (InputMismatchException e) {
                     System.err.println("Ooops! adresse de livraison doit etre une chaine de caractere");
+                }
+                Client client=new Client(firstName,lastName,email,pseudo,number,shipAddress);
+                for (Object[] obj: Catalog.catalogMap.values()){
+                    System.out.println(obj[0]);
                 }
             }
 
