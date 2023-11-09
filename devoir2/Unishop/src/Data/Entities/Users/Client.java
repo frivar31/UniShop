@@ -1,13 +1,17 @@
 package Data.Entities.Users;
 
 import Data.Entities.Order;
+import Data.Entities.Products.Product;
+import Data.Entities.ShoppingCart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Client extends User{
 
     private String shipAddress;
     private List<Order> orders;
+    private ShoppingCart shoppingCart;
 
     public Client(String firstName,
                   String lastName,
@@ -33,5 +37,9 @@ public class Client extends User{
 
     public void setShipAddress(String shipAddress) {
         this.shipAddress = shipAddress;
+    }
+
+    public ShoppingCart getShoppingCart(){
+        return this.shoppingCart;
     }
 }

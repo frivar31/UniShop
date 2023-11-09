@@ -15,9 +15,6 @@ public class User {
                 Long number) {
     }
 
-
-
-
     public String getFirstName() {
         return firstName;
     }
