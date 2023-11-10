@@ -8,7 +8,7 @@ public class Book extends Product {
     private String author;
     private String editor;
     private String genre;
-    private Date pubDate;
+    private String pubDate;
     private int editorNum;
     private int volNum;
 
@@ -23,7 +23,7 @@ public class Book extends Product {
                 String author,
                 String editor,
                 String genre,
-                Date pubDate,
+                String pubDate,
                 int editorNum,
                 int volNum
     ) {
@@ -69,11 +69,11 @@ public class Book extends Product {
         this.genre = genre;
     }
 
-    public Date getPubDate() {
+    public String getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(Date pubDate) {
+    public void setPubDate(String pubDate) {
         this.pubDate = pubDate;
     }
 
