@@ -338,7 +338,4 @@ public class App {
         getSRegistrationStream(scanner) ;
     }
 
-    public static void main(String[] args) {
-        App.run();
-    }
 }
