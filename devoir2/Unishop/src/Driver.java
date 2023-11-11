@@ -38,6 +38,7 @@ public class Driver {
             if (option == 2) {
                 scanner = new Scanner(System.in);
                 System.out.println("Saisissez vos informations") ;
+
                 System.out.print("Prenom: ");
                 String firstName = null;
                 try {
@@ -46,6 +47,8 @@ public class Driver {
                     System.err.println("Ooops! prenom doit etre une chaine de caracteres");
                     System.exit(-1);
                 }
+
+                ///String firstName = App.getClientStrInput(scanner,"Prenom") ;
 
                 System.out.print("Nom: ");
                 String lastName = null ;
@@ -84,6 +87,8 @@ public class Driver {
                     System.err.println("Ooops! numero doit etre un nombre");
                     System.exit(-1);
                 }
+
+                //long number = App.getClientNumInput(scanner,"Numero") ;
 
                 scanner = new Scanner(System.in);
                 System.out.print("Adresse de livraison: ");
