@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -7,17 +6,26 @@ import java.util.Scanner;
 public class App {
 
     private static void getSRegistrationStream(Scanner scanner) {
+        List<Object> inputs = new ArrayList<>() ;
         System.out.println("Choisissez une option d'inscription");
             System.out.println("1. Vendeur");
             System.out.println("2. Acheteur");
             if (getOption(scanner) == 2) {
-                getClientRegistrationInfo(scanner);
+                getUserRegistrationInfo(scanner, inputs);
             }
-            else getSellerRegistrationInfo(scanner);
+            else {
+                System.out.println("Vous devez offrir au moins un produit à vendre au prealable") ;
+                System.out.println("1. Offrir un produit à vendre:") ;
+                if (getOption(scanner) == 1) {
+                    inputs = new ArrayList<>() ;
+                    getProductInfo(scanner,inputs);
+                }
+                inputs = new ArrayList<>() ;
+                getUserRegistrationInfo(scanner,inputs);
+            }
     }
 
-    private static void getLearningResourceInfo(Scanner scanner) {
-        List<Object> inputs = new ArrayList<>() ;
+    private static void getLearningResourceInfo(Scanner scanner, List<Object> inputs) {
         System.out.println("Donnez les informations du Livre/Manuel: ");
         String title = getUserStrInfo(scanner,"Titre") ;
         inputs.add(title) ;
@@ -241,21 +249,20 @@ public class App {
         }
     }
 
-    private static void getArticleInfo(Scanner scanner) {
+    private static void getArticleInfo(Scanner scanner, List<Object> inputs) {
         //To do
     }
 
-    private static void getMaterialInfo(Scanner scanner) {
+    private static void getMaterialInfo(Scanner scanner, List<Object> inputs) {
         //To do
     }
 
-    private static void getEquipmentInfo(Scanner scanner) {
+    private static void getEquipmentInfo(Scanner scanner, List<Object> inputs) {
         //To do
     }
 
-    private static void getBookInfo(Scanner scanner) {
+    private static void getBookInfo(Scanner scanner, List<Object> inputs) {
 
-        List<Object> inputs = new ArrayList<>() ;
         System.out.println("Donnez les informations du Livre/Manuel: ");
         String title = getUserStrInfo(scanner,"Titre") ;
         inputs.add(title) ;
@@ -475,42 +482,40 @@ public class App {
 
     }
 
-    private static void getSellerRegistrationInfo(Scanner scanner) {
-        List<Object> inputs = new ArrayList<>() ;
-        System.out.println("Vous devez offrir au moins un produit à vendre au prealable") ;
-        System.out.println("1. Offrir un produit à vendre:") ;
-        if (getOption(scanner) == 1) {
-            System.out.println("Choisissez une categorie de produit a vendre:") ;
-            System.out.println("1. Livres et Manuels");
-            System.out.println("2. Ressource d'apprentissage");
-            System.out.println("3. Article de papeterie") ;
-            System.out.println("4. Materiel informatique");
-            System.out.println("5. Equipement de bureau") ;
+    private static void getProductInfo(Scanner scanner, List<Object> inputs) {
+        System.out.println("Choisissez une categorie de produit a vendre:") ;
+        System.out.println("1. Livres et Manuels");
+        System.out.println("2. Ressource d'apprentissage");
+        System.out.println("3. Article de papeterie") ;
+        System.out.println("4. Materiel informatique");
+        System.out.println("5. Equipement de bureau") ;
 
-            int option = getOption(scanner) ;
-            scanner.nextLine() ;
+        int option = getOption(scanner) ;
+        scanner.nextLine() ;
 
-            switch (option) {
-                case 1:
-                    getBookInfo(scanner);
-                case 2:
-                    getLearningResourceInfo(scanner);
-                case 3:
-                    getArticleInfo(scanner);
-                case 4:
-                    getMaterialInfo(scanner);
-                case 5:
-                    getEquipmentInfo(scanner);
-
-            }
+        switch (option) {
+            case 1:
+                inputs = new ArrayList<>() ;
+                getBookInfo(scanner,inputs);
+            case 2:
+                inputs = new ArrayList<>() ;
+                getLearningResourceInfo(scanner,inputs);
+            case 3:
+                inputs = new ArrayList<>() ;
+                getArticleInfo(scanner,inputs);
+            case 4:
+                inputs = new ArrayList<>() ;
+                getMaterialInfo(scanner,inputs);
+            case 5:
+                inputs = new ArrayList<>() ;
+                getEquipmentInfo(scanner,inputs);
 
         }
     }
 
-    private static void getClientRegistrationInfo(Scanner scanner) {
+    private static void getUserRegistrationInfo(Scanner scanner, List<Object> inputs) {
         scanner = new Scanner(System.in);
         System.out.println("Saisissez vos informations") ;
-        List<Object> inputs = new ArrayList<>() ;
 
         String firstName = getUserStrInfo(scanner,"Prenom") ;
         inputs.add(firstName) ;
@@ -661,10 +666,31 @@ public class App {
         }
     }
 
+    private static void getClientServiceInfo(Scanner scanner) {
+        //To do
+    }
+    private static void getSellerServiceInfo(Scanner scanner) {
+        List<Object> inputs = new ArrayList<>() ;
+         System.out.println("Selectionner la tache que voulez effectuer: ");
+        System.out.println("1. Offrir un produit: ") ;
+        System.out.println("2. Changer l'etat d'une commande: ");
+        System.out.println("3. Afficher les metriques de mes activites: ");
+        System.out.println("4. Offrir une promotion sur un produit: ");
+
+        int option = getOption(scanner) ;
+        switch (option) {
+            case 1:
+                inputs = new ArrayList<>() ;
+                getProductInfo(scanner,inputs);
+        }
+    }
 
     public static void run() {
         Scanner scanner = new Scanner(System.in) ;
         getSRegistrationStream(scanner) ;
+        System.out.println("##########################");
+
+
     }
 
 }
