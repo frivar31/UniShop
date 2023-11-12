@@ -9,23 +9,23 @@ public class Book extends Product {
     private String editor;
     private String genre;
     private String pubDate;
-    private int editorNum;
-    private int volNum;
+    private long editorNum;
+    private long volNum;
 
     public Book(String title,
                 String desc,
                 String category,
-                Date date,
-                int initialQuantity,
+                String date,
+                long initialQuantity,
                 double price,
-                int points,
+                long points,
                 String ISBN,
                 String author,
                 String editor,
                 String genre,
                 String pubDate,
-                int editorNum,
-                int volNum
+                long editorNum,
+                long volNum
     ) {
         super(title, desc, category, date, initialQuantity, price, points);
         this.ISBN = ISBN;
@@ -77,7 +77,7 @@ public class Book extends Product {
         this.pubDate = pubDate;
     }
 
-    public int getEditorNum() {
+    public long getEditorNum() {
         return editorNum;
     }
 
@@ -85,12 +85,32 @@ public class Book extends Product {
         this.editorNum = editorNum;
     }
 
-    public int getVolNum() {
+    public long getVolNum() {
         return volNum;
     }
 
     public void setVolNum(int volNum) {
         this.volNum = volNum;
+    }
+
+    public String toString() {
+        return "{" +
+                "\n- id='" + id + '\'' +
+                "\n- title='" + title + '\'' +
+                "\n- desc='" + desc + '\'' +
+                "\n- category='" + category + '\'' +
+                "\n- date=" + date +
+                "\n- quantity=" + quantity +
+                "\n- price=" + price +
+                "\n- points=" + points +
+                "\n- ISBN='" + ISBN + '\'' +
+                "\n- author='" + author + '\'' +
+                "\n- editor='" + editor + '\'' +
+                "\n- genre='" + genre + '\'' +
+                "\n- pubDate=" + pubDate +
+                "\n- editorNum=" + editorNum +
+                "\n- volNum=" + volNum +
+                "\n}";
     }
 
 

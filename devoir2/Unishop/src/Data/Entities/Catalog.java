@@ -12,7 +12,7 @@ public class Catalog {
         for(Product product:products){
             Object[] obj=catalogMap.get(product.getId());
             Product current= (Product) obj[0];
-            if(current.getquantity()>1)product.setquantity(current.getquantity()-1);
+            if(current.getquantity()>1)product.setquantity((int) (current.getquantity()-1));
             else catalogMap.remove(product.getId());
         }
     }

@@ -5,7 +5,7 @@ import java.util.Date;
 public class Hardware extends Product {
 
     private String brand ;
-    private Date lauchDate ;
+    private String lauchDate ;
     private String model ;
 
     public String getBrand() {
@@ -16,11 +16,11 @@ public class Hardware extends Product {
         this.brand = brand;
     }
 
-    public Date getLauchDate() {
+    public String getLauchDate() {
         return lauchDate;
     }
 
-    public void setLauchDate(Date lauchDate) {
+    public void setLauchDate(String lauchDate) {
         this.lauchDate = lauchDate;
     }
 
@@ -44,15 +44,15 @@ public class Hardware extends Product {
     public Hardware(String title,
                     String desc,
                     String category,
-                    Date date,
-                    int initialQuantity,
+                    String date,
+                    long initialQuantity,
                     double price,
-                    int points,
+                    long points,
                     String brand,
                     String model,
-                    Date launchDate,
+                    String launchDate,
                     String subCategory) {
-        super(title, desc, category, date, initialQuantity, price, points);
+        super(title, desc, category, date, initialQuantity, price,points);
         this.brand = brand ;
         this.lauchDate = launchDate ;
         this.model = model ;

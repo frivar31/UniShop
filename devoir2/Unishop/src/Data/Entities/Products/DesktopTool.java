@@ -33,7 +33,7 @@ public class DesktopTool extends Product {
     public DesktopTool(String title,
                        String desc,
                        String category,
-                       Date date,
+                       String date,
                        int initialQuantity,
                        double price,
                        int points,

@@ -1,31 +1,33 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import Data.Entities.Products.Book;
+import Data.Entities.Products.LearningResource;
+import Data.Entities.Products.Product;
+import Data.Entities.Type;
+import Data.Entities.Users.Client;
+import Data.Entities.Users.Seller;
+import Data.Entities.Users.User;
+
+import java.util.*;
 
 public class App {
 
-    private static void getSRegistrationStream(Scanner scanner) {
+    private static User getRegistrationStream(Scanner scanner) {
         List<Object> inputs = new ArrayList<>() ;
+
+        User user = null;
         System.out.println("Choisissez une option d'inscription");
             System.out.println("1. Vendeur");
             System.out.println("2. Acheteur");
             if (getOption(scanner) == 2) {
-                getUserRegistrationInfo(scanner, inputs);
+                user = getClientRegistrationInfo(scanner, inputs);
             }
             else {
-                System.out.println("Vous devez offrir au moins un produit à vendre au prealable") ;
-                System.out.println("1. Offrir un produit à vendre:") ;
-                if (getOption(scanner) == 1) {
-                    inputs = new ArrayList<>() ;
-                    getProductInfo(scanner,inputs);
-                }
                 inputs = new ArrayList<>() ;
-                getUserRegistrationInfo(scanner,inputs);
+                user = getSellerRegistrationInfo(scanner,inputs);
             }
+            return user ;
     }
 
-    private static void getLearningResourceInfo(Scanner scanner, List<Object> inputs) {
+    private static LearningResource getLearningResourceInfo(Scanner scanner, List<Object> inputs) {
         System.out.println("Donnez les informations du Livre/Manuel: ");
         String title = getUserStrInfo(scanner,"Titre") ;
         inputs.add(title) ;
@@ -56,13 +58,13 @@ public class App {
         System.out.println("1. imprime");
         System.out.println("2. electronique");
 
-        String type = null ;
+        Type type = null ;
         if(getOption(scanner) == 1) {
-            type = "imprime" ;
+            type = Type.printed ;
             inputs.add(type) ;
         }
         else {
-            type = "electronique" ;
+            type = Type.electronic ;
             inputs.add(type) ;
         }
         scanner.nextLine() ;
@@ -189,11 +191,11 @@ public class App {
                             System.out.println("1. imprime");
                             System.out.println("2. electronique");
                             if(getOption(scanner) == 1) {
-                                type = "imprime" ;
+                                type = Type.printed ;
                                 inputs.add(pos,type) ;
                             }
                             else {
-                                type = "electronique" ;
+                                type = Type.electronic;
                                 inputs.add(pos,type) ;
                             }
                             scanner.nextLine() ;
@@ -247,6 +249,9 @@ public class App {
 
             }
         }
+        return new LearningResource(title,desc,"Ressource d'apprentissage",
+                Calendar.getInstance().getTime().toString(),
+                initQuantity,price,points,isbn,author,org,pubDate,type,editionNum) ;
     }
 
     private static void getArticleInfo(Scanner scanner, List<Object> inputs) {
@@ -261,7 +266,7 @@ public class App {
         //To do
     }
 
-    private static void getBookInfo(Scanner scanner, List<Object> inputs) {
+    private static Product getBookInfo(Scanner scanner, List<Object> inputs) {
 
         System.out.println("Donnez les informations du Livre/Manuel: ");
         String title = getUserStrInfo(scanner,"Titre") ;
@@ -311,7 +316,6 @@ public class App {
 
         boolean success = false ;
         long points = 1 ;
-
         if(getOption(scanner) == 1) {
 
             while (!success) {
@@ -330,7 +334,6 @@ public class App {
 
         success = false ;
         while (!success) {
-
             System.out.println();
             printInfo(inputs);
             System.out.println();
@@ -342,8 +345,6 @@ public class App {
 
             if (getOption(scanner) == 1) {
                 System.out.println("produit ajoutes avec succes");
-                success = true ;
-                System.exit(-1);
             }
             else {
                 System.out.println("Voulez vous modifier les informations du produit:  ");
@@ -471,24 +472,28 @@ public class App {
                         else {
                             System.out.println("Option invalide");
                         }
+
                     }
-                    success = false ;
                 }
 
             }
+            success = true ;
         }
 
-
+        return new Book(title,desc,"Livre ou Manuel",
+                Calendar.getInstance().getTime().toString(),
+                initQuantity,price,points,isbn,author,editor,genre,pubDate,editionNum,volNum) ;
 
     }
 
-    private static void getProductInfo(Scanner scanner, List<Object> inputs) {
+    private static Product getProductInfo(Scanner scanner, List<Object> inputs) {
         System.out.println("Choisissez une categorie de produit a vendre:") ;
         System.out.println("1. Livres et Manuels");
         System.out.println("2. Ressource d'apprentissage");
         System.out.println("3. Article de papeterie") ;
         System.out.println("4. Materiel informatique");
         System.out.println("5. Equipement de bureau") ;
+        Product product = null;
 
         int option = getOption(scanner) ;
         scanner.nextLine() ;
@@ -496,24 +501,37 @@ public class App {
         switch (option) {
             case 1:
                 inputs = new ArrayList<>() ;
-                getBookInfo(scanner,inputs);
+                product = getBookInfo(scanner,inputs);
+                break ;
             case 2:
                 inputs = new ArrayList<>() ;
-                getLearningResourceInfo(scanner,inputs);
+                product = getLearningResourceInfo(scanner,inputs);
+                break;
             case 3:
                 inputs = new ArrayList<>() ;
                 getArticleInfo(scanner,inputs);
+                break;
             case 4:
                 inputs = new ArrayList<>() ;
                 getMaterialInfo(scanner,inputs);
+                break;
             case 5:
                 inputs = new ArrayList<>() ;
                 getEquipmentInfo(scanner,inputs);
-
+                break;
         }
+        return product ;
     }
 
-    private static void getUserRegistrationInfo(Scanner scanner, List<Object> inputs) {
+    private static Seller getSellerRegistrationInfo(Scanner scanner, List<Object> inputs) {
+        System.out.println("Vous devez offrir au moins un produit à vendre au prealable") ;
+        System.out.println("1. Offrir un produit à vendre:") ;
+        Product product = null ;
+
+        if (getOption(scanner) == 1) {
+            inputs = new ArrayList<>() ;
+            product = getProductInfo(scanner,inputs);
+        }
         scanner = new Scanner(System.in);
         System.out.println("Saisissez vos informations") ;
 
@@ -614,6 +632,113 @@ public class App {
 
             }
         }
+        ArrayList<Product> products = new ArrayList<Product>() ;
+        products.add(product) ;
+        return new Seller(firstName,lastName,email,pseudo,number, products) ;
+    }
+
+    private static Client getClientRegistrationInfo(Scanner scanner, List<Object> inputs) {
+        scanner = new Scanner(System.in);
+        System.out.println("Saisissez vos informations") ;
+
+        String firstName = getUserStrInfo(scanner,"Prenom") ;
+        inputs.add(firstName) ;
+        String lastName = getUserStrInfo(scanner,"Nom") ;
+        inputs.add(lastName) ;
+        String email = getUserStrInfo(scanner,"Email") ;
+        inputs.add(email) ;
+        String pseudo = getUserStrInfo(scanner, "pseudo") ;
+        inputs.add(pseudo) ;
+        long number = getUserNumInfo(scanner,"Numero") ;
+        scanner.nextLine() ;
+        inputs.add(number) ;
+        String shipAddress = getUserStrInfo(scanner,"Adresse de livraison") ;
+        inputs.add(shipAddress) ;
+
+        boolean success = false ;
+        while (!success) {
+
+            System.out.println();
+            printInfo(inputs);
+            System.out.println();
+
+            System.out.println("Confirmer vos informations: ");
+            System.out.println("1. oui");
+            System.out.println("2. non");
+            System.out.println();
+
+            if (getOption(scanner) == 1) {
+                System.out.println("votre compte a ete cree avec succes");
+                success = true ;
+            }
+            else {
+                System.out.println("Voulez vous modifier vos informations:  ");
+                System.out.println("1. oui");
+                System.out.println("2. non");
+                System.out.println();
+
+                if (getOption(scanner) == 1) {
+                    System.out.println("Choisir information a modifier: ");
+
+
+                    while (!success) {
+                        System.out.println("1. Prenom") ;
+                        System.out.println("2. Nom");
+                        System.out.println("3. Email");
+                        System.out.println("4. Pseudo");
+                        System.out.println("5. Number");
+
+                        int option = getOption(scanner) ;
+                        scanner.nextLine() ;
+
+                        switch (option) {
+                            case 1:
+                                int pos = inputs.indexOf(firstName) ;
+                                inputs.remove(firstName) ;
+                                firstName = getUserStrInfo(scanner,"Prenom") ;
+                                success = true ;
+                                inputs.add(pos,firstName) ;
+                                break;
+                            case 2:
+                                pos = inputs.indexOf(lastName) ;
+                                inputs.remove(lastName) ;
+                                lastName = getUserStrInfo(scanner,"Nom") ;
+                                success = true ;
+                                inputs.add(pos,lastName) ;
+                                break;
+                            case 3:
+                                pos = inputs.indexOf(email) ;
+                                inputs.remove(email) ;
+                                email = getUserStrInfo(scanner,"Email") ;
+                                success = true ;
+                                inputs.add(pos,email) ;
+                                break;
+                            case 4:
+                                pos = inputs.indexOf(pseudo) ;
+                                inputs.remove(pseudo) ;
+                                pseudo = getUserStrInfo(scanner, "Pseudo") ;
+                                success = true ;
+                                inputs.add(pos,pseudo) ;
+                                break;
+                            case 5:
+                                pos = inputs.indexOf(number) ;
+                                inputs.remove(number) ;
+                                number = getUserNumInfo(scanner,"Numero") ;
+                                success = true ;
+                                inputs.add(pos,number) ;
+                                scanner.nextLine() ;
+                                break;
+                            default:
+                                System.out.println("option doit etre compris entre 1 et 5");
+                                break;
+                        }
+                        success = false ;
+                    }
+                }
+            }
+            success = true ;
+        }
+        return new Client(firstName,lastName,email,pseudo,number,shipAddress) ;
     }
 
     private static int getOption(Scanner scanner) {
@@ -645,16 +770,18 @@ public class App {
         return input ;
     }
 
+    //To fix
     private static long getUserNumInfo(Scanner scanner, String info) {
         System.out.print(info+": ");
         long input = 0;
-        boolean success = false ;
-        while (!success) {
+        boolean success = true ;
+        while (success) {
             try {
                 input = scanner.nextLong();
-                success = true ;
+                success = false ;
             } catch (InputMismatchException e) {
                 System.err.println("Ooops! "+info+" doit etre un nombre");
+                scanner.next();
             }
         }
         return input ;
@@ -668,26 +795,42 @@ public class App {
 
     private static void getClientServiceInfo(Scanner scanner) {
         //To do
+        List<Object> inputs = new ArrayList<>() ;
+        System.out.println("Selectionner la tache que voulez effectuer: ");
+        System.out.println("1. Chercher un produit: ") ;
+
+
     }
     private static void getSellerServiceInfo(Scanner scanner) {
         List<Object> inputs = new ArrayList<>() ;
-         System.out.println("Selectionner la tache que voulez effectuer: ");
+        System.out.println("Selectionner la tache que voulez effectuer: ");
         System.out.println("1. Offrir un produit: ") ;
         System.out.println("2. Changer l'etat d'une commande: ");
-        System.out.println("3. Afficher les metriques de mes activites: ");
-        System.out.println("4. Offrir une promotion sur un produit: ");
 
         int option = getOption(scanner) ;
         switch (option) {
             case 1:
                 inputs = new ArrayList<>() ;
                 getProductInfo(scanner,inputs);
+                break ;
+            case 2 :
+                inputs = new ArrayList<>() ;
+                //getSearchInfo(scanner,inputs);
         }
     }
 
-    public static void run() {
+    private static void searchProduct(Scanner scanner , List<Object> inputs) {
+
+    }
+
+
+
+    public static <Users> void run() {
         Scanner scanner = new Scanner(System.in) ;
-        getSRegistrationStream(scanner) ;
+        List<Users> users = new ArrayList<>() ;
+
+        User user = getRegistrationStream(scanner) ;
+        if (user instanceof Seller) System.out.println(((Seller) user).getProducts());
         System.out.println("##########################");
 
 

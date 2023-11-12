@@ -1,27 +1,25 @@
 package Data.Entities.Products;
 
-import Data.Entities.Catalog;
-
 import java.util.Date;
 
 public class Product {
-    private static int counter = 0;
-    private int id;
-    private String title;
-    private String desc;
-    private String category;
-    private Date date;
-    private int quantity;
-    private double price;
-    private int points = 1;
+    protected static int counter = 0;
+    protected int id;
+    protected String title;
+    protected String desc;
+    protected String category;
+    protected String date;
+    protected long quantity;
+    protected double price;
+    protected long points = 1;
 
     public Product(String title,
                    String desc,
                    String category,
-                   Date date,
-                   int quantity,
+                   String date,
+                   long quantity,
                    double price,
-                   int points) {
+                   long points) {
         this.id=counter++;
         this.title = title;
         this.desc = desc;
@@ -58,15 +56,15 @@ public class Product {
         this.category = category;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public int getquantity() {
+    public long getquantity() {
         return quantity;
     }
 
@@ -82,7 +80,7 @@ public class Product {
         this.price = price;
     }
 
-    public int getPoints() {
+    public long getPoints() {
         return points;
     }
 
@@ -93,14 +91,14 @@ public class Product {
     @Override
     public String toString() {
         return "{" +
-                "id='" + id + '\'' +
-                "title='" + title + '\'' +
-                ", desc='" + desc + '\'' +
-                ", category='" + category + '\'' +
-                ", date=" + date +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", points=" + points +
-                '}';
+                "\n- id='" + id + '\'' +
+                "\n- title='" + title + '\'' +
+                "\n- desc='" + desc + '\'' +
+                "\n- category='" + category + '\'' +
+                "\n- date=" + date +
+                "\n- quantity=" + quantity +
+                "\n- price=" + price +
+                "\n- points=" + points +
+                "\n}";
     }
 }

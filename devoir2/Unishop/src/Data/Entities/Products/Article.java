@@ -35,10 +35,10 @@ public class Article extends Product {
     public Article(String title,
                    String desc,
                    String category,
-                   Date date,
-                   int initialQuantity,
+                   String date,
+                   long initialQuantity,
                    double price,
-                   int points,
+                   long points,
                    String brand,
                    String model,
                    String subCategory) {

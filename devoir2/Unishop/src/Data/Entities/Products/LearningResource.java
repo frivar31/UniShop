@@ -8,25 +8,25 @@ public class LearningResource extends Product {
 
     private final String auteur;
     private final String organisation;
-    private final Date publishDate;
+    private final String publishDate;
     private final Type type;
-    private final String editionNumber;
+    private final Long editionNumber;
     private String ISBN;
 
 
     public LearningResource(String title,
                             String desc,
                             String category,
-                            Date date,
-                            int initialQuantity,
+                            String date,
+                            long initialQuantity,
                             double price,
-                            int points,
+                            long points,
                             String ISBN,
                             String auteur,
                             String organisation,
-                            Date publishDate,
+                            String publishDate,
                             Type type,
-                            String editionNumber) {
+                            Long editionNumber) {
         super(title, desc, category, date, initialQuantity, price, points);
         this.ISBN = ISBN;
         this.auteur = auteur;
@@ -44,7 +44,7 @@ public class LearningResource extends Product {
         return organisation;
     }
 
-    public Date getPublishDate() {
+    public String getPublishDate() {
         return publishDate;
     }
 
@@ -52,7 +52,7 @@ public class LearningResource extends Product {
         return type;
     }
 
-    public String getEditionNumber() {
+    public Long getEditionNumber() {
         return editionNumber;
     }
 
