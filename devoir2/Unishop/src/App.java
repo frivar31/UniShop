@@ -1,6 +1,4 @@
-import Data.Entities.Products.Book;
-import Data.Entities.Products.LearningResource;
-import Data.Entities.Products.Product;
+import Data.Entities.Products.*;
 import Data.Entities.Type;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
@@ -254,16 +252,483 @@ public class App {
                 initQuantity,price,points,isbn,author,org,pubDate,type,editionNum) ;
     }
 
-    private static void getArticleInfo(Scanner scanner, List<Object> inputs) {
-        //To do
+    private static Product getArticleInfo(Scanner scanner, List<Object> inputs) {
+
+        System.out.println("Donnez les informations de l'Article: ");
+        String title = getUserStrInfo(scanner,"Titre") ;
+        inputs.add(title) ;
+        String desc = getUserStrInfo(scanner,"Description") ;
+        inputs.add(desc) ;
+        String brand = getUserStrInfo(scanner,"Marque") ;
+        inputs.add(brand) ;
+        String model = getUserStrInfo(scanner,"Model") ;
+        inputs.add(model) ;
+        String subCategory = getUserStrInfo(scanner,"Sous-catégorie exemple: cahier, crayon, surligneur:") ;
+        inputs.add(subCategory) ;
+
+        long initQuantity = getUserNumInfo(scanner,"Quantite") ;
+        inputs.add(initQuantity) ;
+
+        System.out.println("offrir des points bonus pour le produit:") ;
+        System.out.println("1. oui");
+        System.out.println("2. non");
+
+        boolean success = false ;
+        long points = 1 ;
+        if(getOption(scanner) == 1) {
+
+            while (!success) {
+                points = getUserNumInfo(scanner,"bonus/$") ;
+                if (points >= 20) {
+                    System.out.println("point bonus par $ ne peut pas depasser 20");
+                }
+                else success = true ;
+            }
+
+        }
+        inputs.add(points) ;
+
+        double price = getUserNumInfo(scanner,"Prix") ;
+        inputs.add(price) ;
+
+        success = false ;
+        while (!success) {
+            System.out.println();
+            printInfo(inputs);
+            System.out.println();
+
+            System.out.println("Valider les informations du produit ");
+            System.out.println("1. oui");
+            System.out.println("2. non");
+            System.out.println();
+
+            if (getOption(scanner) == 1) {
+                System.out.println("produit ajoutes avec succes");
+            }
+            else {
+                System.out.println("Voulez vous modifier les informations du produit:  ");
+                System.out.println("1. oui");
+                System.out.println("2. non");
+                System.out.println();
+
+                if (getOption(scanner) == 1) {
+                    System.out.println("Choisir information a modifier: ");
+
+                    while (!success) {
+                        System.out.println("1. Titre") ;
+                        System.out.println("2. Description");
+                        System.out.println("3. Marque");
+                        System.out.println("4. Model");
+                        System.out.println("5. sous-categorie");
+                        System.out.println("6. Quantite") ;
+                        System.out.println("7. bonus/$: ");
+                        System.out.println("8. Price: ");
+
+                        int option = getOption(scanner) ;
+                        scanner.nextLine() ;
+                        int pos = -1;
+                        if (option == 1) {
+                            pos = inputs.indexOf(title);
+                            inputs.remove(title) ;
+                            title = getUserStrInfo(scanner, "Title");
+                            success = true;
+                            inputs.add(pos, title);
+                        }
+                        else if (option == 2) {
+                            pos = inputs.indexOf(desc);
+                            inputs.remove(desc) ;
+                            desc = getUserStrInfo(scanner, "Description");
+                            success = true;
+                            inputs.add(pos, desc);
+                        }
+                        else if (option == 3) {
+                            pos = inputs.indexOf(brand);
+                            inputs.remove(brand) ;
+                            brand = getUserStrInfo(scanner, "Marque");
+                            success = true;
+                            inputs.add(pos, brand);
+                        }
+                        else if (option == 4) {
+                            pos = inputs.indexOf(model);
+                            inputs.remove(model) ;
+                            model = getUserStrInfo(scanner, "Modèle");
+                            success = true;
+                            inputs.add(pos, model);
+                        }
+                        else if (option == 5) {
+                            pos = inputs.indexOf(subCategory);
+                            inputs.remove(subCategory) ;
+                            subCategory = getUserStrInfo(scanner, "sous-categorie");
+                            success = true;
+                            inputs.add(pos, subCategory);
+                        }
+                        else if (option == 6) {
+                            pos = inputs.indexOf(initQuantity);
+                            inputs.remove(initQuantity) ;
+                            initQuantity =  getUserNumInfo(scanner,"Quantite") ;
+                            if (pos != -1)  inputs.add(pos, initQuantity);
+                            else inputs.add(initQuantity) ;
+                            success = true ;
+                            scanner.nextLine() ;
+                        }
+                        else if (option == 7) {
+                            pos = inputs.indexOf(points);
+                            inputs.remove(points) ;
+                            while (!success) {
+                                points =  getUserNumInfo(scanner,"bonus/$") ;
+                                if (points >= 20) {
+                                    System.out.println("point bonus par $ ne peut pas depasser 20");
+                                }
+                                else success = true ;
+                                inputs.add(pos, points);
+                                scanner.nextLine() ;
+                            }
+                        }
+                        else if (option == 8) {
+                            pos = inputs.indexOf(price);
+                            inputs.remove(price) ;
+                            price =  getUserNumInfo(scanner,"Prix") ;
+                            inputs.add(pos, price);
+                            success = true ;
+                            scanner.nextLine() ;
+                        }
+                        else {
+                            System.out.println("Option invalide");
+                        }
+
+                    }
+                }
+
+            }
+            success = true ;
+        }
+
+        return new Article(title,desc,"Article",
+                Calendar.getInstance().getTime().toString(),
+                initQuantity,price,points,brand,model,subCategory) ;
+
     }
 
-    private static void getMaterialInfo(Scanner scanner, List<Object> inputs) {
-        //To do
+        private static Product getMaterialInfo(Scanner scanner, List<Object> inputs) {
+        System.out.println("Donnez les informations du materiel: ");
+        String title = getUserStrInfo(scanner,"Titre") ;
+        inputs.add(title) ;
+        String desc = getUserStrInfo(scanner,"Description") ;
+        inputs.add(desc) ;
+        String brand = getUserStrInfo(scanner,"Marque") ;
+        inputs.add(brand) ;
+        String model = getUserStrInfo(scanner,"Model") ;
+        inputs.add(model) ;
+        String subCategory = getUserStrInfo(scanner,"Sous-catégorie exemple: ordinateur, souris, clavier, disque dur externe") ;
+        inputs.add(subCategory) ;
+        String launchDate = getUserStrInfo(scanner,"date de lancement (DD/MM/YYYY)") ;
+        inputs.add(launchDate) ;
+
+        long initQuantity = getUserNumInfo(scanner,"Quantite") ;
+        inputs.add(initQuantity) ;
+
+        System.out.println("offrir des points bonus pour le produit:") ;
+        System.out.println("1. oui");
+        System.out.println("2. non");
+
+        boolean success = false ;
+        long points = 1 ;
+        if(getOption(scanner) == 1) {
+
+            while (!success) {
+                points = getUserNumInfo(scanner,"bonus/$") ;
+                if (points >= 20) {
+                    System.out.println("point bonus par $ ne peut pas depasser 20");
+                }
+                else success = true ;
+            }
+
+        }
+        inputs.add(points) ;
+
+        double price = getUserNumInfo(scanner,"Prix") ;
+        inputs.add(price) ;
+
+        success = false ;
+        while (!success) {
+            System.out.println();
+            printInfo(inputs);
+            System.out.println();
+
+            System.out.println("Valider les informations du produit ");
+            System.out.println("1. oui");
+            System.out.println("2. non");
+            System.out.println();
+
+            if (getOption(scanner) == 1) {
+                System.out.println("produit ajoutes avec succes");
+            }
+            else {
+                System.out.println("Voulez vous modifier les informations du produit:  ");
+                System.out.println("1. oui");
+                System.out.println("2. non");
+                System.out.println();
+
+                if (getOption(scanner) == 1) {
+                    System.out.println("Choisir information a modifier: ");
+
+                    while (!success) {
+                        System.out.println("1. Titre") ;
+                        System.out.println("2. Description");
+                        System.out.println("3. Marque");
+                        System.out.println("4. Model");
+                        System.out.println("5. sous-categorie");
+                        System.out.println("6. Date de lancement");
+                        System.out.println("7. Quantite") ;
+                        System.out.println("8. bonus/$: ");
+                        System.out.println("9. Price: ");
+
+                        int option = getOption(scanner) ;
+                        scanner.nextLine() ;
+                        int pos = -1;
+                        if (option == 1) {
+                            pos = inputs.indexOf(title);
+                            inputs.remove(title) ;
+                            title = getUserStrInfo(scanner, "Title");
+                            success = true;
+                            inputs.add(pos, title);
+                        }
+                        else if (option == 2) {
+                            pos = inputs.indexOf(desc);
+                            inputs.remove(desc) ;
+                            desc = getUserStrInfo(scanner, "Description");
+                            success = true;
+                            inputs.add(pos, desc);
+                        }
+                        else if (option == 3) {
+                            pos = inputs.indexOf(brand);
+                            inputs.remove(brand) ;
+                            brand = getUserStrInfo(scanner, "Marque");
+                            success = true;
+                            inputs.add(pos, brand);
+                        }
+                        else if (option == 4) {
+                            pos = inputs.indexOf(model);
+                            inputs.remove(model) ;
+                            model = getUserStrInfo(scanner, "Modèle");
+                            success = true;
+                            inputs.add(pos, model);
+                        }
+                        else if (option == 5) {
+                            pos = inputs.indexOf(subCategory);
+                            inputs.remove(subCategory) ;
+                            subCategory = getUserStrInfo(scanner, "sous-categorie");
+                            success = true;
+                            inputs.add(pos, subCategory);
+                        }
+                        else if (option == 6) {
+                            pos = inputs.indexOf(launchDate);
+                            inputs.remove(launchDate) ;
+                            launchDate = getUserStrInfo(scanner, "Date de lancement");
+                            success = true;
+                            inputs.add(pos, launchDate);
+                        }
+
+                        else if (option == 7) {
+                            pos = inputs.indexOf(initQuantity);
+                            inputs.remove(initQuantity) ;
+                            initQuantity =  getUserNumInfo(scanner,"Quantite") ;
+                            if (pos != -1)  inputs.add(pos, initQuantity);
+                            else inputs.add(initQuantity) ;
+                            success = true ;
+                            scanner.nextLine() ;
+                        }
+                        else if (option == 8) {
+                            pos = inputs.indexOf(points);
+                            inputs.remove(points) ;
+                            while (!success) {
+                                points =  getUserNumInfo(scanner,"bonus/$") ;
+                                if (points >= 20) {
+                                    System.out.println("point bonus par $ ne peut pas depasser 20");
+                                }
+                                else success = true ;
+                                inputs.add(pos, points);
+                                scanner.nextLine() ;
+                            }
+                        }
+                        else if (option == 9) {
+                            pos = inputs.indexOf(price);
+                            inputs.remove(price) ;
+                            price =  getUserNumInfo(scanner,"Prix") ;
+                            inputs.add(pos, price);
+                            success = true ;
+                            scanner.nextLine() ;
+                        }
+                        else {
+                            System.out.println("Option invalide");
+                        }
+
+                    }
+                }
+
+            }
+            success = true ;
+        }
+
+        return new Hardware(title,desc,"Matériel informatique",
+                Calendar.getInstance().getTime().toString(),
+                initQuantity,price,points,brand,model,launchDate,subCategory);
     }
 
-    private static void getEquipmentInfo(Scanner scanner, List<Object> inputs) {
-        //To do
+    private static Product getEquipmentInfo(Scanner scanner, List<Object> inputs) {
+
+        System.out.println("Donnez les informations de l'equipement");
+        String title = getUserStrInfo(scanner,"Titre") ;
+        inputs.add(title) ;
+        String desc = getUserStrInfo(scanner,"Description") ;
+        inputs.add(desc) ;
+        String brand = getUserStrInfo(scanner,"Marque") ;
+        inputs.add(brand) ;
+        String model = getUserStrInfo(scanner,"Model") ;
+        inputs.add(model) ;
+        String subCategory = getUserStrInfo(scanner,"Sous-catégorie exemple: table, chaise, lampe:") ;
+        inputs.add(subCategory) ;
+
+        long initQuantity = getUserNumInfo(scanner,"Quantite") ;
+        inputs.add(initQuantity) ;
+
+        System.out.println("offrir des points bonus pour le produit:") ;
+        System.out.println("1. oui");
+        System.out.println("2. non");
+
+        boolean success = false ;
+        long points = 1 ;
+        if(getOption(scanner) == 1) {
+
+            while (!success) {
+                points = getUserNumInfo(scanner,"bonus/$") ;
+                if (points >= 20) {
+                    System.out.println("point bonus par $ ne peut pas depasser 20");
+                }
+                else success = true ;
+            }
+
+        }
+        inputs.add(points) ;
+
+        double price = getUserNumInfo(scanner,"Prix") ;
+        inputs.add(price) ;
+
+        success = false ;
+        while (!success) {
+            System.out.println();
+            printInfo(inputs);
+            System.out.println();
+
+            System.out.println("Valider les informations du produit ");
+            System.out.println("1. oui");
+            System.out.println("2. non");
+            System.out.println();
+
+            if (getOption(scanner) == 1) {
+                System.out.println("produit ajoutes avec succes");
+            }
+            else {
+                System.out.println("Voulez vous modifier les informations du produit:  ");
+                System.out.println("1. oui");
+                System.out.println("2. non");
+                System.out.println();
+
+                if (getOption(scanner) == 1) {
+                    System.out.println("Choisir information a modifier: ");
+
+                    while (!success) {
+                        System.out.println("1. Titre") ;
+                        System.out.println("2. Description");
+                        System.out.println("3. Marque");
+                        System.out.println("4. Model");
+                        System.out.println("5. sous-categorie");
+                        System.out.println("5. Quantite") ;
+                        System.out.println("6. bonus/$: ");
+                        System.out.println("7. Price: ");
+
+                        int option = getOption(scanner) ;
+                        scanner.nextLine() ;
+                        int pos = -1;
+                        if (option == 1) {
+                            pos = inputs.indexOf(title);
+                            inputs.remove(title) ;
+                            title = getUserStrInfo(scanner, "Title");
+                            success = true;
+                            inputs.add(pos, title);
+                        }
+                        else if (option == 2) {
+                            pos = inputs.indexOf(desc);
+                            inputs.remove(desc) ;
+                            desc = getUserStrInfo(scanner, "Description");
+                            success = true;
+                            inputs.add(pos, desc);
+                        }
+                        else if (option == 3) {
+                            pos = inputs.indexOf(brand);
+                            inputs.remove(brand) ;
+                            brand = getUserStrInfo(scanner, "Marque");
+                            success = true;
+                            inputs.add(pos, brand);
+                        }
+                        else if (option == 4) {
+                            pos = inputs.indexOf(model);
+                            inputs.remove(model) ;
+                            model = getUserStrInfo(scanner, "Modèle");
+                            success = true;
+                            inputs.add(pos, model);
+                        }
+                        else if (option == 5) {
+                            pos = inputs.indexOf(subCategory);
+                            inputs.remove(subCategory) ;
+                            subCategory = getUserStrInfo(scanner, "sous-categorie");
+                            success = true;
+                            inputs.add(pos, subCategory);
+                        }
+                        else if (option == 6) {
+                            pos = inputs.indexOf(initQuantity);
+                            inputs.remove(initQuantity) ;
+                            initQuantity =  getUserNumInfo(scanner,"Quantite") ;
+                            if (pos != -1)  inputs.add(pos, initQuantity);
+                            else inputs.add(initQuantity) ;
+                            success = true ;
+                            scanner.nextLine() ;
+                        }
+                        else if (option == 7) {
+                            pos = inputs.indexOf(points);
+                            inputs.remove(points) ;
+                            while (!success) {
+                                points =  getUserNumInfo(scanner,"bonus/$") ;
+                                if (points >= 20) {
+                                    System.out.println("point bonus par $ ne peut pas depasser 20");
+                                }
+                                else success = true ;
+                                inputs.add(pos, points);
+                                scanner.nextLine() ;
+                            }
+                        }
+                        else if (option == 8) {
+                            pos = inputs.indexOf(price);
+                            inputs.remove(price) ;
+                            price =  getUserNumInfo(scanner,"Prix") ;
+                            inputs.add(pos, price);
+                            success = true ;
+                            scanner.nextLine() ;
+                        }
+                        else {
+                            System.out.println("Option invalide");
+                        }
+
+                    }
+                }
+
+            }
+            success = true ;
+        }
+
+        return new DesktopTool(title,desc,"Article",
+                Calendar.getInstance().getTime().toString(),
+                initQuantity,price,points,brand,model,subCategory) ;
     }
 
     private static Product getBookInfo(Scanner scanner, List<Object> inputs) {
@@ -798,6 +1263,7 @@ public class App {
         List<Object> inputs = new ArrayList<>() ;
         System.out.println("Selectionner la tache que voulez effectuer: ");
         System.out.println("1. Chercher un produit: ") ;
+
 
 
     }

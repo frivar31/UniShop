@@ -34,9 +34,9 @@ public class DesktopTool extends Product {
                        String desc,
                        String category,
                        String date,
-                       int initialQuantity,
+                       long initialQuantity,
                        double price,
-                       int points,
+                       long points,
                        String brand,
                        String model,
                        String subCategory) {
@@ -45,4 +45,19 @@ public class DesktopTool extends Product {
         this.model = model ;
         this.subCategory = subCategory ;
     }
+    public String toString() {
+        return "{" +
+                "\n- id='" + id + '\'' +
+                "\n- title='" + title + '\'' +
+                "\n- desc='" + desc + '\'' +
+                "\n- date='" + date + '\'' +
+                "\n- quantity=" + quantity +
+                "\n- price=" + price +
+                "\n- points=" + points +
+                "\n- brand='" + brand + '\'' +
+                "\n- model='" + model + '\'' +
+                "\n- subCategory='" + subCategory + '\'' +
+                "\n}";
+    }
+
 }

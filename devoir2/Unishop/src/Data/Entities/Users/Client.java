@@ -59,6 +59,6 @@ public class Client extends User{
 
             // Clear the cart after the purchase
             shoppingCart.clearCart();
-        return orders.getLast();
+        return orders.get(-1);
     }
 }
