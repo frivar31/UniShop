@@ -81,7 +81,7 @@ public class Book extends Product {
         return editorNum;
     }
 
-    public void setEditorNum(int editorNum) {
+    public void setEditorNum(long editorNum) {
         this.editorNum = editorNum;
     }
 
@@ -89,7 +89,7 @@ public class Book extends Product {
         return volNum;
     }
 
-    public void setVolNum(int volNum) {
+    public void setVolNum(long volNum) {
         this.volNum = volNum;
     }
 

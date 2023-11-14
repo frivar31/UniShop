@@ -2,15 +2,13 @@ package Data.Entities.Products;
 
 import Data.Entities.Type;
 
-import java.util.Date;
-
 public class LearningResource extends Product {
 
-    private final String auteur;
-    private final String organisation;
-    private final String publishDate;
-    private final Type type;
-    private final Long editionNumber;
+    private String auteur;
+    private String organisation;
+    private String publishDate;
+    private Type type;
+    private Long editionNumber;
     private String ISBN;
 
 
@@ -40,20 +38,40 @@ public class LearningResource extends Product {
         return auteur;
     }
 
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
+    }
+
     public String getOrganisation() {
         return organisation;
+    }
+
+    public void setOrganisation(String organisation) {
+        this.organisation = organisation;
     }
 
     public String getPublishDate() {
         return publishDate;
     }
 
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate;
+    }
+
     public Type getType() {
         return type;
     }
 
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     public Long getEditionNumber() {
         return editionNumber;
+    }
+
+    public void setEditionNumber(Long editionNumber) {
+        this.editionNumber = editionNumber;
     }
 
     public String getISBN() {
