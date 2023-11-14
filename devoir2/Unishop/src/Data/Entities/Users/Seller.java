@@ -40,12 +40,23 @@ public class Seller extends User {
     public Product getProduct(int index){
         return products.get(index);
     }
-    @Override
+    /*@Override
     public String toString() {
         StringBuilder sb=new StringBuilder();
         for(Product product:products){
             sb.append(product.toString()).append("\n");
         }
         return sb.toString();
+    }*/
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\n- firstName='" + this.getFirstName() + '\'' +
+                "\n- lastName='" + this.getLastName() + '\'' +
+                "\n- email='" + this.getEmail() + '\'' +
+                "\n- pseudo='" + this.getPseudo() + '\'' +
+                "\n- number=" + this.getNumber() +
+                "\n}";
     }
 }

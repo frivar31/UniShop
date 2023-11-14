@@ -96,20 +96,20 @@ public class Book extends Product {
     public String toString() {
         return "{" +
                 "\n- id='" + id + '\'' +
-                "\n- title='" + title + '\'' +
-                "\n- desc='" + desc + '\'' +
-                "\n- category='" + category + '\'' +
-                "\n- date=" + date +
-                "\n- quantity=" + quantity +
-                "\n- price=" + price +
+                "\n- titre='" + title + '\'' +
+                "\n- description='" + desc + '\'' +
+                "\n- categoryie='" + category + '\'' +
+                "\n- date de mise en vente=" + date +
+                "\n- quantite=" + quantity +
+                "\n- prix=" + price +
                 "\n- points=" + points +
                 "\n- ISBN='" + ISBN + '\'' +
-                "\n- author='" + author + '\'' +
-                "\n- editor='" + editor + '\'' +
+                "\n- auteur='" + author + '\'' +
+                "\n- maision d'edition='" + editor + '\'' +
                 "\n- genre='" + genre + '\'' +
-                "\n- pubDate=" + pubDate +
-                "\n- editorNum=" + editorNum +
-                "\n- volNum=" + volNum +
+                "\n- date de publication=" + pubDate +
+                "\n- numero d'edition=" + editorNum +
+                "\n- numero de volume=" + volNum +
                 "\n}";
     }
 

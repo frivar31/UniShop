@@ -6,13 +6,18 @@ public class User {
     private String lastName;
     private String email;
     private String pseudo;
-    private int number;
+    private long number;
 
     public User(String firstName,
                 String lastName,
                 String email,
                 String pseudo,
                 Long number) {
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.email=email;
+        this.pseudo=pseudo;
+        this.number=number;
     }
 
     public String getFirstName() {
@@ -47,11 +52,22 @@ public class User {
         this.pseudo = pseudo;
     }
 
-    public int getNumber() {
+    public long getNumber() {
         return number;
     }
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\n- firstName='" + firstName + '\'' +
+                "\n- lastName='" + lastName + '\'' +
+                "\n- email='" + email + '\'' +
+                "\n- pseudo='" + pseudo + '\'' +
+                "\n- number=" + number +
+                "\n}";
     }
 }

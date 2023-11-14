@@ -48,15 +48,16 @@ public class DesktopTool extends Product {
     public String toString() {
         return "{" +
                 "\n- id='" + id + '\'' +
-                "\n- title='" + title + '\'' +
-                "\n- desc='" + desc + '\'' +
-                "\n- date='" + date + '\'' +
-                "\n- quantity=" + quantity +
-                "\n- price=" + price +
+                "\n- titre='" + title + '\'' +
+                "\n- description='" + desc + '\'' +
+                "\n- categorie='" + category + '\'' +
+                "\n- date de mise en vente='" + date + '\'' +
+                "\n- quantite=" + quantity +
+                "\n- prix=" + price +
                 "\n- points=" + points +
-                "\n- brand='" + brand + '\'' +
-                "\n- model='" + model + '\'' +
-                "\n- subCategory='" + subCategory + '\'' +
+                "\n- marque='" + brand + '\'' +
+                "\n- modele='" + model + '\'' +
+                "\n- sous-categorie='" + subCategory + '\'' +
                 "\n}";
     }
 

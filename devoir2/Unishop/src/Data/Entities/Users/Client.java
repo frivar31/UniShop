@@ -59,6 +59,19 @@ public class Client extends User{
 
             // Clear the cart after the purchase
             shoppingCart.clearCart();
-        return orders.get(-1);
+        return orders.getLast();
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\n- firstName='" + this.getFirstName() + '\'' +
+                "\n- lastName='" + this.getLastName() + '\'' +
+                "\n- email='" + this.getEmail() + '\'' +
+                "\n- pseudo='" + this.getPseudo() + '\'' +
+                "\n- number=" + this.getNumber() +
+                "\n- shipAddress='" + this.getShipAddress() + '\'' +
+                "\n}";
+    }
+
 }

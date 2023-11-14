@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class LearningResource extends Product {
 
-    private final String auteur;
+    private final String author;
     private final String organisation;
     private final String publishDate;
     private final Type type;
@@ -22,22 +22,22 @@ public class LearningResource extends Product {
                             double price,
                             long points,
                             String ISBN,
-                            String auteur,
+                            String author,
                             String organisation,
                             String publishDate,
                             Type type,
                             Long editionNumber) {
         super(title, desc, category, date, initialQuantity, price, points);
         this.ISBN = ISBN;
-        this.auteur = auteur;
+        this.author = author;
         this.organisation = organisation;
         this.publishDate = publishDate;
         this.type = type;
         this.editionNumber = editionNumber;
     }
 
-    public String getAuteur() {
-        return auteur;
+    public String getauthor() {
+        return author;
     }
 
     public String getOrganisation() {
@@ -52,7 +52,7 @@ public class LearningResource extends Product {
         return type;
     }
 
-    public Long getEditionNumber() {
+    public Long geteditorNum() {
         return editionNumber;
     }
 
@@ -62,5 +62,24 @@ public class LearningResource extends Product {
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
+    }
+
+    public String toString() {
+        return "{" +
+                "\n- id='" + id + '\'' +
+                "\n- titre='" + title + '\'' +
+                "\n- description='" + desc + '\'' +
+                "\n- categorie='" + category + '\'' +
+                "\n- date de mise en vente=" + date +
+                "\n- quantite=" + quantity +
+                "\n- prix=" + price +
+                "\n- points=" + points +
+                "\n- ISBN='" + ISBN + '\'' +
+                "\n- auteur='" + author + '\'' +
+                "\n- organisation ='" + organisation + '\'' +
+                //"\n- genre='" + genre + '\'' +
+                "\n- date de publication =" + publishDate +
+                "\n- numero d'edition =" + editionNumber +
+                "\n}";
     }
 }

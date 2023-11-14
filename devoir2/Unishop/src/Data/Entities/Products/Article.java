@@ -47,4 +47,20 @@ public class Article extends Product {
         this.model = model ;
         this.subCategory = subCategory ;
     }
+
+    public String toString() {
+        return "{" +
+                "\n- id='" + id + '\'' +
+                "\n- titre='" + title + '\'' +
+                "\n- description='" + desc + '\'' +
+                "\n- categorie='" + category + '\'' +
+                "\n- date de mise en vente=" + date +
+                "\n- quantite=" + quantity +
+                "\n- prix=" + price +
+                "\n- points=" + points +
+                "\n- sous-categorie='" + subCategory + '\'' +
+                "\n- marque='" + brand + '\'' +
+                "\n- modele ='" + model + '\'' +
+                "\n}";
+    }
 }

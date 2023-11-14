@@ -13,16 +13,29 @@ public class App {
 
         User user = null;
         System.out.println("Choisissez une option d'inscription");
-            System.out.println("1. Vendeur");
-            System.out.println("2. Acheteur");
-            if (getOption(scanner) == 2) {
-                user = getClientRegistrationInfo(scanner, inputs);
+        System.out.println("1. Vendeur");
+        System.out.println("2. Acheteur");
+        if (getOption(scanner) == 2) {
+            user = getClientRegistrationInfo(scanner, inputs);
+        }
+        else {
+            inputs = new ArrayList<>() ;
+            user = getSellerRegistrationInfo(scanner,inputs);
+        }
+        return user ;
+    }
+
+    private static void login(Scanner scanner, List<User> users) {
+        while (true) {
+            String pseudo = getUserStrInfo(scanner,"Pseudo") ;
+            for (User user : users) {
+                if (user.getPseudo().equals(pseudo)) {
+                    System.out.println("Connexion avec succes !!!");
+                    return ;
+                }
             }
-            else {
-                inputs = new ArrayList<>() ;
-                user = getSellerRegistrationInfo(scanner,inputs);
-            }
-            return user ;
+            System.out.println("pseudo invalide");
+        }
     }
 
     private static LearningResource getLearningResourceInfo(Scanner scanner, List<Object> inputs) {
@@ -44,7 +57,7 @@ public class App {
 
         long editionNum = -1 ;
         if (getOption(scanner) == 1) {
-            editionNum =  getUserNumInfo(scanner,"Numero d'edition") ;
+            editionNum =  getNumInfo(scanner,"Numero d'edition") ;
             inputs.add(editionNum) ;
             scanner.nextLine() ;
         }
@@ -67,7 +80,7 @@ public class App {
         }
         scanner.nextLine() ;
 
-        long initQuantity = getUserNumInfo(scanner,"Quantite") ;
+        long initQuantity = getNumInfo(scanner,"Quantite") ;
         inputs.add(initQuantity) ;
 
         System.out.println("offrir des points bonus pour le produit:") ;
@@ -80,7 +93,7 @@ public class App {
         if(getOption(scanner) == 1) {
 
             while (!success) {
-                points = getUserNumInfo(scanner,"bonus/$") ;
+                points = getNumInfo(scanner,"bonus/$") ;
                 if (points >= 20) {
                     System.out.println("point bonus par $ ne peut pas depasser 20");
                 }
@@ -90,7 +103,7 @@ public class App {
         }
         inputs.add(points) ;
 
-        double price = getUserNumInfo(scanner,"Prix") ;
+        double price = getNumInfo(scanner,"Prix") ;
         inputs.add(price) ;
 
         System.out.println();
@@ -169,7 +182,7 @@ public class App {
                         else if (option == 5) {
                             pos = inputs.indexOf(editionNum);
                             inputs.remove(editionNum) ;
-                            editionNum =  getUserNumInfo(scanner,"Numero d'edition") ;
+                            editionNum =  getNumInfo(scanner,"Numero d'edition") ;
                             if (pos != -1)  inputs.add(pos, editionNum);
                             else inputs.add(editionNum) ;
                             success = true ;
@@ -204,7 +217,7 @@ public class App {
                         else if (option == 8) {
                             pos = inputs.indexOf(initQuantity);
                             inputs.remove(initQuantity) ;
-                            initQuantity =  getUserNumInfo(scanner,"Quantite") ;
+                            initQuantity =  getNumInfo(scanner,"Quantite") ;
                             if (pos != -1)  inputs.add(pos, initQuantity);
                             else inputs.add(initQuantity) ;
                             success = true ;
@@ -212,7 +225,7 @@ public class App {
                         }
                         else if (option == 9) {
                             while (!success) {
-                                points =  getUserNumInfo(scanner,"bonus/$") ;
+                                points =  getNumInfo(scanner,"bonus/$") ;
                                 if (points >= 20) {
                                     System.out.println("point bonus par $ ne peut pas depasser 20");
                                 }
@@ -226,7 +239,7 @@ public class App {
                         else if (option == 10) {
                             pos = inputs.indexOf(price);
                             inputs.remove(price) ;
-                            price =  getUserNumInfo(scanner,"Prix") ;
+                            price =  getNumInfo(scanner,"Prix") ;
                             inputs.add(pos, price);
                             success = true ;
                             scanner.nextLine() ;
@@ -266,7 +279,7 @@ public class App {
         String subCategory = getUserStrInfo(scanner,"Sous-catégorie exemple: cahier, crayon, surligneur:") ;
         inputs.add(subCategory) ;
 
-        long initQuantity = getUserNumInfo(scanner,"Quantite") ;
+        long initQuantity = getNumInfo(scanner,"Quantite") ;
         inputs.add(initQuantity) ;
 
         System.out.println("offrir des points bonus pour le produit:") ;
@@ -278,7 +291,7 @@ public class App {
         if(getOption(scanner) == 1) {
 
             while (!success) {
-                points = getUserNumInfo(scanner,"bonus/$") ;
+                points = getNumInfo(scanner,"bonus/$") ;
                 if (points >= 20) {
                     System.out.println("point bonus par $ ne peut pas depasser 20");
                 }
@@ -288,7 +301,7 @@ public class App {
         }
         inputs.add(points) ;
 
-        double price = getUserNumInfo(scanner,"Prix") ;
+        double price = getNumInfo(scanner,"Prix") ;
         inputs.add(price) ;
 
         success = false ;
@@ -365,7 +378,7 @@ public class App {
                         else if (option == 6) {
                             pos = inputs.indexOf(initQuantity);
                             inputs.remove(initQuantity) ;
-                            initQuantity =  getUserNumInfo(scanner,"Quantite") ;
+                            initQuantity =  getNumInfo(scanner,"Quantite") ;
                             if (pos != -1)  inputs.add(pos, initQuantity);
                             else inputs.add(initQuantity) ;
                             success = true ;
@@ -375,7 +388,7 @@ public class App {
                             pos = inputs.indexOf(points);
                             inputs.remove(points) ;
                             while (!success) {
-                                points =  getUserNumInfo(scanner,"bonus/$") ;
+                                points =  getNumInfo(scanner,"bonus/$") ;
                                 if (points >= 20) {
                                     System.out.println("point bonus par $ ne peut pas depasser 20");
                                 }
@@ -387,7 +400,7 @@ public class App {
                         else if (option == 8) {
                             pos = inputs.indexOf(price);
                             inputs.remove(price) ;
-                            price =  getUserNumInfo(scanner,"Prix") ;
+                            price =  getNumInfo(scanner,"Prix") ;
                             inputs.add(pos, price);
                             success = true ;
                             scanner.nextLine() ;
@@ -424,7 +437,7 @@ public class App {
         String launchDate = getUserStrInfo(scanner,"date de lancement (DD/MM/YYYY)") ;
         inputs.add(launchDate) ;
 
-        long initQuantity = getUserNumInfo(scanner,"Quantite") ;
+        long initQuantity = getNumInfo(scanner,"Quantite") ;
         inputs.add(initQuantity) ;
 
         System.out.println("offrir des points bonus pour le produit:") ;
@@ -436,7 +449,7 @@ public class App {
         if(getOption(scanner) == 1) {
 
             while (!success) {
-                points = getUserNumInfo(scanner,"bonus/$") ;
+                points = getNumInfo(scanner,"bonus/$") ;
                 if (points >= 20) {
                     System.out.println("point bonus par $ ne peut pas depasser 20");
                 }
@@ -446,7 +459,7 @@ public class App {
         }
         inputs.add(points) ;
 
-        double price = getUserNumInfo(scanner,"Prix") ;
+        double price = getNumInfo(scanner,"Prix") ;
         inputs.add(price) ;
 
         success = false ;
@@ -532,7 +545,7 @@ public class App {
                         else if (option == 7) {
                             pos = inputs.indexOf(initQuantity);
                             inputs.remove(initQuantity) ;
-                            initQuantity =  getUserNumInfo(scanner,"Quantite") ;
+                            initQuantity =  getNumInfo(scanner,"Quantite") ;
                             if (pos != -1)  inputs.add(pos, initQuantity);
                             else inputs.add(initQuantity) ;
                             success = true ;
@@ -542,7 +555,7 @@ public class App {
                             pos = inputs.indexOf(points);
                             inputs.remove(points) ;
                             while (!success) {
-                                points =  getUserNumInfo(scanner,"bonus/$") ;
+                                points =  getNumInfo(scanner,"bonus/$") ;
                                 if (points >= 20) {
                                     System.out.println("point bonus par $ ne peut pas depasser 20");
                                 }
@@ -554,7 +567,7 @@ public class App {
                         else if (option == 9) {
                             pos = inputs.indexOf(price);
                             inputs.remove(price) ;
-                            price =  getUserNumInfo(scanner,"Prix") ;
+                            price =  getNumInfo(scanner,"Prix") ;
                             inputs.add(pos, price);
                             success = true ;
                             scanner.nextLine() ;
@@ -589,7 +602,7 @@ public class App {
         String subCategory = getUserStrInfo(scanner,"Sous-catégorie exemple: table, chaise, lampe:") ;
         inputs.add(subCategory) ;
 
-        long initQuantity = getUserNumInfo(scanner,"Quantite") ;
+        long initQuantity = getNumInfo(scanner,"Quantite") ;
         inputs.add(initQuantity) ;
 
         System.out.println("offrir des points bonus pour le produit:") ;
@@ -601,7 +614,7 @@ public class App {
         if(getOption(scanner) == 1) {
 
             while (!success) {
-                points = getUserNumInfo(scanner,"bonus/$") ;
+                points = getNumInfo(scanner,"bonus/$") ;
                 if (points >= 20) {
                     System.out.println("point bonus par $ ne peut pas depasser 20");
                 }
@@ -611,7 +624,7 @@ public class App {
         }
         inputs.add(points) ;
 
-        double price = getUserNumInfo(scanner,"Prix") ;
+        double price = getNumInfo(scanner,"Prix") ;
         inputs.add(price) ;
 
         success = false ;
@@ -688,7 +701,7 @@ public class App {
                         else if (option == 6) {
                             pos = inputs.indexOf(initQuantity);
                             inputs.remove(initQuantity) ;
-                            initQuantity =  getUserNumInfo(scanner,"Quantite") ;
+                            initQuantity =  getNumInfo(scanner,"Quantite") ;
                             if (pos != -1)  inputs.add(pos, initQuantity);
                             else inputs.add(initQuantity) ;
                             success = true ;
@@ -698,7 +711,7 @@ public class App {
                             pos = inputs.indexOf(points);
                             inputs.remove(points) ;
                             while (!success) {
-                                points =  getUserNumInfo(scanner,"bonus/$") ;
+                                points =  getNumInfo(scanner,"bonus/$") ;
                                 if (points >= 20) {
                                     System.out.println("point bonus par $ ne peut pas depasser 20");
                                 }
@@ -710,7 +723,7 @@ public class App {
                         else if (option == 8) {
                             pos = inputs.indexOf(price);
                             inputs.remove(price) ;
-                            price =  getUserNumInfo(scanner,"Prix") ;
+                            price =  getNumInfo(scanner,"Prix") ;
                             inputs.add(pos, price);
                             success = true ;
                             scanner.nextLine() ;
@@ -751,7 +764,7 @@ public class App {
 
         long editionNum = -1 ;
         if (getOption(scanner) == 1) {
-            editionNum =  getUserNumInfo(scanner,"Numero d'edition") ;
+            editionNum =  getNumInfo(scanner,"Numero d'edition") ;
             inputs.add(editionNum) ;
             scanner.nextLine() ;
         }
@@ -767,12 +780,12 @@ public class App {
 
         long volNum = -1 ;
         if(getOption(scanner) == 1) {
-            volNum = getUserNumInfo(scanner,"Numero de volume") ;
+            volNum = getNumInfo(scanner,"Numero de volume") ;
             inputs.add(volNum) ;
             scanner.nextLine() ;
         }
 
-        long initQuantity = getUserNumInfo(scanner,"Quantite") ;
+        long initQuantity = getNumInfo(scanner,"Quantite") ;
         inputs.add(initQuantity) ;
 
         System.out.println("offrir des points bonus pour le produit:") ;
@@ -784,7 +797,7 @@ public class App {
         if(getOption(scanner) == 1) {
 
             while (!success) {
-                points = getUserNumInfo(scanner,"bonus/$") ;
+                points = getNumInfo(scanner,"bonus/$") ;
                 if (points >= 20) {
                     System.out.println("point bonus par $ ne peut pas depasser 20");
                 }
@@ -794,7 +807,7 @@ public class App {
         }
         inputs.add(points) ;
 
-        double price = getUserNumInfo(scanner,"Prix") ;
+        double price = getNumInfo(scanner,"Prix") ;
         inputs.add(price) ;
 
         success = false ;
@@ -868,7 +881,7 @@ public class App {
                         else if (option == 5) {
                             pos = inputs.indexOf(editionNum);
                             inputs.remove(editionNum) ;
-                            editionNum =  getUserNumInfo(scanner,"Numero d'edition") ;
+                            editionNum =  getNumInfo(scanner,"Numero d'edition") ;
                             if (pos != -1)  inputs.add(pos, editionNum);
                             else inputs.add(editionNum) ;
                             success = true ;
@@ -891,7 +904,7 @@ public class App {
                         else if (option == 8) {
                             pos = inputs.indexOf(volNum);
                             inputs.remove(volNum) ;
-                            volNum =  getUserNumInfo(scanner,"Numero de volume") ;
+                            volNum =  getNumInfo(scanner,"Numero de volume") ;
                             if (pos != -1)  inputs.add(pos, volNum);
                             else inputs.add(volNum) ;
                             success = true ;
@@ -900,7 +913,7 @@ public class App {
                         else if (option == 9) {
                             pos = inputs.indexOf(initQuantity);
                             inputs.remove(initQuantity) ;
-                            initQuantity =  getUserNumInfo(scanner,"Quantite") ;
+                            initQuantity =  getNumInfo(scanner,"Quantite") ;
                             if (pos != -1)  inputs.add(pos, initQuantity);
                             else inputs.add(initQuantity) ;
                             success = true ;
@@ -910,7 +923,7 @@ public class App {
                             pos = inputs.indexOf(points);
                             inputs.remove(points) ;
                             while (!success) {
-                                points =  getUserNumInfo(scanner,"bonus/$") ;
+                                points =  getNumInfo(scanner,"bonus/$") ;
                                 if (points >= 20) {
                                     System.out.println("point bonus par $ ne peut pas depasser 20");
                                 }
@@ -922,7 +935,7 @@ public class App {
                         else if (option == 11) {
                             pos = inputs.indexOf(price);
                             inputs.remove(price) ;
-                            price =  getUserNumInfo(scanner,"Prix") ;
+                            price =  getNumInfo(scanner,"Prix") ;
                             inputs.add(pos, price);
                             success = true ;
                             scanner.nextLine() ;
@@ -974,15 +987,15 @@ public class App {
                 break;
             case 3:
                 inputs = new ArrayList<>() ;
-                getArticleInfo(scanner,inputs);
+                product = getArticleInfo(scanner,inputs);
                 break;
             case 4:
                 inputs = new ArrayList<>() ;
-                getMaterialInfo(scanner,inputs);
+                product = getMaterialInfo(scanner,inputs);
                 break;
             case 5:
                 inputs = new ArrayList<>() ;
-                getEquipmentInfo(scanner,inputs);
+                product = getEquipmentInfo(scanner,inputs);
                 break;
         }
         return product ;
@@ -997,7 +1010,7 @@ public class App {
             inputs = new ArrayList<>() ;
             product = getProductInfo(scanner,inputs);
         }
-        scanner = new Scanner(System.in);
+
         System.out.println("Saisissez vos informations") ;
 
         String firstName = getUserStrInfo(scanner,"Prenom") ;
@@ -1008,7 +1021,7 @@ public class App {
         inputs.add(email) ;
         String pseudo = getUserStrInfo(scanner, "pseudo") ;
         inputs.add(pseudo) ;
-        long number = getUserNumInfo(scanner,"Numero") ;
+        long number = getNumInfo(scanner,"Numero") ;
         scanner.nextLine() ;
         inputs.add(number) ;
         String shipAddress = getUserStrInfo(scanner,"Adresse de livraison") ;
@@ -1082,7 +1095,7 @@ public class App {
                             case 5:
                                 pos = inputs.indexOf(number) ;
                                 inputs.remove(number) ;
-                                number = getUserNumInfo(scanner,"Numero") ;
+                                number = getNumInfo(scanner,"Numero") ;
                                 success = true ;
                                 inputs.add(pos,number) ;
                                 scanner.nextLine() ;
@@ -1114,7 +1127,7 @@ public class App {
         inputs.add(email) ;
         String pseudo = getUserStrInfo(scanner, "pseudo") ;
         inputs.add(pseudo) ;
-        long number = getUserNumInfo(scanner,"Numero") ;
+        long number = getNumInfo(scanner,"Numero") ;
         scanner.nextLine() ;
         inputs.add(number) ;
         String shipAddress = getUserStrInfo(scanner,"Adresse de livraison") ;
@@ -1188,7 +1201,7 @@ public class App {
                             case 5:
                                 pos = inputs.indexOf(number) ;
                                 inputs.remove(number) ;
-                                number = getUserNumInfo(scanner,"Numero") ;
+                                number = getNumInfo(scanner,"Numero") ;
                                 success = true ;
                                 inputs.add(pos,number) ;
                                 scanner.nextLine() ;
@@ -1211,10 +1224,11 @@ public class App {
         boolean success = false ;
         while (!success) {
             try {
-                option = scanner.nextInt() ;
+                option = scanner.nextInt();
                 success = true ;
             } catch (InputMismatchException e) {
                 System.err.println("Ooops! option doit etre un chiffre");
+                scanner.next();
             }
         }
         return option ;
@@ -1236,19 +1250,18 @@ public class App {
     }
 
     //To fix
-    private static long getUserNumInfo(Scanner scanner, String info) {
+    private static long getNumInfo(Scanner scanner, String info) {
         System.out.print(info+": ");
         long input = 0;
         boolean success = true ;
-        while (success) {
             try {
-                input = scanner.nextLong();
-                success = false ;
+                    input = scanner.nextLong();
+                    success = false;
+
             } catch (InputMismatchException e) {
                 System.err.println("Ooops! "+info+" doit etre un nombre");
                 scanner.next();
             }
-        }
         return input ;
     }
 
@@ -1263,6 +1276,7 @@ public class App {
         List<Object> inputs = new ArrayList<>() ;
         System.out.println("Selectionner la tache que voulez effectuer: ");
         System.out.println("1. Chercher un produit: ") ;
+
 
 
 
@@ -1293,12 +1307,192 @@ public class App {
 
     public static <Users> void run() {
         Scanner scanner = new Scanner(System.in) ;
-        List<Users> users = new ArrayList<>() ;
 
-        User user = getRegistrationStream(scanner) ;
+        Client client1 = new Client("sidya","galakho",
+                "sidya.galakho@gmail.ca","rango",
+                4385273906L,"9545 Rue Lajeunesse");
+        Client client2 = new Client("John", "Doe"
+                , "john.doe@gmail.com", "password123", 1234567890L, "123 Main Street");
+        System.out.println(client2.getFirstName());
+        Client client3 = new Client("Alice", "Smith",
+                "alice.smith@outlook.com", "myPass123",
+                9876543210L, "456 Elm Street");
+        Client client4 = new Client("Michael", "Johnson",
+                "michael.johnson@gmail.com", "securePwd",
+                5551112222L, "789 Oak Avenue");
+        Client client5 = new Client("Emily", "Davis",
+                "emily.davis@hotmail.com",
+                "p@ssw0rd", 3334445555L, "101 Pine Street");
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(1951, Calendar.JULY, 16);
+        Book book1 = new Book(
+                "The Catcher in the Rye",
+                "A novel about teenage angst and rebellion.",
+                "Fiction",
+                Calendar.getInstance().getTime().toString(),
+                5,
+                15.99,
+                4,
+                "0316769487",
+                "J.D. Salinger",
+                "Little, Brown and Company",
+                "Coming-of-age",
+                calendar1.getTime().toString(),
+                1,
+                1
+        );
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(1960, Calendar.JULY, 11);
+        Book book2 = new Book(
+                "To Kill a Mockingbird",
+                "A story that addresses issues of racial injustice and moral growth.",
+                "Fiction",
+                Calendar.getInstance().getTime().toString(),
+                8,
+                12.49,
+                1,
+                "0061120081",
+                "Harper Lee",
+                "J.B. Lippincott & Co.",
+                "Southern Gothic",
+                calendar2.getTime().toString(),
+                1,
+                1
+        );
+
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.set(2023, Calendar.JANUARY, 1);
+        LearningResource resource = new LearningResource(
+                "Introduction to Java Programming",
+                "A comprehensive guide to Java programming language.",
+                "Programming",
+                Calendar.getInstance().getTime().toString(),
+                50,
+                29.99,
+                2,
+                "9780135166307",
+                "John Doe",
+                "Java University",
+                calendar3.getTime().toString(),
+                Type.printed,
+                1L
+        );
+
+
+        Article article = new Article(
+                "The Benefits of Regular Exercise",
+                "Exploring the positive effects of regular physical activity on health.",
+                "Health & Wellness",
+                Calendar.getInstance().getTime().toString(),
+                30,
+                9.99,
+                50,
+                "Fitness",
+                "HealthCo",
+                "Exercise101"
+        );
+
+        Calendar calendar4 = Calendar.getInstance();
+        calendar4.set(2022, Calendar.FEBRUARY, 1);
+        Hardware hardware = new Hardware(
+                "Gaming Laptop",
+                "Powerful laptop designed for gaming enthusiasts.",
+                "Computers & Electronics",
+                Calendar.getInstance().getTime().toString(),
+                15,
+                1499.99,
+                18,
+                "Lenovo",
+                "TechCorp",
+                calendar4.getTime().toString(),
+                "Laptops"
+        );
+
+        DesktopTool desktopTool = new DesktopTool(
+                "Electric Screwdriver Set",
+                "A set of electric screwdrivers for various household tasks.",
+                "Power Tools",
+                "2023-05-10", // Assuming date format as a String
+                25,
+                79.99,
+                40,
+                "ToolCo",
+                "ScrewMaster 2000",
+                "Power Tools"
+        );
+
+
+
+        ArrayList<Product> products1 = new ArrayList<>() ;
+        products1.add(book1) ;
+        products1.add(resource) ;
+        Seller seller1 = new Seller(
+                "Alice", "Johnson", "alice.johnson@example.com",
+                "password12", 1234167890L, products1);
+
+        ArrayList<Product> products2 = new ArrayList<>() ;
+        products2.add(book2) ;
+        Seller seller2 = new Seller(
+                "David", "Smith", "david.smith@gmail.com",
+                "myPass12", 9876843210L, products2);
+
+        ArrayList<Product> products3 = new ArrayList<>() ;
+        products3.add(hardware) ;
+        Seller seller3 = new Seller(
+                "Emma", "Brown", "emma.brown@yahoo.com",
+                "securePw", 5551172222L, products3);
+
+        ArrayList<Product> products4 = new ArrayList<>() ;
+        products4.add(article) ;
+        Seller seller4 = new Seller(
+                "Michael", "Garcia", "michael.garcia@hotmail.com",
+                "p@ssw0r", 3334443555L, products4);
+
+        ArrayList<Product> products5 = new ArrayList<>() ;
+        products5.add(desktopTool) ;
+        Seller seller5 = new Seller(
+                "Sophia", "Lee", "sophia.lee@outlook.com",
+                "secretPas", 1112223733L, products5);
+
+        List<Client> clients = new ArrayList<>(Arrays.asList(client1, client2, client3, client4, client5));
+        List<Seller> sellers = new ArrayList<>(Arrays.asList(seller1, seller2, seller3, seller4, seller5));
+        List<Client> clients2=new ArrayList<>();
+        clients2.add(client2);
+
+
+        /*
+        User user = null ;
+
+        System.out.println("Choisissez une option");
+        System.out.println("1. Se connecter");
+        System.out.println("2. S'inscrire");
+
+        if (getOption(scanner) == 1) {
+            scanner.nextLine() ;
+            login(scanner, (List<User>) users) ;
+        }
+        else {
+            user = getRegistrationStream(scanner) ;
+        }
         if (user instanceof Seller) System.out.println(((Seller) user).getProducts());
         System.out.println("##########################");
 
+         */
+
+        for (Client client: clients) {
+            System.out.println(client);
+        }
+
+        for (Seller seller: sellers) {
+            System.out.println(seller);
+        }
+        for(Client client:clients2){
+            System.out.println(client);
+        }
+        System.out.println(client2);
+        System.out.println(client2.getFirstName());
 
     }
 
