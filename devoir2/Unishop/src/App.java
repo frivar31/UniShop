@@ -1,3 +1,4 @@
+import Data.Entities.Catalog;
 import Data.Entities.Products.*;
 import Data.Entities.ShoppingCart;
 import Data.Entities.Type;
@@ -5,10 +6,13 @@ import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class App {
     public static Scanner scanner = new Scanner(System.in);
+    public static ArrayList<User> clients=new ArrayList<>();
+    public static ArrayList<User> sellers=new ArrayList<>();
     //tested
     private static User getRegistrationStream() {
         System.out.println("Choisissez une option d'inscription");
@@ -611,6 +615,11 @@ public class App {
         String lastName = getUserStrInfo("Nom");
         String email = getUserStrInfo("Email");
         String pseudo = getUserStrInfo("pseudo");
+
+        while (isPseudoAlreadyUsed(pseudo, clients) || isPseudoAlreadyUsed(pseudo, sellers)) {
+            System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
+            pseudo = getUserStrInfo("pseudo");
+        }
         long number = getUserNumInfo("Numero");
         scanner.nextLine();
         String shipAddress = getUserStrInfo("Adresse de livraison");
@@ -675,6 +684,7 @@ public class App {
         while (!success) {
             try {
                 option = scanner.nextInt();
+                scanner.nextLine();
                 success = true;
             } catch (InputMismatchException e) {
                 System.err.println("Ooops! option doit etre un chiffre");
@@ -690,6 +700,7 @@ public class App {
         while (!success) {
             try {
                 option = scanner.nextInt();
+                scanner.nextLine();
 
                 // Check if the entered option is within the specified bounds
                 if (option >= lower && option <= upper) {
@@ -711,16 +722,19 @@ public class App {
         System.out.print(info + ": ");
         String input = null;
         boolean success = false;
+
         while (!success) {
             try {
                 input = scanner.nextLine();
                 success = true;
             } catch (InputMismatchException e) {
-                System.err.println("Ooops! " + info + " doit etre une chaine de caracteres");
+                System.err.println("Oops! " + info + " doit être une chaîne de caractères.");
+                scanner.nextLine();  // Consume the invalid input to prevent an infinite loop
             }
         }
         return input;
     }
+
 
     private static long getUserNumInfo(String info) {
         System.out.print(info + ": ");
@@ -786,122 +800,53 @@ public class App {
 
         return option;
     }
-    private static void printInfo(List<Object> inputs) {
-        for (Object input : inputs) {
-            System.out.println("- " + input);
-        }
-    }
 
-    static void getClientServiceInfo(Scanner scanner, List<Product> products, List<Seller> sellers) {
+    static void getClientServiceInfo() {
         ShoppingCart shoppingCart = new ShoppingCart();
 
         while (true) {
-            List<Object> inputs = new ArrayList<>();
-
             System.out.println("Sélectionnez la tâche que vous voulez effectuer: ");
             System.out.println("1. Chercher un produit");
             System.out.println("2. Chercher un vendeur");
             System.out.println("3. Afficher le panier");
             System.out.println("4. Quitter");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int option = getOption(1,4);
 
-            switch (choice) {
+            switch (option) {
                 case 1:
-                    System.out.println("Liste des produits disponibles :");
-                    for (Product product : products) {
-                        System.out.println("- " + product.getTitle());
-                    }
-
-                    System.out.print("Entrez le titre du produit : ");
-                    String productTitle = scanner.nextLine();
-
-
-                    Product selectedProduct = findProductByTitle(productTitle, products);
-
-                    if (selectedProduct != null) {
-                        inputs.add(selectedProduct);
-                        shoppingCart.add(selectedProduct);
-                        System.out.println("Produit ajouté au panier.");
-
-
-                        System.out.println("Que souhaitez-vous faire maintenant?");
-                        System.out.println("1. Ajouter un autre produit");
-                        System.out.println("2. Procéder au paiement");
-
-                        int addOrProceed = scanner.nextInt();
-                        scanner.nextLine();
-
-                        if (addOrProceed == 2) {
-
-                            System.out.println("Contenu du panier :");
-                            System.out.println(shoppingCart.toString());
-                            System.out.println("Total à payer : " + shoppingCart.getTotal());
-
-
-                            System.out.println("Paiement effectué. Merci!");
-                            return;
+                    boolean redo=true;
+                    while(redo){
+                        System.out.println("Liste des produits disponibles :");
+                        for (Object[] objects : Catalog.catalogMap.values()) {
+                            Product current=(Product) objects[0];
+                            System.out.println(current);
                         }
-
-                    } else {
-                        System.out.println("Produit non trouvé.");
+                        System.out.println("Voulez-vous acheter un produit?");
+                        System.out.println("1. Oui");
+                        System.out.println("2. Non");
+                        if(getOption(1,2)==1){
+                            Product selectedProduct = findProductById();
+                            shoppingCart.add(selectedProduct);
+                            System.out.println("Produit ajouté au panier.");
+                            System.out.println("Voulez-vous ajouter un autre produit?");
+                            System.out.println("1. Oui");
+                            System.out.println("2. Non");
+                            if(getOption(1,2)==2) redo=false;
+                        }
                     }
                     break;
 
                 case 2:
                     System.out.println("Liste des vendeurs :");
-                    for (Seller seller : sellers) {
-                        System.out.println("- " + seller.getFirstName());
-                    }
-
-                    System.out.print("Entrez le nom du vendeur : ");
-                    String sellerName = scanner.nextLine();
-
-                    Seller selectedSeller = findSellerByName(sellerName, sellers);
-                    if (selectedSeller != null) {
-
-                        System.out.println("Produits du vendeur " + selectedSeller.getFirstName() + " :");
-                        for (Product product : selectedSeller.getProducts()) {
-                            System.out.println("- " + product.getTitle());
-                        }
-
-                        System.out.print("Entrez le titre du produit du vendeur : ");
-                        productTitle = scanner.nextLine();
-
-                        selectedProduct = findProductByTitle(productTitle, selectedSeller.getProducts());
-
-                        if (selectedProduct != null) {
-                            inputs.add(selectedProduct);
-                            shoppingCart.add(selectedProduct);
-                            System.out.println("Produit ajouté au panier.");
-
-                            System.out.println("Que souhaitez-vous faire maintenant?");
-                            System.out.println("1. Ajouter un autre produit");
-                            System.out.println("2. Procéder au paiement");
-
-                            int addOrProceed = scanner.nextInt();
-                            scanner.nextLine();
-
-                            if (addOrProceed == 2) {
-                                System.out.println("Contenu du panier :");
-                                System.out.println(shoppingCart.toString());
-                                System.out.println("Total à payer : " + shoppingCart.getTotal());
-
-                                System.out.println("Paiement effectué. Merci!");
-                                return;
-                            }
-                        } else {
-                            System.out.println("Produit non trouvé.");
-                        }
-                    } else {
-                        System.out.println("Vendeur non trouvé.");
-                    }
+                    Seller current=findSellerById();
+                    System.out.println("Voici la liste des produits de ce vendeur:");
+                    for(Product product:current.getProducts()) System.out.println(product);
                     break;
 
                 case 3:
                     System.out.println("Contenu du panier :");
-                    System.out.println(shoppingCart.toString());
+                    System.out.println(shoppingCart);
                     break;
 
                 case 4:
@@ -914,21 +859,36 @@ public class App {
         }
     }
 
-    private static Product findProductByTitle(String title, List<Product> products) {
-        for (Product product : products) {
-            if (product.getTitle().equalsIgnoreCase(title)) {
-                return product;
+    private static Product findProductById() {
+
+        while (true) {
+            System.out.println("Enter product ID: ");
+            int productId = (int)getUserNumInfo("Id");
+
+            Object[] obj = Catalog.catalogMap.get(productId);
+            if (obj != null) {
+                return (Product) obj[0];
+            } else {
+                System.out.println("Invalid product ID. Please try again.");
             }
         }
-        return null;
     }
-    private static Seller findSellerByName(String name, List<Seller> sellers) {
-        for (Seller seller : sellers) {
-            if (seller.getFirstName().equalsIgnoreCase(name)) {
-                return seller;
-            }
+    private static Seller findSellerById() {
+        for (Object[] objects : Catalog.catalogMap.values()) {
+            Seller current=(Seller) objects[1];
+            System.out.println(current);
         }
-        return null;
+        while (true) {
+            System.out.println("Enter the seller's pseudo:");
+            String pseudo = getUserStrInfo("Pseudo");
+
+            for (User seller : sellers) {
+                if (seller.getPseudo().equalsIgnoreCase(pseudo)) {
+                    return (Seller) seller;
+                }
+            }
+            System.out.println("Seller not found with the provided pseudo. Please try again.");
+        }
     }
 
     private static void getSellerServiceInfo(Scanner scanner) {
@@ -952,7 +912,25 @@ public class App {
     private static void searchProduct(Scanner scanner, List<Object> inputs) {
 
     }
+    private static boolean isPseudoAlreadyUsed(String pseudo, ArrayList<User> users) {
+        return users.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
+    }
+    private static User login(String pseudo) {
+        User user = null;
+        while ((user = getUserByPseudo(pseudo, clients)) == null && (user = getUserByPseudo(pseudo, sellers)) == null) {
+            System.out.println("Ce compte n'existe pas");
+            pseudo = getUserStrInfo("Pseudo");
+        }
 
+        return user;
+    }
+
+    private static User getUserByPseudo(String pseudo, List<? extends User> users) {
+        return users.stream()
+                .filter(u -> pseudo.equals(u.getPseudo()))
+                .findAny()
+                .orElse(null);
+    }
     public static <Users> void run() {
         Scanner scanner = new Scanner(System.in) ;
 
@@ -1078,7 +1056,7 @@ public class App {
         products1.add(resource) ;
         Seller seller1 = new Seller(
                 "Alice", "Johnson", "alice.johnson@example.com",
-                "password12", 1234167890L, products1);
+                "1", 1234167890L, products1);
 
         ArrayList<Product> products2 = new ArrayList<>() ;
         products2.add(book2) ;
@@ -1104,43 +1082,23 @@ public class App {
                 "Sophia", "Lee", "sophia.lee@outlook.com",
                 "secretPas", 1112223733L, products5);
 
-        List<Client> clients = new ArrayList<>(Arrays.asList(client1, client2, client3, client4, client5));
-        List<Seller> sellers = new ArrayList<>(Arrays.asList(seller1, seller2, seller3, seller4, seller5));
-        List<Client> clients2=new ArrayList<>();
-        clients2.add(client2);
+        clients.addAll(Arrays.asList(client1, client2, client3, client4, client5));
+        sellers.addAll(Arrays.asList(seller1, seller2, seller3, seller4, seller5));
 
-
-        /*
         User user = null ;
-
         System.out.println("Choisissez une option");
         System.out.println("1. Se connecter");
         System.out.println("2. S'inscrire");
-
-        if (getOption(scanner) == 1) {
-            scanner.nextLine() ;
-            login(scanner, (List<User>) users) ;
+        if (getOption(1,2) == 1) {
+            user=login(getUserStrInfo("Pseudo"));
         }
         else {
-            user = getRegistrationStream(scanner) ;
+            user = getRegistrationStream() ;
         }
+        getClientServiceInfo();
         if (user instanceof Seller) System.out.println(((Seller) user).getProducts());
         System.out.println("##########################");
 
-         */
-
-        for (Client client: clients) {
-            System.out.println(client);
-        }
-
-        for (Seller seller: sellers) {
-            System.out.println(seller);
-        }
-        for(Client client:clients2){
-            System.out.println(client);
-        }
-        System.out.println(client2);
-        System.out.println(client2.getFirstName());
 
     }
 
