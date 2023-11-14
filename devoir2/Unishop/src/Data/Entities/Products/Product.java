@@ -101,4 +101,16 @@ public class Product {
                 "\n- points=" + points +
                 "\n}";
     }
+    public String toString(int quantity){
+        return "{" +
+                "\n- id='" + id + '\'' +
+                "\n- title='" + title + '\'' +
+                "\n- desc='" + desc + '\'' +
+                "\n- category='" + category + '\'' +
+                "\n- date=" + date +
+                "\n- quantity=" + quantity +
+                "\n- price=" + price +
+                "\n- points=" + points +
+                "\n}";
+    }
 }

@@ -4,12 +4,13 @@ import Data.Entities.Products.Product;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class Order {
 
     private String orderNumber;
-    private List<Product> items;
+    private HashMap<Product,Integer> items;
     private Date orderDate;
     private Boolean delivered;
     private Boolean shipped;
@@ -17,7 +18,7 @@ public class Order {
     private Date deliveryDate;
     private String address;
 
-    public Order(String orderNumber, List<Product> items, Date orderDate, Boolean delivered, Boolean shipped, Date shippedDate, Date deliveryDate,String address) {
+    public Order(String orderNumber, HashMap<Product,Integer> items, Date orderDate, Boolean delivered, Boolean shipped, Date shippedDate, Date deliveryDate,String address) {
         this.orderNumber = orderNumber;
         this.items = items;
         this.orderDate = orderDate;
@@ -36,11 +37,11 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    public List<Product> getItems() {
+    public HashMap<Product,Integer> getItems() {
         return items;
     }
 
-    public void setItems(List<Product> items) {
+    public void setItems(HashMap<Product,Integer> items) {
         this.items = items;
     }
 
@@ -102,8 +103,8 @@ public class Order {
         }
 
         sb.append("Items:\n");
-        for (Product product : items) {
-            sb.append("- ").append(product.toString()).append("\n");
+        for (Product product : items.keySet()) {
+            sb.append("- ").append(product.toString(items.get(product))).append("\n");
         }
 
         return sb.toString();

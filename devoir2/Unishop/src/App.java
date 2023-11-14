@@ -809,6 +809,7 @@ public class App {
             System.out.println("1. Chercher un produit");
             System.out.println("2. Chercher un vendeur");
             System.out.println("3. Afficher le panier");
+            System.out.println("5. Passer la commande");
             System.out.println("4. Quitter");
 
             int option = getOption(1,4);
@@ -851,14 +852,21 @@ public class App {
 
                 case 4:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
-                    return;
+                    break;
+                case 5:
+                    System.out.println(shoppingCart);
+                    System.out.println("Voulez-vous acheter les items dans votre panier :");
+                    System.out.println("1. Oui");
+                    System.out.println("2. Non");
+                    if(getOption(1,2)==1){
 
+                    }
+                    break;
                 default:
                     System.out.println("Choix invalide. Veuillez choisir une option valide.");
             }
         }
     }
-
     private static Product findProductById() {
 
         while (true) {
@@ -890,7 +898,6 @@ public class App {
             System.out.println("Seller not found with the provided pseudo. Please try again.");
         }
     }
-
     private static void getSellerServiceInfo(Scanner scanner) {
         List<Object> inputs = new ArrayList<>();
         System.out.println("Selectionner la tache que voulez effectuer: ");
@@ -909,9 +916,6 @@ public class App {
         }
     }
 
-    private static void searchProduct(Scanner scanner, List<Object> inputs) {
-
-    }
     private static boolean isPseudoAlreadyUsed(String pseudo, ArrayList<User> users) {
         return users.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
     }
