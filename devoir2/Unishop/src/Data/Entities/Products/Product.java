@@ -68,7 +68,7 @@ public class Product {
         return quantity;
     }
 
-    public void setquantity(int quantity) {
+    public void setquantity(long quantity) {
         this.quantity = quantity;
     }
 
@@ -84,7 +84,7 @@ public class Product {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(long points) {
         this.points = points;
     }
 

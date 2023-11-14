@@ -47,14 +47,15 @@ public class Client extends User{
         return this.shoppingCart;
     }
     public Order buy(String address) {
-            // Generate a unique order ID
-            String orderID = UUID.randomUUID().toString();
+        // Generate a unique order ID
+        String orderID = UUID.randomUUID().toString();
 
-            // Create an order using the current cart and customer information
-            orders.add(new Order(orderID,shoppingCart.getCart(), Calendar.getInstance().getTime(),false,false,null,null,address));
+        // Create an order using the current cart and customer information
+        Order newOrder = new Order(orderID, shoppingCart.getCart(), Calendar.getInstance().getTime(), false, false, null, null, address);
+        orders.add(newOrder);
 
-            // Update the inventory
-            Catalog.update(shoppingCart.getCart());
+        // Update the inventory
+        Catalog.update(shoppingCart.getCart());
 
 
             // Clear the cart after the purchase
