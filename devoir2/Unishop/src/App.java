@@ -272,18 +272,18 @@ public class App {
         double price = getUserNumInfo("Prix");
         inputs.add(price);
 
-        success = false;
-        while (!success) {
-            System.out.println();
-            printInfo(inputs);
-            System.out.println();
-
-            System.out.println("Valider les informations du produit ");
+        Article product=new Article(title, desc, "Article",
+                Calendar.getInstance().getTime().toString(),
+                initQuantity, price, points, brand, model, subCategory);
+        int option = 2;
+        while (option==2) {
+            System.out.println(product);
+            System.out.println("Validez-vous les informations du produit ?");
             System.out.println("1. oui");
             System.out.println("2. non");
             System.out.println();
-
-            if (getOption() == 1) {
+            option=getOption();
+            if (option == 1) {
                 System.out.println("produit ajoutes avec succes");
             } else {
                 System.out.println("Voulez vous modifier les informations du produit:  ");
@@ -293,8 +293,6 @@ public class App {
 
                 if (getOption() == 1) {
                     System.out.println("Choisir information a modifier: ");
-
-                    while (!success) {
                         System.out.println("1. Titre");
                         System.out.println("2. Description");
                         System.out.println("3. Marque");
@@ -304,74 +302,35 @@ public class App {
                         System.out.println("7. bonus/$: ");
                         System.out.println("8. Price: ");
 
-                        int option = getOption();
+                        option = getOption();
                         scanner.nextLine();
-                        int pos = -1;
                         if (option == 1) {
-                            pos = inputs.indexOf(title);
-                            inputs.remove(title);
-                            title = getUserStrInfo("Title");
-                            success = true;
-                            inputs.add(pos, title);
+                            product.setTitle(getUserStrInfo("Title"));
                         } else if (option == 2) {
-                            pos = inputs.indexOf(desc);
-                            inputs.remove(desc);
-                            desc = getUserStrInfo("Description");
-                            success = true;
-                            inputs.add(pos, desc);
+                            product.setDesc(getUserStrInfo("Description"));
                         } else if (option == 3) {
-                            pos = inputs.indexOf(brand);
-                            inputs.remove(brand);
-                            brand = getUserStrInfo("Marque");
-                            success = true;
-                            inputs.add(pos, brand);
+                            product.setBrand(getUserStrInfo("Marque"));
                         } else if (option == 4) {
-                            pos = inputs.indexOf(model);
-                            inputs.remove(model);
-                            model = getUserStrInfo("Modèle");
-                            success = true;
-                            inputs.add(pos, model);
+                            product.setBrand(getUserStrInfo("Modèle"));
                         } else if (option == 5) {
-                            pos = inputs.indexOf(subCategory);
-                            inputs.remove(subCategory);
-                            subCategory = getUserStrInfo("sous-categorie");
-                            success = true;
-                            inputs.add(pos, subCategory);
+                            product.setSubCategory(getUserStrInfo("sous-categorie"));
                         } else if (option == 6) {
-                            pos = inputs.indexOf(initQuantity);
-                            inputs.remove(initQuantity);
-                            initQuantity = getUserNumInfo("Quantite");
-                            if (pos != -1) inputs.add(pos, initQuantity);
-                            else inputs.add(initQuantity);
-                            success = true;
-                            scanner.nextLine();
+                            product.setquantity(getUserNumInfo("Quantite"));
                         } else if (option == 7) {
-                            pos = inputs.indexOf(points);
-                            inputs.remove(points);
-                            while (!success) {
+                            points=0;
+                            do{
                                 points = getUserNumInfo("bonus/$");
-                                if (points >= 20) {
-                                    System.out.println("point bonus par $ ne peut pas depasser 20");
-                                } else success = true;
-                                inputs.add(pos, points);
-                                scanner.nextLine();
                             }
+                            while(points>=20||points<=0);
+                            product.setPoints(points);
                         } else if (option == 8) {
-                            pos = inputs.indexOf(price);
-                            inputs.remove(price);
-                            price = getUserNumInfo("Prix");
-                            inputs.add(pos, price);
-                            success = true;
-                            scanner.nextLine();
+                            product.setPrice(getUserNumInfo("Prix"));
                         } else {
                             System.out.println("Option invalide");
                         }
-
-                    }
                 }
-
+                option=2;
             }
-            success = true;
         }
 
         return new Article(title, desc, "Article",
@@ -1162,7 +1121,6 @@ public class App {
         return input;
     }
 
-    //To fix
     private static long getUserNumInfo(String info) {
         System.out.print(info + ": ");
         long input = 0;
