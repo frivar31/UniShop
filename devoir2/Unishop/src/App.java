@@ -1,4 +1,5 @@
 import Data.Entities.Products.*;
+import Data.Entities.ShoppingCart;
 import Data.Entities.Type;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
@@ -263,7 +264,7 @@ public class App {
         inputs.add(brand) ;
         String model = getUserStrInfo(scanner,"Model") ;
         inputs.add(model) ;
-        String subCategory = getUserStrInfo(scanner,"Sous-catégorie exemple: cahier, crayon, surligneur:") ;
+        String subCategory = getUserStrInfo(scanner,"Sous-catégorie exemple: cahier, crayon, surligneur") ;
         inputs.add(subCategory) ;
 
         long initQuantity = getUserNumInfo(scanner,"Quantite") ;
@@ -1215,6 +1216,8 @@ public class App {
                 success = true ;
             } catch (InputMismatchException e) {
                 System.err.println("Ooops! option doit etre un chiffre");
+                success = true ; // fallait ajouter ici pour pas que sa loop
+
             }
         }
         return option ;
@@ -1258,21 +1261,154 @@ public class App {
         }
     }
 
-    private static void getClientServiceInfo(Scanner scanner) {
-        //To do
-        List<Object> inputs = new ArrayList<>() ;
-        System.out.println("Selectionner la tache que voulez effectuer: ");
-        System.out.println("1. Chercher un produit: ") ;
+
+    static void getClientServiceInfo(Scanner scanner, List<Product> products, List<Seller> sellers) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+
+        while (true) {
+            List<Object> inputs = new ArrayList<>();
+
+            System.out.println("Sélectionnez la tâche que vous voulez effectuer: ");
+            System.out.println("1. Chercher un produit");
+            System.out.println("2. Chercher un vendeur");
+            System.out.println("3. Afficher le panier");
+            System.out.println("4. Quitter");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Liste des produits disponibles :");
+                    for (Product product : products) {
+                        System.out.println("- " + product.getTitle());
+                    }
+
+                    System.out.print("Entrez le titre du produit : ");
+                    String productTitle = scanner.nextLine();
 
 
+                    Product selectedProduct = findProductByTitle(productTitle, products);
 
+                    if (selectedProduct != null) {
+                        inputs.add(selectedProduct);
+                        shoppingCart.add(selectedProduct);
+                        System.out.println("Produit ajouté au panier.");
+
+
+                        System.out.println("Que souhaitez-vous faire maintenant?");
+                        System.out.println("1. Ajouter un autre produit");
+                        System.out.println("2. Procéder au paiement");
+
+                        int addOrProceed = scanner.nextInt();
+                        scanner.nextLine();
+
+                        if (addOrProceed == 2) {
+
+                            System.out.println("Contenu du panier :");
+                            System.out.println(shoppingCart.toString());
+                            System.out.println("Total à payer : " + shoppingCart.getTotal());
+
+
+                            System.out.println("Paiement effectué. Merci!");
+                            return;
+                        }
+
+                    } else {
+                        System.out.println("Produit non trouvé.");
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("Liste des vendeurs :");
+                    for (Seller seller : sellers) {
+                        System.out.println("- " + seller.getFirstName());
+                    }
+
+                    System.out.print("Entrez le nom du vendeur : ");
+                    String sellerName = scanner.nextLine();
+
+                    Seller selectedSeller = findSellerByName(sellerName, sellers);
+                    if (selectedSeller != null) {
+
+                        System.out.println("Produits du vendeur " + selectedSeller.getFirstName() + " :");
+                        for (Product product : selectedSeller.getProducts()) {
+                            System.out.println("- " + product.getTitle());
+                        }
+
+                        System.out.print("Entrez le titre du produit du vendeur : ");
+                         productTitle = scanner.nextLine();
+
+                        selectedProduct = findProductByTitle(productTitle, selectedSeller.getProducts());
+
+                        if (selectedProduct != null) {
+                            inputs.add(selectedProduct);
+                            shoppingCart.add(selectedProduct);
+                            System.out.println("Produit ajouté au panier.");
+
+                            System.out.println("Que souhaitez-vous faire maintenant?");
+                            System.out.println("1. Ajouter un autre produit");
+                            System.out.println("2. Procéder au paiement");
+
+                            int addOrProceed = scanner.nextInt();
+                            scanner.nextLine();
+
+                            if (addOrProceed == 2) {
+                                System.out.println("Contenu du panier :");
+                                System.out.println(shoppingCart.toString());
+                                System.out.println("Total à payer : " + shoppingCart.getTotal());
+
+                                System.out.println("Paiement effectué. Merci!");
+                                return;
+                            }
+                        } else {
+                            System.out.println("Produit non trouvé.");
+                        }
+                    } else {
+                        System.out.println("Vendeur non trouvé.");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("Contenu du panier :");
+                    System.out.println(shoppingCart.toString());
+                    break;
+
+                case 4:
+                    System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
+                    return;
+
+                default:
+                    System.out.println("Choix invalide. Veuillez choisir une option valide.");
+            }
+        }
     }
+
+    private static Product findProductByTitle(String title, List<Product> products) {
+        for (Product product : products) {
+            if (product.getTitle().equalsIgnoreCase(title)) {
+                return product;
+            }
+        }
+        return null;
+    }
+    private static Seller findSellerByName(String name, List<Seller> sellers) {
+        for (Seller seller : sellers) {
+            if (seller.getFirstName().equalsIgnoreCase(name)) {
+                return seller;
+            }
+        }
+        return null;
+    }
+
+
+
+
     private static void getSellerServiceInfo(Scanner scanner) {
         List<Object> inputs = new ArrayList<>() ;
         System.out.println("Selectionner la tache que voulez effectuer: ");
         System.out.println("1. Offrir un produit: ") ;
         System.out.println("2. Changer l'etat d'une commande: ");
-
         int option = getOption(scanner) ;
         switch (option) {
             case 1:

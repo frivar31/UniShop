@@ -2,17 +2,22 @@ package Data.Entities.Users;
 
 public class User {
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String pseudo;
-    private int number;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
+    protected String pseudo;
+    protected long number;
 
     public User(String firstName,
                 String lastName,
                 String email,
                 String pseudo,
                 Long number) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.pseudo = pseudo;
+        this.number = number;
     }
 
     public String getFirstName() {
@@ -47,7 +52,7 @@ public class User {
         this.pseudo = pseudo;
     }
 
-    public int getNumber() {
+    public  long getNumber() {
         return number;
     }
 

@@ -7,16 +7,15 @@ import java.util.ArrayList;
 
 
 public class Seller extends User {
-
-
     ArrayList<Product> products;
     int id;
 
     public Seller(String firstName, String lastName, String email, String pseudo, Long number, ArrayList<Product> productsToSell) {
         super(firstName, lastName, email, pseudo, number);
         products=new ArrayList<Product>();
-        for(Product product:productsToSell) addProduct(product);
-    }
+        for(Product product:productsToSell) {
+            addProduct(product);
+    }}
 
     public ArrayList<Product> getProducts() {
         return products;
@@ -26,7 +25,6 @@ public class Seller extends User {
         Catalog.catalogMap.put(product.getId(),new Object[]{product,this});
         products.add(product);
     }
-
     public boolean deleteProduct(Product product) {
         try {
             Catalog.catalogMap.remove(product.getId());
@@ -34,7 +32,6 @@ public class Seller extends User {
         } catch (Exception e) {
             return false;
         }
-        ;
         return true;
     }
     public Product getProduct(int index){
