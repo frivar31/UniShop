@@ -25,6 +25,7 @@ public class Client extends User{
         super(firstName,lastName,email,pseudo,number);
         this.shipAddress = shipAddress;
         this.shoppingCart=new ShoppingCart();
+        orders=new ArrayList<>();
     }
 
     public List<Order> getOrders() {
@@ -51,15 +52,14 @@ public class Client extends User{
         String orderID = UUID.randomUUID().toString();
 
         // Create an order using the current cart and customer information
-        Order newOrder = new Order(orderID, shoppingCart.getCart(), Calendar.getInstance().getTime(), false, false, null, null, address);
+        Order newOrder = new Order(orderID, shoppingCart, Calendar.getInstance().getTime(), false, false, null, null, address);
         orders.add(newOrder);
 
         // Update the inventory
         Catalog.update(shoppingCart.getCart());
 
-
-            // Clear the cart after the purchase
-            shoppingCart.clearCart();
+        // Clear the cart after the purchase
+        this.shoppingCart=new ShoppingCart();
         return orders.getLast();
     }
 

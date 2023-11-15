@@ -6,7 +6,6 @@ import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class App {
@@ -801,18 +800,18 @@ public class App {
         return option;
     }
 
-    static void getClientServiceInfo() {
-        ShoppingCart shoppingCart = new ShoppingCart();
+    static void getClientServiceInfo(Client user) {
+
 
         while (true) {
             System.out.println("Sélectionnez la tâche que vous voulez effectuer: ");
             System.out.println("1. Chercher un produit");
             System.out.println("2. Chercher un vendeur");
             System.out.println("3. Afficher le panier");
-            System.out.println("5. Passer la commande");
             System.out.println("4. Quitter");
+            System.out.println("5. Passer la commande");
 
-            int option = getOption(1,4);
+            int option = getOption(1,5);
 
             switch (option) {
                 case 1:
@@ -828,7 +827,7 @@ public class App {
                         System.out.println("2. Non");
                         if(getOption(1,2)==1){
                             Product selectedProduct = findProductById();
-                            shoppingCart.add(selectedProduct);
+                            user.getShoppingCart().add(selectedProduct);
                             System.out.println("Produit ajouté au panier.");
                             System.out.println("Voulez-vous ajouter un autre produit?");
                             System.out.println("1. Oui");
@@ -847,25 +846,37 @@ public class App {
 
                 case 3:
                     System.out.println("Contenu du panier :");
-                    System.out.println(shoppingCart);
+                    System.out.println(user.getShoppingCart());
                     break;
 
                 case 4:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
                     break;
                 case 5:
-                    System.out.println(shoppingCart);
+                    System.out.println(user.getShoppingCart());
                     System.out.println("Voulez-vous acheter les items dans votre panier :");
                     System.out.println("1. Oui");
                     System.out.println("2. Non");
                     if(getOption(1,2)==1){
-
+                        if(isShoppingCartItemsAvailable(user.getShoppingCart())){
+                            System.out.println(user.buy(user.getShipAddress()));
+                        }
                     }
                     break;
                 default:
                     System.out.println("Choix invalide. Veuillez choisir une option valide.");
             }
         }
+    }
+    private static boolean isShoppingCartItemsAvailable(ShoppingCart shoppingCart){
+        for(Product product:shoppingCart.getCart().keySet()){
+            if(product.getquantity()<shoppingCart.getCart().get(product)){
+                System.out.println("Vous avez une quantité supérieure à celle disponible pour l'item suivant :");
+                System.out.println(product);
+                System.out.println("Quantité disponible : "+product.getquantity()+" Quantité dans le panier : "+shoppingCart.getCart().get(product));
+            }
+        }
+        return true;
     }
     private static Product findProductById() {
 
@@ -1099,7 +1110,7 @@ public class App {
         else {
             user = getRegistrationStream() ;
         }
-        getClientServiceInfo();
+        getClientServiceInfo((Client)user);
         if (user instanceof Seller) System.out.println(((Seller) user).getProducts());
         System.out.println("##########################");
 
