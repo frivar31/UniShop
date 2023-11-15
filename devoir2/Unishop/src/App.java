@@ -946,7 +946,7 @@ public class App {
                     System.out.println("5. Number");
                     System.out.println("6. Adresse de livraison");
 
-                    option = getOption(1,5);
+                    option = getOption(1,6);
                     scanner.nextLine();
                     switch (option) {
                         case 1:
