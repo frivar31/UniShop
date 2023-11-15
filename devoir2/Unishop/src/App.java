@@ -502,23 +502,14 @@ public class App {
 
         int option = getOption();
         scanner.nextLine();
-        switch (option) {
-            case 1:
-                product = getBookInfo();
-                break;
-            case 2:
-                product = getLearningResourceInfo();
-                break;
-            case 3:
-                getArticleInfo();
-                break;
-            case 4:
-                getMaterialInfo();
-                break;
-            case 5:
-                getEquipmentInfo();
-                break;
-        }
+        product = switch (option) {
+            case 1 -> getBookInfo();
+            case 2 -> getLearningResourceInfo();
+            case 3 -> getArticleInfo();
+            case 4 -> getMaterialInfo();
+            case 5 -> getEquipmentInfo();
+            default -> product;
+        };
         return product;
     }
 
@@ -536,7 +527,14 @@ public class App {
         String firstName = getUserStrInfo("Prenom");
         String lastName = getUserStrInfo("Nom");
         String email = getUserStrInfo("Email");
+
         String pseudo = getUserStrInfo("pseudo");
+
+        while (isPseudoAlreadyUsed(pseudo, clients) || isPseudoAlreadyUsed(pseudo, sellers)) {
+            System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
+            pseudo = getUserStrInfo("pseudo");
+        }
+
         long number = getUserNumInfo("Numero");
         //scanner.nextLine();
 
@@ -544,8 +542,28 @@ public class App {
         products.add(product);
         Seller seller = new Seller(firstName, lastName, email, pseudo, number, products);
 
-        modifySellerInfo(seller);
+        int option = 2;
+        while (option == 2) {
+            System.out.println(seller);
+            System.out.println("Confirmer vos informations: ");
+            System.out.println("1. oui");
+            System.out.println("2. non");
+            System.out.println();
+            option = getOption(1, 2);
+            if (option == 1) {
+                System.out.println("votre compte a ete cree avec succes");
+            } else {
+                System.out.println("Voulez vous modifier vos informations:  ");
+                System.out.println("1. oui");
+                System.out.println("2. non");
+                System.out.println();
 
+                if (getOption(1, 2) == 1) {
+                    modifySellerInfo(seller);
+                }
+                option = 2;
+            }
+        }
         return seller;
     }
 
@@ -565,8 +583,28 @@ public class App {
         String shipAddress = getUserStrInfo("Adresse de livraison");
         Client client = new Client(firstName, lastName, email, pseudo, number, shipAddress);
 
-        modifyClientInfo(client);
+        int option = 2;
+        while (option == 2) {
+            System.out.println(client);
+            System.out.println("Confirmer vos informations: ");
+            System.out.println("1. oui");
+            System.out.println("2. non");
+            System.out.println();
+            option = getOption(1, 2);
+            if (option == 1) {
+                System.out.println("votre compte a ete cree avec succes");
+            } else {
+                System.out.println("Voulez vous modifier vos informations:  ");
+                System.out.println("1. oui");
+                System.out.println("2. non");
+                System.out.println();
 
+                if (getOption(1, 2) == 1) {
+                    modifyClientInfo(client);
+                }
+                option = 2;
+                }
+            }
         return client;
     }
 
@@ -792,6 +830,7 @@ public class App {
                     break;
                 case 6:
                     modifyClientInfo(user);
+
                     break;
                 case 7:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
@@ -860,127 +899,87 @@ public class App {
                 getProductInfo();
                 break;
             case 3:
+                // To complete
                 modifySellerInfo(seller);
         }
     }
 
     private static void modifySellerInfo(Seller seller) {
-        int option = 2;
-        while (option == 2) {
-            System.out.println(seller);
-            System.out.println("Confirmer vos informations: ");
-            System.out.println("1. oui");
-            System.out.println("2. non");
-            System.out.println();
-            option = getOption(1, 2);
-            if (option == 1) {
-                System.out.println("votre compte a ete cree avec succes");
-            } else {
-                System.out.println("Voulez vous modifier vos informations:  ");
-                System.out.println("1. oui");
-                System.out.println("2. non");
-                System.out.println();
+        System.out.println("Choisir information a modifier: ");
+        System.out.println("1. Prenom");
+        System.out.println("2. Nom");
+        System.out.println("3. Email");
+        System.out.println("4. Pseudo");
+        System.out.println("5. Numero");
 
-                if (getOption(1, 2) == 1) {
-                    System.out.println("Choisir information a modifier: ");
-                    System.out.println("1. Prenom");
-                    System.out.println("2. Nom");
-                    System.out.println("3. Email");
-                    System.out.println("4. Pseudo");
-                    System.out.println("5. Number");
-
-                    option = getOption(1, 5);
-                    scanner.nextLine();
-                    switch (option) {
-                        case 1:
-                            seller.setFirstName(getUserStrInfo("Prenom"));
-                            break;
-                        case 2:
-                            seller.setLastName(getUserStrInfo("Nom"));
-                            break;
-                        case 3:
-                            seller.setEmail(getUserStrInfo("Email"));
-                            break;
-                        case 4:
-                            String pseudo = getUserStrInfo("pseudo");
-                            while (isPseudoAlreadyUsed(pseudo, clients) || isPseudoAlreadyUsed(pseudo, sellers)) {
-                                System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
-                                pseudo = getUserStrInfo("pseudo");
-                            }
-                            seller.setPseudo(pseudo);
-                            break;
-                        case 5:
-                            seller.setNumber(getUserNumInfo("Numero"));
-                            break;
-                        default:
-                            System.out.println("option doit etre compris entre 1 et 5");
-                            break;
-                    }
-                    option = 2;
+        int option = getOption(1, 5);
+        scanner.nextLine();
+        switch (option) {
+            case 1:
+                seller.setFirstName(getUserStrInfo("Prenom"));
+                break;
+            case 2:
+                seller.setLastName(getUserStrInfo("Nom"));
+                break;
+            case 3:
+                seller.setEmail(getUserStrInfo("Email"));
+                break;
+            case 4:
+                String pseudo = getUserStrInfo("pseudo");
+                while (isPseudoAlreadyUsed(pseudo, clients) || isPseudoAlreadyUsed(pseudo, sellers)) {
+                    System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
+                    pseudo = getUserStrInfo("pseudo");
                 }
-            }
+                seller.setPseudo(pseudo);
+                break;
+            case 5:
+                seller.setNumber(getUserNumInfo("Numero"));
+                break;
+            default:
+                System.out.println("option doit etre compris entre 1 et 5");
+                break;
         }
     }
 
     private static void modifyClientInfo(Client client) {
-        int option = 2;
-        while (option == 2) {
-            System.out.println(client);
-            System.out.println("Confirmer vos informations: ");
-            System.out.println("1. oui");
-            System.out.println("2. non");
-            System.out.println();
-            option = getOption(1, 2);
-            if (option == 1) {
-                System.out.println("votre compte a ete cree avec succes");
-            } else {
-                System.out.println("Voulez vous modifier vos informations:  ");
-                System.out.println("1. oui");
-                System.out.println("2. non");
-                System.out.println();
 
-                if (getOption(1, 2) == 1) {
-                    System.out.println("Choisir information a modifier: ");
-                    System.out.println("1. Prenom");
-                    System.out.println("2. Nom");
-                    System.out.println("3. Email");
-                    System.out.println("4. Pseudo");
-                    System.out.println("5. Number");
-                    System.out.println("6. Adresse de livraison");
+        System.out.println("Choisir information a modifier: ");
+        System.out.println("1. Prenom");
+        System.out.println("2. Nom");
+        System.out.println("3. Email");
+        System.out.println("4. Pseudo");
+        System.out.println("5. Numero");
+        System.out.println("6. Adresse de livraison");
 
-                    option = getOption(1, 6);
-                    scanner.nextLine();
-                    switch (option) {
-                        case 1:
-                            client.setFirstName(getUserStrInfo("Prenom"));
-                            break;
-                        case 2:
-                            client.setLastName(getUserStrInfo("Nom"));
-                            break;
-                        case 3:
-                            client.setEmail(getUserStrInfo("Email"));
-                            break;
-                        case 4:
-                            String pseudo = getUserStrInfo("pseudo");
-                            while (isPseudoAlreadyUsed(pseudo, clients) || isPseudoAlreadyUsed(pseudo, sellers)) {
-                                System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
-                                pseudo = getUserStrInfo("pseudo");
-                            }
-                            client.setPseudo(pseudo);
-                            break;
-                        case 5:
-                            client.setNumber(getUserNumInfo("Numero"));
-                            break;
-                        case 6:
-                            client.setShipAddress(getUserStrInfo("Adresse de livraison"));
-                            break;
-                        default:
-                            System.out.println("option doit etre compris entre 1 et 5");
-                            break;
-                    }
-                    option = 2;
+        int option = getOption(1, 6);
+        scanner.nextLine();
+        switch (option) {
+            case 1:
+                client.setFirstName(getUserStrInfo("Prenom"));
+                break;
+            case 2:
+                client.setLastName(getUserStrInfo("Nom"));
+                break;
+            case 3:
+                client.setEmail(getUserStrInfo("Email"));
+                break;
+            case 4:
+                String pseudo = getUserStrInfo("pseudo");
+                while (isPseudoAlreadyUsed(pseudo, clients) || isPseudoAlreadyUsed(pseudo, sellers)) {
+                    System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
+                    pseudo = getUserStrInfo("pseudo");
                 }
-            }
+                client.setPseudo(pseudo);
+                break;
+            case 5:
+                client.setNumber(getUserNumInfo("Numero"));
+                break;
+            case 6:
+                client.setShipAddress(getUserStrInfo("Adresse de livraison"));
+                break;
+            default:
+                System.out.println("option doit etre compris entre 1 et 5");
+                break;
         }
     }
 
@@ -1072,6 +1071,7 @@ public class App {
         System.out.println("##########################");
         System.out.println();
         if (user instanceof Client) getClientServiceInfo((Client) user);
+        else getSellerServiceInfo((Seller) user);
 
     }
 
