@@ -10,8 +10,8 @@ import java.util.UUID;
 public class ShoppingCart {
     private HashMap<Product,Integer> cart;
     private double total;
-    private int numberItems;
-    private int numberPoints;
+    private long numberItems;
+    private long numberPoints;
 
     public ShoppingCart() {
         this.cart = new HashMap<>();
@@ -31,22 +31,30 @@ public class ShoppingCart {
         numberPoints += product.getPoints();
     }
 
-    public void delete(Product product) {
-        cart.remove(product);
+    public void updateQuantity(Product product) {
+        if (cart.get(product) > 1) cart.put(product,cart.get(product)-1);
+        else cart.remove(product) ;
         total -= product.getPrice();
-        numberItems--;
+        --numberItems;
         numberPoints -= product.getPoints();
+    }
+    public void deleteProduct(Product product){
+        cart.remove(product);
+        int qty=cart.get(product);
+        total -= product.getPrice()*qty;
+        numberItems-=qty;
+        numberPoints -= product.getPoints()*qty;
     }
 
     public double getTotal() {
         return total;
     }
 
-    public int getNumberItems() {
+    public long getNumberItems() {
         return numberItems;
     }
 
-    public int getNumberPoints() {
+    public long getNumberPoints() {
         return numberPoints;
     }
 
