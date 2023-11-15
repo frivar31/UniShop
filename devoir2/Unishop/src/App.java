@@ -705,11 +705,11 @@ public class App {
                 if (option >= lower && option <= upper) {
                     success = true;
                 } else {
-                    System.err.println("Please enter a number between " + lower + " and " + upper + " (inclusive).");
+                    System.err.println("Veuillez entrer un nombre entre " + lower + " et " + upper + " (inclusif) svp.");
                 }
             } catch (InputMismatchException e) {
                 // Handle the case where the user enters a non-integer
-                System.err.println("Oops! Invalid option. Please enter a valid number.");
+                System.err.println("Oops! option invale. veuillez entrer un chiffre valide svp.");
                 scanner.next(); // Consume the invalid input to prevent an infinite loop
             }
         }
@@ -764,11 +764,11 @@ public class App {
                 if (option >= lower && option <= upper) {
                     success = true;
                 } else {
-                    System.err.println("Please enter a number between " + lower + " and " + upper + " (inclusive).");
+                    System.err.println("Veuillez entrer un nombre entre " + lower + " et " + upper + " (inclusif) svp.");
                 }
             } catch (InputMismatchException e) {
                 // Handle the case where the user enters a non-integer
-                System.err.println("Oops! Invalid option. Please enter a valid number.");
+                System.err.println("Oops! option invale. veuillez entrer un chiffre valide svp.");
                 scanner.next(); // Consume the invalid input to prevent an infinite loop
             }
         }
@@ -788,11 +788,11 @@ public class App {
                 if (option >= lower) {
                     success = true;
                 } else {
-                    System.err.println("Please enter a number larger than " + lower + " (inclusive).");
+                    System.err.println("veuillez entrer un nombre plus grand que " + lower + " (inclusif) svp.");
                 }
             } catch (InputMismatchException e) {
                 // Handle the case where the user enters a non-integer
-                System.err.println("Oops! Invalid option. Please enter a valid number.");
+                System.err.println("Oops! option invale. veuillez entrer un chiffre valide svp.");
                 scanner.next(); // Consume the invalid input to prevent an infinite loop
             }
         }
@@ -881,14 +881,14 @@ public class App {
     private static Product findProductById() {
 
         while (true) {
-            System.out.println("Enter product ID: ");
-            int productId = (int)getUserNumInfo("Id");
+            System.out.println("Entrer le ID du produit: ");
+            int productId = (int)getUserNumInfo("id");
 
             Object[] obj = Catalog.catalogMap.get(productId);
             if (obj != null) {
                 return (Product) obj[0];
             } else {
-                System.out.println("Invalid product ID. Please try again.");
+                System.out.println("ID invalide. Veuillez reessayer svp.");
             }
         }
     }
@@ -898,7 +898,7 @@ public class App {
             System.out.println(current);
         }
         while (true) {
-            System.out.println("Enter the seller's pseudo:");
+            System.out.println("Entrer le pseudo du vendeur:");
             String pseudo = getUserStrInfo("Pseudo");
 
             for (User seller : sellers) {
@@ -906,7 +906,7 @@ public class App {
                     return (Seller) seller;
                 }
             }
-            System.out.println("Seller not found with the provided pseudo. Please try again.");
+            System.out.println("Pas de vendeur avec un tel pseudo. Veuillez reesayer.");
         }
     }
     private static void getSellerServiceInfo(Scanner scanner) {
@@ -1029,7 +1029,7 @@ public class App {
                 Calendar.getInstance().getTime().toString(),
                 30,
                 9.99,
-                50,
+                13,
                 "Fitness",
                 "HealthCo",
                 "Exercise101"
@@ -1058,7 +1058,7 @@ public class App {
                 "2023-05-10", // Assuming date format as a String
                 25,
                 79.99,
-                40,
+                1,
                 "ToolCo",
                 "ScrewMaster 2000",
                 "Power Tools"
