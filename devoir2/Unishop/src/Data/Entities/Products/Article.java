@@ -56,7 +56,7 @@ public class Article extends Product {
                 "\n- categorie='" + category + '\'' +
                 "\n- date de mise en vente=" + date +
                 "\n- quantite=" + quantity +
-                "\n- prix=" + price +
+                "\n- price=" + (double)Math.round(price*100)/100+"$" +
                 "\n- points=" + points +
                 "\n- sous-categorie='" + subCategory + '\'' +
                 "\n- marque='" + brand + '\'' +
