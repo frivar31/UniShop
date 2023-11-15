@@ -31,19 +31,19 @@ public class ShoppingCart {
         numberPoints += product.getPoints();
     }
 
-    public void updateQuantity(Product product) {
-        if (cart.get(product) > 1) cart.put(product,cart.get(product)-1);
-        else cart.remove(product) ;
-        total -= product.getPrice();
-        --numberItems;
-        numberPoints -= product.getPoints();
+    public void updateQuantity(Product product,int quantity) {
+        int delta=quantity-cart.get(product);
+        total += delta*product.getPrice();
+        numberItems+=delta;
+        numberPoints += delta*product.getPoints();
+        cart.replace(product,quantity);
     }
     public void deleteProduct(Product product){
-        cart.remove(product);
         int qty=cart.get(product);
         total -= product.getPrice()*qty;
         numberItems-=qty;
         numberPoints -= product.getPoints()*qty;
+        cart.remove(product);
     }
 
     public double getTotal() {
@@ -66,6 +66,10 @@ public class ShoppingCart {
         numberItems = 0;
         numberPoints = 0;
     }
+    public boolean containsItem(int id){
+        return cart.containsKey(Catalog.getProduct(id));
+    }
+
 
     @Override
     public String toString() {
@@ -74,8 +78,12 @@ public class ShoppingCart {
             sb.append(product.toString(cart.get(product))).append("\n");
         }
         sb.append("Number of items : ").append(numberItems).append("\n");
-        sb.append("Total cost : ").append(total).append("\n");
+        sb.append("Total cost : ").append((double)Math.round(total * 100) / 100).append("$").append("\n");
         sb.append("Total points : ").append(numberPoints).append("\n");
         return sb.toString();
+    }
+    public String toString(Product product) {
+        return product.toString(cart.get(product));
+
     }
 }

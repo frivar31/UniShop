@@ -17,4 +17,7 @@ public class Catalog {
             else catalogMap.remove(product.getId());
         }
     }
+    public static Product getProduct(int id){
+        return catalogMap.containsKey(id)?(Product)catalogMap.get(id)[0]:null;
+    }
 }

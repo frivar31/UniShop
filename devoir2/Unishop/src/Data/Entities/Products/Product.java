@@ -97,7 +97,7 @@ public class Product {
                 "\n- category='" + category + '\'' +
                 "\n- date=" + date +
                 "\n- quantity=" + quantity +
-                "\n- price=" + price +
+                "\n- price=" + (double)Math.round(price*100)/100+"$" +
                 "\n- points=" + points +
                 "\n}";
     }
@@ -109,7 +109,7 @@ public class Product {
                 "\n- category='" + category + '\'' +
                 "\n- date=" + date +
                 "\n- quantity=" + quantity +
-                "\n- price=" + price +
+                "\n- price=" + (double)Math.round(price*100)/100+"$" +
                 "\n- points=" + points +
                 "\n}";
     }

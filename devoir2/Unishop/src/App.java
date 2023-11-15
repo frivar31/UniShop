@@ -6,7 +6,6 @@ import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class App {
@@ -713,10 +712,12 @@ public class App {
             System.out.println("2. Chercher un vendeur");
             System.out.println("3. Afficher le panier");
             System.out.println("4. Passer la commande");
-            System.out.println("5. Modifier son profile");
-            System.out.println("6. Quitter");
+            System.out.println("5. Editer les items du panier");
+            System.out.println("6. Modifier son profile");
+            System.out.println("7. Quitter");
 
-            int option = getOption(1,5);
+
+            int option = getOption(1,7);
 
             switch (option) {
                 case 1:
@@ -739,6 +740,7 @@ public class App {
                             System.out.println("2. Non");
                             if(getOption(1,2)==2) redo=false;
                         }
+                        else redo=false;
                     }
                     break;
 
@@ -753,23 +755,48 @@ public class App {
                     System.out.println("Contenu du panier :");
                     System.out.println(user.getShoppingCart());
                     break;
-
-                case 6:
-                    System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
+                case 4:
+                    if(user.getShoppingCart().getNumberItems()==0){
+                        System.out.println("Votre panier est vide");
+                        break;
+                    }
                     break;
                 case 5:
+                    if(user.getShoppingCart().getNumberItems()==0){
+                        System.out.println("Votre panier est vide");
+                        break;
+                    }
+                    System.out.println(user.getShoppingCart());
+                    System.out.println("Entrer le id du produit que vous voulez editer");
+                    int id=getOption();
+                    while(!user.getShoppingCart().containsItem(id)){
+                        System.out.println("Cette id n'est pas dans votre panier, rentrez un nouveau");
+                        id=(int)getUserNumInfo("Id");
+                    }
+                    Product product=Catalog.getProduct(id);
+                    System.out.println(user.getShoppingCart().toString(product));
+                    System.out.println("Voulez-vous retirer ou ajuster la quantité de l'item");
+                    System.out.println("1. Retirer");
+                    System.out.println("2. Editer");
+                    if(getOption(1,2)==1){
+                        user.getShoppingCart().deleteProduct(product);
+                        System.out.println("item supprimé");
+                        System.out.println(user.getShoppingCart());
+                    }
+                    else{
+                        System.out.println("Rentré la quantité désiré :");
+                        int quantity=getUserNumInfo("Quantité",1);
+                        user.getShoppingCart().updateQuantity(product,quantity);
+                        System.out.println(user.getShoppingCart());
+                        System.out.println("Quantité ajusté");
+                    }
+                    System.out.println();
+                    break;
+                case 6:
                     modifyClientInfo(user);
                     break;
-                case 4:
-                    System.out.println(user.getShoppingCart());
-                    System.out.println("Voulez-vous acheter les items dans votre panier :");
-                    System.out.println("1. Oui");
-                    System.out.println("2. Non");
-                    if(getOption(1,2)==1){
-                        if(isShoppingCartItemsAvailable(user.getShoppingCart())){
-                            System.out.println(user.buy(user.getShipAddress()));
-                        }
-                    }
+                case 7:
+                    System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
                     break;
                 default:
                     System.out.println("Choix invalide. Veuillez choisir une option valide.");
@@ -782,6 +809,7 @@ public class App {
                 System.out.println("Vous avez une quantité supérieure à celle disponible pour l'item suivant :");
                 System.out.println(product);
                 System.out.println("Quantité disponible : "+product.getquantity()+" Quantité dans le panier : "+shoppingCart.getCart().get(product));
+                return false;
             }
         }
         return true;
