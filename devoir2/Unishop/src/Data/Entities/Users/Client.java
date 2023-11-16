@@ -60,7 +60,7 @@ public class Client extends User{
 
         // Clear the cart after the purchase
         this.shoppingCart=new ShoppingCart();
-        return orders.getLast();
+        return orders.get(orders.size()-1);
     }
 
     @Override

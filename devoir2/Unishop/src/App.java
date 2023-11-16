@@ -40,7 +40,7 @@ public class App {
         long editionNum = -1;
         if (getOption(1, 2) == 1) {
             editionNum = getUserNumInfo("Numero d'edition");
-            scanner.nextLine();
+
         }
 
         String pubDate = getUserStrInfo("date de parution (DD/MM/YYYY)");
@@ -55,7 +55,6 @@ public class App {
         } else {
             type = Type.electronic;
         }
-        scanner.nextLine();
 
         long initQuantity = getUserNumInfo("Quantite");
 
@@ -102,7 +101,7 @@ public class App {
                     System.out.println("11. ISBN: ");
 
                     option = getOption(1, 11);
-                    scanner.nextLine();
+
                     if (option == 1) {
                         product.setTitle(getUserStrInfo("Title"));
                     } else if (option == 2) {
@@ -195,7 +194,7 @@ public class App {
                     System.out.println("8. Price: ");
 
                     option = getOption(1, 8);
-                    scanner.nextLine();
+
                     if (option == 1) {
                         product.setTitle(getUserStrInfo("Title"));
                     } else if (option == 2) {
@@ -317,7 +316,7 @@ public class App {
         System.out.println("2. non");
 
         long points = 1;
-        if (getOption() == 1) {
+        if (getOption(1,2) == 1) {
             points = getUserNumInfo("bonus/$", 1, 20);
         }
 
@@ -453,8 +452,8 @@ public class App {
                     System.out.println("11. Price: ");
                     System.out.println("12. ISBN: ");
 
-                    option = getOption();
-                    scanner.nextLine();
+                    option = getOption(1,12);
+
                     if (option == 1) {
                         product.setTitle(getUserStrInfo("Title"));
                     } else if (option == 2) {
@@ -479,8 +478,6 @@ public class App {
                         product.setPrice(getUserNumInfo("Prix", 1));
                     } else if (option == 12) {
                         product.setISBN(getUserStrInfo("ISBN"));
-                    } else {
-                        System.out.println("Option invalide");
                     }
                     option = 2;
                 }
@@ -500,8 +497,7 @@ public class App {
         System.out.println("5. Equipement de bureau");
         Product product = null;
 
-        int option = getOption();
-        scanner.nextLine();
+        int option = getOption(1,5);
         product = switch (option) {
             case 1 -> getBookInfo();
             case 2 -> getLearningResourceInfo();
@@ -536,8 +532,6 @@ public class App {
         }
 
         long number = getUserNumInfo("Numero");
-        //scanner.nextLine();
-
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
         Seller seller = new Seller(firstName, lastName, email, pseudo, number, products);
@@ -579,7 +573,6 @@ public class App {
             pseudo = getUserStrInfo("pseudo");
         }
         long number = getUserNumInfo("Numero");
-        scanner.nextLine();
         String shipAddress = getUserStrInfo("Adresse de livraison");
         Client client = new Client(firstName, lastName, email, pseudo, number, shipAddress);
 
@@ -607,7 +600,7 @@ public class App {
             }
         return client;
     }
-
+/*
     private static int getOption() {
         int option = 0;
         boolean success = false;
@@ -623,7 +616,7 @@ public class App {
         }
         return option;
     }
-
+*/
     private static int getOption(int lower, int upper) {
         int option = 0;
         boolean success = false;
@@ -673,6 +666,7 @@ public class App {
         while (success) {
             try {
                 input = scanner.nextLong();
+                scanner.nextLine();
                 success = false;
             } catch (InputMismatchException e) {
                 System.err.println("Ooops! " + info + " doit etre un nombre");
@@ -686,11 +680,10 @@ public class App {
         System.out.print(info + ": ");
         int option = 0;
         boolean success = false;
-
         while (!success) {
             try {
                 option = scanner.nextInt();
-
+                scanner.nextLine();
                 // Check if the entered option is within the specified bounds
                 if (option >= lower && option <= upper) {
                     success = true;
@@ -715,7 +708,7 @@ public class App {
         while (!success) {
             try {
                 option = scanner.nextInt();
-
+                scanner.nextLine();
                 // Check if the entered option is within the specified bounds
                 if (option >= lower) {
                     success = true;
@@ -805,7 +798,7 @@ public class App {
                     }
                     System.out.println(user.getShoppingCart());
                     System.out.println("Entrer le id du produit que vous voulez editer");
-                    int id = getOption();
+                    int id = getOption(1,Integer.MAX_VALUE);
                     while (!user.getShoppingCart().containsItem(id)) {
                         System.out.println("Cette id n'est pas dans votre panier, rentrez un nouveau");
                         id = (int) getUserNumInfo("Id");
@@ -892,8 +885,7 @@ public class App {
         System.out.println("1. Offrir un produit: ");
         System.out.println("2. Changer l'etat d'une commande: ");
         System.out.println("3. Modifier son profile");
-
-        int option = getOption();
+        int option = getOption(1,3);
         switch (option) {
             case 1:
                 getProductInfo();
@@ -901,6 +893,8 @@ public class App {
             case 3:
                 // To complete
                 modifySellerInfo(seller);
+
+
         }
     }
 
@@ -913,7 +907,7 @@ public class App {
         System.out.println("5. Numero");
 
         int option = getOption(1, 5);
-        scanner.nextLine();
+
         switch (option) {
             case 1:
                 seller.setFirstName(getUserStrInfo("Prenom"));
@@ -952,7 +946,7 @@ public class App {
         System.out.println("6. Adresse de livraison");
 
         int option = getOption(1, 6);
-        scanner.nextLine();
+
         switch (option) {
             case 1:
                 client.setFirstName(getUserStrInfo("Prenom"));
@@ -1006,7 +1000,7 @@ public class App {
 
         Client client1 = new Client("sidya", "galakho", "sidya.galakho@gmail.ca", "rango", 4385273906L, "9545 Rue Lajeunesse");
         Client client2 = new Client("John", "Doe", "john.doe@gmail.com", "password123", 1234567890L, "123 Main Street");
-        System.out.println(client2.getFirstName());
+
         Client client3 = new Client("Alice", "Smith", "alice.smith@outlook.com", "myPass123", 9876543210L, "456 Elm Street");
         Client client4 = new Client("Michael", "Johnson", "michael.johnson@gmail.com", "securePwd", 5551112222L, "789 Oak Avenue");
         Client client5 = new Client("Emily", "Davis", "emily.davis@hotmail.com", "p@ssw0rd", 3334445555L, "101 Pine Street");
