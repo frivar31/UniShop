@@ -39,7 +39,7 @@ public class App {
 
         long editionNum = -1;
         if (getOption(1, 2) == 1) {
-            editionNum = getUserNumInfo("Numero d'edition");
+            editionNum = getUserNumInfo("Numero d'edition",1,Integer.MAX_VALUE);
 
         }
 
@@ -56,7 +56,7 @@ public class App {
             type = Type.electronic;
         }
 
-        long initQuantity = getUserNumInfo("Quantite");
+        long initQuantity = getUserNumInfo("Quantite",1,Integer.MAX_VALUE);
 
         System.out.println("offrir des points bonus pour le produit:");
         System.out.println("1. oui");
@@ -66,7 +66,7 @@ public class App {
             points = getUserNumInfo("bonus/$", 1, 20);
         }
 
-        double price = getUserNumInfo("Prix", 1);
+        double price = getUserNumInfo("Prix", 1,Integer.MAX_VALUE);
 
         LearningResource product = new LearningResource(title, desc, "Ressource d'apprentissage", Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, org, pubDate, type, editionNum);
 
@@ -111,7 +111,7 @@ public class App {
                     } else if (option == 4) {
                         product.setOrganisation(getUserStrInfo("Organisation"));
                     } else if (option == 5) {
-                        product.setEditionNumber(getUserNumInfo("Numero d'edition"));
+                        product.setEditionNumber((long) getUserNumInfo("Numero d'edition",1,Integer.MAX_VALUE));
                     } else if (option == 6) {
                         product.setPublishDate(getUserStrInfo("date de parution (DD/MM/YYYY)"));
                     } else if (option == 7) {
@@ -125,12 +125,12 @@ public class App {
                         }
                         product.setType(type);
                     } else if (option == 8) {
-                        product.setquantity(getUserNumInfo("Quantite", 1));
+                        product.setquantity(getUserNumInfo("Quantite", 1,Integer.MAX_VALUE));
                     } else if (option == 9) {
                         points = getUserNumInfo("bonus/$", 1, 20);
                         product.setPoints(points);
                     } else if (option == 10) {
-                        product.setPrice(getUserNumInfo("Price", 1));
+                        product.setPrice(getUserNumInfo("Price", 1,Integer.MAX_VALUE));
                     } else if (option == 11) {
 
                         product.setISBN(getUserStrInfo("ISBN"));
@@ -153,7 +153,7 @@ public class App {
         String model = getUserStrInfo("Model");
         String subCategory = getUserStrInfo("Sous-catégorie exemple: cahier, crayon, surligneur:");
 
-        long initQuantity = getUserNumInfo("Quantite", 1);
+        long initQuantity = getUserNumInfo("Quantite", 1,Integer.MAX_VALUE);
 
         System.out.println("offrir des points bonus pour le produit:");
         System.out.println("1. oui");
@@ -163,7 +163,7 @@ public class App {
         if (getOption(1, 2) == 1) {
             points = getUserNumInfo("bonus/$", 1, 20);
         }
-        double price = getUserNumInfo("Prix", 1);
+        double price = getUserNumInfo("Prix", 1,Integer.MAX_VALUE);
         Article product = new Article(title, desc, "Article", Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory);
 
         int option = 2;
@@ -206,13 +206,11 @@ public class App {
                     } else if (option == 5) {
                         product.setSubCategory(getUserStrInfo("sous-categorie"));
                     } else if (option == 6) {
-                        product.setquantity(getUserNumInfo("Quantite", 1));
+                        product.setquantity(getUserNumInfo("Quantite", 1,Integer.MAX_VALUE));
                     } else if (option == 7) {
                         product.setPoints(getUserNumInfo("bonus/$", 1, 20));
                     } else if (option == 8) {
-                        product.setPrice(getUserNumInfo("Prix", 1));
-                    } else {
-                        System.out.println("Option invalide");
+                        product.setPrice(getUserNumInfo("Prix", 1,Integer.MAX_VALUE));
                     }
                 }
                 option = 2;
@@ -231,7 +229,7 @@ public class App {
         String model = getUserStrInfo("Model");
         String subCategory = getUserStrInfo("Sous-catégorie exemple: ordinateur, souris, clavier, disque dur externe");
         String launchDate = getUserStrInfo("date de lancement (DD/MM/YYYY)");
-        long initQuantity = getUserNumInfo("Quantite", 1);
+        long initQuantity = getUserNumInfo("Quantite", 1,Integer.MAX_VALUE);
 
         System.out.println("offrir des points bonus pour le produit:");
         System.out.println("1. oui");
@@ -241,7 +239,7 @@ public class App {
         if (getOption(1, 2) == 1) {
             points = getUserNumInfo("bonus/$", 1, 20);
         }
-        double price = getUserNumInfo("Prix", 1);
+        double price = getUserNumInfo("Prix", 1,Integer.MAX_VALUE);
         Hardware product = new Hardware(title, desc, "Matériel informatique", Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, launchDate, subCategory);
         int option = 2;
         while (option == 2) {
@@ -285,13 +283,11 @@ public class App {
                     } else if (option == 6) {
                         product.setLauchDate(getUserStrInfo("Date de lancement"));
                     } else if (option == 7) {
-                        product.setquantity(getUserNumInfo("Quantite", 1));
+                        product.setquantity(getUserNumInfo("Quantite", 1,Integer.MAX_VALUE));
                     } else if (option == 8) {
                         product.setPoints(getUserNumInfo("bonus/$", 1, 20));
                     } else if (option == 9) {
-                        product.setPrice(getUserNumInfo("Prix", 1));
-                    } else {
-                        System.out.println("Option invalide");
+                        product.setPrice(getUserNumInfo("Prix", 1,Integer.MAX_VALUE));
                     }
                     option = 2;
                 }
@@ -309,7 +305,7 @@ public class App {
         String model = getUserStrInfo("Model");
         String subCategory = getUserStrInfo("Sous-catégorie exemple: table, chaise, lampe:");
 
-        long initQuantity = getUserNumInfo("Quantite", 1);
+        long initQuantity = getUserNumInfo("Quantite", 1,Integer.MAX_VALUE);
 
         System.out.println("offrir des points bonus pour le produit:");
         System.out.println("1. oui");
@@ -320,7 +316,7 @@ public class App {
             points = getUserNumInfo("bonus/$", 1, 20);
         }
 
-        double price = getUserNumInfo("Prix", 1);
+        double price = getUserNumInfo("Prix", 1,Integer.MAX_VALUE);
         DesktopTool product = new DesktopTool(title, desc, "Article", Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory);
 
         int option = 2;
@@ -362,13 +358,11 @@ public class App {
                     } else if (option == 5) {
                         product.setSubCategory(getUserStrInfo("sous-categorie"));
                     } else if (option == 6) {
-                        product.setquantity(getUserNumInfo("Quantite", 1));
+                        product.setquantity(getUserNumInfo("Quantite", 1,Integer.MAX_VALUE));
                     } else if (option == 7) {
                         product.setPoints(getUserNumInfo("bonus/$", 1, 20));
                     } else if (option == 8) {
-                        product.setPrice(getUserNumInfo("Prix", 1));
-                    } else {
-                        System.out.println("Option invalide");
+                        product.setPrice(getUserNumInfo("Prix", 1,Integer.MAX_VALUE));
                     }
                     option = 2;
                 }
@@ -392,7 +386,7 @@ public class App {
 
         long editionNum = -1;
         if (getOption(1, 2) == 1) {
-            editionNum = getUserNumInfo("Numero d'edition");
+            editionNum = getUserNumInfo("Numero d'edition",1,Integer.MAX_VALUE);
         }
 
         String genre = getUserStrInfo("genre");
@@ -404,10 +398,10 @@ public class App {
 
         long volNum = -1;
         if (getOption(1, 2) == 1) {
-            volNum = getUserNumInfo("Numero de volume");
+            volNum = getUserNumInfo("Numero de volume",1,Integer.MAX_VALUE);
         }
 
-        long initQuantity = getUserNumInfo("Quantite", 1);
+        long initQuantity = getUserNumInfo("Quantite", 1,Integer.MAX_VALUE);
 
         System.out.println("offrir des points bonus pour le produit:");
         System.out.println("1. oui");
@@ -417,7 +411,7 @@ public class App {
         if (getOption(1, 2) == 1) {
             points = getUserNumInfo("bonus/$", 1, 20);
         }
-        double price = getUserNumInfo("Prix", 1);
+        double price = getUserNumInfo("Prix", 1,Integer.MAX_VALUE);
         Book product = new Book(title, desc, "Livre ou Manuel", Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, editor, genre, pubDate, editionNum, volNum);
         int option = 2;
         while (option == 2) {
@@ -463,19 +457,19 @@ public class App {
                     } else if (option == 4) {
                         product.setEditor(getUserStrInfo("Maison d'edition"));
                     } else if (option == 5) {
-                        product.setEditorNum(getUserNumInfo("Numero d'edition"));
+                        product.setEditorNum(getUserNumInfo("Numero d'edition",1,Integer.MAX_VALUE));
                     } else if (option == 6) {
                         product.setGenre(getUserStrInfo("Genre"));
                     } else if (option == 7) {
                         product.setPubDate(getUserStrInfo("date de parution (DD/MM/YYYY)"));
                     } else if (option == 8) {
-                        product.setVolNum(getUserNumInfo("Numero de volume"));
+                        product.setVolNum(getUserNumInfo("Numero de volume",1,Integer.MAX_VALUE));
                     } else if (option == 9) {
-                        product.setquantity(getUserNumInfo("Quantite", 1));
+                        product.setquantity(getUserNumInfo("Quantite", 1,Integer.MAX_VALUE));
                     } else if (option == 10) {
                         product.setPoints(getUserNumInfo("bonus/$", 1, 20));
                     } else if (option == 11) {
-                        product.setPrice(getUserNumInfo("Prix", 1));
+                        product.setPrice(getUserNumInfo("Prix", 1,Integer.MAX_VALUE));
                     } else if (option == 12) {
                         product.setISBN(getUserStrInfo("ISBN"));
                     }
@@ -531,7 +525,7 @@ public class App {
             pseudo = getUserStrInfo("pseudo");
         }
 
-        long number = getUserNumInfo("Numero");
+        long number = getUserNumInfo("Numero",1,Integer.MAX_VALUE);
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
         Seller seller = new Seller(firstName, lastName, email, pseudo, number, products);
@@ -572,7 +566,7 @@ public class App {
             System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
             pseudo = getUserStrInfo("pseudo");
         }
-        long number = getUserNumInfo("Numero");
+        long number = getUserNumInfo("Numero",1,Integer.MAX_VALUE);
         String shipAddress = getUserStrInfo("Adresse de livraison");
         Client client = new Client(firstName, lastName, email, pseudo, number, shipAddress);
 
@@ -600,23 +594,7 @@ public class App {
             }
         return client;
     }
-/*
-    private static int getOption() {
-        int option = 0;
-        boolean success = false;
-        while (!success) {
-            try {
-                option = scanner.nextInt();
-                scanner.nextLine();
-                success = true;
-            } catch (InputMismatchException e) {
-                System.err.println("Ooops! option doit etre un chiffre");
-                scanner.next();
-            }
-        }
-        return option;
-    }
-*/
+
     private static int getOption(int lower, int upper) {
         int option = 0;
         boolean success = false;
@@ -659,23 +637,6 @@ public class App {
         return input;
     }
 
-    private static long getUserNumInfo(String info) {
-        System.out.print(info + ": ");
-        long input = 0;
-        boolean success = true;
-        while (success) {
-            try {
-                input = scanner.nextLong();
-                scanner.nextLine();
-                success = false;
-            } catch (InputMismatchException e) {
-                System.err.println("Ooops! " + info + " doit etre un nombre");
-                scanner.next();
-            }
-        }
-        return input;
-    }
-
     private static int getUserNumInfo(String info, int lower, int upper) {
         System.out.print(info + ": ");
         int option = 0;
@@ -689,31 +650,6 @@ public class App {
                     success = true;
                 } else {
                     System.err.println("Veuillez entrer un nombre entre " + lower + " et " + upper + " (inclusif) svp.");
-                }
-            } catch (InputMismatchException e) {
-                // Handle the case where the user enters a non-integer
-                System.err.println("Oops! option invale. veuillez entrer un chiffre valide svp.");
-                scanner.next(); // Consume the invalid input to prevent an infinite loop
-            }
-        }
-
-        return option;
-    }
-
-    private static int getUserNumInfo(String info, int lower) {
-        System.out.print(info + ": ");
-        int option = 0;
-        boolean success = false;
-
-        while (!success) {
-            try {
-                option = scanner.nextInt();
-                scanner.nextLine();
-                // Check if the entered option is within the specified bounds
-                if (option >= lower) {
-                    success = true;
-                } else {
-                    System.err.println("veuillez entrer un nombre plus grand que " + lower + " (inclusif) svp.");
                 }
             } catch (InputMismatchException e) {
                 // Handle the case where the user enters a non-integer
@@ -801,7 +737,7 @@ public class App {
                     int id = getOption(1,Integer.MAX_VALUE);
                     while (!user.getShoppingCart().containsItem(id)) {
                         System.out.println("Cette id n'est pas dans votre panier, rentrez un nouveau");
-                        id = (int) getUserNumInfo("Id");
+                        id = getUserNumInfo("Id",1,Integer.MAX_VALUE);
                     }
                     Product product = Catalog.getProduct(id);
                     System.out.println(user.getShoppingCart().toString(product));
@@ -814,7 +750,7 @@ public class App {
                         System.out.println(user.getShoppingCart());
                     } else {
                         System.out.println("Rentré la quantité désiré :");
-                        int quantity = getUserNumInfo("Quantité", 1);
+                        int quantity = getUserNumInfo("Quantité", 1,Integer.MAX_VALUE);
                         user.getShoppingCart().updateQuantity(product, quantity);
                         System.out.println(user.getShoppingCart());
                         System.out.println("Quantité ajusté");
@@ -850,7 +786,7 @@ public class App {
 
         while (true) {
             System.out.println("Entrer le ID du produit: ");
-            int productId = (int) getUserNumInfo("id");
+            int productId = getUserNumInfo("id",1,Integer.MAX_VALUE);
 
             Object[] obj = Catalog.catalogMap.get(productId);
             if (obj != null) {
@@ -927,7 +863,7 @@ public class App {
                 seller.setPseudo(pseudo);
                 break;
             case 5:
-                seller.setNumber(getUserNumInfo("Numero"));
+                seller.setNumber(getUserNumInfo("Numero",1,Integer.MAX_VALUE));
                 break;
             default:
                 System.out.println("option doit etre compris entre 1 et 5");
@@ -966,7 +902,7 @@ public class App {
                 client.setPseudo(pseudo);
                 break;
             case 5:
-                client.setNumber(getUserNumInfo("Numero"));
+                client.setNumber(getUserNumInfo("Numero",1,Integer.MAX_VALUE));
                 break;
             case 6:
                 client.setShipAddress(getUserStrInfo("Adresse de livraison"));
