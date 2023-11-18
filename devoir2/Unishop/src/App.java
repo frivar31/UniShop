@@ -824,13 +824,25 @@ public class App {
         int option = getOption(1,3);
         switch (option) {
             case 1:
-                getProductInfo();
+                Product product = null ;
+                product = getProductInfo();
+                seller.addProduct(product);
                 break;
             case 3:
-                // To complete
-                modifySellerInfo(seller);
-
-
+                boolean redo = true ;
+                while(redo) {
+                    modifySellerInfo(seller);
+                    System.out.println(seller);
+                    System.out.println("Confirmer vos informations: ");
+                    System.out.println("1. oui");
+                    System.out.println("2. non");
+                    System.out.println();
+                    option = getOption(1, 2);
+                    if (option == 1) {
+                        redo = false ;
+                        System.out.println("votre compte a ete modifie avec succes");
+                    }
+                }
         }
     }
 
