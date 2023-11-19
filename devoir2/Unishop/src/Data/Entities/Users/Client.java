@@ -5,15 +5,12 @@ import Data.Entities.Order;
 import Data.Entities.Products.Product;
 import Data.Entities.ShoppingCart;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Client extends User{
 
     private String shipAddress;
-    private List<Order> orders;
+    private HashMap<String,Order> orders;
     private ShoppingCart shoppingCart;
 
     public Client(String firstName,
@@ -25,15 +22,15 @@ public class Client extends User{
         super(firstName,lastName,email,pseudo,number);
         this.shipAddress = shipAddress;
         this.shoppingCart=new ShoppingCart();
-        orders=new ArrayList<>();
+        orders=new HashMap<>();
     }
 
-    public List<Order> getOrders() {
+    public HashMap<String,Order> getOrders() {
         return orders;
     }
 
     public void addOrder(Order order) {
-        this.orders.add(order);
+        this.orders.put(order.getOrderNumber(),order);
     }
 
     public String getShipAddress() {
@@ -53,14 +50,14 @@ public class Client extends User{
 
         // Create an order using the current cart and customer information
         Order newOrder = new Order(orderID, shoppingCart.convertToOrderItems(), Calendar.getInstance().getTime(), false, false, null, null, address);
-        orders.add(newOrder);
+        orders.put(newOrder.getOrderNumber(),newOrder);
 
         // Update the inventory
         Catalog.update(shoppingCart.getCart());
 
         // Clear the cart after the purchase
         this.shoppingCart=new ShoppingCart();
-        return orders.get(orders.size()-1);
+        return newOrder;
     }
 
     @Override
@@ -74,7 +71,9 @@ public class Client extends User{
                 "\n- shipAddress='" + this.getShipAddress() + '\'' +
                 "\n}";
     }
-
+    public void confirmOrderReception(String orderNumber){
+        orders.get(orderNumber).itemArrived();
+    }
     @Override
     public void displayActivityStat() {
 

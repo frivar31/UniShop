@@ -4,15 +4,11 @@ import Data.Entities.Products.Product;
 import Data.Entities.Users.Client;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Order {
 
     private String orderNumber;
-    //private ShoppingCart items;
     private ArrayList<OrderItem> items;
     private Date orderDate;
     private Boolean delivered;
@@ -121,5 +117,20 @@ public class Order {
     }
     public void returnOrder(Client client){
         // TODO
+    }
+    public String getStatus(){
+        if(!shipped) return "En production";
+        else if(shipped&&!delivered) return "En livraison";
+        return "Livré";
+    }
+
+    public void itemArrived() {
+        if (shipped && !delivered) {
+            this.delivered = true;
+            this.deliveryDate = Calendar.getInstance().getTime();
+            System.out.println("Order confirmed. Delivery date: " + this.deliveryDate);
+        } else {
+            System.out.println("Cannot confirm order reception. The order is not shipped or is already confirmed.");
+        }
     }
 }
