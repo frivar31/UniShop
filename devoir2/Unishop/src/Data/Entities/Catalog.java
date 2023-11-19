@@ -1,6 +1,7 @@
 package Data.Entities;
 
 import Data.Entities.Products.Product;
+import Data.Entities.Users.Seller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,5 +20,8 @@ public class Catalog {
     }
     public static Product getProduct(int id){
         return catalogMap.containsKey(id)?(Product)catalogMap.get(id)[0]:null;
+    }
+    public static Seller getSeller(int id){
+        return catalogMap.containsKey(id)?(Seller)catalogMap.get(id)[1]:null;
     }
 }

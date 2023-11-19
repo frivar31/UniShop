@@ -1,6 +1,6 @@
 package Data.Entities.Users;
 
-public class User {
+public abstract class User {
 
     private String firstName;
     private String lastName;
@@ -70,9 +70,7 @@ public class User {
                 "\n- number=" + number +
                 "\n}";
     }
-    public void displayActivityStat(){
-        // TODO
-    }
+    public abstract void displayActivityStat();
     public void notify(User user){
         // TODO
     }

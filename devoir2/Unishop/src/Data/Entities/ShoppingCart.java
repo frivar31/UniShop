@@ -89,7 +89,7 @@ public class ShoppingCart {
 
         for (Product product : cart.keySet()) {
             int quantity = cart.get(product);
-            OrderItem orderItem = new OrderItem(product, quantity,(Seller)Catalog.catalogMap.get(product.getId())[1]);
+            OrderItem orderItem = new OrderItem(product, quantity,Catalog.getSeller(product.getId()));
             orderItems.add(orderItem);
         }
 

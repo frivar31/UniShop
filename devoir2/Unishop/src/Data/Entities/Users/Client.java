@@ -75,6 +75,11 @@ public class Client extends User{
                 "\n}";
     }
 
+    @Override
+    public void displayActivityStat() {
+
+    }
+
     public void follow(Client client){
         // TODO
     }

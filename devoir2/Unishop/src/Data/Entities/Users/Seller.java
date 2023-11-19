@@ -57,5 +57,10 @@ public class Seller extends User {
                 "\n}";
     }
 
+    @Override
+    public void displayActivityStat() {
+
+    }
+
 
 }

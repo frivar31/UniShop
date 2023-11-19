@@ -1,11 +1,14 @@
 package Data.Entities;
+
 import Data.Entities.Products.Product;
 import Data.Entities.Users.Seller;
+
 public class OrderItem {
     private Product product;
     private int quantity;
-
     private Seller seller;
+    private Boolean shipped;
+    private Boolean delivered;
 
     public OrderItem(Product product, int quantity, Seller seller){
         this.product = product;
