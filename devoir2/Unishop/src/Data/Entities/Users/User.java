@@ -71,7 +71,7 @@ public abstract class User {
                 "\n}";
     }
     public abstract void displayActivityStat();
-    public void notify(User user){
+    public void  getNotification(){
         // TODO
     }
 }

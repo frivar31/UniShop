@@ -72,14 +72,14 @@ public class Client extends User{
                 "\n}";
     }
     public void confirmOrderReception(String orderNumber){
-        orders.get(orderNumber).itemArrived();
+        orders.get(orderNumber).confirmOrder();
     }
     @Override
     public void displayActivityStat() {
 
     }
 
-    public void follow(Client client){
+    public void follow(){
         // TODO
     }
 }

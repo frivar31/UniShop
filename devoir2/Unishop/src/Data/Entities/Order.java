@@ -103,28 +103,10 @@ public class Order {
 
         return sb.toString();
     }
-    public void clientOrderManager(Client client){
+    public void clientOrderManager(){
         // TODO
     }
-    public void confirmOrder(Client client){
-        // TODO
-    }
-    public void complain(Client client){
-        // TODO
-    }
-    public void swapOrder(Client client){
-        // TODO
-    }
-    public void returnOrder(Client client){
-        // TODO
-    }
-    public String getStatus(){
-        if(!shipped) return "En production";
-        else if(shipped&&!delivered) return "En livraison";
-        return "Livré";
-    }
-
-    public void itemArrived() {
+    public void confirmOrder(){
         if (shipped && !delivered) {
             this.delivered = true;
             this.deliveryDate = Calendar.getInstance().getTime();
@@ -132,5 +114,19 @@ public class Order {
         } else {
             System.out.println("Cannot confirm order reception. The order is not shipped or is already confirmed.");
         }
+    }
+    public void complain(){
+        // TODO
+    }
+    public void swapOrder(){
+        // TODO
+    }
+    public void returnOrder(){
+        // TODO
+    }
+    public String getStatus(){
+        if(!shipped) return "En production";
+        else if(shipped&&!delivered) return "En livraison";
+        return "Livré";
     }
 }
