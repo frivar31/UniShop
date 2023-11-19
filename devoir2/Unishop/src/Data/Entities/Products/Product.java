@@ -12,6 +12,8 @@ public class Product {
     protected long quantity;
     protected double price;
     protected long points = 1;
+    protected long discountPoint=0;
+    protected long discountPrice=0;
 
     public Product(String title,
                    String desc,
@@ -112,5 +114,8 @@ public class Product {
                 "\n- price=" + (double)Math.round(price*100)/100+"$" +
                 "\n- points=" + points +
                 "\n}";
+    }
+    public void setPromotion(long points, double price){
+    // TODO:
     }
 }

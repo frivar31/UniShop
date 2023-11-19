@@ -1,8 +1,10 @@
 package Data.Entities;
 
 import Data.Entities.Products.Product;
+import Data.Entities.Users.Client;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +12,8 @@ import java.util.List;
 public class Order {
 
     private String orderNumber;
-    private ShoppingCart items;
+    //private ShoppingCart items;
+    private ArrayList<OrderItem> items;
     private Date orderDate;
     private Boolean delivered;
     private Boolean shipped;
@@ -18,7 +21,8 @@ public class Order {
     private Date deliveryDate;
     private String address;
 
-    public Order(String orderNumber, ShoppingCart items, Date orderDate, Boolean delivered, Boolean shipped, Date shippedDate, Date deliveryDate,String address) {
+
+    public Order(String orderNumber, ArrayList<OrderItem> items, Date orderDate, Boolean delivered, Boolean shipped, Date shippedDate, Date deliveryDate,String address) {
         this.orderNumber = orderNumber;
         this.items = items;
         this.orderDate = orderDate;
@@ -37,8 +41,8 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    public HashMap<Product,Integer> getItems() {
-        return items.getCart();
+    public ArrayList<OrderItem> getItems() {
+        return items;
     }
 
 
@@ -102,5 +106,20 @@ public class Order {
         sb.append(items);
 
         return sb.toString();
+    }
+    public void clientOrderManager(Client client){
+        // TODO
+    }
+    public void confirmOrder(Client client){
+        // TODO
+    }
+    public void complain(Client client){
+        // TODO
+    }
+    public void swapOrder(Client client){
+        // TODO
+    }
+    public void returnOrder(Client client){
+        // TODO
     }
 }

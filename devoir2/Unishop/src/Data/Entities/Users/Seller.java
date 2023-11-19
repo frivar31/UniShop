@@ -56,4 +56,6 @@ public class Seller extends User {
                 "\n- number=" + this.getNumber() +
                 "\n}";
     }
+
+
 }

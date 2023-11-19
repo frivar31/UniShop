@@ -70,4 +70,10 @@ public class User {
                 "\n- number=" + number +
                 "\n}";
     }
+    public void displayActivityStat(){
+        // TODO
+    }
+    public void notify(User user){
+        // TODO
+    }
 }

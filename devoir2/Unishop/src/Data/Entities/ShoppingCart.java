@@ -1,11 +1,9 @@
 package Data.Entities;
 
 import Data.Entities.Products.Product;
+import Data.Entities.Users.Seller;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class ShoppingCart {
     private HashMap<Product,Integer> cart;
@@ -85,5 +83,16 @@ public class ShoppingCart {
     public String toString(Product product) {
         return product.toString(cart.get(product));
 
+    }
+    public ArrayList<OrderItem> convertToOrderItems() {
+        ArrayList<OrderItem> orderItems = new ArrayList<>();
+
+        for (Product product : cart.keySet()) {
+            int quantity = cart.get(product);
+            OrderItem orderItem = new OrderItem(product, quantity,(Seller)Catalog.catalogMap.get(product.getId())[1]);
+            orderItems.add(orderItem);
+        }
+
+        return orderItems;
     }
 }

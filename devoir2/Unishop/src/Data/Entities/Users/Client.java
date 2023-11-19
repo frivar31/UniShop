@@ -52,7 +52,7 @@ public class Client extends User{
         String orderID = UUID.randomUUID().toString();
 
         // Create an order using the current cart and customer information
-        Order newOrder = new Order(orderID, shoppingCart, Calendar.getInstance().getTime(), false, false, null, null, address);
+        Order newOrder = new Order(orderID, shoppingCart.convertToOrderItems(), Calendar.getInstance().getTime(), false, false, null, null, address);
         orders.add(newOrder);
 
         // Update the inventory
@@ -75,4 +75,7 @@ public class Client extends User{
                 "\n}";
     }
 
+    public void follow(Client client){
+        // TODO
+    }
 }
