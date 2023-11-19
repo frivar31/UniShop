@@ -1,6 +1,12 @@
 package Data.Entities.Products;
 
+import Data.Entities.ProductEvaluation;
+import Data.Entities.Users.Client;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Product {
     protected static int counter = 0;
@@ -14,6 +20,7 @@ public class Product {
     protected long points = 1;
     protected long discountPoint=0;
     protected long discountPrice=0;
+    protected ArrayList<ProductEvaluation> evaluations;
 
     public Product(String title,
                    String desc,
@@ -30,6 +37,7 @@ public class Product {
         this.quantity = quantity;
         this.price = price;
         this.points = points;
+        this.evaluations=new ArrayList<>();
     }
     public int getId(){
         return id;
@@ -88,6 +96,10 @@ public class Product {
 
     public void setPoints(long points) {
         this.points = points;
+    }
+
+    public void addEvaluation(ProductEvaluation eval){
+        evaluations.add(eval);
     }
 
     @Override

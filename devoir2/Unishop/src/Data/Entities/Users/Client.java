@@ -2,6 +2,7 @@ package Data.Entities.Users;
 
 import Data.Entities.Catalog;
 import Data.Entities.Order;
+import Data.Entities.ProductEvaluation;
 import Data.Entities.Products.Product;
 import Data.Entities.ShoppingCart;
 
@@ -11,7 +12,17 @@ public class Client extends User{
 
     private String shipAddress;
     private HashMap<String,Order> orders;
+    private HashMap<Product, ProductEvaluation> evaluations;
     private ShoppingCart shoppingCart;
+    private int points;
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void addPoints(int points) {
+        this.points += points;
+    }
 
     public Client(String firstName,
                   String lastName,
@@ -22,6 +33,7 @@ public class Client extends User{
         super(firstName,lastName,email,pseudo,number);
         this.shipAddress = shipAddress;
         this.shoppingCart=new ShoppingCart();
+        this.points=0;
         orders=new HashMap<>();
     }
 
@@ -74,11 +86,14 @@ public class Client extends User{
     public void confirmOrderReception(String orderNumber){
         orders.get(orderNumber).confirmOrder();
     }
+    public void rateProduct(Product product,ProductEvaluation evaluation){
+        evaluations.put(product,evaluation);
+        product.addEvaluation(evaluation);
+    }
     @Override
     public void displayActivityStat() {
 
     }
-
     public void follow(){
         // TODO
     }
