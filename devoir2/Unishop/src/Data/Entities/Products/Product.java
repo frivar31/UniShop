@@ -1,12 +1,7 @@
 package Data.Entities.Products;
 
 import Data.Entities.ProductEvaluation;
-import Data.Entities.Users.Client;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 public class Product {
     protected static int counter = 0;
@@ -100,6 +95,10 @@ public class Product {
 
     public void addEvaluation(ProductEvaluation eval){
         evaluations.add(eval);
+    }
+    public void removeEvaluation(ProductEvaluation eval){
+        eval.delete();
+        evaluations.remove(eval);
     }
 
     @Override
