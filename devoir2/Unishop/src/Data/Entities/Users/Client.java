@@ -1,10 +1,7 @@
 package Data.Entities.Users;
 
-import Data.Entities.Catalog;
-import Data.Entities.Order;
-import Data.Entities.ProductEvaluation;
+import Data.Entities.*;
 import Data.Entities.Products.Product;
-import Data.Entities.ShoppingCart;
 
 import java.util.*;
 
@@ -83,9 +80,7 @@ public class Client extends User{
                 "\n- shipAddress='" + this.getShipAddress() + '\'' +
                 "\n}";
     }
-    public void confirmOrderReception(String orderNumber){
-        orders.get(orderNumber).confirmOrder();
-    }
+
     public void rateProduct(Product product,ProductEvaluation evaluation){
         if(!evaluations.containsKey(product)){
             evaluations.put(product,evaluation);
@@ -103,5 +98,36 @@ public class Client extends User{
     }
     public void follow(){
         // TODO
+    }
+
+    public void manageOrder(){
+        // TODO
+    }
+    public void confirmOrderReception(String orderNumber){
+        Order order = orders.get(orderNumber) ;
+        if (order.isShipped() && !order.isDelivered()) {
+            order.setDelivered(true);
+            order.setDeliveryDate(Calendar.getInstance().getTime());
+            System.out.println("Order confirmed. Delivery date: " + order.getDeliveryDate());
+        } else {
+            System.out.println("Cannot confirm order reception. The order is not shipped or is already confirmed.");
+        }
+    }
+    public void complain(){
+        // TODO
+    }
+    public void swapOrderItem(Product swapProduct){
+        // TODO
+    }
+
+    public ReturnItem returnOrderItem(OrderItem orderItem, int quantity){
+        return new ReturnItem(orderItem.getProduct(),quantity,orderItem.getSeller()) ;
+    }
+
+    public String getStatus(String orderNumber){
+        Order order = orders.get(orderNumber) ;
+        if(!order.isShipped()) return "En production";
+        else if(order.isShipped()&&!order.isDelivered()) return "En livraison";
+        return "Livré";
     }
 }

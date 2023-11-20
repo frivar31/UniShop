@@ -5,6 +5,7 @@ import Data.Entities.Users.Client;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Order {
 
@@ -50,7 +51,7 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Boolean getDelivered() {
+    public Boolean isDelivered() {
         return delivered;
     }
 
@@ -58,7 +59,7 @@ public class Order {
         this.delivered = delivered;
     }
 
-    public Boolean getShipped() {
+    public Boolean isShipped() {
         return shipped;
     }
 
@@ -103,30 +104,5 @@ public class Order {
 
         return sb.toString();
     }
-    public void clientOrderManager(){
-        // TODO
-    }
-    public void confirmOrder(){
-        if (shipped && !delivered) {
-            this.delivered = true;
-            this.deliveryDate = Calendar.getInstance().getTime();
-            System.out.println("Order confirmed. Delivery date: " + this.deliveryDate);
-        } else {
-            System.out.println("Cannot confirm order reception. The order is not shipped or is already confirmed.");
-        }
-    }
-    public void complain(){
-        // TODO
-    }
-    public void swapOrder(){
-        // TODO
-    }
-    public void returnOrder(){
-        // TODO
-    }
-    public String getStatus(){
-        if(!shipped) return "En production";
-        else if(shipped&&!delivered) return "En livraison";
-        return "Livré";
-    }
+
 }

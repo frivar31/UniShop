@@ -928,7 +928,6 @@ public class App {
     private static boolean isPseudoAlreadyUsed(String pseudo, ArrayList<User> users) {
         return users.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
     }
-
     private static User login(String pseudo) {
         User user = null;
         while ((user = getUserByPseudo(pseudo, clients)) == null && (user = getUserByPseudo(pseudo, sellers)) == null) {
