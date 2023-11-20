@@ -4,6 +4,7 @@ import Data.Entities.*;
 import Data.Entities.Products.Product;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Client extends User{
 
@@ -120,8 +121,18 @@ public class Client extends User{
         // TODO
     }
 
-    public ReturnItem returnOrderItem(OrderItem orderItem, int quantity){
-        return new ReturnItem(orderItem.getProduct(),quantity,orderItem.getSeller()) ;
+    public ReturnItem returnOrderItem(String orderNumber, OrderItem orderItem, int quantity){
+        Order order = orders.get(orderNumber) ;
+        // Calculate the difference in milliseconds
+        long diffInMilliseconds = Math.abs(Calendar.getInstance().getTime().getTime() - order.getDeliveryDate().getTime());
+
+        // Convert milliseconds to days
+        long daysDifference = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
+
+        if (daysDifference < 30) System.out.println("La période de retour pour les articles est limitée à 30 jours à partir de la date de la commande.");
+        else return new ReturnItem(orderItem.getProduct(),quantity,orderItem.getSeller()) ;
+
+        return null ;
     }
 
     public String getStatus(String orderNumber){
