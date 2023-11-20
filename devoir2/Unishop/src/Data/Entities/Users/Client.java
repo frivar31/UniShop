@@ -87,8 +87,15 @@ public class Client extends User{
         orders.get(orderNumber).confirmOrder();
     }
     public void rateProduct(Product product,ProductEvaluation evaluation){
-        evaluations.put(product,evaluation);
-        product.addEvaluation(evaluation);
+        if(!evaluations.containsKey(product)){
+            evaluations.put(product,evaluation);
+            product.addEvaluation(evaluation);
+        }
+    }
+    public void removeRating(Product product){
+        if(evaluations.containsKey(product)){
+            product.removeEvaluation(evaluations.get(product));
+        }
     }
     @Override
     public void displayActivityStat() {
