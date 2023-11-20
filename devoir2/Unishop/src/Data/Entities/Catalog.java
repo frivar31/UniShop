@@ -4,7 +4,6 @@ import Data.Entities.Products.Product;
 import Data.Entities.Users.Seller;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class Catalog {
     public static HashMap<Integer,Object[]> catalogMap=new HashMap<Integer,Object[]>();
