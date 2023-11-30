@@ -130,7 +130,7 @@ public class Client extends User{
         long daysDifference = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
 
         if (daysDifference < 30) System.out.println("La période de retour pour les articles est limitée à 30 jours à partir de la date de la commande.");
-        else return new ReturnItem(orderItem.getProduct(),quantity,orderItem.getSeller()) ;
+        else return new ReturnItem(orderItem.getProduct(),quantity,orderItem.getSeller());
 
         return null ;
     }
