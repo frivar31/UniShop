@@ -1,43 +1,45 @@
-package Data.Entities.Controller;
+package Controller;
 
 import Data.Entities.Catalog;
 import Data.Entities.Products.Product;
-import Data.Entities.Service.UserInteractionService;
-import Data.Entities.Users.Client;
+import Service.UserInteractionService;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class SellerManager {
+    public UserInteractionService input;
     private ProductManager productManager;
     private ClientManager clientManager;
     private List<Seller> sellers;
-    public UserInteractionService input;
+
+    public SellerManager(List<Seller> sellers) {
+        this.sellers = sellers;
+        this.input = new UserInteractionService();
+    }
 
     public List<Seller> getSellers() {
         return sellers;
-    }
-    public void setClientManager(ClientManager clientManager){
-        this.clientManager=clientManager;
-    }
-    public void setProductManager(ProductManager productManager){
-        this.productManager=productManager;
     }
 
     public void setSellers(ArrayList<Seller> sellers) {
         this.sellers = sellers;
     }
 
-    public SellerManager(List<Seller> sellers) {
-        this.sellers = sellers;
-        this.input=new UserInteractionService();
+    public void setClientManager(ClientManager clientManager) {
+        this.clientManager = clientManager;
     }
+
+    public void setProductManager(ProductManager productManager) {
+        this.productManager = productManager;
+    }
+
     public boolean isPseudoAlreadyUsed(String pseudo) {
-        return sellers.stream().anyMatch(user -> pseudo.equals(user.getPseudo()))||clientManager.isPseudoAlreadyUsed(pseudo);
+        return sellers.stream().anyMatch(user -> pseudo.equals(user.getPseudo())) || clientManager.isPseudoAlreadyUsed(pseudo);
     }
+
     public Seller findSellerById() {
         for (Object[] objects : Catalog.catalogMap.values()) {
             Seller current = (Seller) objects[1];
@@ -55,22 +57,23 @@ public class SellerManager {
             System.out.println("Pas de vendeur avec un tel pseudo. Veuillez reesayer.");
         }
     }
+
     public void getSellerServiceInfo(Seller seller) {
 
         System.out.println("Selectionner la tache que voulez effectuer: ");
         System.out.println("1. Offrir un produit: ");
         System.out.println("2. Changer l'etat d'une commande: ");
         System.out.println("3. Modifier son profile");
-        int option = input.getOption(1,3);
+        int option = input.getOption(1, 3);
         switch (option) {
             case 1:
-                Product product = null ;
+                Product product = null;
                 product = productManager.getProductInfo();
                 seller.addProduct(product);
                 break;
             case 3:
-                boolean redo = true ;
-                while(redo) {
+                boolean redo = true;
+                while (redo) {
                     modifySellerInfo(seller);
                     System.out.println(seller);
                     System.out.println("Confirmer vos informations: ");
@@ -79,12 +82,13 @@ public class SellerManager {
                     System.out.println();
                     option = input.getOption(1, 2);
                     if (option == 1) {
-                        redo = false ;
+                        redo = false;
                         System.out.println("votre compte a ete modifie avec succes");
                     }
                 }
         }
     }
+
     public void modifySellerInfo(Seller seller) {
         System.out.println("Choisir information a modifier: ");
         System.out.println("1. Prenom");
@@ -114,16 +118,18 @@ public class SellerManager {
                 seller.setPseudo(pseudo);
                 break;
             case 5:
-                seller.setNumber(input.getUserNumInfo("Numero",1,Integer.MAX_VALUE));
+                seller.setNumber(input.getUserNumInfo("Numero", 1, Integer.MAX_VALUE));
                 break;
             default:
                 System.out.println("option doit etre compris entre 1 et 5");
                 break;
         }
     }
+
     public User getUserByPseudo(String pseudo) {
         return sellers.stream().filter(u -> pseudo.equals(u.getPseudo())).findAny().orElse(null);
     }
+
     public Seller getSellerRegistrationInfo() {
         System.out.println("Vous devez offrir au moins un produit à vendre au prealable");
         System.out.println("1. Offrir un produit à vendre:");
@@ -145,7 +151,7 @@ public class SellerManager {
             pseudo = input.getUserStrInfo("pseudo");
         }
 
-        long number = input.getUserNumInfo("Numero",1,Integer.MAX_VALUE);
+        long number = input.getUserNumInfo("Numero", 1, Integer.MAX_VALUE);
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
         Seller seller = new Seller(firstName, lastName, email, pseudo, number, products);

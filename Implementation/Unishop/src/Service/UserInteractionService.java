@@ -1,4 +1,4 @@
-package Data.Entities.Service;
+package Service;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

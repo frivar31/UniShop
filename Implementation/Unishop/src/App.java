@@ -1,8 +1,8 @@
-import Data.Entities.Controller.ClientManager;
-import Data.Entities.Controller.ProductManager;
-import Data.Entities.Controller.SellerManager;
+import Controller.ClientManager;
+import Controller.ProductManager;
+import Controller.SellerManager;
 import Data.Entities.Products.*;
-import Data.Entities.Service.UserInteractionService;
+import Service.UserInteractionService;
 import Data.Entities.Type;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
@@ -11,7 +11,6 @@ import Data.Entities.Users.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Scanner;
 
 public class App {
     public static UserInteractionService input = new UserInteractionService();

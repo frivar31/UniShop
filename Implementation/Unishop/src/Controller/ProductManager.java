@@ -1,19 +1,20 @@
-package Data.Entities.Controller;
+package Controller;
 
 import Data.Entities.Catalog;
 import Data.Entities.Products.*;
-import Data.Entities.Service.UserInteractionService;
+import Service.UserInteractionService;
 import Data.Entities.Type;
 
 import java.util.Calendar;
 
 public class ProductManager {
-    UserInteractionService input=new UserInteractionService();
+    UserInteractionService input = new UserInteractionService();
+
     public Product findProductById() {
 
         while (true) {
             System.out.println("Entrer le ID du produit: ");
-            int productId = input.getUserNumInfo("id",1,Integer.MAX_VALUE);
+            int productId = input.getUserNumInfo("id", 1, Integer.MAX_VALUE);
 
             Object[] obj = Catalog.catalogMap.get(productId);
             if (obj != null) {
@@ -23,6 +24,7 @@ public class ProductManager {
             }
         }
     }
+
     public Product getProductInfo() {
         System.out.println("Choisissez une categorie de produit a vendre:");
         System.out.println("1. Livres et Manuels");
@@ -32,7 +34,7 @@ public class ProductManager {
         System.out.println("5. Equipement de bureau");
         Product product = null;
 
-        int option = input.getOption(1,5);
+        int option = input.getOption(1, 5);
         product = switch (option) {
             case 1 -> getBookInfo();
             case 2 -> getLearningResourceInfo();
@@ -43,6 +45,7 @@ public class ProductManager {
         };
         return product;
     }
+
     public Product getBookInfo() {
         System.out.println("Donnez les informations du Livre/Manuel: ");
         String title = input.getUserStrInfo("Titre");
@@ -57,7 +60,7 @@ public class ProductManager {
 
         long editionNum = -1;
         if (input.getOption(1, 2) == 1) {
-            editionNum = input.getUserNumInfo("Numero d'edition",1,Integer.MAX_VALUE);
+            editionNum = input.getUserNumInfo("Numero d'edition", 1, Integer.MAX_VALUE);
         }
 
         String genre = input.getUserStrInfo("genre");
@@ -69,10 +72,10 @@ public class ProductManager {
 
         long volNum = -1;
         if (input.getOption(1, 2) == 1) {
-            volNum = input.getUserNumInfo("Numero de volume",1,Integer.MAX_VALUE);
+            volNum = input.getUserNumInfo("Numero de volume", 1, Integer.MAX_VALUE);
         }
 
-        long initQuantity = input.getUserNumInfo("Quantite", 1,Integer.MAX_VALUE);
+        long initQuantity = input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE);
 
         System.out.println("offrir des points bonus pour le produit:");
         System.out.println("1. oui");
@@ -82,7 +85,7 @@ public class ProductManager {
         if (input.getOption(1, 2) == 1) {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
-        double price = input.getUserNumInfo("Prix", 1,Integer.MAX_VALUE);
+        double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
         Book product = new Book(title, desc, "Livre ou Manuel", Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, editor, genre, pubDate, editionNum, volNum);
         int option = 2;
         while (option == 2) {
@@ -117,7 +120,7 @@ public class ProductManager {
                     System.out.println("11. Price: ");
                     System.out.println("12. ISBN: ");
 
-                    option = input.getOption(1,12);
+                    option = input.getOption(1, 12);
 
                     if (option == 1) {
                         product.setTitle(input.getUserStrInfo("Title"));
@@ -128,19 +131,19 @@ public class ProductManager {
                     } else if (option == 4) {
                         product.setEditor(input.getUserStrInfo("Maison d'edition"));
                     } else if (option == 5) {
-                        product.setEditorNum(input.getUserNumInfo("Numero d'edition",1,Integer.MAX_VALUE));
+                        product.setEditorNum(input.getUserNumInfo("Numero d'edition", 1, Integer.MAX_VALUE));
                     } else if (option == 6) {
                         product.setGenre(input.getUserStrInfo("Genre"));
                     } else if (option == 7) {
                         product.setPubDate(input.getUserStrInfo("date de parution (DD/MM/YYYY)"));
                     } else if (option == 8) {
-                        product.setVolNum(input.getUserNumInfo("Numero de volume",1,Integer.MAX_VALUE));
+                        product.setVolNum(input.getUserNumInfo("Numero de volume", 1, Integer.MAX_VALUE));
                     } else if (option == 9) {
-                        product.setquantity(input.getUserNumInfo("Quantite", 1,Integer.MAX_VALUE));
+                        product.setquantity(input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE));
                     } else if (option == 10) {
                         product.setPoints(input.getUserNumInfo("bonus/$", 1, 20));
                     } else if (option == 11) {
-                        product.setPrice(input.getUserNumInfo("Prix", 1,Integer.MAX_VALUE));
+                        product.setPrice(input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE));
                     } else if (option == 12) {
                         product.setISBN(input.getUserStrInfo("ISBN"));
                     }
@@ -152,6 +155,7 @@ public class ProductManager {
         return product;
 
     }
+
     public LearningResource getLearningResourceInfo() {
         System.out.println("Donnez les informations du Livre/Manuel: ");
         String title = input.getUserStrInfo("Titre");
@@ -166,7 +170,7 @@ public class ProductManager {
 
         long editionNum = -1;
         if (input.getOption(1, 2) == 1) {
-            editionNum = input.getUserNumInfo("Numero d'edition",1,Integer.MAX_VALUE);
+            editionNum = input.getUserNumInfo("Numero d'edition", 1, Integer.MAX_VALUE);
 
         }
 
@@ -183,7 +187,7 @@ public class ProductManager {
             type = Type.electronic;
         }
 
-        long initQuantity = input.getUserNumInfo("Quantite",1,Integer.MAX_VALUE);
+        long initQuantity = input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE);
 
         System.out.println("offrir des points bonus pour le produit:");
         System.out.println("1. oui");
@@ -193,7 +197,7 @@ public class ProductManager {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
 
-        double price = input.getUserNumInfo("Prix", 1,Integer.MAX_VALUE);
+        double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
 
         LearningResource product = new LearningResource(title, desc, "Ressource d'apprentissage", Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, org, pubDate, type, editionNum);
 
@@ -238,7 +242,7 @@ public class ProductManager {
                     } else if (option == 4) {
                         product.setOrganisation(input.getUserStrInfo("Organisation"));
                     } else if (option == 5) {
-                        product.setEditionNumber((long) input.getUserNumInfo("Numero d'edition",1,Integer.MAX_VALUE));
+                        product.setEditionNumber((long) input.getUserNumInfo("Numero d'edition", 1, Integer.MAX_VALUE));
                     } else if (option == 6) {
                         product.setPublishDate(input.getUserStrInfo("date de parution (DD/MM/YYYY)"));
                     } else if (option == 7) {
@@ -252,12 +256,12 @@ public class ProductManager {
                         }
                         product.setType(type);
                     } else if (option == 8) {
-                        product.setquantity(input.getUserNumInfo("Quantite", 1,Integer.MAX_VALUE));
+                        product.setquantity(input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE));
                     } else if (option == 9) {
                         points = input.getUserNumInfo("bonus/$", 1, 20);
                         product.setPoints(points);
                     } else if (option == 10) {
-                        product.setPrice(input.getUserNumInfo("Price", 1,Integer.MAX_VALUE));
+                        product.setPrice(input.getUserNumInfo("Price", 1, Integer.MAX_VALUE));
                     } else if (option == 11) {
 
                         product.setISBN(input.getUserStrInfo("ISBN"));
@@ -280,7 +284,7 @@ public class ProductManager {
         String model = input.getUserStrInfo("Model");
         String subCategory = input.getUserStrInfo("Sous-catégorie exemple: cahier, crayon, surligneur:");
 
-        long initQuantity = input.getUserNumInfo("Quantite", 1,Integer.MAX_VALUE);
+        long initQuantity = input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE);
 
         System.out.println("offrir des points bonus pour le produit:");
         System.out.println("1. oui");
@@ -290,7 +294,7 @@ public class ProductManager {
         if (input.getOption(1, 2) == 1) {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
-        double price = input.getUserNumInfo("Prix", 1,Integer.MAX_VALUE);
+        double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
         Article product = new Article(title, desc, "Article", Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory);
 
         int option = 2;
@@ -333,11 +337,11 @@ public class ProductManager {
                     } else if (option == 5) {
                         product.setSubCategory(input.getUserStrInfo("sous-categorie"));
                     } else if (option == 6) {
-                        product.setquantity(input.getUserNumInfo("Quantite", 1,Integer.MAX_VALUE));
+                        product.setquantity(input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE));
                     } else if (option == 7) {
                         product.setPoints(input.getUserNumInfo("bonus/$", 1, 20));
                     } else if (option == 8) {
-                        product.setPrice(input.getUserNumInfo("Prix", 1,Integer.MAX_VALUE));
+                        product.setPrice(input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE));
                     }
                 }
                 option = 2;
@@ -356,7 +360,7 @@ public class ProductManager {
         String model = input.getUserStrInfo("Model");
         String subCategory = input.getUserStrInfo("Sous-catégorie exemple: ordinateur, souris, clavier, disque dur externe");
         String launchDate = input.getUserStrInfo("date de lancement (DD/MM/YYYY)");
-        long initQuantity = input.getUserNumInfo("Quantite", 1,Integer.MAX_VALUE);
+        long initQuantity = input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE);
 
         System.out.println("offrir des points bonus pour le produit:");
         System.out.println("1. oui");
@@ -366,7 +370,7 @@ public class ProductManager {
         if (input.getOption(1, 2) == 1) {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
-        double price = input.getUserNumInfo("Prix", 1,Integer.MAX_VALUE);
+        double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
         Hardware product = new Hardware(title, desc, "Matériel informatique", Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, launchDate, subCategory);
         int option = 2;
         while (option == 2) {
@@ -410,11 +414,11 @@ public class ProductManager {
                     } else if (option == 6) {
                         product.setLauchDate(input.getUserStrInfo("Date de lancement"));
                     } else if (option == 7) {
-                        product.setquantity(input.getUserNumInfo("Quantite", 1,Integer.MAX_VALUE));
+                        product.setquantity(input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE));
                     } else if (option == 8) {
                         product.setPoints(input.getUserNumInfo("bonus/$", 1, 20));
                     } else if (option == 9) {
-                        product.setPrice(input.getUserNumInfo("Prix", 1,Integer.MAX_VALUE));
+                        product.setPrice(input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE));
                     }
                     option = 2;
                 }
@@ -432,18 +436,18 @@ public class ProductManager {
         String model = input.getUserStrInfo("Model");
         String subCategory = input.getUserStrInfo("Sous-catégorie exemple: table, chaise, lampe:");
 
-        long initQuantity = input.getUserNumInfo("Quantite", 1,Integer.MAX_VALUE);
+        long initQuantity = input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE);
 
         System.out.println("offrir des points bonus pour le produit:");
         System.out.println("1. oui");
         System.out.println("2. non");
 
         long points = 1;
-        if (input.getOption(1,2) == 1) {
+        if (input.getOption(1, 2) == 1) {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
 
-        double price = input.getUserNumInfo("Prix", 1,Integer.MAX_VALUE);
+        double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
         DesktopTool product = new DesktopTool(title, desc, "Article", Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory);
 
         int option = 2;
@@ -485,11 +489,11 @@ public class ProductManager {
                     } else if (option == 5) {
                         product.setSubCategory(input.getUserStrInfo("sous-categorie"));
                     } else if (option == 6) {
-                        product.setquantity(input.getUserNumInfo("Quantite", 1,Integer.MAX_VALUE));
+                        product.setquantity(input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE));
                     } else if (option == 7) {
                         product.setPoints(input.getUserNumInfo("bonus/$", 1, 20));
                     } else if (option == 8) {
-                        product.setPrice(input.getUserNumInfo("Prix", 1,Integer.MAX_VALUE));
+                        product.setPrice(input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE));
                     }
                     option = 2;
                 }

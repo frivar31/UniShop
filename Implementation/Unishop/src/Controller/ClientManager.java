@@ -1,21 +1,25 @@
-package Data.Entities.Controller;
+package Controller;
 
 import Data.Entities.Catalog;
 import Data.Entities.Products.Product;
-import Data.Entities.Service.UserInteractionService;
+import Service.UserInteractionService;
 import Data.Entities.ShoppingCart;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClientManager {
+    public UserInteractionService input;
     private SellerManager sellerManager;
     private ProductManager productManager;
     private List<Client> clients;
-    public UserInteractionService input;
+
+    public ClientManager(List<Client> clients) {
+        this.clients = clients;
+        this.input = new UserInteractionService();
+    }
 
     public List<Client> getClients() {
         return clients;
@@ -24,17 +28,15 @@ public class ClientManager {
     public void setClients(List<Client> clients) {
         this.clients = clients;
     }
-    public void setSellerManager(SellerManager sellerManager){
-        this.sellerManager=sellerManager;
-    }
-    public void setProductManager(ProductManager productManager){
-        this.productManager=productManager;
+
+    public void setSellerManager(SellerManager sellerManager) {
+        this.sellerManager = sellerManager;
     }
 
-    public ClientManager(List<Client> clients) {
-        this.clients = clients;
-        this.input=new UserInteractionService();
+    public void setProductManager(ProductManager productManager) {
+        this.productManager = productManager;
     }
+
     public void modifyClientInfo(Client client) {
 
         System.out.println("Choisir information a modifier: ");
@@ -66,7 +68,7 @@ public class ClientManager {
                 client.setPseudo(pseudo);
                 break;
             case 5:
-                client.setNumber(input.getUserNumInfo("Numero",1,Integer.MAX_VALUE));
+                client.setNumber(input.getUserNumInfo("Numero", 1, Integer.MAX_VALUE));
                 break;
             case 6:
                 client.setShipAddress(input.getUserStrInfo("Adresse de livraison"));
@@ -76,9 +78,11 @@ public class ClientManager {
                 break;
         }
     }
+
     public boolean isPseudoAlreadyUsed(String pseudo) {
-        return clients.stream().anyMatch(user -> pseudo.equals(user.getPseudo()))||sellerManager.isPseudoAlreadyUsed(pseudo);
+        return clients.stream().anyMatch(user -> pseudo.equals(user.getPseudo())) || sellerManager.isPseudoAlreadyUsed(pseudo);
     }
+
     public void getClientServiceInfo(Client user) {
 
 
@@ -152,10 +156,10 @@ public class ClientManager {
                     }
                     System.out.println(user.getShoppingCart());
                     System.out.println("Entrer le id du produit que vous voulez editer");
-                    int id = input.getOption(1,Integer.MAX_VALUE);
+                    int id = input.getOption(1, Integer.MAX_VALUE);
                     while (!user.getShoppingCart().containsItem(id)) {
                         System.out.println("Cette id n'est pas dans votre panier, rentrez un nouveau");
-                        id = input.getUserNumInfo("Id",1,Integer.MAX_VALUE);
+                        id = input.getUserNumInfo("Id", 1, Integer.MAX_VALUE);
                     }
                     Product product = Catalog.getProduct(id);
                     System.out.println(user.getShoppingCart().toString(product));
@@ -168,7 +172,7 @@ public class ClientManager {
                         System.out.println(user.getShoppingCart());
                     } else {
                         System.out.println("Rentré la quantité désiré :");
-                        int quantity = input.getUserNumInfo("Quantité", 1,Integer.MAX_VALUE);
+                        int quantity = input.getUserNumInfo("Quantité", 1, Integer.MAX_VALUE);
                         user.getShoppingCart().updateQuantity(product, quantity);
                         System.out.println(user.getShoppingCart());
                         System.out.println("Quantité ajusté");
@@ -187,6 +191,7 @@ public class ClientManager {
             }
         }
     }
+
     private boolean isShoppingCartItemsAvailable(ShoppingCart shoppingCart) {
         for (Product product : shoppingCart.getCart().keySet()) {
             if (product.getquantity() < shoppingCart.getCart().get(product)) {
@@ -198,9 +203,11 @@ public class ClientManager {
         }
         return true;
     }
+
     public User getUserByPseudo(String pseudo) {
         return clients.stream().filter(u -> pseudo.equals(u.getPseudo())).findAny().orElse(null);
     }
+
     public Client getClientRegistrationInfo() {
         System.out.println("Saisissez vos informations");
         String firstName = input.getUserStrInfo("Prenom");
@@ -212,7 +219,7 @@ public class ClientManager {
             System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
             pseudo = input.getUserStrInfo("pseudo");
         }
-        long number = input.getUserNumInfo("Numero",1,Integer.MAX_VALUE);
+        long number = input.getUserNumInfo("Numero", 1, Integer.MAX_VALUE);
         String shipAddress = input.getUserStrInfo("Adresse de livraison");
         Client client = new Client(firstName, lastName, email, pseudo, number, shipAddress);
 
