@@ -1,13 +1,17 @@
 import Controller.ClientManager;
 import Controller.ProductManager;
 import Controller.SellerManager;
+import Data.Entities.Catalog;
 import Data.Entities.Products.*;
 import Data.Entities.Type;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
 import Service.UserInteractionService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -37,11 +41,13 @@ public class App {
         return user;
     }
 
-    public static <Users> void run() {
-
-
+    public static <Users> void run() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
         Client client1 = new Client("sidya", "galakho", "sidya.galakho@gmail.ca", "rango", 4385273906L, "9545 Rue Lajeunesse");
         Client client2 = new Client("John", "Doe", "john.doe@gmail.com", "password123", 1234567890L, "123 Main Street");
+
+
+        //objectMapper.writeValue(new File("target/client.json"),client1);
 
         Client client3 = new Client("Alice", "Smith", "alice.smith@outlook.com", "myPass123", 9876543210L, "456 Elm Street");
         Client client4 = new Client("Michael", "Johnson", "michael.johnson@gmail.com", "securePwd", 5551112222L, "789 Oak Avenue");
@@ -49,8 +55,11 @@ public class App {
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(1951, Calendar.JULY, 16);
-        Book book1 = new Book("The Catcher in the Rye", "A novel about teenage angst and rebellion.", "Fiction", Calendar.getInstance().getTime().toString(), 5, 15.99, 4, "0316769487", "J.D. Salinger", "Little, Brown and Company", "Coming-of-age", calendar1.getTime().toString(), 1, 1);
 
+        Book book1=objectMapper.readValue(new File("target/book.json"),Book.class);
+
+        //Book book1 = new Book("The Catcher in the Rye", "A novel about teenage angst and rebellion.", "Fiction", Calendar.getInstance().getTime().toString(), 5, 15.99, 4, "0316769487", "J.D. Salinger", "Little, Brown and Company", "Coming-of-age", calendar1.getTime().toString(), 1, 1);
+        //objectMapper.writeValue(new File("target/book.json"),book1);
         Calendar calendar2 = Calendar.getInstance();
         calendar2.set(1960, Calendar.JULY, 11);
         Book book2 = new Book("To Kill a Mockingbird", "A story that addresses issues of racial injustice and moral growth.", "Fiction", Calendar.getInstance().getTime().toString(), 8, 12.49, 1, "0061120081", "Harper Lee", "J.B. Lippincott & Co.", "Southern Gothic", calendar2.getTime().toString(), 1, 1);
@@ -100,6 +109,7 @@ public class App {
         sellerManager.setProductManager(productManager);
 
         User user = null;
+        objectMapper.writeValue(new File("target/catalogue.json"),Catalog.catalogMap);
         System.out.println("Choisissez une option");
         System.out.println("1. Se connecter");
         System.out.println("2. S'inscrire");

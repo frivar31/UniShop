@@ -1,29 +1,39 @@
 package Data.Entities.Products;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Book extends Product {
 
-    private String ISBN;
-    private String author;
-    private String editor;
-    private String genre;
-    private String pubDate;
-    private long editorNum;
-    private long volNum;
 
-    public Book(String title,
-                String desc,
-                String category,
-                String date,
-                long initialQuantity,
-                double price,
-                long points,
-                String ISBN,
-                String author,
-                String editor,
-                String genre,
-                String pubDate,
-                long editorNum,
-                long volNum
+    private String ISBN;
+
+    private String author;
+
+    private String editor;
+
+    private String genre;
+
+    private String pubDate;
+
+    private long editorNum;
+
+    private long volNum;
+    @JsonCreator
+    public Book(@JsonProperty("title") String title,
+                @JsonProperty("desc") String desc,
+                @JsonProperty("category") String category,
+                @JsonProperty("date") String date,
+                @JsonProperty("initialQuantity") long initialQuantity,
+                @JsonProperty("price") double price,
+                @JsonProperty("points") long points,
+                @JsonProperty("isbn") String ISBN,
+                @JsonProperty("author") String author,
+                @JsonProperty("editor") String editor,
+                @JsonProperty("genre") String genre,
+                @JsonProperty("pubDate") String pubDate,
+                @JsonProperty("editorNum") long editorNum,
+                @JsonProperty("volNum") long volNum
     ) {
         super(title, desc, category, date, initialQuantity, price, points);
         this.ISBN = ISBN;
