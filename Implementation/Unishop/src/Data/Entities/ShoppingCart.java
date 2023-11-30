@@ -26,21 +26,21 @@ public class ShoppingCart {
         this.cart.put(product,cart.getOrDefault(product,0)+1);
         total += product.getPrice();
         numberItems++;
-        numberPoints += product.getPoints();
+        numberPoints += (int)(product.getPrice())*product.getPoints();
     }
 
     public void updateQuantity(Product product,int quantity) {
         int delta=quantity-cart.get(product);
         total += delta*product.getPrice();
         numberItems+=delta;
-        numberPoints += delta*product.getPoints();
+        numberPoints += (int)(product.getPrice())*delta*product.getPoints();
         cart.replace(product,quantity);
     }
     public void deleteProduct(Product product){
         int qty=cart.get(product);
         total -= product.getPrice()*qty;
         numberItems-=qty;
-        numberPoints -= product.getPoints()*qty;
+        numberPoints -= (int)(product.getPrice())*product.getPoints()*qty;
         cart.remove(product);
     }
 

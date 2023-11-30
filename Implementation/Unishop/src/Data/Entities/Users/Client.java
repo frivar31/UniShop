@@ -57,10 +57,10 @@ public class Client extends User{
     public Order buy(String address) {
         // Generate a unique order ID
         String orderID = UUID.randomUUID().toString();
-
         // Create an order using the current cart and customer information
         Order newOrder = new Order(orderID, shoppingCart.convertToOrderItems(), Calendar.getInstance().getTime(), false, false, null, null, address);
         orders.put(newOrder.getOrderNumber(),newOrder);
+        points+= (int) shoppingCart.getNumberPoints();
 
         // Update the inventory
         Catalog.update(shoppingCart.getCart());
