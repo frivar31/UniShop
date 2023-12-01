@@ -2,7 +2,7 @@
 
 Corrigé par An Li
 
-Total: 86%
+Total: 87%
 
 ## Description du système opérationnel [5/5]
 
@@ -31,7 +31,7 @@ Attention! Les captures d'écran et les images ne s'affichent pas dans votre rap
   - Adresse d'expédition
   - Informations du produit
 
-## Code source Java du programme et fichier JAR [21/25]
+## Code source Java du programme et fichier JAR [22/25]
 
 - Évitez de tout mettre dans le fichier App.java
 - Le code est là, mais une bonne partie des méthodes n'est pas appelée
