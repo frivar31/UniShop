@@ -47,7 +47,7 @@ public class ClientManager {
         System.out.println("6. Adresse de livraison");
         System.out.println("7. Mot de passe");
 
-        int option = input.getOption(1, 6);
+        int option = input.getOption(1, 7);
 
         switch (option) {
             case 1:

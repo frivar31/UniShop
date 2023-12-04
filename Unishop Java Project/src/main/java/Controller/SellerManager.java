@@ -98,7 +98,7 @@ public class SellerManager {
         System.out.println("5. Numero");
         System.out.println("6. Mot de passe");
 
-        int option = input.getOption(1, 5);
+        int option = input.getOption(1, 6);
 
         switch (option) {
             case 1:
