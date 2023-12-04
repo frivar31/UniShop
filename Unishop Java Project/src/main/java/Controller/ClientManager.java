@@ -45,6 +45,7 @@ public class ClientManager {
         System.out.println("4. Pseudo");
         System.out.println("5. Numero");
         System.out.println("6. Adresse de livraison");
+        System.out.println("7. Mot de passe");
 
         int option = input.getOption(1, 6);
 
@@ -56,13 +57,18 @@ public class ClientManager {
                 client.setLastName(input.getUserStrInfo("Nom"));
                 break;
             case 3:
-                client.setEmail(input.getUserStrInfo("Email"));
+                String email = input.getUserStrInfo("Email");
+                while (isEmailAlreadyUsed(email)) {
+                    System.out.println("Cet email est déjà utilisé. Veuillez entrer un nouveau.");
+                    email = input.getUserStrInfo("Email");
+                }
+                client.setEmail(email);
                 break;
             case 4:
-                String pseudo = input.getUserStrInfo("pseudo");
+                String pseudo = input.getUserStrInfo("Pseudo");
                 while (isPseudoAlreadyUsed(pseudo)) {
                     System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
-                    pseudo = input.getUserStrInfo("pseudo");
+                    pseudo = input.getUserStrInfo("Pseudo");
                 }
                 client.setPseudo(pseudo);
                 break;
@@ -72,6 +78,14 @@ public class ClientManager {
             case 6:
                 client.setShipAddress(input.getUserStrInfo("Adresse de livraison"));
                 break;
+            case 7:
+                String password = input.getUserStrInfo("Mot de passe");
+                while (isPasswordAlreadyUsed(password)) {
+                    System.out.println("Ce mot de passe est déjà utilisé. Veuillez entrer un nouveau.");
+                    password = input.getUserStrInfo("Mot de passe");
+                }
+                client.setPseudo(password);
+                break;
             default:
                 System.out.println("option doit etre compris entre 1 et 5");
                 break;
@@ -80,6 +94,10 @@ public class ClientManager {
 
     public boolean isPseudoAlreadyUsed(String pseudo) {
         return clients.stream().anyMatch(user -> pseudo.equals(user.getPseudo())) || sellerManager.isPseudoAlreadyUsed(pseudo);
+    }
+
+    public boolean isEmailAlreadyUsed(String email) {
+        return clients.stream().anyMatch(user -> email.equals(user.getEmail())) || sellerManager.isEmailAlreadyUsed(email);
     }
 
     public void getClientServiceInfo(Client user) {
@@ -250,15 +268,29 @@ public class ClientManager {
         System.out.println("Saisissez vos informations");
         String firstName = input.getUserStrInfo("Prenom");
         String lastName = input.getUserStrInfo("Nom");
+
         String email = input.getUserStrInfo("Email");
+
+        while (isEmailAlreadyUsed(email)) {
+            System.out.println("Cet email est déjà utilisé. Veuillez entrer un nouveau.");
+            email = input.getUserStrInfo("email");
+        }
+
         String pseudo = input.getUserStrInfo("pseudo");
 
-        while (isPseudoAlreadyUsed(pseudo) || isPseudoAlreadyUsed(pseudo)) {
+        while (isPseudoAlreadyUsed(pseudo)) {
             System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
             pseudo = input.getUserStrInfo("pseudo");
         }
         long number = input.getUserNumInfo("Numero", 1, Integer.MAX_VALUE);
         String shipAddress = input.getUserStrInfo("Adresse de livraison");
+
+        String password = input.getUserStrInfo("Mot de passe") ;
+        while (isPasswordAlreadyUsed(password)) {
+            System.out.println("Ce mot de passe est déjà utilisé. Veuillez entrer un nouveau.");
+            password = input.getUserStrInfo("Mot de passe");
+        }
+
         Client client = new Client(firstName, lastName, email, pseudo, number, shipAddress);
 
         int option = 2;
@@ -284,6 +316,10 @@ public class ClientManager {
             }
         }
         return client;
+    }
+
+    public boolean isPasswordAlreadyUsed(String password) {
+        return clients.stream().anyMatch(user -> password.equals(user.getPassword())) || sellerManager.isPasswordAlreadyUsed(password);
     }
 
     public void followClient(Client follower, Client toFollow) {

@@ -8,6 +8,16 @@ public abstract class User {
     private String pseudo;
     private long number;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String password ;
+
     public User(String firstName,
                 String lastName,
                 String email,

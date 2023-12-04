@@ -96,6 +96,7 @@ public class SellerManager {
         System.out.println("3. Email");
         System.out.println("4. Pseudo");
         System.out.println("5. Numero");
+        System.out.println("6. Mot de passe");
 
         int option = input.getOption(1, 5);
 
@@ -107,11 +108,16 @@ public class SellerManager {
                 seller.setLastName(input.getUserStrInfo("Nom"));
                 break;
             case 3:
-                seller.setEmail(input.getUserStrInfo("Email"));
+                String email = input.getUserStrInfo("Email");
+                while (isEmailAlreadyUsed(email)) {
+                    System.out.println("Cet email est déjà utilisé. Veuillez entrer un nouveau.");
+                    email = input.getUserStrInfo("email");
+                }
+                seller.setEmail(email);
                 break;
             case 4:
                 String pseudo = input.getUserStrInfo("pseudo");
-                while (isPseudoAlreadyUsed(pseudo) || clientManager.isPseudoAlreadyUsed(pseudo)) {
+                while (isPseudoAlreadyUsed(pseudo)) {
                     System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
                     pseudo = input.getUserStrInfo("pseudo");
                 }
@@ -119,6 +125,14 @@ public class SellerManager {
                 break;
             case 5:
                 seller.setNumber(input.getUserNumInfo("Numero", 1, Integer.MAX_VALUE));
+                break;
+            case 6:
+                String password = input.getUserStrInfo("Mot de passe");
+                while (isPasswordAlreadyUsed(password)) {
+                    System.out.println("Ce mot de passe est déjà utilisé. Veuillez entrer un nouveau.");
+                    password = input.getUserStrInfo("Mot de passe");
+                }
+                seller.setPseudo(password);
                 break;
             default:
                 System.out.println("option doit etre compris entre 1 et 5");
@@ -144,14 +158,26 @@ public class SellerManager {
         String lastName = input.getUserStrInfo("Nom");
         String email = input.getUserStrInfo("Email");
 
+        while (isEmailAlreadyUsed(email)) {
+            System.out.println("Cet email est déjà utilisé. Veuillez entrer un nouveau.");
+            email = input.getUserStrInfo("Email");
+        }
+
         String pseudo = input.getUserStrInfo("pseudo");
 
-        while (isPseudoAlreadyUsed(pseudo) || isPseudoAlreadyUsed(pseudo)) {
+        while (isPseudoAlreadyUsed(pseudo)) {
             System.out.println("Ce pseudo est déjà utilisé. Veuillez entrer un nouveau.");
             pseudo = input.getUserStrInfo("pseudo");
         }
 
         long number = input.getUserNumInfo("Numero", 1, Integer.MAX_VALUE);
+
+        String password = input.getUserStrInfo("Mot de passe") ;
+        while (isPasswordAlreadyUsed(password)) {
+            System.out.println("Ce mot de passe est déjà utilisé. Veuillez entrer un nouveau.");
+            password = input.getUserStrInfo("Mot de passe");
+        }
+
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
         Seller seller = new Seller(firstName, lastName, email, pseudo, number, products);
@@ -179,5 +205,13 @@ public class SellerManager {
             }
         }
         return seller;
+    }
+
+    public boolean isEmailAlreadyUsed(String email) {
+        return sellers.stream().anyMatch(user -> email.equals(user.getEmail())) || clientManager.isEmailAlreadyUsed(email);
+    }
+
+    public boolean isPasswordAlreadyUsed(String password) {
+        return sellers.stream().anyMatch(user -> password.equals(user.getPassword())) || clientManager.isPasswordAlreadyUsed(password);
     }
 }
