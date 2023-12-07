@@ -13,7 +13,7 @@ public class Hardware extends Product {
     @JsonCreator
     public Hardware(@JsonProperty("title") String title,
                     @JsonProperty("desc") String desc,
-                    @JsonProperty("category") String category,
+                    @JsonProperty("category") ProductType category,
                     @JsonProperty("date") String date,
                     @JsonProperty("initialQuantity") long initialQuantity,
                     @JsonProperty("price") double price,
@@ -22,11 +22,12 @@ public class Hardware extends Product {
                     @JsonProperty("model") String model,
                     @JsonProperty("launchDate") String launchDate, // Corrected parameter name
                     @JsonProperty("subCategory") String subCategory) {
-        super(title, desc, category, date, initialQuantity, price, points);
+        super(title, desc, date, initialQuantity, price, points);
         this.brand = brand;
         this.launchDate = launchDate;
         this.model = model;
         this.subCategory = subCategory;
+        this.category = category ;
     }
 
     public String getBrand() {

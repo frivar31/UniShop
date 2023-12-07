@@ -17,7 +17,7 @@ public class LearningResource extends Product {
     @JsonCreator
     public LearningResource(@JsonProperty("title") String title,
                             @JsonProperty("desc") String desc,
-                            @JsonProperty("category") String category,
+                            @JsonProperty("category") ProductType category,
                             @JsonProperty("date") String date,
                             @JsonProperty("initialQuantity") long initialQuantity,
                             @JsonProperty("price") double price,
@@ -28,13 +28,14 @@ public class LearningResource extends Product {
                             @JsonProperty("publishDate") String publishDate,
                             @JsonProperty("type") Type type,
                             @JsonProperty("editionNumber") Long editionNumber) {
-        super(title, desc, category, date, initialQuantity, price, points);
+        super(title, desc, date, initialQuantity, price, points);
         this.ISBN = ISBN;
         this.author = author;
         this.organisation = organisation;
         this.publishDate = publishDate;
         this.type = type;
         this.editionNumber = editionNumber;
+        this.category = category ;
     }
 
     public String getauthor() {

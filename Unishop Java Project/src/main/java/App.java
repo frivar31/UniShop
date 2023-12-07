@@ -62,24 +62,24 @@ public class App {
 
         //Book book1=objectMapper.readValue(new File("target/book.json"),Book.class);
 
-        Book book1 = new Book("The Catcher in the Rye", "A novel about teenage angst and rebellion.", "Fiction", Calendar.getInstance().getTime().toString(), 5, 15.99, 4, "0316769487", "J.D. Salinger", "Little, Brown and Company", "Coming-of-age", calendar1.getTime().toString(), 1, 1);
+        Book book1 = new Book("The Catcher in the Rye", "A novel about teenage angst and rebellion.", ProductType.Book, Calendar.getInstance().getTime().toString(), 5, 15.99, 4, "0316769487", "J.D. Salinger", "Little, Brown and Company", "Coming-of-age", calendar1.getTime().toString(), 1, 1);
         //objectMapper.writeValue(new File("target/book.json"),book1);
         Calendar calendar2 = Calendar.getInstance();
         calendar2.set(1960, Calendar.JULY, 11);
-        Book book2 = new Book("To Kill a Mockingbird", "A story that addresses issues of racial injustice and moral growth.", "Fiction", Calendar.getInstance().getTime().toString(), 8, 12.49, 1, "0061120081", "Harper Lee", "J.B. Lippincott & Co.", "Southern Gothic", calendar2.getTime().toString(), 1, 1);
+        Book book2 = new Book("To Kill a Mockingbird", "A story that addresses issues of racial injustice and moral growth.", ProductType.Book, Calendar.getInstance().getTime().toString(), 8, 12.49, 1, "0061120081", "Harper Lee", "J.B. Lippincott & Co.", "Southern Gothic", calendar2.getTime().toString(), 1, 1);
 
         Calendar calendar3 = Calendar.getInstance();
         calendar3.set(2023, Calendar.JANUARY, 1);
-        LearningResource resource = new LearningResource("Introduction to Java Programming", "A comprehensive guide to Java programming language.", "Programming", Calendar.getInstance().getTime().toString(), 50, 29.99, 2, "9780135166307", "John Doe", "Java University", calendar3.getTime().toString(), Type.printed, 1L);
+        LearningResource resource = new LearningResource("Introduction to Java Programming", "A comprehensive guide to Java programming language.", ProductType.LearningResource, Calendar.getInstance().getTime().toString(), 50, 29.99, 2, "9780135166307", "John Doe", "Java University", calendar3.getTime().toString(), Type.printed, 1L);
 
 
-        Article article = new Article("The Benefits of Regular Exercise", "Exploring the positive effects of regular physical activity on health.", "Health & Wellness", Calendar.getInstance().getTime().toString(), 30, 9.99, 13, "Fitness", "HealthCo", "Exercise101");
+        Article article = new Article("The Benefits of Regular Exercise", "Exploring the positive effects of regular physical activity on health.", ProductType.Article, Calendar.getInstance().getTime().toString(), 30, 9.99, 13, "Fitness", "HealthCo", "Exercise101");
 
         Calendar calendar4 = Calendar.getInstance();
         calendar4.set(2022, Calendar.FEBRUARY, 1);
-        Hardware hardware = new Hardware("Gaming Laptop", "Powerful laptop designed for gaming enthusiasts.", "Computers & Electronics", Calendar.getInstance().getTime().toString(), 15, 1499.99, 18, "Lenovo", "TechCorp", calendar4.getTime().toString(), "Laptops");
+        Hardware hardware = new Hardware("Gaming Laptop", "Powerful laptop designed for gaming enthusiasts.", ProductType.Hardware, Calendar.getInstance().getTime().toString(), 15, 1499.99, 18, "Lenovo", "TechCorp", calendar4.getTime().toString(), "Laptops");
 
-        DesktopTool desktopTool = new DesktopTool("Electric Screwdriver Set", "A set of electric screwdrivers for various household tasks.", "Power Tools", "2023-05-10", // Assuming date format as a String
+        DesktopTool desktopTool = new DesktopTool("Electric Screwdriver Set", "A set of electric screwdrivers for various household tasks.", ProductType.DesktopTool, "2023-05-10", // Assuming date format as a String
                 25, 79.99, 1, "ToolCo", "ScrewMaster 2000", "Power Tools");
 
 
@@ -114,19 +114,23 @@ public class App {
 
         User user = null;
         objectMapper.writeValue(new File("target/catalogue.json"),Catalog.catalogMap);
-        System.out.println("Choisissez une option");
-        System.out.println("1. Se connecter");
-        System.out.println("2. S'inscrire");
-        if (input.getOption(1, 2) == 1) {
-            user = login(input.getUserStrInfo("Pseudo"),input.getUserStrInfo("Mot de passe"), clientManager, sellerManager);
-        } else {
-            user = getRegistrationStream(clientManager, sellerManager);
+        boolean repeat = true ;
+        while(repeat) {
+            System.out.println("Choisissez une option");
+            System.out.println("1. Se connecter");
+            System.out.println("2. S'inscrire");
+            if (input.getOption(1, 2) == 1) {
+                user = login(input.getUserStrInfo("Pseudo"),input.getUserStrInfo("Mot de passe"), clientManager, sellerManager);
+            } else {
+                user = getRegistrationStream(clientManager, sellerManager);
+            }
+            System.out.println();
+            System.out.println("##########################");
+            System.out.println();
+            if (user instanceof Client) repeat = !clientManager.getClientServiceInfo((Client) user);
+            else repeat = !sellerManager.getSellerServiceInfo((Seller) user);
         }
-        System.out.println();
-        System.out.println("##########################");
-        System.out.println();
-        if (user instanceof Client) clientManager.getClientServiceInfo((Client) user);
-        else sellerManager.getSellerServiceInfo((Seller) user);
+
 
     }
 }

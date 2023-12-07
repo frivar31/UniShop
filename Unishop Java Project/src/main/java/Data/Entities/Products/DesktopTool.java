@@ -11,7 +11,7 @@ public class DesktopTool extends Product {
     @JsonCreator
     public DesktopTool(@JsonProperty("title") String title,
                        @JsonProperty("desc") String desc,
-                       @JsonProperty("category") String category,
+                       @JsonProperty("category") ProductType category,
                        @JsonProperty("date") String date,
                        @JsonProperty("initialQuantity") long initialQuantity,
                        @JsonProperty("price") double price,
@@ -19,10 +19,11 @@ public class DesktopTool extends Product {
                        @JsonProperty("brand") String brand,
                        @JsonProperty("model") String model,
                        @JsonProperty("subCategory") String subCategory) {
-        super(title, desc, category, date, initialQuantity, price, points);
+        super(title, desc, date, initialQuantity, price, points);
         this.brand = brand;
         this.model = model;
         this.subCategory = subCategory;
+        this.category = category ;
     }
 
     public String getBrand() {
