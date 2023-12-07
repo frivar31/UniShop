@@ -20,8 +20,9 @@ public class Client extends User {
                   String email,
                   String pseudo,
                   Long number,
-                  String shipAddress) {
-        super(firstName, lastName, email, pseudo, number);
+                  String shipAddress,
+                  String password) {
+        super(firstName, lastName, email, pseudo, number,password);
         this.shipAddress = shipAddress;
         this.shoppingCart = new ShoppingCart();
         this.points = 0;

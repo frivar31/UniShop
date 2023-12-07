@@ -2,6 +2,7 @@ package Controller;
 
 import Data.Entities.Catalog;
 import Data.Entities.Products.Product;
+import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
 import Service.UserInteractionService;
@@ -37,7 +38,10 @@ public class SellerManager {
     }
 
     public boolean isPseudoAlreadyUsed(String pseudo) {
-        return sellers.stream().anyMatch(user -> pseudo.equals(user.getPseudo())) || clientManager.isPseudoAlreadyUsed(pseudo);
+        for (Client client : clientManager.getClients()) {
+            if(client.getPseudo().equals(pseudo)) return true ;
+        }
+        return sellers.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
     }
 
     public Seller findSellerById() {
@@ -180,7 +184,7 @@ public class SellerManager {
 
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        Seller seller = new Seller(firstName, lastName, email, pseudo, number, products);
+        Seller seller = new Seller(firstName, lastName, email, pseudo, number, products,password);
 
         int option = 2;
         while (option == 2) {
@@ -208,10 +212,16 @@ public class SellerManager {
     }
 
     public boolean isEmailAlreadyUsed(String email) {
-        return sellers.stream().anyMatch(user -> email.equals(user.getEmail())) || clientManager.isEmailAlreadyUsed(email);
+        for (Client client : clientManager.getClients()) {
+            if(client.getEmail().equals(email)) return true ;
+        }
+        return sellers.stream().anyMatch(user -> email.equals(user.getEmail()));
     }
 
     public boolean isPasswordAlreadyUsed(String password) {
-        return sellers.stream().anyMatch(user -> password.equals(user.getPassword())) || clientManager.isPasswordAlreadyUsed(password);
+        for (Client client : clientManager.getClients()) {
+            if(client.getPassword().equals(password)) return true ;
+        }
+        return sellers.stream().anyMatch(user -> password.equals(user.getPassword()));
     }
 }

@@ -22,12 +22,14 @@ public abstract class User {
                 String lastName,
                 String email,
                 String pseudo,
-                Long number) {
+                Long number,
+                String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.pseudo = pseudo;
         this.number = number;
+        this.password = password ;
     }
 
     public String getFirstName() {

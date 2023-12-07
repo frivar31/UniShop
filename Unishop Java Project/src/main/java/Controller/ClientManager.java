@@ -93,15 +93,20 @@ public class ClientManager {
     }
 
     public boolean isPseudoAlreadyUsed(String pseudo) {
-        return clients.stream().anyMatch(user -> pseudo.equals(user.getPseudo())) || sellerManager.isPseudoAlreadyUsed(pseudo);
+        for (Seller seller : sellerManager.getSellers()) {
+            if(seller.getPseudo().equals(pseudo)) return true ;
+        }
+        return clients.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
     }
 
     public boolean isEmailAlreadyUsed(String email) {
-        return clients.stream().anyMatch(user -> email.equals(user.getEmail())) || sellerManager.isEmailAlreadyUsed(email);
+        for (Seller seller : sellerManager.getSellers()) {
+            if(seller.getEmail().equals(email)) return true ;
+        }
+        return clients.stream().anyMatch(user -> email.equals(user.getEmail())) ;
     }
 
     public void getClientServiceInfo(Client user) {
-
 
         while (true) {
             System.out.println("Sélectionnez la tâche que vous voulez effectuer: ");
@@ -113,8 +118,8 @@ public class ClientManager {
             System.out.println("6. Modifier son profile");
             System.out.println("7. Voir la liste des acheteurs");
             System.out.println("8. Voir mon total de points");
-            System.out.println("9. Voir mon classement de points par rapport à mes followers");
-            System.out.println("10.Voir les produits likés des gens que je suis");
+            System.out.println("9. Voir mon classement par rapport à mes suiveurs");
+            System.out.println("10.Voir les produits aimés par les gens que je suis");
             System.out.println("11. Quitter");
 
 
@@ -291,7 +296,7 @@ public class ClientManager {
             password = input.getUserStrInfo("Mot de passe");
         }
 
-        Client client = new Client(firstName, lastName, email, pseudo, number, shipAddress);
+        Client client = new Client(firstName, lastName, email, pseudo, number, shipAddress,password);
 
         int option = 2;
         while (option == 2) {
@@ -319,7 +324,10 @@ public class ClientManager {
     }
 
     public boolean isPasswordAlreadyUsed(String password) {
-        return clients.stream().anyMatch(user -> password.equals(user.getPassword())) || sellerManager.isPasswordAlreadyUsed(password);
+        for (Seller seller : sellerManager.getSellers()) {
+            if(seller.getPassword().equals(password)) return true ;
+        }
+        return clients.stream().anyMatch(user -> password.equals(user.getPassword()));
     }
 
     public void followClient(Client follower, Client toFollow) {

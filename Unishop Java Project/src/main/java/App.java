@@ -47,22 +47,22 @@ public class App {
 
     public static <Users> void run() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Client client1 = new Client("sidya", "galakho", "sidya.galakho@gmail.ca", "rango", 4385273906L, "9545 Rue Lajeunesse");
-        Client client2 = new Client("John", "Doe", "john.doe@gmail.com", "password123", 1234567890L, "123 Main Street");
+        Client client1 = new Client("sidya", "galakho", "sidya.galakho@gmail.ca", "rango", 4385273906L, "9545 Rue Lajeunesse","1");
+        Client client2 = new Client("John", "Doe", "john.doe@gmail.com", "password123", 1234567890L, "123 Main Street","2");
 
 
         //objectMapper.writeValue(new File("target/client.json"),client1);
 
-        Client client3 = new Client("Alice", "Smith", "alice.smith@outlook.com", "myPass123", 9876543210L, "456 Elm Street");
-        Client client4 = new Client("Michael", "Johnson", "michael.johnson@gmail.com", "securePwd", 5551112222L, "789 Oak Avenue");
-        Client client5 = new Client("Emily", "Davis", "emily.davis@hotmail.com", "p@ssw0rd", 3334445555L, "101 Pine Street");
+        Client client3 = new Client("Alice", "Smith", "alice.smith@outlook.com", "myPass123", 9876543210L, "456 Elm Street","3");
+        Client client4 = new Client("Michael", "Johnson", "michael.johnson@gmail.com", "securePwd", 5551112222L, "789 Oak Avenue","4");
+        Client client5 = new Client("Emily", "Davis", "emily.davis@hotmail.com", "p@ssw0rd", 3334445555L, "101 Pine Street","5");
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(1951, Calendar.JULY, 16);
 
-        Book book1=objectMapper.readValue(new File("target/book.json"),Book.class);
+        //Book book1=objectMapper.readValue(new File("target/book.json"),Book.class);
 
-        //Book book1 = new Book("The Catcher in the Rye", "A novel about teenage angst and rebellion.", "Fiction", Calendar.getInstance().getTime().toString(), 5, 15.99, 4, "0316769487", "J.D. Salinger", "Little, Brown and Company", "Coming-of-age", calendar1.getTime().toString(), 1, 1);
+        Book book1 = new Book("The Catcher in the Rye", "A novel about teenage angst and rebellion.", "Fiction", Calendar.getInstance().getTime().toString(), 5, 15.99, 4, "0316769487", "J.D. Salinger", "Little, Brown and Company", "Coming-of-age", calendar1.getTime().toString(), 1, 1);
         //objectMapper.writeValue(new File("target/book.json"),book1);
         Calendar calendar2 = Calendar.getInstance();
         calendar2.set(1960, Calendar.JULY, 11);
@@ -86,23 +86,23 @@ public class App {
         ArrayList<Product> products1 = new ArrayList<>();
         products1.add(book1);
         products1.add(resource);
-        Seller seller1 = new Seller("Alice", "Johnson", "alice.johnson@example.com", "1", 1234167890L, products1);
+        Seller seller1 = new Seller("Alice", "Johnson", "alice.johnson@example.com", "1", 1234167890L, products1,"6");
 
         ArrayList<Product> products2 = new ArrayList<>();
         products2.add(book2);
-        Seller seller2 = new Seller("David", "Smith", "david.smith@gmail.com", "myPass12", 9876843210L, products2);
+        Seller seller2 = new Seller("David", "Smith", "david.smith@gmail.com", "myPass12", 9876843210L, products2,"7");
 
         ArrayList<Product> products3 = new ArrayList<>();
         products3.add(hardware);
-        Seller seller3 = new Seller("Emma", "Brown", "emma.brown@yahoo.com", "securePw", 5551172222L, products3);
+        Seller seller3 = new Seller("Emma", "Brown", "emma.brown@yahoo.com", "securePw", 5551172222L, products3,"8");
 
         ArrayList<Product> products4 = new ArrayList<>();
         products4.add(article);
-        Seller seller4 = new Seller("Michael", "Garcia", "michael.garcia@hotmail.com", "p@ssw0r", 3334443555L, products4);
+        Seller seller4 = new Seller("Michael", "Garcia", "michael.garcia@hotmail.com", "p@ssw0r", 3334443555L, products4,"9");
 
         ArrayList<Product> products5 = new ArrayList<>();
         products5.add(desktopTool);
-        Seller seller5 = new Seller("Sophia", "Lee", "sophia.lee@outlook.com", "secretPas", 1112223733L, products5);
+        Seller seller5 = new Seller("Sophia", "Lee", "sophia.lee@outlook.com", "secretPas", 1112223733L, products5,"10");
 
         ClientManager clientManager = new ClientManager(Arrays.asList(client1, client2, client3, client4, client5));
         SellerManager sellerManager = new SellerManager(Arrays.asList(seller1, seller2, seller3, seller4, seller5));

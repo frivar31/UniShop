@@ -10,8 +10,8 @@ public class Seller extends User {
     ArrayList<Product> products;
     int id;
 
-    public Seller(String firstName, String lastName, String email, String pseudo, Long number, ArrayList<Product> productsToSell) {
-        super(firstName, lastName, email, pseudo, number);
+    public Seller(String firstName, String lastName, String email, String pseudo, Long number, ArrayList<Product> productsToSell,String password) {
+        super(firstName, lastName, email, pseudo, number, password);
         products = new ArrayList<Product>();
         for (Product product : productsToSell) {
             addProduct(product);
