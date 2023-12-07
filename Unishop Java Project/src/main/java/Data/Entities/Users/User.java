@@ -1,5 +1,8 @@
 package Data.Entities.Users;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public abstract class User {
 
     private String firstName;
@@ -17,13 +20,13 @@ public abstract class User {
     }
 
     private String password ;
-
-    public User(String firstName,
-                String lastName,
-                String email,
-                String pseudo,
-                Long number,
-                String password) {
+    @JsonCreator
+    public User(@JsonProperty("firstName") String firstName,
+                @JsonProperty("lastName") String lastName,
+                @JsonProperty("email") String email,
+                @JsonProperty("pseudo") String pseudo,
+                @JsonProperty("number") Long number,
+                @JsonProperty("password") String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

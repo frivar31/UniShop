@@ -1,5 +1,8 @@
 package Data.Entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +19,15 @@ public class Order {
     private String address;
 
 
-    public Order(String orderNumber, ArrayList<OrderItem> items, Date orderDate, Boolean delivered, Boolean shipped, Date shippedDate, Date deliveryDate, String address) {
+    @JsonCreator
+    public Order(@JsonProperty("orderNumber") String orderNumber,
+                 @JsonProperty("items") ArrayList<OrderItem> items,
+                 @JsonProperty("orderDate") Date orderDate,
+                 @JsonProperty("delivered") Boolean delivered,
+                 @JsonProperty("shipped") Boolean shipped,
+                 @JsonProperty("shippedDate") Date shippedDate,
+                 @JsonProperty("deliveryDate") Date deliveryDate,
+                 @JsonProperty("address") String address) {
         this.orderNumber = orderNumber;
         this.items = items;
         this.orderDate = orderDate;

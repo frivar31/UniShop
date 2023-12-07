@@ -2,6 +2,8 @@ package Data.Entities.Users;
 
 import Data.Entities.Catalog;
 import Data.Entities.Products.Product;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 
@@ -10,9 +12,17 @@ public class Seller extends User {
     ArrayList<Product> products;
     int id;
 
-    public Seller(String firstName, String lastName, String email, String pseudo, Long number, ArrayList<Product> productsToSell,String password) {
-        super(firstName, lastName, email, pseudo, number, password);
-        products = new ArrayList<Product>();
+    @JsonCreator
+    public Seller(@JsonProperty("firstName") String firstName,
+                  @JsonProperty("lastName") String lastName,
+                  @JsonProperty("email") String email,
+                  @JsonProperty("pseudo") String pseudo,
+                  @JsonProperty("number") Long number,
+                  @JsonProperty("productsToSell") ArrayList<Product> productsToSell,
+            @JsonProperty("password") String password)
+    {
+        super(firstName, lastName, email, pseudo, number,password);
+        products = new ArrayList<>();
         for (Product product : productsToSell) {
             addProduct(product);
         }

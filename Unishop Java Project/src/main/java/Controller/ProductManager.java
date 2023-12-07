@@ -412,7 +412,7 @@ public class ProductManager {
                     } else if (option == 5) {
                         product.setSubCategory(input.getUserStrInfo("sous-categorie"));
                     } else if (option == 6) {
-                        product.setLauchDate(input.getUserStrInfo("Date de lancement"));
+                        product.setLaunchDate(input.getUserStrInfo("Date de lancement"));
                     } else if (option == 7) {
                         product.setquantity(input.getUserNumInfo("Quantite", 1, Integer.MAX_VALUE));
                     } else if (option == 8) {

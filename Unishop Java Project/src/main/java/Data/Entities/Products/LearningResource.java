@@ -1,6 +1,8 @@
 package Data.Entities.Products;
 
 import Data.Entities.Type;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LearningResource extends Product {
 
@@ -12,19 +14,20 @@ public class LearningResource extends Product {
     private String ISBN;
 
 
-    public LearningResource(String title,
-                            String desc,
-                            String category,
-                            String date,
-                            long initialQuantity,
-                            double price,
-                            long points,
-                            String ISBN,
-                            String author,
-                            String organisation,
-                            String publishDate,
-                            Type type,
-                            Long editionNumber) {
+    @JsonCreator
+    public LearningResource(@JsonProperty("title") String title,
+                            @JsonProperty("desc") String desc,
+                            @JsonProperty("category") String category,
+                            @JsonProperty("date") String date,
+                            @JsonProperty("initialQuantity") long initialQuantity,
+                            @JsonProperty("price") double price,
+                            @JsonProperty("points") long points,
+                            @JsonProperty("ISBN") String ISBN,
+                            @JsonProperty("author") String author,
+                            @JsonProperty("organisation") String organisation,
+                            @JsonProperty("publishDate") String publishDate,
+                            @JsonProperty("type") Type type,
+                            @JsonProperty("editionNumber") Long editionNumber) {
         super(title, desc, category, date, initialQuantity, price, points);
         this.ISBN = ISBN;
         this.author = author;

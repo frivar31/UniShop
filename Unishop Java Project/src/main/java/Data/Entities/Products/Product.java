@@ -2,6 +2,7 @@ package Data.Entities.Products;
 
 import Data.Entities.ProductEvaluation;
 import com.fasterxml.jackson.annotation.JacksonAnnotation;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -20,13 +21,14 @@ public class Product {
     protected long discountPrice = 0;
     protected ArrayList<ProductEvaluation> evaluations;
 
-    public Product(String title,
-                   String desc,
-                   String category,
-                   String date,
-                   long quantity,
-                   double price,
-                   long points) {
+    @JsonCreator
+    public Product(@JsonProperty("title") String title,
+                   @JsonProperty("desc") String desc,
+                   @JsonProperty("category") String category,
+                   @JsonProperty("date") String date,
+                   @JsonProperty("quantity") long quantity,
+                   @JsonProperty("price") double price,
+                   @JsonProperty("points") long points) {
         this.id = counter++;
         this.title = title;
         this.desc = desc;

@@ -1,6 +1,8 @@
 package Data.Entities;
 
 import Data.Entities.Users.Client;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProductEvaluation {
     private int rating; // Note attribuée par l'acheteur
@@ -10,13 +12,19 @@ public class ProductEvaluation {
     private Client op;
     private Boolean deleted;
 
-    public ProductEvaluation(int rating, String comment, Client client) {
+    @JsonCreator
+    public ProductEvaluation(@JsonProperty("rating") int rating,
+                             @JsonProperty("comment") String comment,
+                             @JsonProperty("isFlagged") boolean isFlagged,
+                             @JsonProperty("pointsEarned") int pointsEarned,
+                             @JsonProperty("op") Client op,
+                             @JsonProperty("deleted") boolean deleted) {
         this.rating = rating;
         this.comment = comment;
-        this.isFlagged = false;
-        this.pointsEarned = 0;
-        this.op = client;
-        this.deleted = false;
+        this.isFlagged = isFlagged;
+        this.pointsEarned = pointsEarned;
+        this.op = op;
+        this.deleted = deleted;
     }
 
     public int getRating() {

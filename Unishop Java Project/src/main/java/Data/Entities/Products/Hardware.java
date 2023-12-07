@@ -1,26 +1,30 @@
 package Data.Entities.Products;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Hardware extends Product {
 
     private String brand;
-    private String lauchDate;
+    private String launchDate;
     private String model;
     private String subCategory;
 
-    public Hardware(String title,
-                    String desc,
-                    String category,
-                    String date,
-                    long initialQuantity,
-                    double price,
-                    long points,
-                    String brand,
-                    String model,
-                    String launchDate,
-                    String subCategory) {
+    @JsonCreator
+    public Hardware(@JsonProperty("title") String title,
+                    @JsonProperty("desc") String desc,
+                    @JsonProperty("category") String category,
+                    @JsonProperty("date") String date,
+                    @JsonProperty("initialQuantity") long initialQuantity,
+                    @JsonProperty("price") double price,
+                    @JsonProperty("points") long points,
+                    @JsonProperty("brand") String brand,
+                    @JsonProperty("model") String model,
+                    @JsonProperty("launchDate") String launchDate, // Corrected parameter name
+                    @JsonProperty("subCategory") String subCategory) {
         super(title, desc, category, date, initialQuantity, price, points);
         this.brand = brand;
-        this.lauchDate = launchDate;
+        this.launchDate = launchDate;
         this.model = model;
         this.subCategory = subCategory;
     }
@@ -33,12 +37,12 @@ public class Hardware extends Product {
         this.brand = brand;
     }
 
-    public String getLauchDate() {
-        return lauchDate;
+    public String getLaunchDate() {
+        return launchDate;
     }
 
-    public void setLauchDate(String lauchDate) {
-        this.lauchDate = lauchDate;
+    public void setLaunchDate(String launchDate) {
+        this.launchDate = launchDate;
     }
 
     public String getModel() {
@@ -70,7 +74,7 @@ public class Hardware extends Product {
                 "\n- sous-categorie='" + subCategory + '\'' +
                 "\n- marque='" + brand + '\'' +
                 "\n- modele ='" + model + '\'' +
-                "\n- date de lancement ='" + lauchDate + '\'' +
+                "\n- date de lancement ='" + launchDate + '\'' +
                 "\n}";
     }
 }

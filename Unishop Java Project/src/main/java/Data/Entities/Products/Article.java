@@ -1,21 +1,25 @@
 package Data.Entities.Products;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Article extends Product {
 
     private String brand;
     private String model;
     private String subCategory;
 
-    public Article(String title,
-                   String desc,
-                   String category,
-                   String date,
-                   long initialQuantity,
-                   double price,
-                   long points,
-                   String brand,
-                   String model,
-                   String subCategory) {
+    @JsonCreator
+    public Article(@JsonProperty("title") String title,
+                   @JsonProperty("desc") String desc,
+                   @JsonProperty("category") String category,
+                   @JsonProperty("date") String date,
+                   @JsonProperty("initialQuantity") long initialQuantity,
+                   @JsonProperty("price") double price,
+                   @JsonProperty("points") long points,
+                   @JsonProperty("brand") String brand,
+                   @JsonProperty("model") String model,
+                   @JsonProperty("subCategory") String subCategory) {
         super(title, desc, category, date, initialQuantity, price, points);
         this.brand = brand;
         this.model = model;

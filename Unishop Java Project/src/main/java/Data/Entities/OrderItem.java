@@ -2,6 +2,8 @@ package Data.Entities;
 
 import Data.Entities.Products.Product;
 import Data.Entities.Users.Seller;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OrderItem {
     private Product product;
@@ -10,7 +12,10 @@ public class OrderItem {
     private Boolean shipped;
     private Boolean delivered;
 
-    public OrderItem(Product product, int quantity, Seller seller) {
+    @JsonCreator
+    public OrderItem(@JsonProperty("product") Product product,
+                     @JsonProperty("quantity") int quantity,
+                     @JsonProperty("seller") Seller seller) {
         this.product = product;
         this.quantity = quantity;
         this.seller = seller;
