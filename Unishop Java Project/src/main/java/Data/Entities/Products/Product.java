@@ -4,7 +4,7 @@ import Data.Entities.ProductEvaluation;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.ArrayList;
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "category")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Article.class, name = "Article"),
         @JsonSubTypes.Type(value = Book.class, name = "Book"),
