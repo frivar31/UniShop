@@ -12,7 +12,6 @@ public class Article extends Product {
     @JsonCreator
     public Article(@JsonProperty("title") String title,
                    @JsonProperty("desc") String desc,
-                   @JsonProperty("category") ProductType category,
                    @JsonProperty("date") String date,
                    @JsonProperty("initialQuantity") long initialQuantity,
                    @JsonProperty("price") double price,
@@ -20,11 +19,10 @@ public class Article extends Product {
                    @JsonProperty("brand") String brand,
                    @JsonProperty("model") String model,
                    @JsonProperty("subCategory") String subCategory) {
-        super(title, desc, date, initialQuantity, price, points);
+        super(title, desc, date, initialQuantity, price, points,ProductType.Article);
         this.brand = brand;
         this.model = model;
         this.subCategory = subCategory;
-        this.category = category ;
 
     }
 

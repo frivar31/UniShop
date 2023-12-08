@@ -258,7 +258,7 @@ public class ClientManager {
                 case 10:
                     user.displayLikedProductsByFollowing();
                     break;
-                case 12:
+                case 11:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!") ;
                     repeat = false ;
                     return repeat ;

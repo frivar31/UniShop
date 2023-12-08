@@ -20,7 +20,6 @@ public class Book extends Product {
     @JsonCreator
     public Book(@JsonProperty("title") String title,
                 @JsonProperty("desc") String desc,
-                @JsonProperty("category") ProductType category,
                 @JsonProperty("date") String date,
                 @JsonProperty("initialQuantity") long initialQuantity,
                 @JsonProperty("price") double price,
@@ -33,7 +32,7 @@ public class Book extends Product {
                 @JsonProperty("editorNum") long editorNum,
                 @JsonProperty("volNum") long volNum
     ) {
-        super(title, desc, date, initialQuantity, price, points);
+        super(title, desc, date, initialQuantity, price, points,ProductType.Book);
         this.ISBN = ISBN;
         this.author = author;
         this.editor = editor;

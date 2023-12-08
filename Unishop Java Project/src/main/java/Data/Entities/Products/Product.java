@@ -17,6 +17,7 @@ public class Product {
     protected int id;
     protected String title;
     protected String desc;
+    @JsonIgnore
     protected ProductType category;
     protected String date;
     protected long quantity;
@@ -32,7 +33,8 @@ public class Product {
                    @JsonProperty("date") String date,
                    @JsonProperty("quantity") long quantity,
                    @JsonProperty("price") double price,
-                   @JsonProperty("points") long points) {
+                   @JsonProperty("points") long points,
+                   @JsonProperty("category") ProductType category) {
         this.id = counter++;
         this.title = title;
         this.desc = desc;
@@ -41,6 +43,7 @@ public class Product {
         this.price = price;
         this.points = points;
         this.evaluations = new ArrayList<>();
+        this.category=category;
     }
 
     public int getId() {

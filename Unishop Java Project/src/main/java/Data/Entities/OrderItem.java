@@ -6,35 +6,35 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OrderItem {
-    private Product product;
+    private int productId;
     private int quantity;
-    private Seller seller;
+    private String sellerPseudo;
     private Boolean shipped;
     private Boolean delivered;
 
     @JsonCreator
-    public OrderItem(@JsonProperty("product") Product product,
+    public OrderItem(@JsonProperty("productId") int productId,
                      @JsonProperty("quantity") int quantity,
-                     @JsonProperty("seller") Seller seller) {
-        this.product = product;
+                     @JsonProperty("sellerPseudo") String sellerPseudo) {
+        this.productId = productId;
         this.quantity = quantity;
-        this.seller = seller;
+        this.sellerPseudo = sellerPseudo;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public String getSellerPseudo() {
+        return sellerPseudo;
     }
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public void setSellerPseudo(String SellerPseudo) {
+        this.sellerPseudo = SellerPseudo;
     }
 
-    public Product getProduct() {
-        return product;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(int id) {
+        this.productId = id;
     }
 
     public int getQuantity() {
@@ -47,6 +47,6 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        return "Product: " + product.getTitle() + ", Quantity: " + quantity;
+        return "Product: " + Catalog.getProduct(productId).getTitle() + ", Quantity: " + quantity;
     }
 }
