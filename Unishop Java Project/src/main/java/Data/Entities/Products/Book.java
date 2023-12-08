@@ -20,7 +20,7 @@ public class Book extends Product {
     @JsonCreator
     public Book(@JsonProperty("title") String title,
                 @JsonProperty("desc") String desc,
-                @JsonProperty("category") String category,
+                @JsonProperty("category") ProductType category,
                 @JsonProperty("date") String date,
                 @JsonProperty("initialQuantity") long initialQuantity,
                 @JsonProperty("price") double price,
@@ -33,7 +33,7 @@ public class Book extends Product {
                 @JsonProperty("editorNum") long editorNum,
                 @JsonProperty("volNum") long volNum
     ) {
-        super(title, desc, category, date, initialQuantity, price, points);
+        super(title, desc, date, initialQuantity, price, points);
         this.ISBN = ISBN;
         this.author = author;
         this.editor = editor;
@@ -41,6 +41,7 @@ public class Book extends Product {
         this.pubDate = pubDate;
         this.editorNum = editorNum;
         this.volNum = volNum;
+        this.category = category ;
     }
 
     public String getISBN() {
@@ -104,10 +105,10 @@ public class Book extends Product {
                 "\n- id='" + id + '\'' +
                 "\n- titre='" + title + '\'' +
                 "\n- description='" + desc + '\'' +
-                "\n- categoryie='" + category + '\'' +
+                "\n- categorie='" + category + '\'' +
                 "\n- date de mise en vente=" + date +
                 "\n- quantite=" + quantity +
-                "\n- price=" + (double) Math.round(price * 100) / 100 + "$" +
+                "\n- prix=" + (double) Math.round(price * 100) / 100 + "$" +
                 "\n- points=" + points +
                 "\n- ISBN='" + ISBN + '\'' +
                 "\n- auteur='" + author + '\'' +

@@ -106,9 +106,10 @@ public class ClientManager {
         return clients.stream().anyMatch(user -> email.equals(user.getEmail())) ;
     }
 
-    public void getClientServiceInfo(Client user) {
+    public boolean getClientServiceInfo(Client user) {
 
-        while (true) {
+        boolean repeat = true ;
+        while (repeat) {
             System.out.println("Sélectionnez la tâche que vous voulez effectuer: ");
             System.out.println("1. Chercher un produit");
             System.out.println("2. Chercher un vendeur");
@@ -133,6 +134,20 @@ public class ClientManager {
                         for (Object[] objects : Catalog.catalogMap.values()) {
                             Product current = (Product) objects[0];
                             System.out.println(current);
+                        }
+                        System.out.println("Voulez-vous consulter les prouits par catégorie");
+                        System.out.println("1. Oui");
+                        System.out.println("2. Non");
+                        if(input.getOption(1,2) == 1) {
+                            List<Product> products = productManager.findProductsByCategory() ;
+                            for (Product product : products) System.out.println(product);
+                        }
+                        System.out.println("Voulez-vous consulter les prouits par Prix");
+                        System.out.println("1. Oui");
+                        System.out.println("2. Non");
+                        if(input.getOption(1,2) == 1) {
+                            List<Product> products = productManager.findProductsByPrice() ;
+                            for (Product product : products) System.out.println(product);
                         }
                         System.out.println("Voulez-vous acheter un produit?");
                         System.out.println("1. Oui");
@@ -243,13 +258,15 @@ public class ClientManager {
                 case 10:
                     user.displayLikedProductsByFollowing();
                     break;
-                case 11:
-                    System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
-                    return;
+                case 12:
+                    System.out.println("Merci d'avoir utilisé notre service. Au revoir!") ;
+                    repeat = false ;
+                    return repeat ;
                 default:
                     System.out.println("Choix invalide. Veuillez choisir une option valide.");
             }
         }
+        return !repeat ;
     }
 
     private boolean isShoppingCartItemsAvailable(ShoppingCart shoppingCart) {

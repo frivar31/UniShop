@@ -61,39 +61,44 @@ public class SellerManager {
         }
     }
 
-    public void getSellerServiceInfo(Seller seller) {
+    public boolean getSellerServiceInfo(Seller seller) {
 
-        System.out.println("Selectionner la tache que voulez effectuer: ");
-        System.out.println("1. Offrir un produit: ");
-        System.out.println("2. Changer l'etat d'une commande: ");
-        System.out.println("3. Modifier son profile");
-        System.out.println("4. Afficher les produits vendu");
-        int option = input.getOption(1, 4);
-        switch (option) {
-            case 1:
-                Product product = null;
-                product = productManager.getProductInfo();
-                seller.addProduct(product);
-                break;
-            case 3:
-                boolean redo = true;
-                while (redo) {
-                    modifySellerInfo(seller);
-                    System.out.println(seller);
-                    System.out.println("Confirmer vos informations: ");
-                    System.out.println("1. oui");
-                    System.out.println("2. non");
-                    System.out.println();
-                    option = input.getOption(1, 2);
-                    if (option == 1) {
-                        redo = false;
-                        System.out.println("votre compte a ete modifie avec succes");
+        boolean repeat = true ;
+        while(repeat) {
+            System.out.println("Selectionner la tache que vous voulez effectuer: ");
+            System.out.println("1. Offrir un produit: ");
+            System.out.println("2. Changer l'etat d'une commande: ");
+            System.out.println("3. Modifier son profile");
+            System.out.println("4. Quitter");
+            int option = input.getOption(1, 4);
+            switch (option) {
+                case 1:
+                    Product product = null;
+                    product = productManager.getProductInfo();
+                    seller.addProduct(product);
+                    break;
+                case 3:
+                    boolean redo = true;
+                    while (redo) {
+                        modifySellerInfo(seller);
+                        System.out.println(seller);
+                        System.out.println("Confirmer vos informations: ");
+                        System.out.println("1. oui");
+                        System.out.println("2. non");
+                        System.out.println();
+                        option = input.getOption(1, 2);
+                        if (option == 1) {
+                            redo = false;
+                            System.out.println("votre compte a ete modifie avec succes");
+                        }
                     }
-                }
-            case 4:
-                for(Product product1:seller.getProducts()) System.out.println(product1);
-                break;
+                case 4:
+                    System.out.println("Merci d'avoir utilisé notre service. Au revoir!") ;
+                    repeat = false ;
+                    return repeat ;
+            }
         }
+        return !repeat ;
     }
 
     public void modifySellerInfo(Seller seller) {

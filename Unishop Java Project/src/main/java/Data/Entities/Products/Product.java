@@ -17,7 +17,7 @@ public class Product {
     protected int id;
     protected String title;
     protected String desc;
-    protected String category;
+    protected ProductType category;
     protected String date;
     protected long quantity;
     protected double price;
@@ -29,7 +29,6 @@ public class Product {
     @JsonCreator
     public Product(@JsonProperty("title") String title,
                    @JsonProperty("desc") String desc,
-                   @JsonProperty("category") String category,
                    @JsonProperty("date") String date,
                    @JsonProperty("quantity") long quantity,
                    @JsonProperty("price") double price,
@@ -37,7 +36,6 @@ public class Product {
         this.id = counter++;
         this.title = title;
         this.desc = desc;
-        this.category = category;
         this.date = date;
         this.quantity = quantity;
         this.price = price;
@@ -65,11 +63,11 @@ public class Product {
         this.desc = desc;
     }
 
-    public String getCategory() {
+    public ProductType getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ProductType category) {
         this.category = category;
     }
 
