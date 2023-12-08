@@ -138,8 +138,7 @@ public class ClientManager {
                         System.out.println("1. Oui");
                         System.out.println("2. Non");
                         if (input.getOption(1, 2) == 1) {
-                            Product selectedProduct = productManager.findProductById();
-                            user.getShoppingCart().add(selectedProduct);
+                            user.getShoppingCart().add(productManager.isIdAvailable());
                             System.out.println("Produit ajouté au panier.");
                             System.out.println("Voulez-vous ajouter un autre produit?");
                             System.out.println("1. Oui");
@@ -188,18 +187,18 @@ public class ClientManager {
                         id = input.getUserNumInfo("Id", 1, Integer.MAX_VALUE);
                     }
                     Product product = Catalog.getProduct(id);
-                    System.out.println(user.getShoppingCart().toString(product));
+                    System.out.println(user.getShoppingCart().toString(product,id));
                     System.out.println("Voulez-vous retirer ou ajuster la quantité de l'item");
                     System.out.println("1. Retirer");
                     System.out.println("2. Editer");
                     if (input.getOption(1, 2) == 1) {
-                        user.getShoppingCart().deleteProduct(product);
+                        user.getShoppingCart().deleteProduct(id);
                         System.out.println("item supprimé");
                         System.out.println(user.getShoppingCart());
                     } else {
                         System.out.println("Rentré la quantité désiré :");
                         int quantity = input.getUserNumInfo("Quantité", 1, Integer.MAX_VALUE);
-                        user.getShoppingCart().updateQuantity(product, quantity);
+                        user.getShoppingCart().updateQuantity(id, quantity);
                         System.out.println(user.getShoppingCart());
                         System.out.println("Quantité ajusté");
                     }
@@ -254,8 +253,9 @@ public class ClientManager {
     }
 
     private boolean isShoppingCartItemsAvailable(ShoppingCart shoppingCart) {
-        for (Product product : shoppingCart.getCart().keySet()) {
-            if (product.getquantity() < shoppingCart.getCart().get(product)) {
+        for (int id : shoppingCart.getCart().keySet()) {
+            Product product=Catalog.getProduct(id);
+            if (product.getquantity() < shoppingCart.getCart().get(id)) {
                 System.out.println("Vous avez une quantité supérieure à celle disponible pour l'item suivant :");
                 System.out.println(product);
                 System.out.println("Quantité disponible : " + product.getquantity() + " Quantité dans le panier : " + shoppingCart.getCart().get(product));

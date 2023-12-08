@@ -18,7 +18,6 @@ public class Order {
     private Date deliveryDate;
     private String address;
 
-
     @JsonCreator
     public Order(@JsonProperty("orderNumber") String orderNumber,
                  @JsonProperty("items") ArrayList<OrderItem> items,

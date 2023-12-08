@@ -1,12 +1,13 @@
 package Data.Entities;
 
 import Data.Entities.Products.Product;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 public class ShoppingCart {
-    private HashMap<Product, Integer> cart;
+    private HashMap<Integer, Integer> cart;
     private double total;
     private long numberItems;
     private long numberPoints;
@@ -17,28 +18,41 @@ public class ShoppingCart {
         this.numberItems = 0;
         this.numberPoints = 0;
     }
+    @JsonCreator
+    public ShoppingCart(@JsonProperty("cart") HashMap<Integer, Integer> cart,
+                        @JsonProperty("total") double total,
+                        @JsonProperty("numberItems") long numberItems,
+                        @JsonProperty("numberPoints") long numberPoints) {
+        this.cart = cart;
+        this.total = total;
+        this.numberItems = numberItems;
+        this.numberPoints = numberPoints;
+    }
 
-    public HashMap<Product, Integer> getCart() {
+    public HashMap<Integer, Integer> getCart() {
         return cart;
     }
 
-    public void add(Product product) {
-        this.cart.put(product, cart.getOrDefault(product, 0) + 1);
+    public void add(int id) {
+        Product product=Catalog.getProduct(id);
+        this.cart.put(id, cart.getOrDefault(id, 0) + 1);
         total += product.getPrice();
         numberItems++;
         numberPoints += (int) (product.getPrice()) * product.getPoints();
     }
 
-    public void updateQuantity(Product product, int quantity) {
-        int delta = quantity - cart.get(product);
+    public void updateQuantity(int id, int quantity) {
+        Product product=Catalog.getProduct(id);
+        int delta = quantity - cart.get(id);
         total += delta * product.getPrice();
         numberItems += delta;
         numberPoints += (int) (product.getPrice()) * delta * product.getPoints();
-        cart.replace(product, quantity);
+        cart.replace(id, quantity);
     }
 
-    public void deleteProduct(Product product) {
-        int qty = cart.get(product);
+    public void deleteProduct(int id) {
+        int qty = cart.get(id);
+        Product product=Catalog.getProduct(id);
         total -= product.getPrice() * qty;
         numberItems -= qty;
         numberPoints -= (int) (product.getPrice()) * product.getPoints() * qty;
@@ -67,15 +81,16 @@ public class ShoppingCart {
     }
 
     public boolean containsItem(int id) {
-        return cart.containsKey(Catalog.getProduct(id));
+        return cart.containsKey(id);
     }
 
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Product product : cart.keySet()) {
-            sb.append(product.toString(cart.get(product))).append("\n");
+        for (int id : cart.keySet()) {
+            Product product=Catalog.getProduct(id);
+            sb.append(product.toString(cart.get(id))).append("\n");
         }
         sb.append("Number of items : ").append(numberItems).append("\n");
         sb.append("Total cost : ").append((double) Math.round(total * 100) / 100).append("$").append("\n");
@@ -83,16 +98,17 @@ public class ShoppingCart {
         return sb.toString();
     }
 
-    public String toString(Product product) {
-        return product.toString(cart.get(product));
+    public String toString(Product product, int id) {
+        return product.toString(cart.get(id));
 
     }
 
     public ArrayList<OrderItem> convertToOrderItems() {
         ArrayList<OrderItem> orderItems = new ArrayList<>();
 
-        for (Product product : cart.keySet()) {
-            int quantity = cart.get(product);
+        for (int id : cart.keySet()) {
+            Product product=Catalog.getProduct(id);
+            int quantity = cart.get(id);
             OrderItem orderItem = new OrderItem(product, quantity, Catalog.getSeller(product.getId()));
             orderItems.add(orderItem);
         }

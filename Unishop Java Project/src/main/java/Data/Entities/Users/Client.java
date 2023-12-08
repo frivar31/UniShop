@@ -2,6 +2,9 @@ package Data.Entities.Users;
 
 import Data.Entities.*;
 import Data.Entities.Products.Product;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -9,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class Client extends User {
     private String shipAddress;
     private HashMap<String, Order> orders;
+    @JsonIgnore
     private HashMap<Product, ProductEvaluation> evaluations;
     private ShoppingCart shoppingCart;
     private int points;
@@ -29,6 +33,28 @@ public class Client extends User {
         this.following = new HashSet<>();
         this.followers = new HashSet<>();
         orders = new HashMap<>();
+    }
+    @JsonCreator
+    public Client(@JsonProperty("firstName") String firstName,
+                  @JsonProperty("lastName") String lastName,
+                  @JsonProperty("email") String email,
+                  @JsonProperty("pseudo") String pseudo,
+                  @JsonProperty("number") Long number,
+                  @JsonProperty("password") String password,
+                  @JsonProperty("cart") ShoppingCart cart,
+                  @JsonProperty("shipAddress") String shipAddress,
+                  @JsonProperty("orders") HashMap<String, Order> orders,
+                  @JsonProperty("points") int points,
+                  @JsonProperty("followers") HashSet<Client> followers,
+                  @JsonProperty("following") HashSet<Client> following) {
+        super(firstName, lastName, email, pseudo, number, password);
+        this.shipAddress = shipAddress;
+        this.orders = orders;
+        this.evaluations = new HashMap<Product, ProductEvaluation>();
+        this.shoppingCart = cart;
+        this.points = points;
+        this.followers = followers;
+        this.following = following;
     }
 
     public int getPoints() {

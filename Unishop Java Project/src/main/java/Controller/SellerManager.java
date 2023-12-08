@@ -45,9 +45,8 @@ public class SellerManager {
     }
 
     public Seller findSellerById() {
-        for (Object[] objects : Catalog.catalogMap.values()) {
-            Seller current = (Seller) objects[1];
-            System.out.println(current);
+        for (Seller seller:sellers) {
+            System.out.println(seller);
         }
         while (true) {
             System.out.println("Entrer le pseudo du vendeur:");
@@ -68,7 +67,8 @@ public class SellerManager {
         System.out.println("1. Offrir un produit: ");
         System.out.println("2. Changer l'etat d'une commande: ");
         System.out.println("3. Modifier son profile");
-        int option = input.getOption(1, 3);
+        System.out.println("4. Afficher les produits vendu");
+        int option = input.getOption(1, 4);
         switch (option) {
             case 1:
                 Product product = null;
@@ -90,6 +90,9 @@ public class SellerManager {
                         System.out.println("votre compte a ete modifie avec succes");
                     }
                 }
+            case 4:
+                for(Product product1:seller.getProducts()) System.out.println(product1);
+                break;
         }
     }
 

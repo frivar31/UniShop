@@ -10,15 +10,14 @@ import java.util.Calendar;
 public class ProductManager {
     UserInteractionService input = new UserInteractionService();
 
-    public Product findProductById() {
+    public int isIdAvailable() {
 
         while (true) {
             System.out.println("Entrer le ID du produit: ");
             int productId = input.getUserNumInfo("id", 1, Integer.MAX_VALUE);
 
-            Object[] obj = Catalog.catalogMap.get(productId);
-            if (obj != null) {
-                return (Product) obj[0];
+            if (Catalog.catalogMap.containsKey(productId)) {
+                return productId;
             } else {
                 System.out.println("ID invalide. Veuillez reessayer svp.");
             }

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class Seller extends User {
     ArrayList<Product> products;
-    int id;
 
     @JsonCreator
     public Seller(@JsonProperty("firstName") String firstName,
@@ -19,13 +18,9 @@ public class Seller extends User {
                   @JsonProperty("pseudo") String pseudo,
                   @JsonProperty("number") Long number,
                   @JsonProperty("productsToSell") ArrayList<Product> productsToSell,
-            @JsonProperty("password") String password)
-    {
+                  @JsonProperty("password") String password) {
         super(firstName, lastName, email, pseudo, number,password);
-        products = new ArrayList<>();
-        for (Product product : productsToSell) {
-            addProduct(product);
-        }
+        products = productsToSell;
     }
 
     public ArrayList<Product> getProducts() {
@@ -35,6 +30,9 @@ public class Seller extends User {
     public void addProduct(Product product) {
         Catalog.catalogMap.put(product.getId(), new Object[]{product, this});
         products.add(product);
+    }
+    public void updateCatalog(){
+        for(Product product:products) Catalog.catalogMap.put(product.getId(), new Object[]{product, this});
     }
 
     public boolean deleteProduct(Product product) {

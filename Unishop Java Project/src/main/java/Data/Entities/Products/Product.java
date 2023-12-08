@@ -1,12 +1,17 @@
 package Data.Entities.Products;
 
 import Data.Entities.ProductEvaluation;
-import com.fasterxml.jackson.annotation.JacksonAnnotation;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 import java.util.ArrayList;
-
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Article.class, name = "Article"),
+        @JsonSubTypes.Type(value = Book.class, name = "Book"),
+        @JsonSubTypes.Type(value = DesktopTool.class, name = "DesktopTool"),
+        @JsonSubTypes.Type(value = Hardware.class, name = "Hardware"),
+        @JsonSubTypes.Type(value = LearningResource.class, name = "LearningResource")
+})
 public class Product {
     protected static int counter = 0;
     protected int id;
@@ -109,6 +114,8 @@ public class Product {
         evaluations.remove(eval);
     }
 
+
+    /*
     @Override
     public String toString() {
         return "{" +
@@ -122,6 +129,7 @@ public class Product {
                 "\n- points=" + points +
                 "\n}";
     }
+*/
 
     public String toString(int quantity) {
         return "{" +
