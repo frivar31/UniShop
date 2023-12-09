@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Hardware extends Product {
-
-    private String brand;
     private String launchDate;
-    private String model;
     private String subCategory;
 
     @JsonCreator
@@ -21,19 +18,9 @@ public class Hardware extends Product {
                     @JsonProperty("model") String model,
                     @JsonProperty("launchDate") String launchDate, // Corrected parameter name
                     @JsonProperty("subCategory") String subCategory) {
-        super(title, desc, date, initialQuantity, price, points,ProductType.Hardware);
-        this.brand = brand;
+        super(title, desc, date, initialQuantity, price, points,ProductType.Hardware,model,brand);
         this.launchDate = launchDate;
-        this.model = model;
         this.subCategory = subCategory;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     public String getLaunchDate() {
@@ -42,14 +29,6 @@ public class Hardware extends Product {
 
     public void setLaunchDate(String launchDate) {
         this.launchDate = launchDate;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public String getSubCategory() {

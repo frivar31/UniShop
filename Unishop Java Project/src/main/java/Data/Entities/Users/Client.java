@@ -106,10 +106,13 @@ public class Client extends User {
         return "{" +
                 "\n- firstName='" + this.getFirstName() + '\'' +
                 "\n- lastName='" + this.getLastName() + '\'' +
-                "\n- email='" + this.getEmail() + '\'' +
+                /*"\n- email='" + this.getEmail() + '\'' +*/
                 "\n- pseudo='" + this.getPseudo() + '\'' +
-                "\n- number=" + this.getNumber() +
+                /*"\n- number=" + this.getNumber() +
                 "\n- shipAddress='" + this.getShipAddress() + '\'' +
+                "\n- followers='" + this.followers.size() + '\'' +
+                "\n- following='" + this.following.size() + '\'' +*/
+                "\n- points='" + this.getPoints() + '\'' +
                 "\n}";
     }
 

@@ -93,20 +93,28 @@ public class App {
                 e.printStackTrace();
             }
         }));
-
-        System.out.println("Choisissez une option");
-        System.out.println("1. Se connecter");
-        System.out.println("2. S'inscrire");
-        if (input.getOption(1, 2) == 1) {
-            user = login(input.getUserStrInfo("Pseudo"), input.getUserStrInfo("Mot de passe"), clientManager, sellerManager);
-        } else {
-            user = getRegistrationStream(clientManager, sellerManager);
+        boolean repeat = true ;
+        while(repeat) {
+            System.out.println("Choisissez une option");
+            System.out.println("1. Se connecter");
+            System.out.println("2. S'inscrire");
+            System.out.println("3. Quitter");
+            int option  = input.getOption(1, 3) ;
+            switch (option) {
+                case 1:
+                    user = login(input.getUserStrInfo("Pseudo"), input.getUserStrInfo("Mot de passe"), clientManager, sellerManager);
+                    break;
+                case 2:
+                    user = getRegistrationStream(clientManager, sellerManager);
+                    break;
+                case 3:
+                    System.exit(1);
+            }
+            System.out.println();
+            System.out.println("##########################");
+            System.out.println();
+            if (user instanceof Client) repeat = !clientManager.getClientServiceInfo((Client) user);
+            else repeat = !sellerManager.getSellerServiceInfo((Seller) user);
         }
-        System.out.println();
-        System.out.println("##########################");
-        System.out.println();
-        if (user instanceof Client) clientManager.getClientServiceInfo((Client) user);
-        else sellerManager.getSellerServiceInfo((Seller) user);
-
     }
 }

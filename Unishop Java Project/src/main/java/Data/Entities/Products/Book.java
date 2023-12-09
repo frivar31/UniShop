@@ -32,7 +32,7 @@ public class Book extends Product {
                 @JsonProperty("editorNum") long editorNum,
                 @JsonProperty("volNum") long volNum
     ) {
-        super(title, desc, date, initialQuantity, price, points,ProductType.Book);
+        super(title, desc, date, initialQuantity, price, points,ProductType.Book,"","");
         this.ISBN = ISBN;
         this.author = author;
         this.editor = editor;
@@ -40,7 +40,6 @@ public class Book extends Product {
         this.pubDate = pubDate;
         this.editorNum = editorNum;
         this.volNum = volNum;
-        this.category = category ;
     }
 
     public String getISBN() {

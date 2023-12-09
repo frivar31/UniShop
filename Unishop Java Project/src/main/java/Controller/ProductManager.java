@@ -27,28 +27,65 @@ public class ProductManager {
         }
     }
 
-    public List<Product> findProductByTitle() {
+    public List<Product> findProductsByTitle() {
         List<Product> products = new ArrayList<>();
-        System.out.println("Entrer le titre du produit");
-        String title = input.getUserStrInfo("Titre") ;
-        for (Object[] obj : Catalog.catalogMap.values()) {
+        while(products.isEmpty()) {
+            System.out.println("Entrer le titre du produit");
+            String title = input.getUserStrInfo("Titre") ;
+            for (Object[] obj : Catalog.catalogMap.values()) {
                 Product product = (Product) obj[0];
                 if (product.getTitle().equals(title)) products.add(product) ;
+            }
+            if (products.isEmpty()) System.out.println("Produits avec marque: "+title+" indisponible. Veuillez reessayer svp");
         }
+
         return products ;
     }
 
     public List<Product> findProductsByPrice() {
         List<Product> products = new ArrayList<>();
         System.out.println("Specifier les prix max et min");
-        int minPrice = input.getUserNumInfo("Prix min",1,Integer.MAX_VALUE) ;
-        int maxPrice = input.getUserNumInfo("Prix max",1,Integer.MAX_VALUE) ;
-        for (Object[] obj : Catalog.catalogMap.values()) {
-            Product product = (Product) obj[0];
-            if (product.getPrice() >= minPrice && product.getPrice() <= maxPrice) products.add(product) ;
+        while(products.isEmpty()) {
+            int minPrice = input.getUserNumInfo("Prix min",1,Integer.MAX_VALUE) ;
+            int maxPrice = input.getUserNumInfo("Prix max",1,Integer.MAX_VALUE) ;
+            for (Object[] obj : Catalog.catalogMap.values()) {
+                Product product = (Product) obj[0];
+                if (product.getPrice() >= minPrice && product.getPrice() <= maxPrice) products.add(product) ;
+            }
+            if (products.isEmpty()) System.out.println("Produits avec prix min: "+minPrice+" et prix max: "+maxPrice+" indisponible. Veuillez reessayer svp");
         }
         return products ;
     }
+
+    public List<Product> findProductsByBrand() {
+        List<Product> products = new ArrayList<>();
+        while(products.isEmpty()) {
+            System.out.println("Entrer la marque du produit");
+            String brand = input.getUserStrInfo("Marque") ;
+            for (Object[] obj : Catalog.catalogMap.values()) {
+                Product product = (Product) obj[0];
+                if (product.getBrand().equals(brand)) products.add(product) ;
+            }
+            if(products.isEmpty()) System.out.println("Produits avec marque: "+brand+" indisponible. Veuillez reessayer svp");
+        }
+
+        return products ;
+    }
+
+    public List<Product> findProductsByModel() {
+        List<Product> products = new ArrayList<>();
+        while(products.isEmpty()) {
+            System.out.println("Entrer le modèle du produit");
+            String model = input.getUserStrInfo("Modèle") ;
+            for (Object[] obj : Catalog.catalogMap.values()) {
+                Product product = (Product) obj[0];
+                if (product.getModel().equals(model)) products.add(product) ;
+            }
+            if(products.isEmpty()) System.out.println("Produits avec modèle: "+model+" indisponible.Veuillez reessayer svp");
+        }
+        return products ;
+    }
+
 
     public List<Product> findProductsByCategory() {
         List<Product> products = new ArrayList<>() ;

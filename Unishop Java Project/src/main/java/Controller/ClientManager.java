@@ -7,6 +7,7 @@ import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Service.UserInteractionService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientManager {
@@ -117,10 +118,10 @@ public class ClientManager {
             System.out.println("4. Passer la commande");
             System.out.println("5. Editer les items du panier");
             System.out.println("6. Modifier son profile");
-            System.out.println("7. Voir la liste des acheteurs");
-            System.out.println("8. Voir mon total de points");
-            System.out.println("9. Voir mon classement par rapport à mes suiveurs");
-            System.out.println("10.Voir les produits aimés par les gens que je suis");
+            System.out.println("7. Chercher un acheteur");
+            System.out.println("8. Consulter mon total de points");
+            System.out.println("9. Consulter mon classement par rapport à mes suiveurs");
+            System.out.println("10.Consulter les produits aimés par les gens que je suis");
             System.out.println("11. Quitter");
 
 
@@ -130,24 +131,45 @@ public class ClientManager {
                 case 1:
                     boolean redo = true;
                     while (redo) {
-                        System.out.println("Liste des produits disponibles :");
-                        for (Object[] objects : Catalog.catalogMap.values()) {
-                            Product current = (Product) objects[0];
-                            System.out.println(current);
-                        }
-                        System.out.println("Voulez-vous consulter les prouits par catégorie");
-                        System.out.println("1. Oui");
-                        System.out.println("2. Non");
-                        if(input.getOption(1,2) == 1) {
-                            List<Product> products = productManager.findProductsByCategory() ;
-                            for (Product product : products) System.out.println(product);
-                        }
-                        System.out.println("Voulez-vous consulter les prouits par Prix");
-                        System.out.println("1. Oui");
-                        System.out.println("2. Non");
-                        if(input.getOption(1,2) == 1) {
-                            List<Product> products = productManager.findProductsByPrice() ;
-                            for (Product product : products) System.out.println(product);
+
+                        System.out.println("Choisissez votre option de filtre:");
+                        System.out.println("1. Catégorie");
+                        System.out.println("2. Prix") ;
+                        System.out.println("3. Marque");
+                        System.out.println("4. Titre");
+                        System.out.println("5. Modèle");
+                        System.out.println("6. Aucune");
+
+                        int filterOption = input.getOption(1,6);
+                        List<Product> products = new ArrayList<>() ;
+                        switch (filterOption){
+                            case 1 :
+                                products = productManager.findProductsByCategory() ;
+                                for (Product product : products) System.out.println(product);
+                                break ;
+                            case 2 :
+                                products = productManager.findProductsByPrice() ;
+                                for (Product product : products) System.out.println(product);
+                                break ;
+                            case 4 :
+                                products = productManager.findProductsByTitle() ;
+                                for (Product product : products) System.out.println(product);
+                                break ;
+                            case 3 :
+                                products = productManager.findProductsByBrand() ;
+                                for (Product product : products) System.out.println(product);
+                                break ;
+                            case 5 :
+                                products = productManager.findProductsByModel() ;
+                                for (Product product : products) System.out.println(product);
+                                break ;
+                            case 6:
+                                System.out.println("Liste des produits disponibles :");
+                                for (Object[] objects : Catalog.catalogMap.values()) {
+                                    Product current = (Product) objects[0];
+                                    System.out.println(current);
+                                }
+                                break ;
                         }
                         System.out.println("Voulez-vous acheter un produit?");
                         System.out.println("1. Oui");
@@ -164,6 +186,18 @@ public class ClientManager {
                     break;
 
                 case 2:
+
+                    System.out.println("Choisissez votre option de filtre:");
+                    System.out.println("1. Nom");
+                    System.out.println("2. Adresse") ;
+                    System.out.println("3. Type de produit");
+                    System.out.println("4. Aucune");
+
+                    int filterOpion = input.getOption(1,4) ;
+                    switch(filterOpion) {
+                        case 1:
+
+                    }
                     System.out.println("Liste des vendeurs :");
                     Seller current = sellerManager.findSellerById();
                     System.out.println("Voici la liste des produits de ce vendeur:");
@@ -224,6 +258,7 @@ public class ClientManager {
                     break;
                 case 7:
                     for (Client client : clients) System.out.println(client);
+                    System.out.println("Choisissez une ");
                     System.out.println("Voulez-vous suivre, arrêter de suivre ou revenir au menu principal");
                     System.out.println("1. Suivre");
                     System.out.println("2. Arrêter de suivre");

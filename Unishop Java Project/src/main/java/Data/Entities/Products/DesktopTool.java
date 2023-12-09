@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DesktopTool extends Product {
-    private String brand;
-    private String model;
     private String subCategory;
 
     @JsonCreator
@@ -18,26 +16,8 @@ public class DesktopTool extends Product {
                        @JsonProperty("brand") String brand,
                        @JsonProperty("model") String model,
                        @JsonProperty("subCategory") String subCategory) {
-        super(title, desc, date, initialQuantity, price, points, ProductType.DesktopTool);
-        this.brand = brand;
-        this.model = model;
+        super(title, desc, date, initialQuantity, price, points, ProductType.DesktopTool,model,brand);
         this.subCategory = subCategory;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public String getSubCategory() {

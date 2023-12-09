@@ -61,6 +61,18 @@ public class SellerManager {
         }
     }
 
+    public List<Seller> findSellersByName() {
+        return null ; //TODO
+    }
+
+    public List<Seller> findSellersByAdress() {
+        return null ; //TODO
+    }
+
+    public List<Seller> findSellersByProductType() {
+        return null ; //TODO
+    }
+
     public boolean getSellerServiceInfo(Seller seller) {
 
         boolean repeat = true ;

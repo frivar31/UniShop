@@ -17,6 +17,8 @@ public class Product {
     protected int id;
     protected String title;
     protected String desc;
+
+
     @JsonIgnore
     protected ProductType category;
     protected String date;
@@ -26,6 +28,8 @@ public class Product {
     protected long discountPoint = 0;
     protected long discountPrice = 0;
     protected ArrayList<ProductEvaluation> evaluations;
+    protected String brand ;
+    protected String model ;
 
     @JsonCreator
     public Product(@JsonProperty("title") String title,
@@ -34,7 +38,9 @@ public class Product {
                    @JsonProperty("quantity") long quantity,
                    @JsonProperty("price") double price,
                    @JsonProperty("points") long points,
-                   @JsonProperty("category") ProductType category) {
+                   @JsonProperty("category") ProductType category,
+                   @JsonProperty("model") String model,
+                   @JsonProperty("brand") String brand) {
         this.id = counter++;
         this.title = title;
         this.desc = desc;
@@ -44,6 +50,8 @@ public class Product {
         this.points = points;
         this.evaluations = new ArrayList<>();
         this.category=category;
+        this.brand = brand ;
+        this.model = model ;
     }
 
     public int getId() {
@@ -56,6 +64,14 @@ public class Product {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getDesc() {
@@ -100,6 +116,14 @@ public class Product {
 
     public long getPoints() {
         return points;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public void setPoints(long points) {

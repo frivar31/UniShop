@@ -27,7 +27,7 @@ public class LearningResource extends Product {
                             @JsonProperty("publishDate") String publishDate,
                             @JsonProperty("type") Type type,
                             @JsonProperty("editionNumber") Long editionNumber) {
-        super(title, desc, date, initialQuantity, price, points,ProductType.LearningResource);
+        super(title, desc, date, initialQuantity, price, points,ProductType.LearningResource,"","");
         this.ISBN = ISBN;
         this.author = author;
         this.organisation = organisation;
@@ -36,7 +36,7 @@ public class LearningResource extends Product {
         this.editionNumber = editionNumber;
     }
 
-    public String getauthor() {
+    public String getAuthor() {
         return author;
     }
 

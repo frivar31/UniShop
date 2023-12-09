@@ -80,9 +80,9 @@ public abstract class User {
         return "{" +
                 "\n- firstName='" + firstName + '\'' +
                 "\n- lastName='" + lastName + '\'' +
-                "\n- email='" + email + '\'' +
+                /*"\n- email='" + email + '\'' +*/
                 "\n- pseudo='" + pseudo + '\'' +
-                "\n- number=" + number +
+                /*"\n- number=" + number +*/
                 "\n}";
     }
 
