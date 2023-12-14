@@ -73,7 +73,6 @@ public class SellerManager {
     }*/
 
 
-
     public List<Seller> findSellersByProductType() {
         List<Seller> sellers = new ArrayList<>() ;
         System.out.println("Entrer la catégorie du produit vendu par le vendeur");
