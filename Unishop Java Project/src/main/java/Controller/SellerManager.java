@@ -289,4 +289,7 @@ public class SellerManager {
         }
         return sellers.stream().anyMatch(user -> password.equals(user.getPassword()));
     }
+    public void test(){
+        sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.Book))).collect(Collectors.toList());
+    }
 }

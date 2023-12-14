@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -16,8 +17,8 @@ public class Client extends User {
     private HashMap<Product, ProductEvaluation> evaluations;
     private ShoppingCart shoppingCart;
     private int points;
-    private HashSet<Client> followers;
-    private HashSet<Client> following;
+    private HashSet<String> followers;
+    private HashSet<String> following;
 
     public Client(String firstName,
                   String lastName,
@@ -34,6 +35,23 @@ public class Client extends User {
         this.followers = new HashSet<>();
         orders = new HashMap<>();
     }
+
+    public HashSet<String> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(HashSet<String> followers) {
+        this.followers = followers;
+    }
+
+    public HashSet<String> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(HashSet<String> following) {
+        this.following = following;
+    }
+
     @JsonCreator
     public Client(@JsonProperty("firstName") String firstName,
                   @JsonProperty("lastName") String lastName,
@@ -45,8 +63,8 @@ public class Client extends User {
                   @JsonProperty("shipAddress") String shipAddress,
                   @JsonProperty("orders") HashMap<String, Order> orders,
                   @JsonProperty("points") int points,
-                  @JsonProperty("followers") HashSet<Client> followers,
-                  @JsonProperty("following") HashSet<Client> following) {
+                  @JsonProperty("followers") HashSet<String> followers,
+                  @JsonProperty("following") HashSet<String> following) {
         super(firstName, lastName, email, pseudo, number, password);
         this.shipAddress = shipAddress;
         this.orders = orders;
@@ -109,9 +127,9 @@ public class Client extends User {
                 /*"\n- email='" + this.getEmail() + '\'' +*/
                 "\n- pseudo='" + this.getPseudo() + '\'' +
                 /*"\n- number=" + this.getNumber() +
-                "\n- shipAddress='" + this.getShipAddress() + '\'' +
+                "\n- shipAddress='" + this.getShipAddress() + '\'' +*/
                 "\n- followers='" + this.followers.size() + '\'' +
-                "\n- following='" + this.following.size() + '\'' +*/
+                "\n- following='" + this.following.size() + '\'' +
                 "\n- points='" + this.getPoints() + '\'' +
                 "\n}";
     }
@@ -132,10 +150,6 @@ public class Client extends User {
     @Override
     public void displayActivityStat() {
 
-    }
-
-    public void follow() {
-        // TODO
     }
 
     public void manageOrder() {
@@ -184,46 +198,29 @@ public class Client extends User {
     }
 
     public void follow(Client otherClient) {
-        if (!following.contains(otherClient)) {
-            following.add(otherClient);
+        if (!following.contains(otherClient.getPseudo())) {
+            following.add(otherClient.getPseudo());
             points += 5;
-            otherClient.followedBy(this); // Pour que les deux clients gagnent des points
+            otherClient.followedBy(this.getPseudo()); // Pour que les deux clients gagnent des points
         } else System.out.println("Vous suivez déja cette personne");
     }
 
     public void unfollow(Client otherClient) {
-        if (following.contains(otherClient)) {
-            following.remove(otherClient);
+        if (following.contains(otherClient.getPseudo())) {
+            following.remove(otherClient.getPseudo());
             points -= 5;
-            otherClient.unfollowedBy(this); // Pour que les deux clients perdent des points
+            otherClient.unfollowedBy(this.getPseudo()); // Pour que les deux clients perdent des points
         } else System.out.println("Vous ne suivez pas cette personne");
     }
 
-    private void followedBy(Client follower) {
+    private void followedBy(String follower) {
         followers.add(follower);
         points = +5;
     }
 
-    private void unfollowedBy(Client unfollower) {
+    private void unfollowedBy(String unfollower) {
         followers.remove(unfollower);
         points -= 5;
-    }
-
-    public void displayPointsRanking() {
-        if (!following.isEmpty()) {
-            List<Client> sortedFollowing = following.stream()
-                    .sorted()
-                    .toList();
-            int userRank = sortedFollowing.indexOf(this) + 1;
-            System.out.println("Votre classement en points parmi les personnes que vous suivez :");
-            for (int i = 0; i < sortedFollowing.size(); i++) {
-                Client follower = sortedFollowing.get(i);
-                System.out.println((i + 1) + ". " + follower.getPseudo() + " - Points : " + follower.getPoints());
-            }
-
-            System.out.println("Votre classement : " + userRank + " - Points : " + this.getPoints());
-        } else System.out.println("Vous n'avez pas d'abonné donc vous êtes le premier ;)");
-
     }
 
     public HashMap<Product, ProductEvaluation> getEvaluations() {
@@ -234,13 +231,6 @@ public class Client extends User {
         this.evaluations = evaluations;
     }
 
-    public void displayLikedProductsByFollowing() {
-        for (Client followingClient : following) {
-            System.out.println("Items liké par: " + followingClient.getPseudo());
-            for (Product product : followingClient.getEvaluations().keySet()) {
-                System.out.println(product);
-            }
-        }
-    }
+
 
 }
