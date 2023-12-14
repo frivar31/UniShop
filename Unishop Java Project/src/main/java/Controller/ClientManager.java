@@ -121,7 +121,7 @@ public class ClientManager {
             System.out.println("7. Chercher un acheteur");
             System.out.println("8. Consulter mon total de points");
             System.out.println("9. Consulter mon classement par rapport à mes suiveurs");
-            System.out.println("10.Consulter les produits aimés par les gens que je suis");
+            System.out.println("10.Consulter les produits aimés par mes followings");
             System.out.println("11. Quitter");
 
 
@@ -165,9 +165,8 @@ public class ClientManager {
                                 break ;
                             case 6:
                                 System.out.println("Liste des produits disponibles :");
-                                for (Object[] objects : Catalog.catalogMap.values()) {
-                                    Product current = (Product) objects[0];
-                                    System.out.println(current);
+                                for (Seller seller : sellerManager.getSellers()) {
+                                    System.out.println(seller);
                                 }
                                 break ;
                         }
@@ -194,15 +193,26 @@ public class ClientManager {
                     System.out.println("4. Aucune");
 
                     int filterOpion = input.getOption(1,4) ;
+                    List<Seller> sellers = new ArrayList<>() ;
                     switch(filterOpion) {
                         case 1:
-
+                            sellers = sellerManager.findSellersByName() ;
+                            for (Seller seller : sellers) System.out.println(seller);
+                            break ;
+                        case 2:
+                            break;
+                        case 3:
+                            sellers = sellerManager.findSellersByProductType() ;
+                            for (Seller seller : sellers) System.out.println(seller);
+                            break ;
+                        case 4:
+                            System.out.println("Liste des vendeurs disponibles") ;
+                            for (Seller seller : sellerManager.getSellers()) {
+                                System.out.println(seller);
+                            }
+                            break ;
                     }
-                    System.out.println("Liste des vendeurs :");
-                    Seller current = sellerManager.findSellerById();
-                    System.out.println("Voici la liste des produits de ce vendeur:");
-                    for (Product product : current.getProducts()) System.out.println(product);
-                    break;
+                    break ;
 
                 case 3:
                     System.out.println("Contenu du panier :");

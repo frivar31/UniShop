@@ -2,6 +2,7 @@ package Controller;
 
 import Data.Entities.Catalog;
 import Data.Entities.Products.Product;
+import Data.Entities.Products.ProductType;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
@@ -9,6 +10,7 @@ import Service.UserInteractionService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SellerManager {
     public UserInteractionService input;
@@ -44,33 +46,76 @@ public class SellerManager {
         return sellers.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
     }
 
-    public Seller findSellerById() {
-        for (Seller seller:sellers) {
-            System.out.println(seller);
-        }
-        while (true) {
-            System.out.println("Entrer le pseudo du vendeur:");
-            String pseudo = input.getUserStrInfo("Pseudo");
-
-            for (User seller : sellers) {
-                if (seller.getPseudo().equalsIgnoreCase(pseudo)) {
-                    return (Seller) seller;
-                }
-            }
-            System.out.println("Pas de vendeur avec un tel pseudo. Veuillez reesayer.");
-        }
-    }
-
     public List<Seller> findSellersByName() {
-        return null ; //TODO
+        List<Seller> sellers = new ArrayList<>();
+        while(sellers.isEmpty()) {
+            System.out.println("Entrer le nom du vendeur");
+            String name = input.getUserStrInfo("Nom") ;
+            for (Seller seller : this.sellers) {
+                if (seller.getFirstName().equals(name)) sellers.add(seller) ;
+            }
+            if (sellers.isEmpty()) System.out.println("Vendeurs de nom: "+name+" indisponible. Veuillez reessayer svp");
+        }
+
+        return sellers ;
     }
 
-    public List<Seller> findSellersByAdress() {
+    /*public List<Seller> findSellersByAdress() {
+        List<Seller> sellers = new ArrayList<>() ;
+        while(sellers.isEmpty()) {
+            System.out.println("Entrer l'adresse du vendeur") ;
+            String address = input.getUserStrInfo("Adresse") ;
+            for (Seller seller : this.sellers) {
+                if(seller.getA)
+            }
+        }
         return null ; //TODO
-    }
+    }*/
+
+
 
     public List<Seller> findSellersByProductType() {
-        return null ; //TODO
+        List<Seller> sellers = new ArrayList<>() ;
+        System.out.println("Entrer la catégorie du produit vendu par le vendeur");
+        System.out.println("1. Livres et Manuels");
+        System.out.println("2. Ressource d'apprentissage");
+        System.out.println("3. Article de papeterie");
+        System.out.println("4. Materiel informatique");
+        System.out.println("5. Equipement de bureau");
+        int option = input.getOption(1,5) ;
+        switch (option) {
+            case 1:
+                while(sellers.isEmpty()) {
+                    sellers = this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.Book))).collect(Collectors.toList());
+                    if (sellers.isEmpty()) System.out.println("Vendeurs avec categorie: "+ProductType.Book+" indisponible. Veuillez reessayer svp");
+                }
+                break;
+            case 2:
+                while(sellers.isEmpty()) {
+                    sellers = this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.LearningResource))).collect(Collectors.toList());
+                    if (sellers.isEmpty()) System.out.println("Vendeurs avec categorie: "+ProductType.LearningResource+" indisponible. Veuillez reessayer svp");
+                }
+                break;
+            case 3:
+                while(sellers.isEmpty()) {
+                    sellers = this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.Article))).collect(Collectors.toList());
+                    if (sellers.isEmpty()) System.out.println("Vendeurs avec categorie: "+ProductType.Article+" indisponible. Veuillez reessayer svp");
+                }
+                break;
+            case 4:
+                while(sellers.isEmpty()) {
+                    sellers = this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.Hardware))).collect(Collectors.toList());
+                    if (sellers.isEmpty()) System.out.println("Vendeurs avec categorie: "+ProductType.Hardware+" indisponible. Veuillez reessayer svp");
+                }
+                break;
+            case 5:
+                while(sellers.isEmpty()) {
+                    sellers = this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.DesktopTool))).collect(Collectors.toList());
+                    if (sellers.isEmpty()) System.out.println("Vendeurs avec categorie: "+ProductType.DesktopTool+" indisponible. Veuillez reessayer svp");
+                }
+                break;
+        }
+        return sellers ;
     }
 
     public boolean getSellerServiceInfo(Seller seller) {
