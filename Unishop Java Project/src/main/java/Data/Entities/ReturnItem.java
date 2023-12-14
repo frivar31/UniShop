@@ -20,7 +20,7 @@ public class ReturnItem {
         this.quantity = quantity;
         this.seller = seller;
     }
-
+    
     public Seller getSeller() {
         return seller;
     }

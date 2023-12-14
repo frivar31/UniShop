@@ -2,6 +2,7 @@ package Controller;
 
 import Data.Entities.Catalog;
 import Data.Entities.Products.Product;
+import Data.Entities.Products.ProductType;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
@@ -9,6 +10,7 @@ import Service.UserInteractionService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SellerManager {
     public UserInteractionService input;
@@ -243,5 +245,8 @@ public class SellerManager {
             if(client.getPassword().equals(password)) return true ;
         }
         return sellers.stream().anyMatch(user -> password.equals(user.getPassword()));
+    }
+    public void test(){
+        sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.Book))).collect(Collectors.toList());
     }
 }

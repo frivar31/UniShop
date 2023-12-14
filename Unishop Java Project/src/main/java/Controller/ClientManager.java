@@ -120,12 +120,11 @@ public class ClientManager {
             System.out.println("6. Modifier son profile");
             System.out.println("7. Chercher un acheteur");
             System.out.println("8. Consulter mon total de points");
-            System.out.println("9. Consulter mon classement par rapport à mes suiveurs");
-            System.out.println("10.Consulter les produits aimés par les gens que je suis");
-            System.out.println("11. Quitter");
+            System.out.println("9.Consulter les produits aimés par les gens que je suis");
+            System.out.println("10. Quitter");
 
 
-            int option = input.getOption(1, 11);
+            int option = input.getOption(1, 10);
 
             switch (option) {
                 case 1:
@@ -288,12 +287,9 @@ public class ClientManager {
                     System.out.println(user.getPoints() + " points");
                     break;
                 case 9:
-                    user.displayPointsRanking();
+                    displayLikedProductsByFollowing(user);
                     break;
                 case 10:
-                    user.displayLikedProductsByFollowing();
-                    break;
-                case 11:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!") ;
                     repeat = false ;
                     return repeat ;
@@ -388,5 +384,17 @@ public class ClientManager {
 
     public void unfollowClient(Client unfollower, Client toUnfollow) {
         unfollower.unfollow(toUnfollow);
+    }
+    public Client getClientFromPseudo(String pseudo){
+        for(Client client:clients) if(client.getPseudo().equals(pseudo)) return client;
+        return null;
+    }
+    public void displayLikedProductsByFollowing(Client user) {
+        for (String followingClient : user.getFollowing()) {
+            System.out.println("Items liké par: " + followingClient);
+            for (Product product : getClientFromPseudo(followingClient).getEvaluations().keySet()) {
+                System.out.println(product);
+            }
+        }
     }
 }
