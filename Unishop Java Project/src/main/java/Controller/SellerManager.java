@@ -10,6 +10,7 @@ import Service.UserInteractionService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SellerManager {
@@ -46,18 +47,8 @@ public class SellerManager {
         return sellers.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
     }
 
-    public List<Seller> findSellersByName() {
-        List<Seller> sellers = new ArrayList<>();
-        while(sellers.isEmpty()) {
-            System.out.println("Entrer le nom du vendeur");
-            String name = input.getUserStrInfo("Nom") ;
-            for (Seller seller : this.sellers) {
-                if (seller.getFirstName().equals(name)) sellers.add(seller) ;
-            }
-            if (sellers.isEmpty()) System.out.println("Vendeurs de nom: "+name+" indisponible. Veuillez reessayer svp");
-        }
-
-        return sellers ;
+    public List<Seller> findSellersByName(String name) {
+        return this.sellers.stream().filter(user -> name.equals(user.getFirstName())).toList() ;
     }
 
     /*public List<Seller> findSellersByAdress() {
@@ -72,49 +63,12 @@ public class SellerManager {
         return null ; //TODO
     }*/
 
+    public Seller getSeller(String pseudo) {
+        return sellers.stream().filter(seller -> pseudo.equals(seller.getPseudo())).findAny().orElse(null) ;
+    }
 
-    public List<Seller> findSellersByProductType() {
-        List<Seller> sellers = new ArrayList<>() ;
-        System.out.println("Entrer la catégorie du produit vendu par le vendeur");
-        System.out.println("1. Livres et Manuels");
-        System.out.println("2. Ressource d'apprentissage");
-        System.out.println("3. Article de papeterie");
-        System.out.println("4. Materiel informatique");
-        System.out.println("5. Equipement de bureau");
-        int option = input.getOption(1,5) ;
-        switch (option) {
-            case 1:
-                while(sellers.isEmpty()) {
-                    sellers = this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.Book))).collect(Collectors.toList());
-                    if (sellers.isEmpty()) System.out.println("Vendeurs avec categorie: "+ProductType.Book+" indisponible. Veuillez reessayer svp");
-                }
-                break;
-            case 2:
-                while(sellers.isEmpty()) {
-                    sellers = this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.LearningResource))).collect(Collectors.toList());
-                    if (sellers.isEmpty()) System.out.println("Vendeurs avec categorie: "+ProductType.LearningResource+" indisponible. Veuillez reessayer svp");
-                }
-                break;
-            case 3:
-                while(sellers.isEmpty()) {
-                    sellers = this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.Article))).collect(Collectors.toList());
-                    if (sellers.isEmpty()) System.out.println("Vendeurs avec categorie: "+ProductType.Article+" indisponible. Veuillez reessayer svp");
-                }
-                break;
-            case 4:
-                while(sellers.isEmpty()) {
-                    sellers = this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.Hardware))).collect(Collectors.toList());
-                    if (sellers.isEmpty()) System.out.println("Vendeurs avec categorie: "+ProductType.Hardware+" indisponible. Veuillez reessayer svp");
-                }
-                break;
-            case 5:
-                while(sellers.isEmpty()) {
-                    sellers = this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.DesktopTool))).collect(Collectors.toList());
-                    if (sellers.isEmpty()) System.out.println("Vendeurs avec categorie: "+ProductType.DesktopTool+" indisponible. Veuillez reessayer svp");
-                }
-                break;
-        }
-        return sellers ;
+    public List<Seller> findSellersByProductType(ProductType type) {
+        return this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(type))).collect(Collectors.toList());
     }
 
     public boolean getSellerServiceInfo(Seller seller) {

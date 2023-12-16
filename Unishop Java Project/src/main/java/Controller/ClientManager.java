@@ -2,6 +2,7 @@ package Controller;
 
 import Data.Entities.Catalog;
 import Data.Entities.Products.Product;
+import Data.Entities.Products.ProductType;
 import Data.Entities.ShoppingCart;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
@@ -9,6 +10,7 @@ import Service.UserInteractionService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ClientManager {
     public UserInteractionService input;
@@ -143,23 +145,99 @@ public class ClientManager {
                         List<Product> products = new ArrayList<>() ;
                         switch (filterOption){
                             case 1 :
-                                products = productManager.findProductsByCategory() ;
+                                boolean redoChoice = true ;
+                                while(redoChoice) {
+                                    System.out.println("Entrer la categorie de produit :");
+                                    System.out.println("1. Livres et Manuels");
+                                    System.out.println("2. Ressource d'apprentissage");
+                                    System.out.println("3. Article de papeterie");
+                                    System.out.println("4. Materiel informatique");
+                                    System.out.println("5. Equipement de bureau");
+                                    int choice = input.getOption(1,5) ;
+                                    switch (choice) {
+                                        case 1:
+                                            products = productManager.findProductsByCategory(ProductType.Book) ;
+                                            if(products.isEmpty()) {
+                                                System.out.println("Aucun produit dans la catégorie "+ProductType.Book+". Veuillez reessayer svp");
+                                            }
+                                            else redoChoice = false ;
+                                            break;
+                                        case 2:
+                                            products = productManager.findProductsByCategory(ProductType.LearningResource) ;
+                                            if(products.isEmpty()) {
+                                                System.out.println("Aucun produit dans la catégorie "+ProductType.LearningResource+". Veuillez reessayer svp");
+                                            }
+                                            else redoChoice = false ;
+                                            break;
+                                        case 3:
+                                            products = productManager.findProductsByCategory(ProductType.Article) ;
+                                            if(products.isEmpty()) {
+                                                System.out.println("Aucun produit dans la catégorie "+ProductType.Article+". Veuillez reessayer svp");
+                                            }
+                                            else redoChoice = false ;
+                                            break;
+                                        case 4:
+                                            products = productManager.findProductsByCategory(ProductType.Hardware) ;
+                                            if(products.isEmpty()) {
+                                                System.out.println("Aucun produit dans la catégorie "+ProductType.Hardware+". Veuillez reessayer svp");
+                                            }
+                                            else redoChoice = false ;
+                                            break;
+                                        case 5:
+                                            products = productManager.findProductsByCategory(ProductType.DesktopTool) ;
+                                            if(products.isEmpty()) {
+                                                System.out.println("Aucun produit dans la catégorie "+ProductType.DesktopTool+". Veuillez reessayer svp");
+                                            }
+                                            else redoChoice = false ;
+                                            break;
+                                    }
+                                }
                                 for (Product product : products) System.out.println(product);
                                 break ;
                             case 2 :
-                                products = productManager.findProductsByPrice() ;
+                                System.out.println("Specifier les prix max et min");
+                                int minPrice = input.getUserNumInfo("Prix min",1,Integer.MAX_VALUE) ;
+                                int maxPrice = input.getUserNumInfo("Prix max",1,Integer.MAX_VALUE) ;
+                                products = productManager.findProductsByPrice(minPrice,maxPrice) ;
+                                while(products.isEmpty()) {
+                                    System.out.println("Produits avec prix min: "+minPrice+" et prix max: "+maxPrice+" indisponible. Veuillez reessayer svp");
+                                    minPrice = input.getUserNumInfo("Prix min",1,Integer.MAX_VALUE) ;
+                                    maxPrice = input.getUserNumInfo("Prix max",1,Integer.MAX_VALUE) ;
+                                    products = productManager.findProductsByPrice(minPrice,maxPrice) ;
+                                }
                                 for (Product product : products) System.out.println(product);
                                 break ;
                             case 4 :
-                                products = productManager.findProductsByTitle() ;
+                                System.out.println("Entrer le titre du produit");
+                                String title = input.getUserStrInfo("Titre") ;
+                                products = productManager.findProductsByTitle(title) ;
+                                while (products.isEmpty()) {
+                                    System.out.println("Produits avec titre: "+title+" indisponible. Veuillez reessayer svp");
+                                    title = input.getUserStrInfo("Titre") ;
+                                    products = productManager.findProductsByTitle(title) ;
+                                }
                                 for (Product product : products) System.out.println(product);
                                 break ;
                             case 3 :
-                                products = productManager.findProductsByBrand() ;
+                                System.out.println("Entrer la marque du produit");
+                                String brand = input.getUserStrInfo("Marque") ;
+                                products = productManager.findProductsByBrand(brand) ;
+                                while (products.isEmpty()) {
+                                    System.out.println("Produits avec marque: "+brand+" indisponible. Veuillez reessayer svp");
+                                    brand = input.getUserStrInfo("Marque") ;
+                                    products = productManager.findProductsByBrand(brand) ;
+                                }
                                 for (Product product : products) System.out.println(product);
                                 break ;
                             case 5 :
-                                products = productManager.findProductsByModel() ;
+                                System.out.println("Entrer le modèle du produit");
+                                String model = input.getUserStrInfo("Modèle") ;
+                                products = productManager.findProductsByModel(model) ;
+                                while (products.isEmpty()) {
+                                    System.out.println("Produits avec modèle: "+model+" indisponible.Veuillez reessayer svp");
+                                    model = input.getUserStrInfo("Modèle") ;
+                                    products = productManager.findProductsByModel(model) ;
+                                }
                                 for (Product product : products) System.out.println(product);
                                 break ;
                             case 6:
@@ -195,13 +273,67 @@ public class ClientManager {
                     List<Seller> sellers = new ArrayList<>() ;
                     switch(filterOpion) {
                         case 1:
-                            sellers = sellerManager.findSellersByName() ;
+                            System.out.println("Entrer le nom du vendeur");
+                            String name = input.getUserStrInfo("Nom") ;
+                            sellers = sellerManager.findSellersByName(name) ;
+                            while (sellers.isEmpty()) {
+                                System.out.println("Vendeurs nommés: "+name+" indisponible. Veuillez reessayer svp");
+                                name = input.getUserStrInfo("Nom");
+                                sellers = sellerManager.findSellersByName(name) ;
+                            }
                             for (Seller seller : sellers) System.out.println(seller);
                             break ;
                         case 2:
                             break;
                         case 3:
-                            sellers = sellerManager.findSellersByProductType() ;
+                            boolean redoChoice = true ;
+                            while(redoChoice) {
+                                System.out.println("Entrer la catégorie du produit vendu par le vendeur");
+                                System.out.println("1. Livres et Manuels");
+                                System.out.println("2. Ressource d'apprentissage");
+                                System.out.println("3. Article de papeterie");
+                                System.out.println("4. Materiel informatique");
+                                System.out.println("5. Equipement de bureau");
+                                int choice = input.getOption(1,5) ;
+                                switch (choice) {
+                                    case 1:
+                                        sellers = sellerManager.findSellersByProductType(ProductType.Book) ;
+                                        if(sellers.isEmpty()) {
+                                            System.out.println("Vendeurs avec categorie de produit : "+ProductType.Book+" indisponible. Veuillez reessayer svp");
+                                        }
+                                        else redoChoice = false ;
+                                        break;
+                                    case 2:
+                                        sellers = sellerManager.findSellersByProductType(ProductType.LearningResource) ;
+                                        if(sellers.isEmpty()) {
+                                            System.out.println("Vendeurs avec categorie de produit : "+ProductType.LearningResource+" indisponible. Veuillez reessayer svp");
+                                        }
+                                        else redoChoice = false ;
+                                        break;
+                                    case 3:
+                                        sellers = sellerManager.findSellersByProductType(ProductType.Article) ;
+                                        if(sellers.isEmpty()) {
+                                            System.out.println("Vendeurs avec categorie de produit : "+ProductType.Article+" indisponible. Veuillez reessayer svp");
+                                        }
+                                        else redoChoice = false ;
+                                        break;
+                                    case 4:
+                                        sellers = sellerManager.findSellersByProductType(ProductType.Hardware) ;
+                                        if(sellers.isEmpty()) {
+                                            System.out.println("Vendeurs avec categorie de produit : "+ProductType.Hardware+" indisponible. Veuillez reessayer svp");
+                                        }
+                                        else redoChoice = false ;
+                                        break;
+                                    case 5:
+                                        sellers = sellerManager.findSellersByProductType(ProductType.DesktopTool) ;
+                                        if(sellers.isEmpty()) {
+                                            System.out.println("Vendeurs avec categorie de produit : "+ProductType.DesktopTool+" indisponible. Veuillez reessayer svp");
+                                        }
+                                        else redoChoice = false ;
+                                        break;
+                                }
+                            }
+
                             for (Seller seller : sellers) System.out.println(seller);
                             break ;
                         case 4:
@@ -211,8 +343,30 @@ public class ClientManager {
                             }
                             break ;
                     }
+                    System.out.println("Voulez-vous voir le profil d'un vendeur?");
+                    System.out.println("1. oui");
+                    System.out.println("2. non");
+                    if (input.getOption(1,2) == 1) {
+                        System.out.println("Entrer le pseudo du vendeur");
+                        String pseudo = input.getUserStrInfo("Pseudo") ;
+                        Seller seller = sellerManager.getSeller(pseudo) ;
+                        while (seller == null) {
+                            System.out.println("Pseudo invalide. veuillez reessayer svp");
+                            pseudo = input.getUserStrInfo("Pseudo") ;
+                            seller = sellerManager.getSeller(pseudo) ;
+                        }
+                        System.out.println(seller);
+                        System.out.println("Liste des produits vendus par "+seller.getFirstName()+":");
+                        for (Product product : seller.getProducts()) System.out.println(product);
+                        System.out.println("Voulez-vous acheter un produit de "+seller.getFirstName()+" ?");
+                        System.out.println("1. Oui");
+                        System.out.println("2. Non");
+                        if (input.getOption(1, 2) == 1) {
+                            user.getShoppingCart().add(productManager.isIdAvailable());
+                            System.out.println("Produit ajouté au panier.");
+                        }
+                    }
                     break ;
-
                 case 3:
                     System.out.println("Contenu du panier :");
                     System.out.println(user.getShoppingCart());
@@ -254,7 +408,7 @@ public class ClientManager {
                         System.out.println("item supprimé");
                         System.out.println(user.getShoppingCart());
                     } else {
-                        System.out.println("Rentré la quantité désiré :");
+                        System.out.println("Rentrer la quantité désirée :");
                         int quantity = input.getUserNumInfo("Quantité", 1, Integer.MAX_VALUE);
                         user.getShoppingCart().updateQuantity(id, quantity);
                         System.out.println(user.getShoppingCart());
@@ -401,7 +555,7 @@ public class ClientManager {
     }
     public void displayLikedProductsByFollowing(Client user) {
         for (String followingClient : user.getFollowing()) {
-            System.out.println("Items liké par: " + followingClient);
+            System.out.println("Items aimés par: " + followingClient);
             for (Product product : getClientFromPseudo(followingClient).getEvaluations().keySet()) {
                 System.out.println(product);
             }
