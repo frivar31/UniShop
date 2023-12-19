@@ -57,6 +57,9 @@ public class Client extends User {
         this.following = following;
     }
 
+
+
+
     public int getPoints() {
         return points;
     }

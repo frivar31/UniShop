@@ -37,6 +37,9 @@ public class Order {
         this.address = address;
     }
 
+    public String getAddress(){
+        return address;
+    }
     public String getOrderNumber() {
         return orderNumber;
     }
