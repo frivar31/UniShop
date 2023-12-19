@@ -23,6 +23,8 @@ public class ClientManager {
         this.input = new UserInteractionService();
     }
 
+
+
     public List<Client> getClients() {
         return clients;
     }
