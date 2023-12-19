@@ -21,8 +21,9 @@ public class Hardware extends Product {
                     @JsonProperty("model") String model,
                     @JsonProperty("launchDate") String launchDate, // Corrected parameter name
                     @JsonProperty("subCategory") String subCategory,
-                    @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations) {
-        super(title, desc, date, initialQuantity, price, points,ProductType.Hardware,model,brand,evaluations);
+                    @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations,
+                    @JsonProperty("likes") ArrayList<String> likes) {
+        super(title, desc, date, initialQuantity, price, points,ProductType.Hardware,model,brand,evaluations,likes);
         this.launchDate = launchDate;
         this.subCategory = subCategory;
     }
@@ -57,6 +58,6 @@ public class Hardware extends Product {
                 "\n- marque='" + brand + '\'' +
                 "\n- modele ='" + model + '\'' +
                 "\n- date de lancement ='" + launchDate + '\'' +
-                "\n}";
+                "\n- likes = '"+ likes.size()+ '\''+"}";
     }
 }

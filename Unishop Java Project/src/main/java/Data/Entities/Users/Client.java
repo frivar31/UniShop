@@ -18,6 +18,18 @@ public class Client extends User {
     private int points;
     private HashSet<String> followers;
     private HashSet<String> following;
+    private ArrayList<Integer> likedProduct;
+
+    public ArrayList<Integer> getLikedProduct() {
+        return likedProduct;
+    }
+
+    public void setLikedProduct(ArrayList<Integer> likedProduct) {
+        this.likedProduct = likedProduct;
+    }
+    public void addLikedProduct(int id){
+        likedProduct.add(id);
+    }
 
     public Client(String firstName,
                   String lastName,
@@ -33,6 +45,7 @@ public class Client extends User {
         this.following = new HashSet<>();
         this.followers = new HashSet<>();
         orders = new HashMap<>();
+        likedProduct = new ArrayList<>();
     }
 
     public HashSet<String> getFollowers() {
@@ -64,7 +77,8 @@ public class Client extends User {
                   @JsonProperty("points") int points,
                   @JsonProperty("followers") HashSet<String> followers,
                   @JsonProperty("following") HashSet<String> following,
-                  @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations) {
+                  @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations,
+                  @JsonProperty("likedProduct") ArrayList<Integer> likedProduct) {
         super(firstName, lastName, email, pseudo, number, password);
         this.shipAddress = shipAddress;
         this.orders = orders;
@@ -73,6 +87,7 @@ public class Client extends User {
         this.points = points;
         this.followers = followers;
         this.following = following;
+        this.likedProduct = likedProduct;
     }
 
     public int getPoints() {
@@ -240,7 +255,8 @@ public class Client extends User {
     public void setEvaluations(ArrayList<ProductEvaluation> evaluations) {
         this.evaluations = evaluations;
     }
-    public void addEvaluation(ProductEvaluation productEvaluation){
+
+    public void addEvaluation(ProductEvaluation productEvaluation) {
         this.evaluations.add(productEvaluation);
     }
 

@@ -19,8 +19,9 @@ public class DesktopTool extends Product {
                        @JsonProperty("brand") String brand,
                        @JsonProperty("model") String model,
                        @JsonProperty("subCategory") String subCategory,
-                       @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations) {
-        super(title, desc, date, initialQuantity, price, points, ProductType.DesktopTool,model,brand,evaluations);
+                       @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations,
+                       @JsonProperty("likes") ArrayList<String> likes) {
+        super(title, desc, date, initialQuantity, price, points, ProductType.DesktopTool,model,brand,evaluations,likes);
         this.subCategory = subCategory;
     }
 
@@ -45,7 +46,7 @@ public class DesktopTool extends Product {
                 "\n- marque='" + brand + '\'' +
                 "\n- modele='" + model + '\'' +
                 "\n- sous-categorie='" + subCategory + '\'' +
-                "\n}";
+                "\n- likes = '"+ likes.size()+ '\''+"}";
     }
 
 }

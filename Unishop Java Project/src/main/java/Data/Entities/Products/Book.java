@@ -34,9 +34,10 @@ public class Book extends Product {
                 @JsonProperty("pubDate") String pubDate,
                 @JsonProperty("editorNum") long editorNum,
                 @JsonProperty("volNum") long volNum,
-                @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations
+                @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations,
+                @JsonProperty("likes") ArrayList<String> likes
     ) {
-        super(title, desc, date, initialQuantity, price, points,ProductType.Book,"","",evaluations);
+        super(title, desc, date, initialQuantity, price, points,ProductType.Book,"","",evaluations,likes);
         this.ISBN = ISBN;
         this.author = author;
         this.editor = editor;
@@ -119,7 +120,7 @@ public class Book extends Product {
                 "\n- date de publication=" + pubDate +
                 "\n- numero d'edition=" + editorNum +
                 "\n- numero de volume=" + volNum +
-                "\n}";
+                "\n- likes = '"+ likes.size()+ '\''+"}";
     }
 
 

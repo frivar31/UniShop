@@ -9,6 +9,7 @@ import Service.UserInteractionService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
 public class ClientManager {
@@ -154,9 +155,10 @@ public class ClientManager {
                         System.out.println("3. Marque");
                         System.out.println("4. Titre");
                         System.out.println("5. Modèle");
-                        System.out.println("6. Aucune");
+                        System.out.println("6. Notes");
+                        System.out.println("7. Aucune");
 
-                        int filterOption = input.getOption(1,6);
+                        int filterOption = input.getOption(1,7);
                         List<Product> products = new ArrayList<>() ;
                         switch (filterOption){
                             case 1 :
@@ -256,6 +258,15 @@ public class ClientManager {
                                 for (Product product : products) System.out.println(product);
                                 break ;
                             case 6:
+                                PriorityQueue<Product> pq=new PriorityQueue<Product>((a,b)-> b.getLikes().size()-a.getLikes().size());
+                                for (Product product : Catalog.catalogMap.values().stream().map(obj -> (Product) obj[0]).toList()) {
+                                    if(product.getLikes().size()>0) pq.add(product);
+                                }
+                                for(Product product:pq){
+                                    System.out.println(product);
+                                }
+                                break;
+                            case 7:
                                 System.out.println("Liste des produits disponibles :");
                                 for (Product product : Catalog.catalogMap.values().stream().map(obj -> (Product) obj[0]).toList()) {
                                     System.out.println(product);
@@ -264,9 +275,10 @@ public class ClientManager {
                         }
                         System.out.println("Choisissez une des options suivantes");
                         System.out.println("1. Acheter un produit");
-                        System.out.println("2. Voir les commentaires et note d'une produit");
-                        System.out.println("3. Retour au menu principal");
-                        int choice=input.getOption(1,3);
+                        System.out.println("2. Voir les commentaires et note d'un produit");
+                        System.out.println("3. Liker un produit");
+                        System.out.println("4. Retour au menu principal");
+                        int choice=input.getOption(1,4);
                         if (choice == 1) {
                             user.getShoppingCart().add(productManager.isIdAvailable());
                             System.out.println("Produit ajouté au panier.");
@@ -281,6 +293,15 @@ public class ClientManager {
                                 System.out.println(productEvaluation);
                             }
                             System.out.println("Note moyenne de "+ product.averageRating()+"/5");
+                        }
+                        else if(choice==3){
+                            Product product=Catalog.getProduct(productManager.isIdAvailable());
+                            if(!product.getLikes().contains(user.getPseudo())){
+                                product.addLikes(user.getPseudo());
+                                user.addLikedProduct(product.getId());
+                                System.out.println("Item liké, merci");
+                            }
+                            else System.out.println("Vous avez déja liké ce produit");
                         }
                         else redo = false;
                     }
@@ -541,7 +562,7 @@ public class ClientManager {
                                 System.out.println("Cette item n'est pas dans la commande");
                                 productId = input.getOption(0);
                             }
-                            if(user.getEvaluations().stream().anyMatch(e -> e.getPseudoOp().equals(user.getPseudo()))){
+                            if(product.getEvaluations().stream().anyMatch(e -> e.getPseudoOp().equals(user.getPseudo()))){
                                 System.out.println("Vous avez déjà évalué ce produit.");
                                 break;
                             }
@@ -553,6 +574,7 @@ public class ClientManager {
                             user.addEvaluation(productEvaluation);
                             product.addEvaluation(productEvaluation);
                             System.out.println("Évaluation ajouté merci!");
+                            break;
                         }
                     }
                     break;
@@ -668,9 +690,13 @@ public class ClientManager {
     public void displayLikedProductsByFollowing(Client user) {
         for (String followingClient : user.getFollowing()) {
             System.out.println("Items aimés par: " + followingClient);
-            for (ProductEvaluation productEvaluation : getClientFromPseudo(followingClient).getEvaluations()) {
-                System.out.println(Catalog.getProduct(productEvaluation.getProductId()));
+            if(getClientFromPseudo(followingClient).getLikedProduct().isEmpty()) System.out.println("Rien");
+            else{
+                for(int productId: getClientFromPseudo(followingClient).getLikedProduct()){
+                    System.out.println(Catalog.getProduct(productId));
+                }
             }
+
         }
     }
 }

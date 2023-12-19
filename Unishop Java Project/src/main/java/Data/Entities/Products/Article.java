@@ -19,8 +19,9 @@ public class Article extends Product {
                    @JsonProperty("brand") String brand,
                    @JsonProperty("model") String model,
                    @JsonProperty("subCategory") String subCategory,
-                   @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations) {
-        super(title, desc, date, initialQuantity, price, points,ProductType.Article,model,brand,evaluations);
+                   @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations,
+                   @JsonProperty("likes") ArrayList<String> likes) {
+        super(title, desc, date, initialQuantity, price, points,ProductType.Article,model,brand,evaluations,likes);
         this.subCategory = subCategory;
 
     }
@@ -46,6 +47,6 @@ public class Article extends Product {
                 "\n- sous-categorie='" + subCategory + '\'' +
                 "\n- marque='" + brand + '\'' +
                 "\n- modele ='" + model + '\'' +
-                "\n}";
+                "\n- likes = '"+ likes.size()+ '\''+"}";
     }
 }
