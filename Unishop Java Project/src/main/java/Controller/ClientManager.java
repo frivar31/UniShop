@@ -111,7 +111,19 @@ public class ClientManager {
         return clients.stream().anyMatch(user -> email.equals(user.getEmail())) ;
     }
 
-    public boolean getClientServiceInfo(Client user) {
+
+    public boolean orderManagementMenu(Client user) {
+        System.out.println("Sélectionnez la tâche que vous voulez effectuer: ");
+        System.out.println("1. Retourner un produit");
+        System.out.println("2. Echanger un produit");
+        int option = input.getOption(1,2) ;
+        switch (option) {
+            case 1 :
+
+                break ;
+        }
+    }
+    public boolean principalMenu(Client user) {
 
         boolean repeat = true ;
         while (repeat) {

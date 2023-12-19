@@ -12,6 +12,8 @@ public class OrderItem {
     private Boolean shipped;
     private Boolean delivered;
 
+
+
     @JsonCreator
     public OrderItem(@JsonProperty("productId") int productId,
                      @JsonProperty("quantity") int quantity,
