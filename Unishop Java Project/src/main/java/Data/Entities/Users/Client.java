@@ -12,9 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Client extends User {
     private String shipAddress;
-    private HashMap<String, Order> orders;
-    @JsonIgnore
-    private HashMap<Product, ProductEvaluation> evaluations;
+    private final HashMap<String, Order> orders;
+    private ArrayList<ProductEvaluation> evaluations;
     private ShoppingCart shoppingCart;
     private int points;
     private HashSet<String> followers;
@@ -64,11 +63,12 @@ public class Client extends User {
                   @JsonProperty("orders") HashMap<String, Order> orders,
                   @JsonProperty("points") int points,
                   @JsonProperty("followers") HashSet<String> followers,
-                  @JsonProperty("following") HashSet<String> following) {
+                  @JsonProperty("following") HashSet<String> following,
+                  @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations) {
         super(firstName, lastName, email, pseudo, number, password);
         this.shipAddress = shipAddress;
         this.orders = orders;
-        this.evaluations = new HashMap<Product, ProductEvaluation>();
+        this.evaluations = evaluations;
         this.shoppingCart = cart;
         this.points = points;
         this.followers = followers;
@@ -135,16 +135,26 @@ public class Client extends User {
     }
 
     public void rateProduct(Product product, ProductEvaluation evaluation) {
-        if (!evaluations.containsKey(product)) {
-            evaluations.put(product, evaluation);
-            product.addEvaluation(evaluation);
+        for (ProductEvaluation eval : evaluations) {
+            if (eval.getProductId() == product.getId()) {
+                System.out.println("Vous avez déja évalué ce produit");
+                return;
+            }
         }
+        evaluations.add(evaluation);
+        product.addEvaluation(evaluation);
     }
 
     public void removeRating(Product product) {
-        if (evaluations.containsKey(product)) {
-            product.removeEvaluation(evaluations.get(product));
+        for (ProductEvaluation eval : evaluations) {
+            if (eval.getProductId() == product.getId()) {
+                product.removeEvaluation(eval);
+                evaluations.remove(eval);
+                System.out.println("Evaluation retiré");
+                return;
+            }
         }
+        System.out.println("Vous n'avez pas d'évaluation sur ce produit");
     }
 
     @Override
@@ -223,14 +233,13 @@ public class Client extends User {
         points -= 5;
     }
 
-    public HashMap<Product, ProductEvaluation> getEvaluations() {
+    public ArrayList<ProductEvaluation> getEvaluations() {
         return evaluations;
     }
 
-    public void setEvaluations(HashMap<Product, ProductEvaluation> evaluations) {
+    public void setEvaluations(ArrayList<ProductEvaluation> evaluations) {
         this.evaluations = evaluations;
     }
-
 
 
 }

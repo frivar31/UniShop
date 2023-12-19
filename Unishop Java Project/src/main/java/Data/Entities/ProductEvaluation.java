@@ -9,22 +9,54 @@ public class ProductEvaluation {
     private String comment; // Commentaire laissé par l'acheteur
     private boolean isFlagged; // Indique si l'évaluation a été signalée comme inappropriée
     private int pointsEarned; // Points attribués à l'acheteur pour cette évaluation
-    private Client op;
-    private Boolean deleted;
+    private String pseudoOp;
+    private int productId;
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setFlagged(boolean flagged) {
+        isFlagged = flagged;
+    }
+
+    public void setPointsEarned(int pointsEarned) {
+        this.pointsEarned = pointsEarned;
+    }
+
+    public String getPseudoOp() {
+        return pseudoOp;
+    }
+
+    public void setPseudoOp(String pseudoOp) {
+        this.pseudoOp = pseudoOp;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 
     @JsonCreator
     public ProductEvaluation(@JsonProperty("rating") int rating,
                              @JsonProperty("comment") String comment,
                              @JsonProperty("isFlagged") boolean isFlagged,
                              @JsonProperty("pointsEarned") int pointsEarned,
-                             @JsonProperty("op") Client op,
-                             @JsonProperty("deleted") boolean deleted) {
+                             @JsonProperty("pseudoOp") String pseudoOp,
+                             @JsonProperty("productId") int productId) {
         this.rating = rating;
         this.comment = comment;
         this.isFlagged = isFlagged;
         this.pointsEarned = pointsEarned;
-        this.op = op;
-        this.deleted = deleted;
+        this.pseudoOp = pseudoOp;
+        this.productId=productId;
     }
 
     public int getRating() {
@@ -43,27 +75,4 @@ public class ProductEvaluation {
         return pointsEarned;
     }
 
-    // Méthode pour signaler l'évaluation comme inappropriée
-    public void flagAsInappropriate() {
-        if (!isFlagged) {
-            this.isFlagged = true;
-            op.addPoints(-pointsEarned);
-            pointsEarned = 0;
-        }
-    }
-
-    // Méthode pour attribuer des points à l'acheteur lorsque l'évaluation reçoit le premier "like"
-    public void receiveLike() {
-        if (pointsEarned == 0) {
-            pointsEarned = 10;
-            System.out.println("Points earned: " + pointsEarned);
-            op.addPoints(10);
-        }
-    }
-
-    public void delete() {
-        this.deleted = true;
-        op.addPoints(-pointsEarned);
-        pointsEarned = 0;
-    }
 }

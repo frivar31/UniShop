@@ -135,7 +135,6 @@ public class Product {
     }
 
     public void removeEvaluation(ProductEvaluation eval) {
-        eval.delete();
         evaluations.remove(eval);
     }
 

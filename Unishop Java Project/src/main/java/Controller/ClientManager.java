@@ -1,6 +1,8 @@
 package Controller;
 
 import Data.Entities.Catalog;
+import Data.Entities.Order;
+import Data.Entities.ProductEvaluation;
 import Data.Entities.Products.Product;
 import Data.Entities.Products.ProductType;
 import Data.Entities.ShoppingCart;
@@ -122,6 +124,7 @@ public class ClientManager {
 
                 break ;
         }
+        return true;
     }
     public boolean principalMenu(Client user) {
 
@@ -136,11 +139,12 @@ public class ClientManager {
             System.out.println("6. Modifier son profile");
             System.out.println("7. Chercher un acheteur");
             System.out.println("8. Consulter mon total de points");
-            System.out.println("9.Consulter les produits aimés par les gens que je suis");
-            System.out.println("10. Quitter");
+            System.out.println("9. Consulter les produits aimés par les gens que je suis");
+            System.out.println("10. Voir les commandes antérieures");
+            System.out.println("11. Quitter");
 
 
-            int option = input.getOption(1, 10);
+            int option = input.getOption(1, 11);
 
             switch (option) {
                 case 1:
@@ -256,8 +260,8 @@ public class ClientManager {
                                 break ;
                             case 6:
                                 System.out.println("Liste des produits disponibles :");
-                                for (Seller seller : sellerManager.getSellers()) {
-                                    System.out.println(seller);
+                                for (Product product : Catalog.catalogMap.values().stream().map(obj -> (Product) obj[0]).toList()) {
+                                    System.out.println(product);
                                 }
                                 break ;
                         }
@@ -283,9 +287,9 @@ public class ClientManager {
                     System.out.println("3. Type de produit");
                     System.out.println("4. Aucune");
 
-                    int filterOpion = input.getOption(1,4) ;
+                    int filterOption = input.getOption(1,4) ;
                     List<Seller> sellers = new ArrayList<>() ;
-                    switch(filterOpion) {
+                    switch(filterOption) {
                         case 1:
                             System.out.println("Entrer le nom du vendeur");
                             String name = input.getUserStrInfo("Nom") ;
@@ -434,8 +438,41 @@ public class ClientManager {
                     modifyClientInfo(user);
                     break;
                 case 7:
-                    for (Client client : clients) System.out.println(client);
-                    System.out.println("Choisissez une ");
+                    System.out.println("Choisissez votre option de filtre:");
+                    System.out.println("1. Pseudo");
+                    System.out.println("2. Parmi la liste des suiveurs d'un acheteur");
+                    System.out.println("3. Aucune");
+                    filterOption = input.getOption(1,3) ;
+                    switch (filterOption){
+                        case 1:
+                            String recherche=input.getUserStrInfo("Chaine de character à rechercher");
+                            ArrayList<Client> clientTrouve = new ArrayList<>();
+                            for (Client client : clients) {
+                                if (client.getPseudo().toLowerCase().contains(recherche.toLowerCase())) {
+                                    clientTrouve.add(client);
+                                }
+                            }
+                            for (Client client : clientTrouve) System.out.println(client);
+                            break;
+                        case 2:
+                            for (Client acheteur : clients) System.out.println(acheteur);
+                            System.out.println("Choisir vous voulez voir les suiveurs de quel acheteur");
+                            String pseudo = input.getUserStrInfo("Pseudo");
+                            Client client = null;
+                            while ((client = getUserByPseudo(pseudo)) == null || client == user) {
+                                System.out.println("Ce compte n'existe pas");
+                                pseudo = input.getUserStrInfo("Pseudo");
+                            }
+                            System.out.println("Voici les suiveurs de "+pseudo);
+                            for(String suiveur:client.getFollowers()){
+                                System.out.println(getUserByPseudo(suiveur));
+                            }
+                            break;
+                        case 3:
+                            for (Client acheteur : clients) System.out.println(acheteur);
+                            break;
+                    }
+                    System.out.println("Choisissez une option");
                     System.out.println("Voulez-vous suivre, arrêter de suivre ou revenir au menu principal");
                     System.out.println("1. Suivre");
                     System.out.println("2. Arrêter de suivre");
@@ -451,6 +488,8 @@ public class ClientManager {
                         }
                         followClient(user, toFollow);
                     } else if (choice == 2) {
+                        System.out.println("Vous suivez actuellement :");
+                        for(String following:user.getFollowing()) System.out.println(getUserByPseudo(following));
                         System.out.println("Entrer le pseudo de la personne que vous voulez arrêter de suivre:");
                         String pseudo = input.getUserStrInfo("Pseudo");
                         Client toFollow = null;
@@ -468,6 +507,11 @@ public class ClientManager {
                     displayLikedProductsByFollowing(user);
                     break;
                 case 10:
+                    for(Order order:user.getOrders().values()){
+                        System.out.println(order);
+                    }
+                    break;
+                case 11:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!") ;
                     repeat = false ;
                     return repeat ;
@@ -570,8 +614,8 @@ public class ClientManager {
     public void displayLikedProductsByFollowing(Client user) {
         for (String followingClient : user.getFollowing()) {
             System.out.println("Items aimés par: " + followingClient);
-            for (Product product : getClientFromPseudo(followingClient).getEvaluations().keySet()) {
-                System.out.println(product);
+            for (ProductEvaluation productEvaluation : getClientFromPseudo(followingClient).getEvaluations()) {
+                System.out.println(Catalog.getProduct(productEvaluation.getProductId()));
             }
         }
     }

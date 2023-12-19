@@ -109,6 +109,7 @@ public class Order {
         }
 
         sb.append(items);
+        sb.append("\n");
 
         return sb.toString();
     }
