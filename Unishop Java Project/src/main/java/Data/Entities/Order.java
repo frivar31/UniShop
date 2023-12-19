@@ -108,7 +108,7 @@ public class Order {
             sb.append("Delivery Date: ").append(dateFormat.format(deliveryDate)).append("\n");
         }
 
-        sb.append(items);
+        sb.append("Product: "+items);
         sb.append("\n");
 
         return sb.toString();

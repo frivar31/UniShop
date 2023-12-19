@@ -11,21 +11,22 @@ public class ProductEvaluation {
     private int pointsEarned; // Points attribués à l'acheteur pour cette évaluation
     private String pseudoOp;
     private int productId;
-
-    public void setRating(int rating) {
+    public ProductEvaluation(int rating,String comment,String pseudoOp,int productId){
+        this.rating=rating;
+        this.comment=comment;
+        this.pseudoOp=pseudoOp;
+        this.isFlagged=false;
+        this.pointsEarned=0;
+        this.productId=productId;
+    }
+    @JsonCreator
+    public ProductEvaluation(@JsonProperty("rating") int rating, @JsonProperty("comment") String comment, @JsonProperty("isFlagged") boolean isFlagged, @JsonProperty("pointsEarned") int pointsEarned, @JsonProperty("pseudoOp") String pseudoOp, @JsonProperty("productId") int productId) {
         this.rating = rating;
-    }
-
-    public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public void setFlagged(boolean flagged) {
-        isFlagged = flagged;
-    }
-
-    public void setPointsEarned(int pointsEarned) {
+        this.isFlagged = isFlagged;
         this.pointsEarned = pointsEarned;
+        this.pseudoOp = pseudoOp;
+        this.productId = productId;
     }
 
     public String getPseudoOp() {
@@ -44,35 +45,43 @@ public class ProductEvaluation {
         this.productId = productId;
     }
 
-    @JsonCreator
-    public ProductEvaluation(@JsonProperty("rating") int rating,
-                             @JsonProperty("comment") String comment,
-                             @JsonProperty("isFlagged") boolean isFlagged,
-                             @JsonProperty("pointsEarned") int pointsEarned,
-                             @JsonProperty("pseudoOp") String pseudoOp,
-                             @JsonProperty("productId") int productId) {
-        this.rating = rating;
-        this.comment = comment;
-        this.isFlagged = isFlagged;
-        this.pointsEarned = pointsEarned;
-        this.pseudoOp = pseudoOp;
-        this.productId=productId;
-    }
-
     public int getRating() {
         return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public String getComment() {
         return comment;
     }
 
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public boolean isFlagged() {
         return isFlagged;
     }
 
+    public void setFlagged(boolean flagged) {
+        isFlagged = flagged;
+    }
+
     public int getPointsEarned() {
         return pointsEarned;
+    }
+
+    public void setPointsEarned(int pointsEarned) {
+        this.pointsEarned = pointsEarned;
+    }
+
+    @Override
+    public String toString() {
+        return "Évaluation du produit par " + getPseudoOp() + ":\n" +
+                "Note: " + getRating() + "/5\n" +
+                "Commentaire: " + getComment()+"\n";
     }
 
 }

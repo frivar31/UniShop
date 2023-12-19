@@ -240,6 +240,9 @@ public class Client extends User {
     public void setEvaluations(ArrayList<ProductEvaluation> evaluations) {
         this.evaluations = evaluations;
     }
+    public void addEvaluation(ProductEvaluation productEvaluation){
+        this.evaluations.add(productEvaluation);
+    }
 
 
 }

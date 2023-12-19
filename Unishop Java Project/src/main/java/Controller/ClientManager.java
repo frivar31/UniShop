@@ -1,11 +1,8 @@
 package Controller;
 
-import Data.Entities.Catalog;
-import Data.Entities.Order;
-import Data.Entities.ProductEvaluation;
+import Data.Entities.*;
 import Data.Entities.Products.Product;
 import Data.Entities.Products.ProductType;
-import Data.Entities.ShoppingCart;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Service.UserInteractionService;
@@ -265,17 +262,27 @@ public class ClientManager {
                                 }
                                 break ;
                         }
-                        System.out.println("Voulez-vous acheter un produit?");
-                        System.out.println("1. Oui");
-                        System.out.println("2. Non");
-                        if (input.getOption(1, 2) == 1) {
+                        System.out.println("Choisissez une des options suivantes");
+                        System.out.println("1. Acheter un produit");
+                        System.out.println("2. Voir les commentaires et note d'une produit");
+                        System.out.println("3. Retour au menu principal");
+                        int choice=input.getOption(1,3);
+                        if (choice == 1) {
                             user.getShoppingCart().add(productManager.isIdAvailable());
                             System.out.println("Produit ajouté au panier.");
                             System.out.println("Voulez-vous ajouter un autre produit?");
                             System.out.println("1. Oui");
                             System.out.println("2. Non");
                             if (input.getOption(1, 2) == 2) redo = false;
-                        } else redo = false;
+                        }
+                        else if(choice==2){
+                            Product product=Catalog.getProduct(productManager.isIdAvailable());
+                            for(ProductEvaluation productEvaluation:product.getEvaluations()){
+                                System.out.println(productEvaluation);
+                            }
+                            System.out.println("Note moyenne de "+ product.averageRating()+"/5");
+                        }
+                        else redo = false;
                     }
                     break;
 
@@ -510,6 +517,44 @@ public class ClientManager {
                     for(Order order:user.getOrders().values()){
                         System.out.println(order);
                     }
+                    System.out.println("Voulez-vous voir une commande en détail?");
+                    System.out.println("1. Oui");
+                    System.out.println("2. Non");
+                    choice=input.getOption(1,2);
+                    if(choice==1){
+                        System.out.println("Entrer le numéro de la commande");
+                        String orderNumber = input.getUserStrInfo("#");
+                        Order order = null;
+                        while ((order = getOrderFromNumber(orderNumber,user)) == null) {
+                            System.out.println("Ce numéro de commande n'existe pas");
+                            orderNumber = input.getUserStrInfo("#");
+                        }
+                        for (OrderItem orderItem:order.getItems()) System.out.println(orderItem);
+                        System.out.println("Choisissez une option");
+                        System.out.println("1. Évaluer un produit");
+                        choice=input.getOption(1,1);
+                        if(choice==1){
+                            System.out.println("Entrer le numéro de l'item");
+                            int productId = input.getOption(0);
+                            product = null;
+                            while ((product = getProductInOrder(order,productId)) == null) {
+                                System.out.println("Cette item n'est pas dans la commande");
+                                productId = input.getOption(0);
+                            }
+                            if(user.getEvaluations().stream().anyMatch(e -> e.getPseudoOp().equals(user.getPseudo()))){
+                                System.out.println("Vous avez déjà évalué ce produit.");
+                                break;
+                            }
+                            System.out.println("Veuillez entrer votre évalution de 1 à 5 étoiles pour le produit");
+                            int nbetoiles=input.getOption(1,5);
+                            System.out.println("Veuillez entrer votre commentaire sur le produit");
+                            String comment=input.getUserStrInfo("Commentaire");
+                            ProductEvaluation productEvaluation=new ProductEvaluation(nbetoiles,comment,user.getPseudo(),productId);
+                            user.addEvaluation(productEvaluation);
+                            product.addEvaluation(productEvaluation);
+                            System.out.println("Évaluation ajouté merci!");
+                        }
+                    }
                     break;
                 case 11:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!") ;
@@ -537,6 +582,15 @@ public class ClientManager {
 
     public Client getUserByPseudo(String pseudo) {
         return clients.stream().filter(u -> pseudo.equals(u.getPseudo())).findAny().orElse(null);
+    }
+    public Order getOrderFromNumber(String orderNumber,Client user){
+        return user.getOrders().getOrDefault(orderNumber,null);
+    }
+    public Product getProductInOrder(Order order,int productId){
+        if(order.getItems().stream().anyMatch(item -> item.getProductId() == productId)){
+            return Catalog.getProduct(productId);
+        }
+        return null;
     }
 
     public Client getClientRegistrationInfo() {

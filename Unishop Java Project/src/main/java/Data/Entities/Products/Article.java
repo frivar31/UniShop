@@ -1,7 +1,10 @@
 package Data.Entities.Products;
 
+import Data.Entities.ProductEvaluation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 
 public class Article extends Product {
     private String subCategory;
@@ -15,8 +18,9 @@ public class Article extends Product {
                    @JsonProperty("points") long points,
                    @JsonProperty("brand") String brand,
                    @JsonProperty("model") String model,
-                   @JsonProperty("subCategory") String subCategory) {
-        super(title, desc, date, initialQuantity, price, points,ProductType.Article,model,brand);
+                   @JsonProperty("subCategory") String subCategory,
+                   @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations) {
+        super(title, desc, date, initialQuantity, price, points,ProductType.Article,model,brand,evaluations);
         this.subCategory = subCategory;
 
     }

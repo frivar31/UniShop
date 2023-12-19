@@ -1,8 +1,11 @@
 package Data.Entities.Products;
 
+import Data.Entities.ProductEvaluation;
 import Data.Entities.Type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 
 public class LearningResource extends Product {
 
@@ -26,8 +29,9 @@ public class LearningResource extends Product {
                             @JsonProperty("organisation") String organisation,
                             @JsonProperty("publishDate") String publishDate,
                             @JsonProperty("type") Type type,
-                            @JsonProperty("editionNumber") Long editionNumber) {
-        super(title, desc, date, initialQuantity, price, points,ProductType.LearningResource,"","");
+                            @JsonProperty("editionNumber") Long editionNumber,
+                            @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations) {
+        super(title, desc, date, initialQuantity, price, points,ProductType.LearningResource,"","",evaluations);
         this.ISBN = ISBN;
         this.author = author;
         this.organisation = organisation;

@@ -108,7 +108,7 @@ public class ProductManager {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
         double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
-        Book product = new Book(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, editor, genre, pubDate, editionNum, volNum);
+        Book product = new Book(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, editor, genre, pubDate, editionNum, volNum,new ArrayList<>());
         int option = 2;
         while (option == 2) {
             System.out.println(product);
@@ -221,7 +221,7 @@ public class ProductManager {
 
         double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
 
-        LearningResource product = new LearningResource(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, org, pubDate, type, editionNum);
+        LearningResource product = new LearningResource(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, org, pubDate, type, editionNum,new ArrayList<>());
 
         int option = 2;
         while (option == 2) {
@@ -317,7 +317,7 @@ public class ProductManager {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
         double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
-        Article product = new Article(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory);
+        Article product = new Article(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory,new ArrayList<>());
 
         int option = 2;
         while (option == 2) {
@@ -393,7 +393,7 @@ public class ProductManager {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
         double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
-        Hardware product = new Hardware(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, launchDate, subCategory);
+        Hardware product = new Hardware(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, launchDate, subCategory,new ArrayList<>());
         int option = 2;
         while (option == 2) {
             System.out.println(product);
@@ -470,7 +470,7 @@ public class ProductManager {
         }
 
         double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
-        DesktopTool product = new DesktopTool(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory);
+        DesktopTool product = new DesktopTool(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory,new ArrayList<>());
 
         int option = 2;
         while (option == 2) {

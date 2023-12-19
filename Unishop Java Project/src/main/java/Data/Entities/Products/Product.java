@@ -4,6 +4,7 @@ import Data.Entities.ProductEvaluation;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.ArrayList;
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "category")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Article.class, name = "Article"),
@@ -28,8 +29,8 @@ public class Product {
     protected long discountPoint = 0;
     protected long discountPrice = 0;
     protected ArrayList<ProductEvaluation> evaluations;
-    protected String brand ;
-    protected String model ;
+    protected String brand;
+    protected String model;
 
     @JsonCreator
     public Product(@JsonProperty("title") String title,
@@ -40,7 +41,8 @@ public class Product {
                    @JsonProperty("points") long points,
                    @JsonProperty("category") ProductType category,
                    @JsonProperty("model") String model,
-                   @JsonProperty("brand") String brand) {
+                   @JsonProperty("brand") String brand,
+                   @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations) {
         this.id = counter++;
         this.title = title;
         this.desc = desc;
@@ -48,10 +50,18 @@ public class Product {
         this.quantity = quantity;
         this.price = price;
         this.points = points;
-        this.evaluations = new ArrayList<>();
-        this.category=category;
-        this.brand = brand ;
-        this.model = model ;
+        this.category = category;
+        this.brand = brand;
+        this.model = model;
+        this.evaluations=evaluations;
+    }
+
+    public ArrayList<ProductEvaluation> getEvaluations() {
+        return evaluations;
+    }
+
+    public void setEvaluations(ArrayList<ProductEvaluation> evaluations) {
+        this.evaluations = evaluations;
     }
 
     public int getId() {
@@ -118,16 +128,16 @@ public class Product {
         return points;
     }
 
+    public void setPoints(long points) {
+        this.points = points;
+    }
+
     public String getModel() {
         return model;
     }
 
     public void setModel(String model) {
         this.model = model;
-    }
-
-    public void setPoints(long points) {
-        this.points = points;
     }
 
     public void addEvaluation(ProductEvaluation eval) {
@@ -166,6 +176,10 @@ public class Product {
                 "\n- price=" + (double) Math.round(price * 100) / 100 + "$" +
                 "\n- points=" + points +
                 "\n}";
+    }
+    public double averageRating(){
+        if(evaluations.isEmpty()) return 0;
+        return (double) evaluations.stream().mapToInt(ProductEvaluation::getRating).sum() / evaluations.size();
     }
 
     public void setPromotion(long points, double price) {

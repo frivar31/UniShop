@@ -1,7 +1,10 @@
 package Data.Entities.Products;
 
+import Data.Entities.ProductEvaluation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 
 public class Book extends Product {
     private String ISBN;
@@ -30,9 +33,10 @@ public class Book extends Product {
                 @JsonProperty("genre") String genre,
                 @JsonProperty("pubDate") String pubDate,
                 @JsonProperty("editorNum") long editorNum,
-                @JsonProperty("volNum") long volNum
+                @JsonProperty("volNum") long volNum,
+                @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations
     ) {
-        super(title, desc, date, initialQuantity, price, points,ProductType.Book,"","");
+        super(title, desc, date, initialQuantity, price, points,ProductType.Book,"","",evaluations);
         this.ISBN = ISBN;
         this.author = author;
         this.editor = editor;
