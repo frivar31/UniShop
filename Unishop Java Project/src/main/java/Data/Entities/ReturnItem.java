@@ -5,36 +5,42 @@ import Data.Entities.Users.Seller;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class ReturnItem {
-    private Product product;
+    private Map<Integer,Integer> returnedProductIdToQuantity ;
+
+    private Map<Integer,List<String>> productIdToReturnReasons;
     private int quantity;
-    private Seller seller;
+
+    public Boolean getShipped() {
+        return shipped;
+    }
+
+    public void setShipped(Boolean shipped) {
+        this.shipped = shipped;
+    }
+
+    public Boolean getDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(Boolean delivered) {
+        this.delivered = delivered;
+    }
+
     private Boolean shipped;
     private Boolean delivered;
 
     @JsonCreator
-    public ReturnItem(@JsonProperty("product") Product product,
-                      @JsonProperty("quantity") int quantity,
+    public ReturnItem(@JsonProperty("quantity") int quantity,
                       @JsonProperty("seller") Seller seller) {
-        this.product = product;
+        this.returnedProductIdToQuantity = new HashMap<>();
+        this.productIdToReturnReasons = new HashMap<>() ;
         this.quantity = quantity;
-        this.seller = seller;
-    }
-
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public int getQuantity() {
@@ -45,8 +51,4 @@ public class ReturnItem {
         this.quantity = quantity;
     }
 
-    @Override
-    public String toString() {
-        return "Product: " + product.getTitle() + ", Quantity: " + quantity;
-    }
 }

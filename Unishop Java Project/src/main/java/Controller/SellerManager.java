@@ -2,6 +2,7 @@ package Controller;
 
 import Data.Entities.Catalog;
 import Data.Entities.Products.Product;
+import Data.Entities.Products.ProductType;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
@@ -9,6 +10,8 @@ import Service.UserInteractionService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class SellerManager {
     public UserInteractionService input;
@@ -44,33 +47,28 @@ public class SellerManager {
         return sellers.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
     }
 
-    public Seller findSellerById() {
-        for (Seller seller:sellers) {
-            System.out.println(seller);
-        }
-        while (true) {
-            System.out.println("Entrer le pseudo du vendeur:");
-            String pseudo = input.getUserStrInfo("Pseudo");
+    public List<Seller> findSellersByName(String name) {
+        return this.sellers.stream().filter(user -> name.equals(user.getFirstName())).toList() ;
+    }
 
-            for (User seller : sellers) {
-                if (seller.getPseudo().equalsIgnoreCase(pseudo)) {
-                    return (Seller) seller;
-                }
+    /*public List<Seller> findSellersByAdress() {
+        List<Seller> sellers = new ArrayList<>() ;
+        while(sellers.isEmpty()) {
+            System.out.println("Entrer l'adresse du vendeur") ;
+            String address = input.getUserStrInfo("Adresse") ;
+            for (Seller seller : this.sellers) {
+                if(seller.getA)
             }
-            System.out.println("Pas de vendeur avec un tel pseudo. Veuillez reesayer.");
         }
+        return null ; //TODO
+    }*/
+
+    public Seller getSeller(String pseudo) {
+        return sellers.stream().filter(seller -> pseudo.equals(seller.getPseudo())).findAny().orElse(null) ;
     }
 
-    public List<Seller> findSellersByName() {
-        return null ; //TODO
-    }
-
-    public List<Seller> findSellersByAdress() {
-        return null ; //TODO
-    }
-
-    public List<Seller> findSellersByProductType() {
-        return null ; //TODO
+    public List<Seller> findSellersByProductType(ProductType type) {
+        return this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(type))).collect(Collectors.toList());
     }
 
     public boolean getSellerServiceInfo(Seller seller) {
@@ -243,5 +241,8 @@ public class SellerManager {
             if(client.getPassword().equals(password)) return true ;
         }
         return sellers.stream().anyMatch(user -> password.equals(user.getPassword()));
+    }
+    public void test(){
+        sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.Book))).collect(Collectors.toList());
     }
 }

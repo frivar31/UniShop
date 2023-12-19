@@ -6,18 +6,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Client extends User {
     private String shipAddress;
-    private HashMap<String, Order> orders;
-    @JsonIgnore
-    private HashMap<Product, ProductEvaluation> evaluations;
+    private final HashMap<String, Order> orders;
+    private ArrayList<ProductEvaluation> evaluations;
     private ShoppingCart shoppingCart;
     private int points;
-    private HashSet<Client> followers;
-    private HashSet<Client> following;
+    private HashSet<String> followers;
+    private HashSet<String> following;
+    private ArrayList<Integer> likedProduct;
+
+    public ArrayList<Integer> getLikedProduct() {
+        return likedProduct;
+    }
+
+    public void setLikedProduct(ArrayList<Integer> likedProduct) {
+        this.likedProduct = likedProduct;
+    }
+    public void addLikedProduct(int id){
+        likedProduct.add(id);
+    }
 
     public Client(String firstName,
                   String lastName,
@@ -33,7 +45,25 @@ public class Client extends User {
         this.following = new HashSet<>();
         this.followers = new HashSet<>();
         orders = new HashMap<>();
+        likedProduct = new ArrayList<>();
     }
+
+    public HashSet<String> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(HashSet<String> followers) {
+        this.followers = followers;
+    }
+
+    public HashSet<String> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(HashSet<String> following) {
+        this.following = following;
+    }
+
     @JsonCreator
     public Client(@JsonProperty("firstName") String firstName,
                   @JsonProperty("lastName") String lastName,
@@ -45,16 +75,19 @@ public class Client extends User {
                   @JsonProperty("shipAddress") String shipAddress,
                   @JsonProperty("orders") HashMap<String, Order> orders,
                   @JsonProperty("points") int points,
-                  @JsonProperty("followers") HashSet<Client> followers,
-                  @JsonProperty("following") HashSet<Client> following) {
+                  @JsonProperty("followers") HashSet<String> followers,
+                  @JsonProperty("following") HashSet<String> following,
+                  @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations,
+                  @JsonProperty("likedProduct") ArrayList<Integer> likedProduct) {
         super(firstName, lastName, email, pseudo, number, password);
         this.shipAddress = shipAddress;
         this.orders = orders;
-        this.evaluations = new HashMap<Product, ProductEvaluation>();
+        this.evaluations = evaluations;
         this.shoppingCart = cart;
         this.points = points;
         this.followers = followers;
         this.following = following;
+        this.likedProduct = likedProduct;
     }
 
 
@@ -112,33 +145,39 @@ public class Client extends User {
                 /*"\n- email='" + this.getEmail() + '\'' +*/
                 "\n- pseudo='" + this.getPseudo() + '\'' +
                 /*"\n- number=" + this.getNumber() +
-                "\n- shipAddress='" + this.getShipAddress() + '\'' +
+                "\n- shipAddress='" + this.getShipAddress() + '\'' +*/
                 "\n- followers='" + this.followers.size() + '\'' +
-                "\n- following='" + this.following.size() + '\'' +*/
+                "\n- following='" + this.following.size() + '\'' +
                 "\n- points='" + this.getPoints() + '\'' +
                 "\n}";
     }
 
     public void rateProduct(Product product, ProductEvaluation evaluation) {
-        if (!evaluations.containsKey(product)) {
-            evaluations.put(product, evaluation);
-            product.addEvaluation(evaluation);
+        for (ProductEvaluation eval : evaluations) {
+            if (eval.getProductId() == product.getId()) {
+                System.out.println("Vous avez déja évalué ce produit");
+                return;
+            }
         }
+        evaluations.add(evaluation);
+        product.addEvaluation(evaluation);
     }
 
     public void removeRating(Product product) {
-        if (evaluations.containsKey(product)) {
-            product.removeEvaluation(evaluations.get(product));
+        for (ProductEvaluation eval : evaluations) {
+            if (eval.getProductId() == product.getId()) {
+                product.removeEvaluation(eval);
+                evaluations.remove(eval);
+                System.out.println("Evaluation retiré");
+                return;
+            }
         }
+        System.out.println("Vous n'avez pas d'évaluation sur ce produit");
     }
 
     @Override
     public void displayActivityStat() {
 
-    }
-
-    public void follow() {
-        // TODO
     }
 
     public void manageOrder() {
@@ -187,63 +226,42 @@ public class Client extends User {
     }
 
     public void follow(Client otherClient) {
-        if (!following.contains(otherClient)) {
-            following.add(otherClient);
+        if (!following.contains(otherClient.getPseudo())) {
+            following.add(otherClient.getPseudo());
             points += 5;
-            otherClient.followedBy(this); // Pour que les deux clients gagnent des points
+            otherClient.followedBy(this.getPseudo()); // Pour que les deux clients gagnent des points
         } else System.out.println("Vous suivez déja cette personne");
     }
 
     public void unfollow(Client otherClient) {
-        if (following.contains(otherClient)) {
-            following.remove(otherClient);
+        if (following.contains(otherClient.getPseudo())) {
+            following.remove(otherClient.getPseudo());
             points -= 5;
-            otherClient.unfollowedBy(this); // Pour que les deux clients perdent des points
+            otherClient.unfollowedBy(this.getPseudo()); // Pour que les deux clients perdent des points
         } else System.out.println("Vous ne suivez pas cette personne");
     }
 
-    private void followedBy(Client follower) {
+    private void followedBy(String follower) {
         followers.add(follower);
         points = +5;
     }
 
-    private void unfollowedBy(Client unfollower) {
+    private void unfollowedBy(String unfollower) {
         followers.remove(unfollower);
         points -= 5;
     }
 
-    public void displayPointsRanking() {
-        if (!following.isEmpty()) {
-            List<Client> sortedFollowing = following.stream()
-                    .sorted()
-                    .toList();
-            int userRank = sortedFollowing.indexOf(this) + 1;
-            System.out.println("Votre classement en points parmi les personnes que vous suivez :");
-            for (int i = 0; i < sortedFollowing.size(); i++) {
-                Client follower = sortedFollowing.get(i);
-                System.out.println((i + 1) + ". " + follower.getPseudo() + " - Points : " + follower.getPoints());
-            }
-
-            System.out.println("Votre classement : " + userRank + " - Points : " + this.getPoints());
-        } else System.out.println("Vous n'avez pas d'abonné donc vous êtes le premier ;)");
-
-    }
-
-    public HashMap<Product, ProductEvaluation> getEvaluations() {
+    public ArrayList<ProductEvaluation> getEvaluations() {
         return evaluations;
     }
 
-    public void setEvaluations(HashMap<Product, ProductEvaluation> evaluations) {
+    public void setEvaluations(ArrayList<ProductEvaluation> evaluations) {
         this.evaluations = evaluations;
     }
 
-    public void displayLikedProductsByFollowing() {
-        for (Client followingClient : following) {
-            System.out.println("Items liké par: " + followingClient.getPseudo());
-            for (Product product : followingClient.getEvaluations().keySet()) {
-                System.out.println(product);
-            }
-        }
+    public void addEvaluation(ProductEvaluation productEvaluation) {
+        this.evaluations.add(productEvaluation);
     }
+
 
 }

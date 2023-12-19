@@ -1,1 +1,196 @@
-[{"firstName":"sidya","lastName":"galakho","email":"sidya.galakho@gmail.ca","pseudo":"rango","number":4385273906,"password":"1","shipAddress":"9545 Rue Lajeunesse","orders":{"b275a2a9-a3e7-42c3-84eb-3fe1e53c9e62":{"orderNumber":"b275a2a9-a3e7-42c3-84eb-3fe1e53c9e62","items":[{"productId":6,"quantity":1,"sellerPseudo":"secretPas"}],"orderDate":1702014524089,"delivered":false,"shipped":false,"shippedDate":null,"deliveryDate":null}},"points":27851,"shoppingCart":{"cart":{},"total":0.0,"numberItems":0,"numberPoints":0}},{"firstName":"John","lastName":"Doe","email":"john.doe@gmail.com","pseudo":"password123","number":1234567890,"password":"2","shipAddress":"123 Main Street","orders":{},"points":0,"shoppingCart":{"cart":{},"total":0.0,"numberItems":0,"numberPoints":0}},{"firstName":"Alice","lastName":"Smith","email":"alice.smith@outlook.com","pseudo":"myPass123","number":9876543210,"password":"3","shipAddress":"456 Elm Street","orders":{},"points":0,"shoppingCart":{"cart":{},"total":0.0,"numberItems":0,"numberPoints":0}},{"firstName":"Michael","lastName":"Johnson","email":"michael.johnson@gmail.com","pseudo":"securePwd","number":5551112222,"password":"4","shipAddress":"789 Oak Avenue","orders":{},"points":0,"shoppingCart":{"cart":{},"total":0.0,"numberItems":0,"numberPoints":0}},{"firstName":"Emily","lastName":"Davis","email":"emily.davis@hotmail.com","pseudo":"p@ssw0rd","number":3334445555,"password":"5","shipAddress":"101 Pine Street","orders":{},"points":0,"shoppingCart":{"cart":{},"total":0.0,"numberItems":0,"numberPoints":0}}]
+[
+  {
+    "firstName": "sidya",
+    "lastName": "galakho",
+    "email": "sidya.galakho@gmail.ca",
+    "pseudo": "rango",
+    "number": 4385273906,
+    "password": "1",
+    "shipAddress": "9545 Rue Lajeunesse",
+    "orders": {
+      "fe2b9cf4-a27a-4838-a6ea-dd74f47272d3": {
+        "orderNumber": "fe2b9cf4-a27a-4838-a6ea-dd74f47272d3",
+        "items": [
+          {
+            "productId": 5,
+            "quantity": 1,
+            "sellerPseudo": "securePw"
+          },
+          {
+            "productId": 6,
+            "quantity": 1,
+            "sellerPseudo": "secretPas"
+          }
+        ],
+        "orderDate": 1702959220931,
+        "delivered": false,
+        "shipped": false,
+        "shippedDate": null,
+        "deliveryDate": null
+      },
+      "b8846de1-45cc-49f3-89fb-5de0bd874550": {
+        "orderNumber": "b8846de1-45cc-49f3-89fb-5de0bd874550",
+        "items": [
+          {
+            "productId": 6,
+            "quantity": 1,
+            "sellerPseudo": "secretPas"
+          }
+        ],
+        "orderDate": 1702964698318,
+        "delivered": false,
+        "shipped": false,
+        "shippedDate": null,
+        "deliveryDate": null
+      },
+      "b275a2a9-a3e7-42c3-84eb-3fe1e53c9e62": {
+        "orderNumber": "b275a2a9-a3e7-42c3-84eb-3fe1e53c9e62",
+        "items": [
+          {
+            "productId": 6,
+            "quantity": 1,
+            "sellerPseudo": "secretPas"
+          }
+        ],
+        "orderDate": 1702014524089,
+        "delivered": false,
+        "shipped": false,
+        "shippedDate": null,
+        "deliveryDate": null
+      },
+      "a68df51f-2012-4841-b4b8-b09a41f8f9fa": {
+        "orderNumber": "a68df51f-2012-4841-b4b8-b09a41f8f9fa",
+        "items": [
+          {
+            "productId": 8,
+            "quantity": 1,
+            "sellerPseudo": "1"
+          }
+        ],
+        "orderDate": 1702964834032,
+        "delivered": false,
+        "shipped": false,
+        "shippedDate": null,
+        "deliveryDate": null
+      }
+    },
+    "points": 55003,
+    "followers": [],
+    "following": [
+      "p@ssw0rd"
+    ],
+    "evaluations": [
+      {
+        "rating": 5,
+        "comment": "bien",
+        "pointsEarned": 0,
+        "pseudoOp": "rango",
+        "productId": 6,
+        "flagged": false
+      },
+      {
+        "rating": 4,
+        "comment": "lol",
+        "pointsEarned": 0,
+        "pseudoOp": "rango",
+        "productId": 8,
+        "flagged": false
+      }
+    ],
+    "likedProduct": [],
+    "shoppingCart": {
+      "cart": {},
+      "total": 0.0,
+      "numberItems": 0,
+      "numberPoints": 0
+    }
+  },
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@gmail.com",
+    "pseudo": "password123",
+    "number": 1234567890,
+    "password": "2",
+    "shipAddress": "123 Main Street",
+    "orders": {},
+    "points": 0,
+    "followers": [],
+    "following": [],
+    "evaluations": [],
+    "likedProduct": [],
+    "shoppingCart": {
+      "cart": {},
+      "total": 0.0,
+      "numberItems": 0,
+      "numberPoints": 0
+    }
+  },
+  {
+    "firstName": "Alice",
+    "lastName": "Smith",
+    "email": "alice.smith@outlook.com",
+    "pseudo": "myPass123",
+    "number": 9876543210,
+    "password": "3",
+    "shipAddress": "456 Elm Street",
+    "orders": {},
+    "points": 0,
+    "followers": [],
+    "following": [],
+    "evaluations": [],
+    "likedProduct": [],
+    "shoppingCart": {
+      "cart": {},
+      "total": 0.0,
+      "numberItems": 0,
+      "numberPoints": 0
+    }
+  },
+  {
+    "firstName": "Michael",
+    "lastName": "Johnson",
+    "email": "michael.johnson@gmail.com",
+    "pseudo": "securePwd",
+    "number": 5551112222,
+    "password": "4",
+    "shipAddress": "789 Oak Avenue",
+    "orders": {},
+    "points": 0,
+    "followers": [],
+    "following": [],
+    "evaluations": [],
+    "likedProduct": [],
+    "shoppingCart": {
+      "cart": {},
+      "total": 0.0,
+      "numberItems": 0,
+      "numberPoints": 0
+    }
+  },
+  {
+    "firstName": "Emily",
+    "lastName": "Davis",
+    "email": "emily.davis@hotmail.com",
+    "pseudo": "p@ssw0rd",
+    "number": 3334445555,
+    "password": "5",
+    "shipAddress": "101 Pine Street",
+    "orders": {},
+    "points": 5,
+    "followers": [
+      "rango"
+    ],
+    "following": [],
+    "evaluations": [],
+    "likedProduct": [
+      7
+    ],
+    "shoppingCart": {
+      "cart": {},
+      "total": 0.0,
+      "numberItems": 0,
+      "numberPoints": 0
+    }
+  }
+]

@@ -23,7 +23,7 @@ public class Catalog {
         return catalogMap.containsKey(id) ? (Product) catalogMap.get(id)[0] : null;
     }
 
-    public static Seller getSeller(int id) {
+    public static Seller getProductSeller(int id) {
         return catalogMap.containsKey(id) ? (Seller) catalogMap.get(id)[1] : null;
     }
 }

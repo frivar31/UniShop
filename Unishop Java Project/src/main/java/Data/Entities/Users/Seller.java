@@ -2,10 +2,12 @@ package Data.Entities.Users;
 
 import Data.Entities.Catalog;
 import Data.Entities.Products.Product;
+import Data.Entities.Products.ProductType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class Seller extends User {
@@ -62,16 +64,16 @@ public class Seller extends User {
         return "{" +
                 "\n- firstName='" + this.getFirstName() + '\'' +
                 "\n- lastName='" + this.getLastName() + '\'' +
-                "\n- email='" + this.getEmail() + '\'' +
+                /*"\n- email='" + this.getEmail() + '\'' +*/
                 "\n- pseudo='" + this.getPseudo() + '\'' +
-                "\n- number=" + this.getNumber() +
+                /*"\n- number=" + this.getNumber() +*/
                 "\n}";
     }
 
     @Override
     public void displayActivityStat() {
-
     }
+
 
 
 }

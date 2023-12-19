@@ -109,7 +109,7 @@ public class ShoppingCart {
         for (int id : cart.keySet()) {
             Product product=Catalog.getProduct(id);
             int quantity = cart.get(id);
-            OrderItem orderItem = new OrderItem(id, quantity, Catalog.getSeller(id).getPseudo());
+            OrderItem orderItem = new OrderItem(id, quantity, Catalog.getProductSeller(id).getPseudo());
             orderItems.add(orderItem);
         }
 

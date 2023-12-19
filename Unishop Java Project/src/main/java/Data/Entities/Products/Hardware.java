@@ -1,7 +1,10 @@
 package Data.Entities.Products;
 
+import Data.Entities.ProductEvaluation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 
 public class Hardware extends Product {
     private String launchDate;
@@ -17,8 +20,10 @@ public class Hardware extends Product {
                     @JsonProperty("brand") String brand,
                     @JsonProperty("model") String model,
                     @JsonProperty("launchDate") String launchDate, // Corrected parameter name
-                    @JsonProperty("subCategory") String subCategory) {
-        super(title, desc, date, initialQuantity, price, points,ProductType.Hardware,model,brand);
+                    @JsonProperty("subCategory") String subCategory,
+                    @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations,
+                    @JsonProperty("likes") ArrayList<String> likes) {
+        super(title, desc, date, initialQuantity, price, points,ProductType.Hardware,model,brand,evaluations,likes);
         this.launchDate = launchDate;
         this.subCategory = subCategory;
     }
@@ -53,6 +58,6 @@ public class Hardware extends Product {
                 "\n- marque='" + brand + '\'' +
                 "\n- modele ='" + model + '\'' +
                 "\n- date de lancement ='" + launchDate + '\'' +
-                "\n}";
+                "\n- likes = '"+ likes.size()+ '\''+"}";
     }
 }

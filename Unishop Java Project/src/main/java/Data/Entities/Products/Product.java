@@ -4,14 +4,9 @@ import Data.Entities.ProductEvaluation;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.ArrayList;
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "category")
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = Article.class, name = "Article"),
-        @JsonSubTypes.Type(value = Book.class, name = "Book"),
-        @JsonSubTypes.Type(value = DesktopTool.class, name = "DesktopTool"),
-        @JsonSubTypes.Type(value = Hardware.class, name = "Hardware"),
-        @JsonSubTypes.Type(value = LearningResource.class, name = "LearningResource")
-})
+@JsonSubTypes({@JsonSubTypes.Type(value = Article.class, name = "Article"), @JsonSubTypes.Type(value = Book.class, name = "Book"), @JsonSubTypes.Type(value = DesktopTool.class, name = "DesktopTool"), @JsonSubTypes.Type(value = Hardware.class, name = "Hardware"), @JsonSubTypes.Type(value = LearningResource.class, name = "LearningResource")})
 public class Product {
     protected static int counter = 0;
     protected int id;
@@ -28,19 +23,12 @@ public class Product {
     protected long discountPoint = 0;
     protected long discountPrice = 0;
     protected ArrayList<ProductEvaluation> evaluations;
-    protected String brand ;
-    protected String model ;
+    protected String brand;
+    protected String model;
+    protected ArrayList<String> likes;
 
     @JsonCreator
-    public Product(@JsonProperty("title") String title,
-                   @JsonProperty("desc") String desc,
-                   @JsonProperty("date") String date,
-                   @JsonProperty("quantity") long quantity,
-                   @JsonProperty("price") double price,
-                   @JsonProperty("points") long points,
-                   @JsonProperty("category") ProductType category,
-                   @JsonProperty("model") String model,
-                   @JsonProperty("brand") String brand) {
+    public Product(@JsonProperty("title") String title, @JsonProperty("desc") String desc, @JsonProperty("date") String date, @JsonProperty("quantity") long quantity, @JsonProperty("price") double price, @JsonProperty("points") long points, @JsonProperty("category") ProductType category, @JsonProperty("model") String model, @JsonProperty("brand") String brand, @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations, @JsonProperty("likes") ArrayList<String> likes) {
         this.id = counter++;
         this.title = title;
         this.desc = desc;
@@ -48,10 +36,31 @@ public class Product {
         this.quantity = quantity;
         this.price = price;
         this.points = points;
-        this.evaluations = new ArrayList<>();
-        this.category=category;
-        this.brand = brand ;
-        this.model = model ;
+        this.category = category;
+        this.brand = brand;
+        this.model = model;
+        this.evaluations = evaluations;
+        this.likes = likes;
+    }
+
+    public ArrayList<String> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(ArrayList<String> likes) {
+        this.likes = likes;
+    }
+
+    public void addLikes(String pseudo) {
+        this.likes.add(pseudo);
+    }
+
+    public ArrayList<ProductEvaluation> getEvaluations() {
+        return evaluations;
+    }
+
+    public void setEvaluations(ArrayList<ProductEvaluation> evaluations) {
+        this.evaluations = evaluations;
     }
 
     public int getId() {
@@ -118,6 +127,10 @@ public class Product {
         return points;
     }
 
+    public void setPoints(long points) {
+        this.points = points;
+    }
+
     public String getModel() {
         return model;
     }
@@ -126,16 +139,11 @@ public class Product {
         this.model = model;
     }
 
-    public void setPoints(long points) {
-        this.points = points;
-    }
-
     public void addEvaluation(ProductEvaluation eval) {
         evaluations.add(eval);
     }
 
     public void removeEvaluation(ProductEvaluation eval) {
-        eval.delete();
         evaluations.remove(eval);
     }
 
@@ -157,16 +165,12 @@ public class Product {
 */
 
     public String toString(int quantity) {
-        return "{" +
-                "\n- id='" + id + '\'' +
-                "\n- title='" + title + '\'' +
-                "\n- desc='" + desc + '\'' +
-                "\n- category='" + category + '\'' +
-                "\n- date=" + date +
-                "\n- quantity=" + quantity +
-                "\n- price=" + (double) Math.round(price * 100) / 100 + "$" +
-                "\n- points=" + points +
-                "\n}";
+        return "{" + "\n- id='" + id + '\'' + "\n- title='" + title + '\'' + "\n- desc='" + desc + '\'' + "\n- category='" + category + '\'' + "\n- date=" + date + "\n- quantity=" + quantity + "\n- price=" + (double) Math.round(price * 100) / 100 + "$" + "\n- points=" + points + "\n}";
+    }
+
+    public double averageRating() {
+        if (evaluations.isEmpty()) return 0;
+        return (double) evaluations.stream().mapToInt(ProductEvaluation::getRating).sum() / evaluations.size();
     }
 
     public void setPromotion(long points, double price) {

@@ -12,6 +12,8 @@ public class OrderItem {
     private Boolean shipped;
     private Boolean delivered;
 
+
+
     @JsonCreator
     public OrderItem(@JsonProperty("productId") int productId,
                      @JsonProperty("quantity") int quantity,
@@ -47,6 +49,7 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        return "Product: " + Catalog.getProduct(productId).getTitle() + ", Quantity: " + quantity;
+        Product product=Catalog.getProduct(productId);
+        return product.getTitle() + ", Quantity: " + quantity+ ", Id: "+product.getId();
     }
 }

@@ -27,108 +27,24 @@ public class ProductManager {
         }
     }
 
-    public List<Product> findProductsByTitle() {
-        List<Product> products = new ArrayList<>();
-        while(products.isEmpty()) {
-            System.out.println("Entrer le titre du produit");
-            String title = input.getUserStrInfo("Titre") ;
-            for (Object[] obj : Catalog.catalogMap.values()) {
-                Product product = (Product) obj[0];
-                if (product.getTitle().equals(title)) products.add(product) ;
-            }
-            if (products.isEmpty()) System.out.println("Produits avec marque: "+title+" indisponible. Veuillez reessayer svp");
-        }
-
-        return products ;
+    public List<Product> findProductsByTitle(String title) {
+        return Catalog.catalogMap.values().stream().filter(obj -> title.equals(((Product) obj[0]).getModel())).map(obj -> (Product) obj[0]).toList() ;
     }
 
-    public List<Product> findProductsByPrice() {
-        List<Product> products = new ArrayList<>();
-        System.out.println("Specifier les prix max et min");
-        while(products.isEmpty()) {
-            int minPrice = input.getUserNumInfo("Prix min",1,Integer.MAX_VALUE) ;
-            int maxPrice = input.getUserNumInfo("Prix max",1,Integer.MAX_VALUE) ;
-            for (Object[] obj : Catalog.catalogMap.values()) {
-                Product product = (Product) obj[0];
-                if (product.getPrice() >= minPrice && product.getPrice() <= maxPrice) products.add(product) ;
-            }
-            if (products.isEmpty()) System.out.println("Produits avec prix min: "+minPrice+" et prix max: "+maxPrice+" indisponible. Veuillez reessayer svp");
-        }
-        return products ;
+    public List<Product> findProductsByPrice(int minPrice, int maxPrice) {
+        return Catalog.catalogMap.values().stream().filter(obj -> ((Product) obj[0]).getPrice() >= minPrice && ((Product) obj[0]).getPrice() <= maxPrice).map(obj -> (Product) obj[0]).toList() ;
     }
 
-    public List<Product> findProductsByBrand() {
-        List<Product> products = new ArrayList<>();
-        while(products.isEmpty()) {
-            System.out.println("Entrer la marque du produit");
-            String brand = input.getUserStrInfo("Marque") ;
-            for (Object[] obj : Catalog.catalogMap.values()) {
-                Product product = (Product) obj[0];
-                if (product.getBrand().equals(brand)) products.add(product) ;
-            }
-            if(products.isEmpty()) System.out.println("Produits avec marque: "+brand+" indisponible. Veuillez reessayer svp");
-        }
-
-        return products ;
+    public List<Product> findProductsByBrand(String brand) {
+        return Catalog.catalogMap.values().stream().filter(obj -> brand.equals(((Product) obj[0]).getModel())).map(obj -> (Product) obj[0]).toList() ;
     }
 
-    public List<Product> findProductsByModel() {
-        List<Product> products = new ArrayList<>();
-        while(products.isEmpty()) {
-            System.out.println("Entrer le modèle du produit");
-            String model = input.getUserStrInfo("Modèle") ;
-            for (Object[] obj : Catalog.catalogMap.values()) {
-                Product product = (Product) obj[0];
-                if (product.getModel().equals(model)) products.add(product) ;
-            }
-            if(products.isEmpty()) System.out.println("Produits avec modèle: "+model+" indisponible.Veuillez reessayer svp");
-        }
-        return products ;
+    public List<Product> findProductsByModel(String model) {
+        return Catalog.catalogMap.values().stream().filter(obj -> model.equals(((Product) obj[0]).getModel())).map(obj -> (Product) obj[0]).toList() ;
     }
 
-
-    public List<Product> findProductsByCategory() {
-        List<Product> products = new ArrayList<>() ;
-        System.out.println("Entrer la categorie de produit :");
-        System.out.println("1. Livres et Manuels");
-        System.out.println("2. Ressource d'apprentissage");
-        System.out.println("3. Article de papeterie");
-        System.out.println("4. Materiel informatique");
-        System.out.println("5. Equipement de bureau");
-        int option = input.getOption(1,5) ;
-        switch (option) {
-            case 1 :
-                for (Object[] obj : Catalog.catalogMap.values()) {
-                    Product product = (Product) obj[0];
-                    if (product.getCategory() == ProductType.Book) products.add(product) ;
-                }
-                return products ;
-            case 2 :
-                for (Object[] obj : Catalog.catalogMap.values()) {
-                    Product product = (Product) obj[0];
-                    if (product.getCategory() == ProductType.LearningResource) products.add(product) ;
-                }
-                return products ;
-            case 3 :
-                for (Object[] obj : Catalog.catalogMap.values()) {
-                    Product product = (Product) obj[0];
-                    if (product.getCategory() == ProductType.Article) products.add(product) ;
-                }
-                return products ;
-            case 4 :
-                for (Object[] obj : Catalog.catalogMap.values()) {
-                    Product product = (Product) obj[0];
-                    if (product.getCategory() == ProductType.Hardware) products.add(product) ;
-                }
-                return products ;
-            case 5 :
-                for (Object[] obj : Catalog.catalogMap.values()) {
-                    Product product = (Product) obj[0];
-                    if (product.getCategory() == ProductType.DesktopTool) products.add(product) ;
-                }
-                return products ;
-        }
-        return products ;
+    public List<Product> findProductsByCategory(ProductType type) {
+        return Catalog.catalogMap.values().stream().filter(obj -> ((Product) obj[0]).getCategory() == type).map(obj -> (Product) obj[0]).toList() ;
     }
 
     public Product getProductInfo() {
@@ -192,7 +108,7 @@ public class ProductManager {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
         double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
-        Book product = new Book(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, editor, genre, pubDate, editionNum, volNum);
+        Book product = new Book(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, editor, genre, pubDate, editionNum, volNum,new ArrayList<>(),new ArrayList<>());
         int option = 2;
         while (option == 2) {
             System.out.println(product);
@@ -305,7 +221,7 @@ public class ProductManager {
 
         double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
 
-        LearningResource product = new LearningResource(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, org, pubDate, type, editionNum);
+        LearningResource product = new LearningResource(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, isbn, author, org, pubDate, type, editionNum,new ArrayList<>(),new ArrayList<>());
 
         int option = 2;
         while (option == 2) {
@@ -401,7 +317,7 @@ public class ProductManager {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
         double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
-        Article product = new Article(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory);
+        Article product = new Article(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory,new ArrayList<>(),new ArrayList<>());
 
         int option = 2;
         while (option == 2) {
@@ -477,7 +393,7 @@ public class ProductManager {
             points = input.getUserNumInfo("bonus/$", 1, 20);
         }
         double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
-        Hardware product = new Hardware(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, launchDate, subCategory);
+        Hardware product = new Hardware(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, launchDate, subCategory,new ArrayList<>(),new ArrayList<>());
         int option = 2;
         while (option == 2) {
             System.out.println(product);
@@ -554,7 +470,7 @@ public class ProductManager {
         }
 
         double price = input.getUserNumInfo("Prix", 1, Integer.MAX_VALUE);
-        DesktopTool product = new DesktopTool(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory);
+        DesktopTool product = new DesktopTool(title, desc, Calendar.getInstance().getTime().toString(), initQuantity, price, points, brand, model, subCategory,new ArrayList<>(),new ArrayList<>());
 
         int option = 2;
         while (option == 2) {
