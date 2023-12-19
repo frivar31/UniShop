@@ -74,5 +74,29 @@ public class UserInteractionService {
 
         return option;
     }
+    public int getOption(int lower){
+        int option = 0;
+        boolean success = false;
+
+        while (!success) {
+            try {
+                option = scanner.nextInt();
+                scanner.nextLine();
+
+                // Check if the entered option is within the specified bounds
+                if (option >= lower) {
+                    success = true;
+                } else {
+                    System.err.println("Veuillez entrer un nombre supérieur ou égal " + lower);
+                }
+            } catch (InputMismatchException e) {
+                // Handle the case where the user enters a non-integer
+                System.err.println("Oops! option invale. veuillez entrer un chiffre valide svp.");
+                scanner.next(); // Consume the invalid input to prevent an infinite loop
+            }
+        }
+
+        return option;
+    }
 
 }
