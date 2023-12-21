@@ -1,11 +1,14 @@
 package Data.Entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Order {
 
@@ -52,13 +55,45 @@ public class Order {
         return items;
     }
 
-
     public Date getOrderDate() {
         return orderDate;
     }
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public boolean containsProduct(int productId) {
+        return items.stream().anyMatch(orderIt -> orderIt.getProductId() == productId) ;
+    }
+
+    public boolean containsQuantity(int productId, int quantity) {
+        return items.stream().anyMatch(orderIt -> orderIt.getProductId() == productId && orderIt.getQuantity() >= quantity) ;
+    }
+
+    public OrderItem getItem(int productId) {
+        for (OrderItem item : items) {
+            if (item.getProductId() == productId) return item ;
+        }
+        return null ;
+    }
+
+    public void update(int productId,int returnQuantity) {
+        for (OrderItem item : items) {
+            if (item.getProductId() == productId) {
+                int currQuantity = item.getQuantity() ;
+                item.setQuantity(currQuantity-returnQuantity);
+                return ;
+            }
+        }
+    }
+    @JsonIgnore
+    public boolean isReturnable() {
+        // Calculate the difference in milliseconds
+        long diffInMilliseconds = Math.abs(Calendar.getInstance().getTime().getTime() - deliveryDate.getTime());
+        // Convert milliseconds to days
+        long daysDifference = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
+        return daysDifference < 30 ;
     }
 
     public Boolean isDelivered() {

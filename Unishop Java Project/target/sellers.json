@@ -3,6 +3,8 @@
     "firstName": "Alice",
     "lastName": "Johnson",
     "email": "alice.johnson@example.com",
+    "orderItems": [],
+    "returnItems": [],
     "pseudo": "1",
     "number": 1234167890,
     "password": "6",
@@ -21,8 +23,8 @@
         "pubDate": "Mon Jul 16 15:48:01 EDT 1951",
         "editorNum": 1,
         "volNum": 1,
-        "evaluations": [],
-        "likes": [],
+        "evaluations": null,
+        "likes": null,
         "id": 1,
         "quantity": 5,
         "brand": "",
@@ -40,8 +42,8 @@
         "publishDate": "Sun Jan 01 15:48:01 EST 2023",
         "type": "printed",
         "editionNumber": 1,
-        "evaluations": [],
-        "likes": [],
+        "evaluations": null,
+        "likes": null,
         "id": 3,
         "quantity": 50,
         "brand": "",
@@ -62,8 +64,8 @@
         "pubDate": "1",
         "editorNum": -1,
         "volNum": -1,
-        "evaluations": [],
-        "likes": [],
+        "evaluations": null,
+        "likes": null,
         "id": 6,
         "quantity": 1,
         "brand": "",
@@ -83,8 +85,8 @@
         "pubDate": "1",
         "editorNum": 1,
         "volNum": 1,
-        "evaluations": [],
-        "likes": [],
+        "evaluations": null,
+        "likes": null,
         "id": 7,
         "quantity": 1,
         "brand": "",
@@ -102,19 +104,10 @@
         "publishDate": "2",
         "type": "electronic",
         "editionNumber": -1,
-        "evaluations": [
-          {
-            "rating": 4,
-            "comment": "lol",
-            "pointsEarned": 0,
-            "pseudoOp": "rango",
-            "productId": 8,
-            "flagged": false
-          }
-        ],
-        "likes": [],
+        "evaluations": null,
+        "likes": null,
         "id": 8,
-        "quantity": 1,
+        "quantity": 2,
         "brand": "",
         "model": "",
         "isbn": "2"
@@ -125,6 +118,8 @@
     "firstName": "David",
     "lastName": "Smith",
     "email": "david.smith@gmail.com",
+    "orderItems": [],
+    "returnItems": [],
     "pseudo": "myPass12",
     "number": 9876843210,
     "password": "7",
@@ -143,9 +138,9 @@
         "pubDate": "Mon Jul 11 15:48:01 EDT 1960",
         "editorNum": 1,
         "volNum": 1,
-        "evaluations": [],
-        "likes": [],
-        "id": 2,
+        "evaluations": null,
+        "likes": null,
+        "id": 20,
         "quantity": 8,
         "brand": "",
         "model": ""
@@ -156,6 +151,8 @@
     "firstName": "Emma",
     "lastName": "Brown",
     "email": "emma.brown@yahoo.com",
+    "orderItems": [],
+    "returnItems": [],
     "pseudo": "securePw",
     "number": 5551172222,
     "password": "8",
@@ -171,10 +168,10 @@
         "model": "TechCorp",
         "launchDate": "Tue Feb 01 15:48:01 EST 2022",
         "subCategory": "Laptops",
-        "evaluations": [],
-        "likes": [],
+        "evaluations": null,
+        "likes": null,
         "id": 5,
-        "quantity": 13
+        "quantity": 14
       }
     ]
   },
@@ -182,6 +179,8 @@
     "firstName": "Michael",
     "lastName": "Garcia",
     "email": "michael.garcia@hotmail.com",
+    "orderItems": [],
+    "returnItems": [],
     "pseudo": "p@ssw0r",
     "number": 3334443555,
     "password": "9",
@@ -196,8 +195,8 @@
         "brand": "Fitness",
         "model": "HealthCo",
         "subCategory": "Exercise101",
-        "evaluations": [],
-        "likes": [],
+        "evaluations": null,
+        "likes": null,
         "id": 4,
         "quantity": 30
       }
@@ -207,6 +206,18 @@
     "firstName": "Sophia",
     "lastName": "Lee",
     "email": "sophia.lee@outlook.com",
+    "orderItems": [],
+    "returnItems": [
+      {
+        "sellerPseudo": "secretPas",
+        "clientPseudo": "rango",
+        "reason": "mauvais produit reçu",
+        "delivered": true,
+        "shipped": false,
+        "productId": 6,
+        "quantity": 1
+      }
+    ],
     "pseudo": "secretPas",
     "number": 1112223733,
     "password": "10",
@@ -221,19 +232,10 @@
         "brand": "ToolCo",
         "model": "ScrewMaster 2000",
         "subCategory": "Power Tools",
-        "evaluations": [
-          {
-            "rating": 5,
-            "comment": "bien",
-            "pointsEarned": 0,
-            "pseudoOp": "rango",
-            "productId": 6,
-            "flagged": false
-          }
-        ],
-        "likes": [],
+        "evaluations": null,
+        "likes": null,
         "id": 6,
-        "quantity": 12
+        "quantity": 16
       }
     ]
   }

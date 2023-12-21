@@ -7,9 +7,7 @@ import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Service.UserInteractionService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ClientManager {
@@ -111,19 +109,6 @@ public class ClientManager {
         return clients.stream().anyMatch(user -> email.equals(user.getEmail())) ;
     }
 
-
-    public boolean orderManagementMenu(Client user) {
-        System.out.println("Sélectionnez la tâche que vous voulez effectuer: ");
-        System.out.println("1. Retourner un produit");
-        System.out.println("2. Echanger un produit");
-        int option = input.getOption(1,2) ;
-        switch (option) {
-            case 1 :
-
-                break ;
-        }
-        return true;
-    }
     public boolean principalMenu(Client user) {
 
         boolean repeat = true ;
@@ -553,28 +538,100 @@ public class ClientManager {
                         for (OrderItem orderItem:order.getItems()) System.out.println(orderItem);
                         System.out.println("Choisissez une option");
                         System.out.println("1. Évaluer un produit");
-                        choice=input.getOption(1,1);
-                        if(choice==1){
-                            System.out.println("Entrer le numéro de l'item");
-                            int productId = input.getOption(0);
-                            product = null;
-                            while ((product = getProductInOrder(order,productId)) == null) {
-                                System.out.println("Cette item n'est pas dans la commande");
-                                productId = input.getOption(0);
-                            }
-                            if(product.getEvaluations().stream().anyMatch(e -> e.getPseudoOp().equals(user.getPseudo()))){
-                                System.out.println("Vous avez déjà évalué ce produit.");
+                        System.out.println("2. Retourner un produit");
+                        System.out.println("3. Echanger un produit");
+                        choice=input.getOption(1,3);
+                        switch(choice){
+                            case 1:
+                                System.out.println("Entrer le numéro de l'item");
+                                int productId = input.getOption(0);
+                                product = null;
+                                while ((product = getProductInOrder(order,productId)) == null) {
+                                    System.out.println("Cette item n'est pas dans la commande");
+                                    productId = input.getOption(0);
+                                }
+                                if(product.getEvaluations().stream().anyMatch(e -> e.getPseudoOp().equals(user.getPseudo()))){
+                                    System.out.println("Vous avez déjà évalué ce produit.");
+                                    break;
+                                }
+                                System.out.println("Veuillez entrer votre évalution de 1 à 5 étoiles pour le produit");
+                                int nbetoiles=input.getOption(1,5);
+                                System.out.println("Veuillez entrer votre commentaire sur le produit");
+                                String comment=input.getUserStrInfo("Commentaire");
+                                ProductEvaluation productEvaluation=new ProductEvaluation(nbetoiles,comment,user.getPseudo(),productId);
+                                user.addEvaluation(productEvaluation);
+                                product.addEvaluation(productEvaluation);
+                                System.out.println("Évaluation ajouté merci!");
                                 break;
-                            }
-                            System.out.println("Veuillez entrer votre évalution de 1 à 5 étoiles pour le produit");
-                            int nbetoiles=input.getOption(1,5);
-                            System.out.println("Veuillez entrer votre commentaire sur le produit");
-                            String comment=input.getUserStrInfo("Commentaire");
-                            ProductEvaluation productEvaluation=new ProductEvaluation(nbetoiles,comment,user.getPseudo(),productId);
-                            user.addEvaluation(productEvaluation);
-                            product.addEvaluation(productEvaluation);
-                            System.out.println("Évaluation ajouté merci!");
-                            break;
+                            case 2:
+                                if(!user.getOrder(orderNumber).isDelivered()) {
+                                    System.out.println("Vous n'avez pas confirmer la reception de cette commande");
+                                    System.out.println("Voulez vous confirmer la reception du retour ?");
+                                    System.out.println("1. oui");
+                                    System.out.println("2. non") ;
+                                    if(input.getOption(1,2) == 1) {
+                                        user.getOrder(orderNumber).setDelivered(true);
+                                        user.getOrder(orderNumber).setDeliveryDate(Calendar.getInstance().getTime());
+                                        for (OrderItem orderItem : user.getOrder(orderNumber).getItems()) {
+                                            orderItem.setDelivered(true);
+                                        }
+                                    }
+                                    else break ;
+                                }
+                                if(!user.getOrder(orderNumber).isReturnable()) {
+                                    System.out.println("La période de retour pour les articles est limitée à 30 jours à partir de la date de la commande.");
+                                    break ;
+                                }
+                                boolean rep = true ;
+                                ArrayList<OrderItem> returnItems = new ArrayList<>() ;
+                                while(rep) {
+                                    System.out.println("Saisir le id du produit que vous voulez retourner");
+                                    productId = input.getUserNumInfo("Id",0,Integer.MAX_VALUE) ;
+                                    while(!user.getOrder(orderNumber).containsProduct(productId)) {
+                                        System.out.println("Aucune de vos commandes ne contient ce produit. veuillez reessayer svp");
+                                        productId = input.getUserNumInfo("Id",0,Integer.MAX_VALUE) ;
+                                    }
+                                    System.out.println("Saisir la quantité de ce produit que vous voulez retourner");
+                                    int returnQuantity = input.getUserNumInfo("Quantité",1,Integer.MAX_VALUE) ;
+                                    while(!user.getOrder(orderNumber).containsQuantity(productId,returnQuantity)) {
+                                        System.out.println("Vous ne pouvez pas retourner plus que vous avez commandé. veuillez reessayer svp");
+                                        returnQuantity = input.getUserNumInfo("Quantité",1,Integer.MAX_VALUE) ;
+                                    }
+                                    System.out.println("Specifier la raison du retour");
+                                    String reason = "" ;
+                                    System.out.println("1. mauvais produit reçu");
+                                    System.out.println("2. produit défectueux");
+                                    System.out.println("3. changement d'idée");
+                                    option = input.getOption(1,3) ;
+                                    switch(option) {
+                                        case 1 :
+                                            reason = "mauvais produit reçu" ;
+                                            break;
+                                        case 2 :
+                                            reason = "produit défectueux" ;
+                                            break;
+                                        case 3 :
+                                            reason = "changement d'idée" ;
+                                            break ;
+                                    }
+                                    String sellerPseudo = user.getOrder(orderNumber).getItem(productId).getSellerPseudo() ;
+                                    ReturnItem returnItem = new ReturnItem(productId,returnQuantity,sellerPseudo,user.getPseudo(),reason,false,false) ;
+                                    returnItems.add(returnItem) ;
+                                    for(OrderItem retItem : returnItems) System.out.println(retItem);
+                                    System.out.println("Confirmer le retour: ");
+                                    System.out.println("1. oui");
+                                    System.out.println("2. non");
+                                    if(input.getOption(1,2) == 1) {
+                                        returns(returnItems,user) ;
+                                        System.out.println("Retour initié ave succes");
+                                        System.out.println("Voulez vous retourner un autre item de cette commande ?");
+                                        System.out.println("1. oui");
+                                        System.out.println("2. non");
+                                        if(input.getOption(1,2) == 2) rep = false ;
+                                    }
+                                    else break ; // is it enough ?
+                                }
+                                break;
                         }
                     }
                     break;
@@ -676,6 +733,10 @@ public class ClientManager {
         return clients.stream().anyMatch(user -> password.equals(user.getPassword()));
     }
 
+    public Client getClient(String pseudo) {
+        return clients.stream().filter(client -> pseudo.equals(client.getPseudo())).findAny().orElse(null) ;
+    }
+
     public void followClient(Client follower, Client toFollow) {
         follower.follow(toFollow);
     }
@@ -698,5 +759,16 @@ public class ClientManager {
             }
 
         }
+    }
+
+    public Return returns(ArrayList<OrderItem> returnItems, Client user) {
+        String returnID = UUID.randomUUID().toString();
+        for (OrderItem returnItem : returnItems) {
+            Seller seller = sellerManager.getSeller(returnItem.getSellerPseudo()) ;
+            seller.addReturnItem((ReturnItem) returnItem);
+        }
+        Return newReturn = new Return(returnID,returnItems, Calendar.getInstance().getTime(),false,false,null,null,"") ;
+        user.addReturn(newReturn);
+        return newReturn ;
     }
 }

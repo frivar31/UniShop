@@ -5,50 +5,35 @@ import Data.Entities.Users.Seller;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class ReturnItem {
-    private Map<Integer,Integer> returnedProductIdToQuantity ;
-
-    private Map<Integer,List<String>> productIdToReturnReasons;
-    private int quantity;
-
-    public Boolean getShipped() {
-        return shipped;
-    }
-
-    public void setShipped(Boolean shipped) {
-        this.shipped = shipped;
-    }
-
-    public Boolean getDelivered() {
-        return delivered;
-    }
-
-    public void setDelivered(Boolean delivered) {
-        this.delivered = delivered;
-    }
-
-    private Boolean shipped;
-    private Boolean delivered;
+public class ReturnItem extends OrderItem {
 
     @JsonCreator
-    public ReturnItem(@JsonProperty("quantity") int quantity,
-                      @JsonProperty("seller") Seller seller) {
-        this.returnedProductIdToQuantity = new HashMap<>();
-        this.productIdToReturnReasons = new HashMap<>() ;
-        this.quantity = quantity;
+    public ReturnItem(@JsonProperty("returnedProductId") int returnedProductId,
+                     @JsonProperty("returnedQuantity") int returnedQuantity,
+                     @JsonProperty("sellerPseudo") String sellerPseudo,
+                      @JsonProperty("clientPseudo") String clientPseudo,
+                      @JsonProperty("reason") String reason,
+                      @JsonProperty("delivered") Boolean delivered,
+                      @JsonProperty("shipped") Boolean shipped) {
+        super(returnedProductId,returnedQuantity,sellerPseudo,clientPseudo,reason,delivered,shipped);
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    @Override
+    public String toString() {
+        Product product=Catalog.getProduct(getProductId());
+        String state = "" ;
+        if (!getShipped()) state = "En production" ;
+        else if(getShipped()) state = "En livraison" ;
+        else if (getDelivered()) state = "Livré" ;
+        return "{" +
+                "\n- titre='" + product.getTitle() + '\'' +
+                "\n- quantité='" + getQuantity() + '\'' +
+                "\n- id='" + getProductId() + '\'' +
+                "\n- raison de retour='" + getReason() + '\'' +
+                "\n- état='" + state + '\'' +
+                "\n}";
     }
-
 }

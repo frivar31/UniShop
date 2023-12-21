@@ -1,8 +1,11 @@
 package Controller;
 
 import Data.Entities.Catalog;
+import Data.Entities.Order;
+import Data.Entities.OrderItem;
 import Data.Entities.Products.Product;
 import Data.Entities.Products.ProductType;
+import Data.Entities.ReturnItem;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
@@ -18,6 +21,39 @@ public class SellerManager {
     private ProductManager productManager;
     private ClientManager clientManager;
     private List<Seller> sellers;
+
+    public void confirmReturnReception(ReturnItem returnItem, Seller seller) {
+        // need to wipe orderItem/returnItem from both seller and client once confirmation
+        // what if need full audit of returItems/OrderItems ?
+        returnItem.setDelivered(true);
+        Product currentProduct = null ;
+        if(!returnItem.getReason().equals("produit défectueux")) {
+            for (Product curr : seller.getProducts()) {
+                if (curr.getId() == returnItem.getProductId()) {
+                    curr.AddQuantity(returnItem.getQuantity());
+                    currentProduct = curr ;
+                    break ;
+                }
+            }
+            Product product = Catalog.getProduct(returnItem.getProductId()) ;
+            if(product == null) {
+                Catalog.catalogMap.put(currentProduct.getId(), new Object[]{currentProduct, seller});
+            }
+            else {
+                Object[] obj = Catalog.catalogMap.get(product.getId()) ;
+                ((Product) obj[0]).AddQuantity(returnItem.getQuantity());
+            }
+            String orderNumber = "" ;
+            for(Order order : clientManager.getClient(returnItem.getClientPseudo()).getOrders().values()) {
+                for(OrderItem orderItem: order.getItems()) {
+                    if (orderItem.getProductId() == returnItem.getProductId()) orderNumber = order.getOrderNumber();
+                }
+            }
+            clientManager.getClient(returnItem.getClientPseudo()).getOrder(orderNumber).update(returnItem.getProductId(), returnItem.getQuantity());
+            clientManager.getClient(returnItem.getClientPseudo()).removePoints((int) currentProduct.getPoints());
+        }
+    }
+
 
     public SellerManager(List<Seller> sellers) {
         this.sellers = sellers;
@@ -79,8 +115,9 @@ public class SellerManager {
             System.out.println("1. Offrir un produit: ");
             System.out.println("2. Changer l'etat d'une commande: ");
             System.out.println("3. Modifier son profile");
-            System.out.println("4. Quitter");
-            int option = input.getOption(1, 4);
+            System.out.println("4. Confirmer la reception d'un retour");
+            System.out.println("5. Quitter");
+            int option = input.getOption(1, 5);
             switch (option) {
                 case 1:
                     Product product = null;
@@ -103,6 +140,27 @@ public class SellerManager {
                         }
                     }
                 case 4:
+                    System.out.println("Liste des retours");
+                    ArrayList<ReturnItem> returnItems = seller.getReturnItems() ;
+                    if(returnItems == null ) {
+                        System.out.println("Vous n'avez aucun retour à confirmer");
+                        break ;
+                    }
+                    for(ReturnItem returnItem : returnItems) {
+                        System.out.println(returnItem);
+                    }
+                    System.out.println("Entrer le id du produit dont vous voulez confirmer le retour");
+                    int id = input.getUserNumInfo("Id",0, Integer.MAX_VALUE) ;
+                    ReturnItem returnItem = seller.getReturnItem(id) ;
+                    while(returnItem == null) {
+                        System.out.println("Id indisponible. veuillez reessayer svp");
+                        id = input.getUserNumInfo("Id",0, Integer.MAX_VALUE) ;
+                        returnItem = seller.getReturnItem(id) ;
+                    }
+                    confirmReturnReception(returnItem,seller);
+                    System.out.println("Retour confirmé avec succès");
+                    break ;
+                case 5:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!") ;
                     repeat = false ;
                     return repeat ;

@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
 public class Client extends User {
     private String shipAddress;
     private final HashMap<String, Order> orders;
+
+    private HashMap<String, Return> returns ;
     private ArrayList<ProductEvaluation> evaluations;
     private ShoppingCart shoppingCart;
     private int points;
@@ -44,8 +46,10 @@ public class Client extends User {
         this.points = 0;
         this.following = new HashSet<>();
         this.followers = new HashSet<>();
-        orders = new HashMap<>();
-        likedProduct = new ArrayList<>();
+        this.orders = new HashMap<>();
+        this.likedProduct = new ArrayList<>();
+        this.returns = new HashMap<>() ;
+
     }
 
     public HashSet<String> getFollowers() {
@@ -74,6 +78,7 @@ public class Client extends User {
                   @JsonProperty("cart") ShoppingCart cart,
                   @JsonProperty("shipAddress") String shipAddress,
                   @JsonProperty("orders") HashMap<String, Order> orders,
+                  @JsonProperty("returns") HashMap<String, Return> returns,
                   @JsonProperty("points") int points,
                   @JsonProperty("followers") HashSet<String> followers,
                   @JsonProperty("following") HashSet<String> following,
@@ -88,6 +93,7 @@ public class Client extends User {
         this.followers = followers;
         this.following = following;
         this.likedProduct = likedProduct;
+        this.returns = returns ;
     }
 
 
@@ -101,8 +107,24 @@ public class Client extends User {
         this.points += points;
     }
 
+    public void removePoints(int points) {this.points -= points;}
+
     public HashMap<String, Order> getOrders() {
         return orders;
+    }
+
+    public HashMap<String, Return> getReturns() {
+        return returns;
+    }
+
+    public Return getReturn(String returnNumber) {
+        return returns.get(returnNumber) ;
+    }
+
+    public void addReturn(Return ret) {this.returns.put(ret.getOrderNumber(),ret) ;}
+
+    public Order getOrder(String orderNumber) {
+        return orders.get(orderNumber) ;
     }
 
     public void addOrder(Order order) {
