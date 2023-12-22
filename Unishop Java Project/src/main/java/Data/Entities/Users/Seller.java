@@ -118,7 +118,7 @@ public class Seller extends User {
     public ArrayList<OrderItem> getInProduction(){
         ArrayList<OrderItem> inProd=new ArrayList<>();
         for(OrderItem item:orderItems){
-            if(!item.getShipped()) inProd.add(item);
+            if(!item.isShipped()) inProd.add(item);
         }
         return inProd;
     }
@@ -126,7 +126,7 @@ public class Seller extends User {
     public ArrayList<OrderItem> getInShipping(){
         ArrayList<OrderItem> inShipping=new ArrayList<>();
         for(OrderItem item:orderItems){
-            if(item.getShipped()&&!item.getDelivered()) inShipping.add(item);
+            if(item.isShipped()&&!item.isDelivered()) inShipping.add(item);
         }
         return inShipping;
     }
