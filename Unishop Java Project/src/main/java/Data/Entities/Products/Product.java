@@ -115,6 +115,10 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public void AddQuantity(int quantity) {
+        this.quantity += quantity ;
+    }
+
     public double getPrice() {
         return price;
     }

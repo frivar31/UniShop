@@ -35,12 +35,14 @@ public class App {
         return sellerManager.getSellerRegistrationInfo();
     }
 
-    private static User login(String pseudo, String password, ClientManager clientManager, SellerManager sellerManager) {
+    private static User login(ClientManager clientManager, SellerManager sellerManager) {
         User user = null;
+        String pseudo=input.getUserStrInfo("Pseudo");
         while ((user = clientManager.getUserByPseudo(pseudo)) == null && (user = sellerManager.getUserByPseudo(pseudo)) == null) {
             System.out.println("Ce compte n'existe pas");
             pseudo = input.getUserStrInfo("Pseudo");
         }
+        String password = input.getUserStrInfo("Mot de passe");
         while (!user.getPassword().equals(password)) {
             System.out.println("Mot de passe incorrecte. Veuillez reessayer");
             password = input.getUserStrInfo("Mot de passe");
@@ -102,7 +104,7 @@ public class App {
             int option  = input.getOption(1, 3) ;
             switch (option) {
                 case 1:
-                    user = login(input.getUserStrInfo("Pseudo"), input.getUserStrInfo("Mot de passe"), clientManager, sellerManager);
+                    user = login(clientManager, sellerManager);
                     break;
                 case 2:
                     user = getRegistrationStream(clientManager, sellerManager);
