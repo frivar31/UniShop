@@ -9,11 +9,29 @@ public class OrderItem {
     private int productId;
     private int quantity;
     private String sellerPseudo;
-    private String clientPseudo ;
-
+    private String clientPseudo;
+    private String reason;
+    private Boolean shipped;
+    private Boolean delivered;
     private boolean returned ;
 
-    private String reason ;
+    @JsonCreator
+    public OrderItem(@JsonProperty("productId") int productId,
+                     @JsonProperty("quantity") int quantity,
+                     @JsonProperty("sellerPseudo") String sellerPseudo,
+                     @JsonProperty("clientPseudo") String clientPseudo,
+                     @JsonProperty("reason") String reason,
+                     @JsonProperty("delivered") Boolean delivered,
+                     @JsonProperty("shipped") Boolean shipped,
+                     @JsonProperty("returned") Boolean returned) {
+        this.productId = productId;
+        this.quantity = quantity;
+        this.sellerPseudo = sellerPseudo;
+        this.clientPseudo = clientPseudo;
+        this.shipped = shipped;
+        this.delivered = delivered;
+        this.reason = reason;
+    }
 
     public String getClientPseudo() {
         return clientPseudo;
@@ -22,8 +40,6 @@ public class OrderItem {
     public void setClientPseudo(String clientPseudo) {
         this.clientPseudo = clientPseudo;
     }
-
-    private Boolean shipped;
 
     public Boolean isShipped() {
         return shipped;
@@ -41,36 +57,12 @@ public class OrderItem {
         this.delivered = delivered;
     }
 
-    private Boolean delivered;
-
-    public boolean isReturned() {
-        return returned;
-    }
-
-    public void setReturned(boolean returned) {
-        this.returned = returned;
-    }
-
     public String getReason() {
         return reason;
     }
 
     public void setReason(String reason) {
         this.reason = reason;
-    }
-
-    @JsonCreator
-    public OrderItem(@JsonProperty("productId") int productId,
-                     @JsonProperty("quantity") int quantity,
-                     @JsonProperty("sellerPseudo") String sellerPseudo,
-                     @JsonProperty("clientPseudo") String clientPseudo,
-                     @JsonProperty("reason") String reason,
-                     @JsonProperty("delivered") Boolean delivered,
-                     @JsonProperty("shipped") Boolean shipped,
-                     @JsonProperty("returned") Boolean returned) {
-        this.productId = productId;
-        this.quantity = quantity;
-        this.sellerPseudo = sellerPseudo;
         this.clientPseudo = clientPseudo ;
         this.shipped = shipped ;
         this.delivered = delivered ;
@@ -94,7 +86,13 @@ public class OrderItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    public boolean isReturned() {
+        return returned;
+    }
 
+    public void setReturned(boolean returned) {
+        this.returned = returned;
+    }
 
     @Override
     public String toString() {

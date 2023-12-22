@@ -1,7 +1,10 @@
 package Data.Entities.Users;
 
+import Data.Entities.Ticket;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 
 public abstract class User {
 
@@ -10,6 +13,25 @@ public abstract class User {
     private String email;
     private String pseudo;
     private long number;
+    private ArrayList<Ticket> tickets;
+    private String password;
+
+    @JsonCreator
+    public User(@JsonProperty("firstName") String firstName,
+                @JsonProperty("lastName") String lastName,
+                @JsonProperty("email") String email,
+                @JsonProperty("pseudo") String pseudo,
+                @JsonProperty("number") Long number,
+                @JsonProperty("password") String password,
+                @JsonProperty("tickets") ArrayList<Ticket> tickets) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.pseudo = pseudo;
+        this.number = number;
+        this.password = password;
+        this.tickets = tickets;
+    }
 
     public String getPassword() {
         return password;
@@ -19,20 +41,12 @@ public abstract class User {
         this.password = password;
     }
 
-    private String password ;
-    @JsonCreator
-    public User(@JsonProperty("firstName") String firstName,
-                @JsonProperty("lastName") String lastName,
-                @JsonProperty("email") String email,
-                @JsonProperty("pseudo") String pseudo,
-                @JsonProperty("number") Long number,
-                @JsonProperty("password") String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.pseudo = pseudo;
-        this.number = number;
-        this.password = password ;
+    public ArrayList<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(ArrayList<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     public String getFirstName() {
@@ -74,6 +88,7 @@ public abstract class User {
     public void setNumber(long number) {
         this.number = number;
     }
+    
 
     @Override
     public String toString() {

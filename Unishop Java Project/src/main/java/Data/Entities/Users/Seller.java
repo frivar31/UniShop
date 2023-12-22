@@ -14,10 +14,9 @@ import java.util.stream.Collectors;
 
 
 public class Seller extends User {
+    private final ArrayList<OrderItem> orderItems;
+    private final ArrayList<ReturnItem> returnItems;
     ArrayList<Product> products;
-
-    private  ArrayList<OrderItem> orderItems;
-    private ArrayList<ReturnItem> returnItems ;
 
     @JsonCreator
     public Seller(@JsonProperty("firstName") String firstName,
@@ -28,17 +27,18 @@ public class Seller extends User {
                   @JsonProperty("pseudo") String pseudo,
                   @JsonProperty("number") Long number,
                   @JsonProperty("productsToSell") ArrayList<Product> productsToSell,
-                  @JsonProperty("password") String password) {
-        super(firstName, lastName, email, pseudo, number,password);
+                  @JsonProperty("password") String password,
+                  @JsonProperty("tickets") ArrayList<Ticket> tickets) {
+        super(firstName, lastName, email, pseudo, number, password, tickets);
         products = productsToSell;
-        this.orderItems = orderItems ;
-        this.returnItems = returnItems ;
+        this.orderItems = orderItems;
+        this.returnItems = returnItems;
     }
 
     public Seller(String firstName, String lastName, String email, String pseudo, long number, ArrayList<Product> products, String password) {
-        super(firstName, lastName, email, pseudo, number, password);
-        this.returnItems = new ArrayList<>() ;
-        this.orderItems = new ArrayList<>() ;
+        super(firstName, lastName, email, pseudo, number, password, new ArrayList<Ticket>());
+        this.returnItems = new ArrayList<>();
+        this.orderItems = new ArrayList<>();
     }
 
     public ArrayList<Product> getProducts() {
@@ -49,8 +49,9 @@ public class Seller extends User {
         Catalog.catalogMap.put(product.getId(), new Object[]{product, this});
         products.add(product);
     }
-    public void updateCatalog(){
-        for(Product product:products) Catalog.catalogMap.put(product.getId(), new Object[]{product, this});
+
+    public void updateCatalog() {
+        for (Product product : products) Catalog.catalogMap.put(product.getId(), new Object[]{product, this});
     }
 
     public ArrayList<OrderItem> getOrderItems() {
@@ -65,20 +66,22 @@ public class Seller extends User {
         this.returnItems = returnItems ;
     }*/
 
-    public void addReturnItem(ReturnItem returnItem) {this.returnItems.add(returnItem) ;}
+    public void addReturnItem(ReturnItem returnItem) {
+        this.returnItems.add(returnItem);
+    }
 
     public OrderItem getOrderItem(int productId) {
         for (OrderItem orderItem : orderItems) {
-            if (orderItem.getProductId() == productId) return orderItem ;
+            if (orderItem.getProductId() == productId) return orderItem;
         }
-        return null ;
+        return null;
     }
 
     public ReturnItem getReturnItem(int productId) {
         for (ReturnItem returnItem : returnItems) {
-            if (returnItem.getProductId() == productId) return returnItem ;
+            if (returnItem.getProductId() == productId) return returnItem;
         }
-        return null ;
+        return null;
     }
 
     public void addOrderItem(OrderItem orderItem) {
@@ -114,6 +117,7 @@ public class Seller extends User {
     @Override
     public void displayActivityStat() {
     }
+
     @JsonIgnore
     public ArrayList<OrderItem> getInProduction(){
         ArrayList<OrderItem> inProd=new ArrayList<>();
@@ -122,6 +126,7 @@ public class Seller extends User {
         }
         return inProd;
     }
+
     @JsonIgnore
     public ArrayList<OrderItem> getInShipping(){
         ArrayList<OrderItem> inShipping=new ArrayList<>();
@@ -131,6 +136,9 @@ public class Seller extends User {
         return inShipping;
     }
 
+    public void addTicket(Ticket ticket) {
+        getTickets().add(ticket);
+    }
 
 
 }

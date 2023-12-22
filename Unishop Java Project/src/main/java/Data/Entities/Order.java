@@ -100,6 +100,13 @@ public class Order {
     public Boolean isDelivered() {
         return delivered;
     }
+    @JsonIgnore
+    public boolean isSignalable(){
+        long diffInMilliseconds = Math.abs(Calendar.getInstance().getTime().getTime() - deliveryDate.getTime());
+        // Convert milliseconds to days
+        long daysDifference = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
+        return daysDifference < 365 ;
+    }
 
     public void setDelivered(Boolean delivered) {
 

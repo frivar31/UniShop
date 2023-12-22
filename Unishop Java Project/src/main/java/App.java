@@ -114,7 +114,6 @@ public class App {
             }
             System.out.println();
             System.out.println("##########################");
-            System.out.println();
             if (user instanceof Client) repeat = !clientManager.principalMenu((Client) user);
             else repeat = !sellerManager.getSellerServiceInfo((Seller) user);
         }
