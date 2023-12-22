@@ -63,10 +63,6 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public boolean containsProduct(int productId) {
-        return items.stream().anyMatch(orderIt -> orderIt.getProductId() == productId) ;
-    }
-
     public boolean containsQuantity(int productId, int quantity) {
         return items.stream().anyMatch(orderIt -> orderIt.getProductId() == productId && orderIt.getQuantity() >= quantity) ;
     }
@@ -77,6 +73,7 @@ public class Order {
         }
         return null ;
     }
+
 
     public void update(int productId,int returnQuantity) {
         for (OrderItem item : items) {
@@ -93,11 +90,23 @@ public class Order {
         long diffInMilliseconds = Math.abs(Calendar.getInstance().getTime().getTime() - deliveryDate.getTime());
         // Convert milliseconds to days
         long daysDifference = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
-        return daysDifference < 30 ;
+        return daysDifference < 30  ;
     }
 
+
+
+
+
     public Boolean isDelivered() {
-        return delivered;
+        for(OrderItem orderItem:items) if(!orderItem.isDelivered()) return false;
+        return true;
+    }
+    @JsonIgnore
+    public boolean isSignalable(){
+        long diffInMilliseconds = Math.abs(Calendar.getInstance().getTime().getTime() - deliveryDate.getTime());
+        // Convert milliseconds to days
+        long daysDifference = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
+        return daysDifference < 365 ;
     }
 
     public void setDelivered(Boolean delivered) {
@@ -109,7 +118,15 @@ public class Order {
     }
 
     public Boolean isShipped() {
-        return shipped;
+        for(OrderItem orderItem:items) {
+            if(!orderItem.isShipped()) return false;
+        }
+        //set ship date the max orderitem shipped date
+        shippedDate = items.stream()
+                .map(OrderItem::getShipDate)
+                .max(Date::compareTo)
+                .orElse(Calendar.getInstance().getTime());
+        return true;
     }
 
     public void setShipped(Boolean shipped) {
@@ -132,6 +149,7 @@ public class Order {
         this.deliveryDate = deliveryDate;
     }
 
+
     @Override
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -139,8 +157,8 @@ public class Order {
         StringBuilder sb = new StringBuilder();
         sb.append("Order Number: ").append(orderNumber).append("\n");
         sb.append("Order Date: ").append(dateFormat.format(orderDate)).append("\n");
-        sb.append("Delivered: ").append(delivered).append("\n");
-        sb.append("Shipped: ").append(shipped).append("\n");
+        sb.append("Delivered: ").append(isDelivered()).append("\n");
+        sb.append("Shipped: ").append(isShipped()).append("\n");
 
         if (shipped) {
             sb.append("Shipped Date: ").append(dateFormat.format(shippedDate)).append("\n");

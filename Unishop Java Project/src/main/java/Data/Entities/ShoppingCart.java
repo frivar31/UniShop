@@ -103,13 +103,13 @@ public class ShoppingCart {
 
     }
 
-    public ArrayList<OrderItem> convertToOrderItems() {
+    public ArrayList<OrderItem> convertToOrderItems(String orderNumber) {
         ArrayList<OrderItem> orderItems = new ArrayList<>();
 
         for (int id : cart.keySet()) {
             Product product=Catalog.getProduct(id);
             int quantity = cart.get(id);
-            OrderItem orderItem = new OrderItem(id, quantity, Catalog.getProductSeller(id).getPseudo(),"","",false,false);
+            OrderItem orderItem = new OrderItem(id, quantity, Catalog.getProductSeller(id).getPseudo(),"","",false,false,false,null);
             orderItems.add(orderItem);
         }
 

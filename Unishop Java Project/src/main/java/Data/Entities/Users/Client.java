@@ -11,27 +11,16 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Client extends User {
-    private String shipAddress;
     private final HashMap<String, Order> orders;
-
-    private HashMap<String, Return> returns ;
+    private final HashMap<String, Return> returns;
+    private String shipAddress;
     private ArrayList<ProductEvaluation> evaluations;
     private ShoppingCart shoppingCart;
     private int points;
     private HashSet<String> followers;
     private HashSet<String> following;
     private ArrayList<Integer> likedProduct;
-
-    public ArrayList<Integer> getLikedProduct() {
-        return likedProduct;
-    }
-
-    public void setLikedProduct(ArrayList<Integer> likedProduct) {
-        this.likedProduct = likedProduct;
-    }
-    public void addLikedProduct(int id){
-        likedProduct.add(id);
-    }
+    private ArrayList<String> likedSeller;
 
     public Client(String firstName,
                   String lastName,
@@ -40,7 +29,7 @@ public class Client extends User {
                   Long number,
                   String shipAddress,
                   String password) {
-        super(firstName, lastName, email, pseudo, number, password);
+        super(firstName, lastName, email, pseudo, number, password, new ArrayList<Ticket>());
         this.shipAddress = shipAddress;
         this.shoppingCart = new ShoppingCart();
         this.points = 0;
@@ -48,8 +37,51 @@ public class Client extends User {
         this.followers = new HashSet<>();
         this.orders = new HashMap<>();
         this.likedProduct = new ArrayList<>();
-        this.returns = new HashMap<>() ;
+        this.returns = new HashMap<>();
 
+    }
+
+    @JsonCreator
+    public Client(@JsonProperty("firstName") String firstName,
+                  @JsonProperty("lastName") String lastName,
+                  @JsonProperty("email") String email,
+                  @JsonProperty("pseudo") String pseudo,
+                  @JsonProperty("number") Long number,
+                  @JsonProperty("password") String password,
+                  @JsonProperty("cart") ShoppingCart cart,
+                  @JsonProperty("shipAddress") String shipAddress,
+                  @JsonProperty("orders") HashMap<String, Order> orders,
+                  @JsonProperty("returns") HashMap<String, Return> returns,
+                  @JsonProperty("points") int points,
+                  @JsonProperty("followers") HashSet<String> followers,
+                  @JsonProperty("following") HashSet<String> following,
+                  @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations,
+                  @JsonProperty("likedProduct") ArrayList<Integer> likedProduct,
+                  @JsonProperty("likedSeller") ArrayList<String> likedSeller,
+                  @JsonProperty("tickets") ArrayList<Ticket> tickets) {
+        super(firstName, lastName, email, pseudo, number, password, tickets);
+        this.shipAddress = shipAddress;
+        this.orders = orders;
+        this.evaluations = evaluations;
+        this.shoppingCart = cart;
+        this.points = points;
+        this.followers = followers;
+        this.following = following;
+        this.likedProduct = likedProduct;
+        this.returns = returns;
+        this.likedSeller = likedSeller;
+    }
+
+    public ArrayList<Integer> getLikedProduct() {
+        return likedProduct;
+    }
+
+    public void setLikedProduct(ArrayList<Integer> likedProduct) {
+        this.likedProduct = likedProduct;
+    }
+
+    public void addLikedProduct(int id) {
+        likedProduct.add(id);
     }
 
     public HashSet<String> getFollowers() {
@@ -68,36 +100,13 @@ public class Client extends User {
         this.following = following;
     }
 
-    @JsonCreator
-    public Client(@JsonProperty("firstName") String firstName,
-                  @JsonProperty("lastName") String lastName,
-                  @JsonProperty("email") String email,
-                  @JsonProperty("pseudo") String pseudo,
-                  @JsonProperty("number") Long number,
-                  @JsonProperty("password") String password,
-                  @JsonProperty("cart") ShoppingCart cart,
-                  @JsonProperty("shipAddress") String shipAddress,
-                  @JsonProperty("orders") HashMap<String, Order> orders,
-                  @JsonProperty("returns") HashMap<String, Return> returns,
-                  @JsonProperty("points") int points,
-                  @JsonProperty("followers") HashSet<String> followers,
-                  @JsonProperty("following") HashSet<String> following,
-                  @JsonProperty("evaluations") ArrayList<ProductEvaluation> evaluations,
-                  @JsonProperty("likedProduct") ArrayList<Integer> likedProduct) {
-        super(firstName, lastName, email, pseudo, number, password);
-        this.shipAddress = shipAddress;
-        this.orders = orders;
-        this.evaluations = evaluations;
-        this.shoppingCart = cart;
-        this.points = points;
-        this.followers = followers;
-        this.following = following;
-        this.likedProduct = likedProduct;
-        this.returns = returns ;
+    public ArrayList<String> getLikedSeller() {
+        return likedSeller;
     }
 
-
-
+    public void setLikedSeller(ArrayList<String> likedSeller) {
+        this.likedSeller = likedSeller;
+    }
 
     public int getPoints() {
         return points;
@@ -107,7 +116,9 @@ public class Client extends User {
         this.points += points;
     }
 
-    public void removePoints(int points) {this.points -= points;}
+    public void removePoints(int points) {
+        this.points -= points;
+    }
 
     public HashMap<String, Order> getOrders() {
         return orders;
@@ -118,13 +129,15 @@ public class Client extends User {
     }
 
     public Return getReturn(String returnNumber) {
-        return returns.get(returnNumber) ;
+        return returns.get(returnNumber);
     }
 
-    public void addReturn(Return ret) {this.returns.put(ret.getOrderNumber(),ret) ;}
+    public void addReturn(Return ret) {
+        this.returns.put(ret.getOrderNumber(), ret);
+    }
 
     public Order getOrder(String orderNumber) {
-        return orders.get(orderNumber) ;
+        return orders.get(orderNumber);
     }
 
     public void addOrder(Order order) {
@@ -142,8 +155,10 @@ public class Client extends User {
     public ShoppingCart getShoppingCart() {
         return this.shoppingCart;
     }
-    public void setShoppingCart(ShoppingCart shoppingCart){this.shoppingCart=shoppingCart;}
 
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
 
 
     @Override
@@ -271,6 +286,15 @@ public class Client extends User {
     public void addEvaluation(ProductEvaluation productEvaluation) {
         this.evaluations.add(productEvaluation);
     }
+
+    public boolean alreadyLikedSeller(String pseudo) {
+        return likedSeller.contains(pseudo);
+    }
+
+    public void addLikedSeller(String pseudo) {
+        likedSeller.add(pseudo);
+    }
+
 
 
 }

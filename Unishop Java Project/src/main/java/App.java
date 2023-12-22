@@ -2,6 +2,8 @@ import Controller.ClientManager;
 import Controller.ProductManager;
 import Controller.SellerManager;
 import Data.Entities.Catalog;
+import Data.Entities.Order;
+import Data.Entities.OrderItem;
 import Data.Entities.Products.*;
 import Data.Entities.Type;
 import Data.Entities.Users.Client;
@@ -74,6 +76,15 @@ public class App {
             sellerManager.setSellers(new ArrayList<>(sellers));
             for (Seller seller:sellers) seller.updateCatalog();
         }
+        //init orderItem with link in sellers
+        for(Client client:clientManager.getClients()){
+            for(Order order:client.getOrders().values()){
+                for (OrderItem orderItem:order.getItems()){
+                    Seller seller=sellerManager.getSeller(orderItem.getSellerPseudo());
+                    seller.addOrderItem(orderItem);
+                }
+            }
+        }
 
         ProductManager productManager = new ProductManager();
         clientManager.setSellerManager(sellerManager);
@@ -114,7 +125,6 @@ public class App {
             }
             System.out.println();
             System.out.println("##########################");
-            System.out.println();
             if (user instanceof Client) repeat = !clientManager.principalMenu((Client) user);
             else repeat = !sellerManager.getSellerServiceInfo((Seller) user);
         }
