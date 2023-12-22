@@ -18,7 +18,7 @@ public class Seller extends User {
     private final ArrayList<OrderItem> orderItems;
 
     private final ArrayList<ReturnItem> returnItems;
-    ArrayList<Product> products;
+    private ArrayList<Product> products;
 
     @JsonCreator
     public Seller(@JsonProperty("firstName") String firstName,
@@ -40,6 +40,7 @@ public class Seller extends User {
         super(firstName, lastName, email, pseudo, number, password, new ArrayList<Ticket>());
         this.returnItems = new ArrayList<>();
         this.orderItems = new ArrayList<>();
+        this.products=new ArrayList<>();
     }
 
     public ArrayList<Product> getProducts() {
