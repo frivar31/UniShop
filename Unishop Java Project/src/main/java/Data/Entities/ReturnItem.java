@@ -16,8 +16,9 @@ public class ReturnItem extends OrderItem {
                       @JsonProperty("clientPseudo") String clientPseudo,
                       @JsonProperty("reason") String reason,
                       @JsonProperty("delivered") Boolean delivered,
-                      @JsonProperty("shipped") Boolean shipped) {
-        super(returnedProductId,returnedQuantity,sellerPseudo,clientPseudo,reason,delivered,shipped);
+                      @JsonProperty("shipped") Boolean shipped,
+                      @JsonProperty("returned") Boolean returned) {
+        super(returnedProductId,returnedQuantity,sellerPseudo,clientPseudo,reason,delivered,shipped,returned);
     }
 
 
@@ -25,9 +26,9 @@ public class ReturnItem extends OrderItem {
     public String toString() {
         Product product=Catalog.getProduct(getProductId());
         String state = "" ;
-        if (!getShipped()) state = "En production" ;
-        else if(getShipped()) state = "En livraison" ;
-        else if (getDelivered()) state = "Livré" ;
+        if (!isShipped()) state = "En production" ;
+        else if(isShipped()) state = "En livraison" ;
+        if (isDelivered()) state = "Confirmé" ;
         return "{" +
                 "\n- titre='" + product.getTitle() + '\'' +
                 "\n- quantité='" + getQuantity() + '\'' +

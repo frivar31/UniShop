@@ -63,10 +63,6 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public boolean containsProduct(int productId) {
-        return items.stream().anyMatch(orderIt -> orderIt.getProductId() == productId) ;
-    }
-
     public boolean containsQuantity(int productId, int quantity) {
         return items.stream().anyMatch(orderIt -> orderIt.getProductId() == productId && orderIt.getQuantity() >= quantity) ;
     }
@@ -93,8 +89,12 @@ public class Order {
         long diffInMilliseconds = Math.abs(Calendar.getInstance().getTime().getTime() - deliveryDate.getTime());
         // Convert milliseconds to days
         long daysDifference = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
-        return daysDifference < 30 ;
+        return daysDifference < 30  ;
     }
+
+
+
+
 
     public Boolean isDelivered() {
         return delivered;

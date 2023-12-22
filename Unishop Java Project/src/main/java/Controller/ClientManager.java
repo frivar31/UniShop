@@ -123,7 +123,7 @@ public class ClientManager {
             System.out.println("7. Chercher un acheteur");
             System.out.println("8. Consulter mon total de points");
             System.out.println("9. Consulter les produits aimés par les gens que je suis");
-            System.out.println("10. Voir les commandes antérieures");
+            System.out.println("10. Gérer ses commandes");
             System.out.println("11. Quitter");
 
 
@@ -535,7 +535,9 @@ public class ClientManager {
                             System.out.println("Ce numéro de commande n'existe pas");
                             orderNumber = input.getUserStrInfo("#");
                         }
-                        for (OrderItem orderItem:order.getItems()) System.out.println(orderItem);
+                        for (OrderItem orderItem:order.getItems()) {
+                            System.out.println(orderItem);
+                        }
                         System.out.println("Choisissez une option");
                         System.out.println("1. Évaluer un produit");
                         System.out.println("2. Retourner un produit");
@@ -587,9 +589,15 @@ public class ClientManager {
                                 while(rep) {
                                     System.out.println("Saisir le id du produit que vous voulez retourner");
                                     productId = input.getUserNumInfo("Id",0,Integer.MAX_VALUE) ;
-                                    while(!user.getOrder(orderNumber).containsProduct(productId)) {
+                                    OrderItem orderItem = user.getOrder(orderNumber).getItem(productId) ;
+                                    while(orderItem == null) {
                                         System.out.println("Aucune de vos commandes ne contient ce produit. veuillez reessayer svp");
                                         productId = input.getUserNumInfo("Id",0,Integer.MAX_VALUE) ;
+                                        orderItem = user.getOrder(orderNumber).getItem(productId) ;
+                                    }
+                                    if(orderItem.isReturned()) {
+                                        System.out.println("Ce produit est dèjà retourné");
+                                        break ;
                                     }
                                     System.out.println("Saisir la quantité de ce produit que vous voulez retourner");
                                     int returnQuantity = input.getUserNumInfo("Quantité",1,Integer.MAX_VALUE) ;
@@ -615,7 +623,7 @@ public class ClientManager {
                                             break ;
                                     }
                                     String sellerPseudo = user.getOrder(orderNumber).getItem(productId).getSellerPseudo() ;
-                                    ReturnItem returnItem = new ReturnItem(productId,returnQuantity,sellerPseudo,user.getPseudo(),reason,false,false) ;
+                                    ReturnItem returnItem = new ReturnItem(productId,returnQuantity,sellerPseudo,user.getPseudo(),reason,false,false,false) ;
                                     returnItems.add(returnItem) ;
                                     for(OrderItem retItem : returnItems) System.out.println(retItem);
                                     System.out.println("Confirmer le retour: ");

@@ -11,6 +11,8 @@ public class OrderItem {
     private String sellerPseudo;
     private String clientPseudo ;
 
+    private boolean returned ;
+
     private String reason ;
 
     public String getClientPseudo() {
@@ -23,7 +25,7 @@ public class OrderItem {
 
     private Boolean shipped;
 
-    public Boolean getShipped() {
+    public Boolean isShipped() {
         return shipped;
     }
 
@@ -31,7 +33,7 @@ public class OrderItem {
         this.shipped = shipped;
     }
 
-    public Boolean getDelivered() {
+    public Boolean isDelivered() {
         return delivered;
     }
 
@@ -40,6 +42,14 @@ public class OrderItem {
     }
 
     private Boolean delivered;
+
+    public boolean isReturned() {
+        return returned;
+    }
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
+    }
 
     public String getReason() {
         return reason;
@@ -56,7 +66,8 @@ public class OrderItem {
                      @JsonProperty("clientPseudo") String clientPseudo,
                      @JsonProperty("reason") String reason,
                      @JsonProperty("delivered") Boolean delivered,
-                     @JsonProperty("shipped") Boolean shipped) {
+                     @JsonProperty("shipped") Boolean shipped,
+                     @JsonProperty("returned") Boolean returned) {
         this.productId = productId;
         this.quantity = quantity;
         this.sellerPseudo = sellerPseudo;
@@ -64,22 +75,16 @@ public class OrderItem {
         this.shipped = shipped ;
         this.delivered = delivered ;
         this.reason = reason ;
+        this.returned = returned ;
     }
 
     public String getSellerPseudo() {
         return sellerPseudo;
     }
 
-    public void setSellerPseudo(String SellerPseudo) {
-        this.sellerPseudo = SellerPseudo;
-    }
 
     public int getProductId() {
         return productId;
-    }
-
-    public void setProductId(int id) {
-        this.productId = id;
     }
 
     public int getQuantity() {
@@ -92,7 +97,19 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        Product product=Catalog.getProduct(productId);
-        return product.getTitle() + ", Quantity: " + quantity+ ", Id: "+product.getId();
+        Product product=Catalog.getProduct(getProductId());
+        String state = "" ;
+        String returnState = "" ;
+        if (!isShipped()) state = "En production" ;
+        else if(isShipped()) state = "En livraison" ;
+        if(isDelivered()) state = "Livré" ;
+        if(isReturned()) returnState = "Retourné" ;
+        return "{" +
+                "\n- titre='" + product.getTitle() + '\'' +
+                "\n- quantité='" + getQuantity() + '\'' +
+                "\n- id='" + getProductId() + '\'' +
+                "\n- état='" + state + '\'' +
+                "\n- " + returnState + '\'' +
+                "\n}";
     }
 }

@@ -43,15 +43,16 @@ public class SellerManager {
                 Object[] obj = Catalog.catalogMap.get(product.getId()) ;
                 ((Product) obj[0]).AddQuantity(returnItem.getQuantity());
             }
-            String orderNumber = "" ;
-            for(Order order : clientManager.getClient(returnItem.getClientPseudo()).getOrders().values()) {
-                for(OrderItem orderItem: order.getItems()) {
-                    if (orderItem.getProductId() == returnItem.getProductId()) orderNumber = order.getOrderNumber();
-                }
-            }
-            clientManager.getClient(returnItem.getClientPseudo()).getOrder(orderNumber).update(returnItem.getProductId(), returnItem.getQuantity());
-            clientManager.getClient(returnItem.getClientPseudo()).removePoints((int) currentProduct.getPoints());
         }
+        String orderNumber = "" ;
+        for(Order order : clientManager.getClient(returnItem.getClientPseudo()).getOrders().values()) {
+            for(OrderItem orderItem: order.getItems()) {
+                if (orderItem.getProductId() == returnItem.getProductId()) orderNumber = order.getOrderNumber();
+            }
+        }
+        clientManager.getClient(returnItem.getClientPseudo()).getOrder(orderNumber).update(returnItem.getProductId(), returnItem.getQuantity());
+        clientManager.getClient(returnItem.getClientPseudo()).getOrder(orderNumber).getItem(returnItem.getProductId()).setReturned(true);
+        clientManager.getClient(returnItem.getClientPseudo()).removePoints((int) currentProduct.getPoints());
     }
 
 
@@ -152,6 +153,10 @@ public class SellerManager {
                     System.out.println("Entrer le id du produit dont vous voulez confirmer le retour");
                     int id = input.getUserNumInfo("Id",0, Integer.MAX_VALUE) ;
                     ReturnItem returnItem = seller.getReturnItem(id) ;
+                    if(returnItem.isDelivered()) {
+                        System.out.println("Ce retour est déjà confirmé");
+                        break ;
+                    }
                     while(returnItem == null) {
                         System.out.println("Id indisponible. veuillez reessayer svp");
                         id = input.getUserNumInfo("Id",0, Integer.MAX_VALUE) ;
