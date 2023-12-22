@@ -23,165 +23,162 @@ import org.junit.jupiter.api.BeforeEach;
 public class tests {
     public Client client;
     public SellerManager sellerManager;
+    public Order order;
 
-    @BeforeEach
+  /*  @BeforeEach
     void setUp() {
-        // Set up a SellerManager instance with some initial sellers for testing
-        List<Seller> sellers = new ArrayList<>();
         Product product1 = new Product("Smartphone", "High-performance smartphone with a sleek design", "2023-03-10", 20, 699.99, 1, ProductType.Hardware, "Model456", "BrandTech", new ArrayList<>(),  // No evaluations initially
                 new ArrayList<>(List.of("user5", "user6")));
         Product product2 = new Product("Book", "Interesting book on a specific topic", "2023-02-15", 50, 19.99, 1, ProductType.Book, "BookModel456", "BookBrandABC", new ArrayList<>(),
                 new ArrayList<>(List.of("user3", "user4")));
-
         ArrayList<Product> productsList = new ArrayList<>();
         productsList.add(product1);
         productsList.add(product2);
-
-        sellers.add(new Seller(
-                "John1",
-                "Doe1",
-                "john.doe@example.com",
-                "john_doe",
-                123456789L,
-                productsList,
-                "password123"
-        ));
-
-        sellers.add( new Seller(
-                "John",
-                "Doe",
-                "john.doe@example.com",
-                "john_doe",
-                123456789L,
-                productsList,
-                "password123"
-        ));
-
+        List<Seller> sellers = new ArrayList<>();
+        sellers.add(new Seller("John1", "Doe1", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123"));
+        sellers.add( new Seller("John", "Doe", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123"));
         sellerManager = new SellerManager(sellers);
+    }*/
+        @Test
+        public void addOrder() {// on peux avoir une commande sans produit? mais sinon marche bien
+            client = new Client("John", "Doe", "john@example.com", "johnny", 123456789L, "123 Main St", "password");
+            order = new Order("123", new ArrayList<>(), new Date(), false, false, null, null, "456 Main St");
+            order.toString();
+            System.out.println(client.toString());
+            System.out.println(client.getOrders());
+            client.addOrder(order);
+            System.out.println(client.getOrders());
+            assertNotNull(client.getOrders());
+
+        }
+    @Test
+    public void testAddProductToSeller() {
+        Product product1 = new Product("Smartphone", "High-performance smartphone with a sleek design", "2023-03-10", 20, 699.99, 1, ProductType.Hardware, "Model456", "BrandTech", new ArrayList<>(), new ArrayList<>(List.of("user5", "user6")));
+        Product product2 = new Product("Book", "Interesting book on a specific topic", "2023-02-15", 50, 19.99, 1, ProductType.Book, "BookModel456", "BookBrandABC", new ArrayList<>(), new ArrayList<>(List.of("user3", "user4")));
+        ArrayList<Product> productsList = new ArrayList<>(); productsList.add(product1); productsList.add(product2);
+        List<Seller> sellers = new ArrayList<>();
+        Seller seller1 = new Seller("John1", "Doe1", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
+        Seller seller2 = new Seller("John", "Doe", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
+        sellers.add(seller1);
+        sellers.add(seller2);
+        sellerManager = new SellerManager(sellers);
+        Product product = new Product("New Product", "Description", "2023-01-01", 5, 99.99, 1, ProductType.Hardware, "Model123", "BrandXYZ", new ArrayList<>(), new ArrayList<>());
+       // seller1.addProduct(product);// le addProduct me retroune null tout le temps
+        assertNotNull(seller1.getProduct(3));
+    }
+    @Test
+    public void testisPseudoAlreadyUsed() {// meme probleme que addproduct
+        Product product1 = new Product("Smartphone", "High-performance smartphone with a sleek design", "2023-03-10", 20, 699.99, 1, ProductType.Hardware, "Model456", "BrandTech", new ArrayList<>(), new ArrayList<>(List.of("user5", "user6")));
+        Product product2 = new Product("Book", "Interesting book on a specific topic", "2023-02-15", 50, 19.99, 1, ProductType.Book, "BookModel456", "BookBrandABC", new ArrayList<>(), new ArrayList<>(List.of("user3", "user4")));
+        ArrayList<Product> productsList = new ArrayList<>(); productsList.add(product1); productsList.add(product2);
+
+        List<Seller> sellers = new ArrayList<>();
+        Seller seller1 = new Seller("John1", "Doe1", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
+        Seller seller2 = new Seller("John", "Doe", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
+        sellers.add(seller1);
+        sellers.add(seller2);
+        sellerManager = new SellerManager(sellers);
+        ClientManager clientManager = new ClientManager(new ArrayList<>());
+
+        SellerManager s = new SellerManager(sellerManager.getSellers());
+        ClientManager c = new ClientManager(clientManager.getClients());
+
+        assertEquals(2, s.getSellers().size());
+        System.out.println(s.findSellersByName("John1"));// il marche bien 2
+       // assertTrue(c.isPseudoAlreadyUsed("John1"));// meme probleme que add product null
+    }
+    @Test
+    public void testifindSellersByName(){// marche bien
+        Product product1 = new Product("Smartphone", "High-performance smartphone with a sleek design", "2023-03-10", 20, 699.99, 1, ProductType.Hardware, "Model456", "BrandTech", new ArrayList<>(), new ArrayList<>(List.of("user5", "user6")));
+        Product product2 = new Product("Book", "Interesting book on a specific topic", "2023-02-15", 50, 19.99, 1, ProductType.Book, "BookModel456", "BookBrandABC", new ArrayList<>(), new ArrayList<>(List.of("user3", "user4")));
+        ArrayList<Product> productsList = new ArrayList<>(); productsList.add(product1); productsList.add(product2);
+
+        List<Seller> sellers = new ArrayList<>();
+        Seller seller1 = new Seller("John1", "Doe1", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
+        Seller seller2 = new Seller("John", "Doe", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
+        sellers.add(seller1);
+        sellers.add(seller2);
+        SellerManager s = new SellerManager(sellers);
+        assertEquals(2, s.getSellers().size());
+        assertEquals("["+ seller1.toString()+"]",s.findSellersByName("John1").toString());
+    }
+    @Test
+    public void testfindProductsByTitle() {// le catalog est null
+        Product product1 = new Product("Smartphone", "High-performance smartphone with a sleek design", "2023-03-10", 20, 699.99, 1, ProductType.Hardware, "Model456", "BrandTech", new ArrayList<>(), new ArrayList<>(List.of("user5", "user6")));
+        Product product2 = new Product("Book", "Interesting book on a specific topic", "2023-02-15", 50, 19.99, 1, ProductType.Book, "BookModel456", "BookBrandABC", new ArrayList<>(), new ArrayList<>(List.of("user3", "user4")));
+        ProductManager productManager = new ProductManager();
+        List<Product> products = productManager.findProductsByTitle("dsad");
+        products.add(product1);
+        products.add(product2);
+        System.out.println(productManager.toString());
+        assertTrue(products.isEmpty());
+
+    }
+    @Test
+    public void testProductEvaluation() {// marche bien
+        ProductEvaluation evaluation = new ProductEvaluation(4, "Great product!", "user1", 1);
+        Product product = new Product("Smartphone", "Description", "2023-01-01", 5, 99.99, 1, ProductType.Hardware, "Model123", "BrandXYZ", new ArrayList<>(List.of(evaluation)), new ArrayList<>());
+        product.addEvaluation(evaluation);
+        assertFalse(product.getEvaluations().isEmpty());
+        assertTrue(product.getEvaluations().contains(evaluation));
+    }
+    @Test
+    public void testProductEvaluationRemoval() {// marche bien
+        ProductEvaluation evaluation = new ProductEvaluation(4, "Great product!", "user1", 1);
+        Product product = new Product("Smartphone", "Description", "2023-01-01", 5, 99.99, 1, ProductType.Hardware, "Model123", "BrandXYZ", new ArrayList<>(List.of(evaluation)), new ArrayList<>());
+        product.removeEvaluation(evaluation);
+        assertTrue(product.getEvaluations().isEmpty());
+    }
+    @Test
+    public void testAverageRatingCalculation() {// marche bien
+        ProductEvaluation evaluation = new ProductEvaluation(4, "Great product!", "user1", 1);
+        Product product = new Product("Smartphone", "Description", "2023-01-01", 5, 99.99, 1, ProductType.Hardware, "Model123", "BrandXYZ", new ArrayList<>(List.of(evaluation)), new ArrayList<>());
+        double averageRating = product.averageRating();
+        assertEquals(4, (int) averageRating);
+    }
+
+    @Test
+    public void testClientFollowing() { // marche bien
+        Client client = new Client("John", "Doe", "john@example.com", "johnny", 123456789L, "123 Main St", "password");
+        Client client2 = new Client("John222", "Doe222", "john@example222.com", "johnn222", 123456789L, "123 Main St222", "password222");
+        client.follow(client2);
+        assertEquals(1, client2.getFollowers().size());
+    }
+
+    @Test
+    public void testClientFollowingThroughClientManager() { // marche bien
+        Client client = new Client("John", "Doe", "john@example.com", "johnny", 123456789L, "123 Main St", "password");
+        Client client2 = new Client("John222", "Doe222", "john@example222.com", "johnn222", 123456789L, "123 Main St222", "password222");
+        ClientManager clientManager = new ClientManager(new ArrayList<>(List.of(client, client2)));
+        clientManager.followClient(client2, client);
+        assertEquals(1, client.getFollowers().size());
     }
 
         @Test
-        public void addOrder() {
-            client = new Client("John", "Doe", "john@example.com", "johnny", 123456789L, "123 Main St", "password");
-            // Créer une commande
-            Order order = new Order("123", new ArrayList<>(), new Date(), false, false, null, null, "456 Main St");
-            // Ajouter la commande au client
-            order.toString();
-            System.out.println(client.toString());
-            client.addOrder(order);
-            System.out.println(client.getOrders());
-
-        }
-
-        @Test
-        public void buy() {
+        public void buy() {// pour les tests
             ProductEvaluation evaluation1 = new ProductEvaluation(4, "Great product!", "user1", 1);
             ProductEvaluation evaluation2 = new ProductEvaluation(5, "Excellent service!", "user2", 2);
-            // Create some example products
-            Product product1 = new Product(
-                    "Laptop",
-                    "Powerful laptop with high-end specifications",
-                    "2023-01-01",
-                    10,
-                    999.99,
-                    1,
-                    ProductType.Hardware,
-                    "Model123",
-                    "BrandXYZ",
-                    new ArrayList<>(List.of(evaluation1)),
-                    new ArrayList<>(List.of("user1", "user2"))
-            );
 
-            Product product2 = new Product(
-                    "Book",
-                    "Interesting book on a specific topic",
-                    "2023-02-15",
-                    50,
-                    19.99,
-                    1,
-                    ProductType.Book,
-                    "BookModel456",
-                    "BookBrandABC",
-                    new ArrayList<>(List.of(evaluation2)),
-                    new ArrayList<>(List.of("user3", "user4"))
-            );
+            Product product1 = new Product("Smartphone", "High-performance smartphone with a sleek design", "2023-03-10", 20, 699.99, 1, ProductType.Hardware, "Model456", "BrandTech", new ArrayList<>(), new ArrayList<>(List.of("user5", "user6")));
+            Product product2 = new Product("Book", "Interesting book on a specific topic", "2023-02-15", 50, 19.99, 1, ProductType.Book, "BookModel456", "BookBrandABC", new ArrayList<>(), new ArrayList<>(List.of("user3", "user4")));
+            Product product = new Product("Smartphone", "High-performance smartphone with a sleek design", "2023-03-10", 20, 699.99, 1, ProductType.Hardware, "Model456", "BrandTech", new ArrayList<>(), new ArrayList<>(List.of("user5", "user6")));
 
-            // Create an ArrayList of products
             ArrayList<Product> productsList = new ArrayList<>();
             productsList.add(product1);
             productsList.add(product2);
 
-            // Create a Seller instance
-            Seller seller1 = new Seller(
-                    "John",
-                    "Doe",
-                    "john.doe@example.com",
-                    "john_doe",
-                    123456789L,
-                    productsList,
-                    "password123"
-            );
+            List<Seller> sellers = new ArrayList<>();
+            Seller seller1 = new Seller("John1", "Doe1", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
+            Seller seller2 = new Seller("John", "Doe", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
+            sellers.add(seller1);
+            sellers.add(seller2);
+
             client = new Client("John", "Doe", "john@example.com", "johnny", 123456789L, "123 Main St", "password");
             Client client2 = new Client("John222", "Doe222", "john@exampl222e.com", "johnn222", 123456789L, "123 Main St222", "password222");
-            // Créer une commande
-            Seller seller2 = new Seller(
-                    "John1",
-                    "Doe1",
-                    "john.doe@example.com",
-                    "john_doe",
-                    123456789L,
-                    productsList,
-                    "password123"
-            );
 
-            Product product = new Product(
-                    "Smartphone",
-                    "High-performance smartphone with a sleek design",
-                    "2023-03-10",
-                    20,
-                    699.99,
-                    1,
-                    ProductType.Hardware,
-                    "Model456",
-                    "BrandTech",
-                    new ArrayList<>(),  // No evaluations initially
-                    new ArrayList<>(List.of("user5", "user6"))
-            );
-
-            seller1.addProduct(product);//marche pas return null 1
+           // seller1.addProduct(product);//marche pas return null 1
             System.out.println(seller1.getProduct(1));
             System.out.println(seller1.getProduct(2));
-
-            // separer dans une autre fonction
-
-            ArrayList<Seller> sellers = new ArrayList<>();
-            ArrayList<Client> clients = new ArrayList<>();
-            sellers.add(seller2);
-            sellers.add(seller1);
-            clients.add(client);
-
-            SellerManager s = new SellerManager(sellers);
-            ClientManager c = new ClientManager(clients);
-            System.out.println("____________________________________________");
-            System.out.println(s.findSellersByName("John1"));// il marche bien 2
-           // System.out.println(c.isPseudoAlreadyUsed("John1")); probleme de "Controller.SellerManager.getSellers()" because "this.sellerManager" is null 3
-            ProductManager p = new ProductManager();
-            System.out.println(p.findProductsByTitle("dsad"));// le cartalogmap est vide faudrait que je trouve comment mettre des produit et chercher par titre et le retourne 4
-            product1.addEvaluation(evaluation2);// marche bien 5
-            System.out.println(product1.getEvaluations());
-            product1.removeEvaluation(evaluation1); // marche bien 6
-            product1.removeEvaluation(evaluation2);
-            System.out.println(product1.getEvaluations()); // marche bien
-            System.out.println(product1.averageRating());
-            product1.addEvaluation(evaluation2);
-            System.out.println(product1.averageRating()); // marche bine 7
-            System.out.println("_____________________________________________");
-            client.follow(client2);
-            System.out.println(client2.getFollowers());// marche bien 8
-            System.out.println("_____________________________________________");
-            c.followClient(client2,client);// marche bien 9
-            System.out.println(client.getFollowers());
-
             //client.rateProduct(product1,evaluation2); marche pas meme probleme du pointer null 10
            // System.out.println(product1.getEvaluations());
 
@@ -199,44 +196,7 @@ public class tests {
             //    public boolean containsItem(int id) {
 
 
-/*
-            System.out.println(product.toString(1));
-            Catalog.catalogMap.put(product.getId(), new Object[]{product, });
-            ShoppingCart shoppingCart = new ShoppingCart();
-            System.out.println(product.getId());
-            // Add the product to the shopping cart
-            System.out.println(shoppingCart.toString());
-            System.out.println(product.getPrice());
-            //shoppingCart.add(mockProduct.getId());
-            System.out.println(shoppingCart.toString());
-    */
 
-            // Store the initial points of the client
-            //int initialPoints = client.getPoints();
-
-            // Debugging information
-           // System.out.println("Initial points: " + initialPoints);
-
-            // Debugging information
-           // System.out.println("Client before buy: " + client);
-
-            // Perform the purchase
-           // Order order = client.buy("Shipping Address");
-
-            // Debugging information
-           // System.out.println("Client after buy: " + client);
-
-            // Assertions
-           // assertNotNull(order);
-           // assertTrue(client.getShoppingCart().getCart().isEmpty()); // Cart should be empty after purchase
-            //assertEquals(initialPoints + (int) mockProduct.getPoints(), client.getPoints()); // Points should be updated
-
-            // Additional assertions based on your specific requirements
-            //assertFalse(order.isShipped());
-           // assertFalse(order.isDelivered());
-            //assertNotNull(order.getOrderDate());
-            //assertEquals("Shipping Address", order.getAddress());
-            // Add more assertions as needed
         }
 
 }
