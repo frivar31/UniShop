@@ -101,7 +101,11 @@ public class Order {
     }
 
     public void setDelivered(Boolean delivered) {
+
         this.delivered = delivered;
+        for(OrderItem item:items){
+            item.setDelivered(true);
+        }
     }
 
     public Boolean isShipped() {
@@ -151,5 +155,6 @@ public class Order {
 
         return sb.toString();
     }
+
 
 }

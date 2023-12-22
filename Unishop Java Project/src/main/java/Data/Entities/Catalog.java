@@ -15,7 +15,10 @@ public class Catalog {
             //get the quantity of items in the shopping cart from products HashMap
             if (current.getquantity() > products.get(id))
                 current.setquantity((int) (current.getquantity() - products.get(id)));
-            else catalogMap.remove(current.getId());
+            else{
+                catalogMap.remove(current.getId());
+                current.setquantity(0);
+            }
         }
     }
 
