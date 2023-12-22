@@ -40,7 +40,7 @@ public class Seller extends User {
         super(firstName, lastName, email, pseudo, number, password, new ArrayList<Ticket>());
         this.returnItems = new ArrayList<>();
         this.orderItems = new ArrayList<>();
-        this.products=new ArrayList<>();
+        this.products=products;
     }
 
     public ArrayList<Product> getProducts() {
