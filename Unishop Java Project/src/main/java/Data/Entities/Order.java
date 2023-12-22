@@ -119,8 +119,6 @@ public class Order {
 
     public Boolean isShipped() {
         for(OrderItem orderItem:items) {
-            System.out.println(orderItem);
-            System.out.println(orderItem.isShipped());
             if(!orderItem.isShipped()) return false;
         }
         //set ship date the max orderitem shipped date

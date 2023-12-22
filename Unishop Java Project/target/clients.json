@@ -8,31 +8,54 @@
     "password": "1",
     "shipAddress": "9545 Rue Lajeunesse",
     "orders": {
-      "0a457a22-5131-42e4-b7ba-3cc63c200521": {
-        "orderNumber": "0a457a22-5131-42e4-b7ba-3cc63c200521",
+      "dedf486d-8c0a-4dc5-9044-5bdb53d9713a": {
+        "orderNumber": "dedf486d-8c0a-4dc5-9044-5bdb53d9713a",
         "items": [
           {
             "productId": 5,
-            "quantity": 1,
+            "quantity": 0,
             "sellerPseudo": "securePw",
             "clientPseudo": "",
             "reason": "",
-            "delivered": false,
-            "shipped": false,
-            "returned": false,
-            "shipDate": null
+            "delivered": true,
+            "shipped": true,
+            "returned": true,
+            "shipDate": 1703228173018
           }
         ],
-        "orderDate": 1703224537243,
-        "delivered": false,
-        "shipped": false,
-        "shippedDate": null,
-        "deliveryDate": null,
+        "orderDate": 1703228149889,
+        "delivered": true,
+        "shipped": true,
+        "shippedDate": 1703228173018,
+        "deliveryDate": 1703228195080,
         "address": "9545 Rue Lajeunesse"
       }
     },
-    "returns": {},
-    "points": 135949,
+    "returns": {
+      "4762c7e9-d9ff-426f-9ded-db60d25454c2": {
+        "delivered": true,
+        "shipped": false,
+        "deliveryDate": null,
+        "orderNumber": "4762c7e9-d9ff-426f-9ded-db60d25454c2",
+        "items": [
+          {
+            "sellerPseudo": "securePw",
+            "clientPseudo": "rango",
+            "reason": "mauvais produit reçu",
+            "delivered": true,
+            "shipped": false,
+            "returned": false,
+            "shipDate": null,
+            "productId": 5,
+            "quantity": 1
+          }
+        ],
+        "orderDate": 1703228224633,
+        "shippedDate": null,
+        "address": ""
+      }
+    },
+    "points": 216877,
     "followers": [],
     "following": [
       "p@ssw0rd"

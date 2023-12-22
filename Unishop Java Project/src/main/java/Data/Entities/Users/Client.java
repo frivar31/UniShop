@@ -295,4 +295,6 @@ public class Client extends User {
         likedSeller.add(pseudo);
     }
 
+
+
 }

@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 
 
 public class Seller extends User {
+    @JsonIgnore
     private final ArrayList<OrderItem> orderItems;
+
     private final ArrayList<ReturnItem> returnItems;
     ArrayList<Product> products;
 
@@ -22,7 +24,6 @@ public class Seller extends User {
     public Seller(@JsonProperty("firstName") String firstName,
                   @JsonProperty("lastName") String lastName,
                   @JsonProperty("email") String email,
-                  @JsonProperty("orderItems") ArrayList<OrderItem> orderItems,
                   @JsonProperty("returnItems") ArrayList<ReturnItem> returnItems,
                   @JsonProperty("pseudo") String pseudo,
                   @JsonProperty("number") Long number,
@@ -31,7 +32,7 @@ public class Seller extends User {
                   @JsonProperty("tickets") ArrayList<Ticket> tickets) {
         super(firstName, lastName, email, pseudo, number, password, tickets);
         products = productsToSell;
-        this.orderItems = orderItems;
+        this.orderItems = new ArrayList<OrderItem>();
         this.returnItems = returnItems;
     }
 

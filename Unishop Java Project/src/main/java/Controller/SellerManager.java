@@ -28,15 +28,10 @@ public class SellerManager {
         // need to wipe orderItem/returnItem from both seller and client once confirmation
         // what if need full audit of returItems/OrderItems ?
         returnItem.setDelivered(true);
-        Product currentProduct = null;
+        Product currentProduct = seller.getProducts().stream().filter(curr -> curr.getId() == returnItem.getProductId()).findAny().orElse(null);
         if (!returnItem.getReason().equals("produit défectueux")) {
-            for (Product curr : seller.getProducts()) {
-                if (curr.getId() == returnItem.getProductId()) {
-                    curr.AddQuantity(returnItem.getQuantity());
-                    currentProduct = curr;
-                    break;
-                }
-            }
+            currentProduct.AddQuantity(returnItem.getQuantity());
+
             Product product = Catalog.getProduct(returnItem.getProductId());
             if (product == null) {
                 Catalog.catalogMap.put(currentProduct.getId(), new Object[]{currentProduct, seller});
@@ -165,20 +160,15 @@ public class SellerManager {
                         System.out.println("Vous n'avez aucun retour à confirmer");
                         break;
                     }
-                    for (ReturnItem returnItem : returnItems) {
-                        System.out.println(returnItem);
+                    for(int i=0;i<returnItems.size();i++){
+                        System.out.println("#"+i+" "+returnItems.get(i));
                     }
-                    System.out.println("Entrer le id du produit dont vous voulez confirmer le retour");
-                    int id = input.getUserNumInfo("Id", 0, Integer.MAX_VALUE);
-                    ReturnItem returnItem = seller.getReturnItem(id);
+                    System.out.println("Entrer le # du produit dont vous voulez confirmer le retour");
+                    int index = input.getUserNumInfo("index", 0, returnItems.size()-1);
+                    ReturnItem returnItem = returnItems.get(index);
                     if (returnItem.isDelivered()) {
                         System.out.println("Ce retour est déjà confirmé");
                         break;
-                    }
-                    while (returnItem == null) {
-                        System.out.println("Id indisponible. veuillez reessayer svp");
-                        id = input.getUserNumInfo("Id", 0, Integer.MAX_VALUE);
-                        returnItem = seller.getReturnItem(id);
                     }
                     confirmReturnReception(returnItem, seller);
                     System.out.println("Retour confirmé avec succès");

@@ -3,7 +3,6 @@
     "firstName": "Alice",
     "lastName": "Johnson",
     "email": "alice.johnson@example.com",
-    "orderItems": [],
     "returnItems": [],
     "pseudo": "1",
     "number": 1234167890,
@@ -119,7 +118,6 @@
     "firstName": "David",
     "lastName": "Smith",
     "email": "david.smith@gmail.com",
-    "orderItems": [],
     "returnItems": [],
     "pseudo": "myPass12",
     "number": 9876843210,
@@ -153,7 +151,6 @@
     "firstName": "Michael",
     "lastName": "Garcia",
     "email": "michael.garcia@hotmail.com",
-    "orderItems": [],
     "returnItems": [],
     "pseudo": "p@ssw0r",
     "number": 3334443555,
@@ -181,20 +178,7 @@
     "firstName": "Sophia",
     "lastName": "Lee",
     "email": "sophia.lee@outlook.com",
-    "orderItems": [],
-    "returnItems": [
-      {
-        "sellerPseudo": "secretPas",
-        "clientPseudo": "rango",
-        "reason": "mauvais produit reçu",
-        "delivered": true,
-        "shipped": false,
-        "returned": false,
-        "shipDate": null,
-        "productId": 6,
-        "quantity": 1
-      }
-    ],
+    "returnItems": [],
     "pseudo": "secretPas",
     "number": 1112223733,
     "password": "10",
@@ -221,20 +205,19 @@
     "firstName": "Emma",
     "lastName": "Brown",
     "email": "emma.brown@yahoo.com",
-    "orderItems": [
+    "returnItems": [
       {
-        "productId": 5,
-        "quantity": 1,
         "sellerPseudo": "securePw",
-        "clientPseudo": "",
-        "reason": "",
-        "delivered": false,
+        "clientPseudo": "rango",
+        "reason": "mauvais produit reçu",
+        "delivered": true,
         "shipped": false,
         "returned": false,
-        "shipDate": null
+        "shipDate": null,
+        "productId": 5,
+        "quantity": 1
       }
     ],
-    "returnItems": [],
     "pseudo": "securePw",
     "number": 5551172222,
     "password": "8",
@@ -254,7 +237,7 @@
         "evaluations": [],
         "likes": [],
         "id": 5,
-        "quantity": 9
+        "quantity": 8
       }
     ]
   }

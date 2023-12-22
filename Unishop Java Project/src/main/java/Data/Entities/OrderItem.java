@@ -126,13 +126,13 @@ public class OrderItem {
         if (!isShipped()) state = "En production";
         else if (isShipped()) state = "En livraison";
         if (isDelivered()) state = "Livré";
-        if (isReturned()) returnState = "Retourné";
+        if (isReturned()) returnState = "\n- " + "retourné";
         return "{" +
                 "\n- titre='" + product.getTitle() + '\'' +
                 "\n- quantité='" + getQuantity() + '\'' +
                 "\n- id='" + getProductId() + '\'' +
-                "\n- " + returnState + '\'' +
-                "\n- " + shipDate + '\'' +
+                returnState+
+                "\n- " + shipDate +
                 "\n}";
     }
 }
