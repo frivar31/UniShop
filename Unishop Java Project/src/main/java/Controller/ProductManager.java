@@ -28,7 +28,7 @@ public class ProductManager {
     }
 
     public List<Product> findProductsByTitle(String title) {
-        return Catalog.catalogMap.values().stream().filter(obj -> title.equals(((Product) obj[0]).getModel())).map(obj -> (Product) obj[0]).toList() ;
+        return Catalog.catalogMap.values().stream().filter(obj -> title.equals(((Product) obj[0]).getTitle())).map(obj -> (Product) obj[0]).toList() ;
     }
 
     public List<Product> findProductsByPrice(int minPrice, int maxPrice) {
@@ -36,7 +36,7 @@ public class ProductManager {
     }
 
     public List<Product> findProductsByBrand(String brand) {
-        return Catalog.catalogMap.values().stream().filter(obj -> brand.equals(((Product) obj[0]).getModel())).map(obj -> (Product) obj[0]).toList() ;
+        return Catalog.catalogMap.values().stream().filter(obj -> brand.equals(((Product) obj[0]).getBrand())).map(obj -> (Product) obj[0]).toList() ;
     }
 
     public List<Product> findProductsByModel(String model) {
