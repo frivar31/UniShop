@@ -99,8 +99,9 @@ public class SellerManager {
             System.out.println("2. Changer l'etat d'une commande: ");
             System.out.println("3. Modifier son profile");
             System.out.println("4. Confirmer la reception d'un retour");
-            System.out.println("5. Quitter");
-            int option = input.getOption(1, 5);
+            System.out.println("5. Voir les évaluations de mes produits");
+            System.out.println("6. Quitter");
+            int option = input.getOption(1, 6);
             switch (option) {
                 case 1:
                     Product product = null;
@@ -174,6 +175,13 @@ public class SellerManager {
                     System.out.println("Retour confirmé avec succès");
                     break;
                 case 5:
+                    System.out.println("Voici les reviews de vos produits");
+                    for (Product sellerProduct:seller.getProducts()){
+                        System.out.println("Review de "+sellerProduct.getTitle());
+                        System.out.println(sellerProduct.getEvaluations());
+                    }
+                    break;
+                case 6:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
                     repeat = false;
                     return repeat;
