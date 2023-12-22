@@ -638,7 +638,7 @@ public class ClientManager {
                                             break;
                                     }
                                     String sellerPseudo = user.getOrder(orderNumber).getItem(productId).getSellerPseudo();
-                                    ReturnItem returnItem = new ReturnItem(productId, returnQuantity, sellerPseudo, user.getPseudo(), reason, false, false,false);
+                                    ReturnItem returnItem = new ReturnItem(productId, returnQuantity, sellerPseudo, user.getPseudo(), reason, false, false,false,null);
                                     returnItems.add(returnItem);
                                     for (OrderItem retItem : returnItems) System.out.println(retItem);
                                     System.out.println("Confirmer le retour: ");
@@ -842,7 +842,7 @@ public class ClientManager {
         // Generate a unique order ID
         String orderID = UUID.randomUUID().toString();
         // Create an order using the current cart and customer information
-        Order newOrder = new Order(orderID, user.getShoppingCart().convertToOrderItems(), Calendar.getInstance().getTime(), false, false, null, null, address);
+        Order newOrder = new Order(orderID, user.getShoppingCart().convertToOrderItems(orderID), Calendar.getInstance().getTime(), false, false, null, null, address);
         user.addOrder(newOrder);
         user.addPoints((int) user.getShoppingCart().getNumberPoints());
 

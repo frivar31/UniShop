@@ -19,44 +19,44 @@ public class SellerManager {
     private ClientManager clientManager;
     private List<Seller> sellers;
 
+    public SellerManager(List<Seller> sellers) {
+        this.sellers = sellers;
+        this.input = new UserInteractionService();
+    }
+
     public void confirmReturnReception(ReturnItem returnItem, Seller seller) {
         // need to wipe orderItem/returnItem from both seller and client once confirmation
         // what if need full audit of returItems/OrderItems ?
         returnItem.setDelivered(true);
-        Product currentProduct = null ;
-        if(!returnItem.getReason().equals("produit défectueux")) {
+        Product currentProduct = null;
+        if (!returnItem.getReason().equals("produit défectueux")) {
             for (Product curr : seller.getProducts()) {
                 if (curr.getId() == returnItem.getProductId()) {
                     curr.AddQuantity(returnItem.getQuantity());
-                    currentProduct = curr ;
-                    break ;
+                    currentProduct = curr;
+                    break;
                 }
             }
-            Product product = Catalog.getProduct(returnItem.getProductId()) ;
-            if(product == null) {
+            Product product = Catalog.getProduct(returnItem.getProductId());
+            if (product == null) {
                 Catalog.catalogMap.put(currentProduct.getId(), new Object[]{currentProduct, seller});
-            }
-            else {
-                Object[] obj = Catalog.catalogMap.get(product.getId()) ;
+            } else {
+                Object[] obj = Catalog.catalogMap.get(product.getId());
                 ((Product) obj[0]).AddQuantity(returnItem.getQuantity());
             }
         }
-        String orderNumber = "" ;
-        for(Order order : clientManager.getClient(returnItem.getClientPseudo()).getOrders().values()) {
-            for(OrderItem orderItem: order.getItems()) {
-                if (orderItem.getProductId() == returnItem.getProductId()) orderNumber = order.getOrderNumber();
+        String orderNumber = "";
+        for (Order order : clientManager.getClient(returnItem.getClientPseudo()).getOrders().values()) {
+            for (OrderItem orderItem : order.getItems()) {
+                if (orderItem.getProductId() == returnItem.getProductId()) {
+                    orderNumber = order.getOrderNumber();
+                    break;
+                }
             }
         }
         clientManager.getClient(returnItem.getClientPseudo()).getOrder(orderNumber).update(returnItem.getProductId(), returnItem.getQuantity());
         clientManager.getClient(returnItem.getClientPseudo()).getOrder(orderNumber).getItem(returnItem.getProductId()).setReturned(true);
         clientManager.getClient(returnItem.getClientPseudo()).removePoints((int) currentProduct.getPoints());
-    }
-
-
-
-    public SellerManager(List<Seller> sellers) {
-        this.sellers = sellers;
-        this.input = new UserInteractionService();
     }
 
     public List<Seller> getSellers() {
@@ -77,18 +77,18 @@ public class SellerManager {
 
     public boolean isPseudoAlreadyUsed(String pseudo) {
         for (Client client : clientManager.getClients()) {
-            if(client.getPseudo().equals(pseudo)) return true ;
+            if (client.getPseudo().equals(pseudo)) return true;
         }
         return sellers.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
     }
 
     public List<Seller> findSellersByName(String name) {
-        return this.sellers.stream().filter(user -> name.equals(user.getFirstName())).toList() ;
+        return this.sellers.stream().filter(user -> name.equals(user.getFirstName())).toList();
     }
 
 
     public Seller getSeller(String pseudo) {
-        return sellers.stream().filter(seller -> pseudo.equals(seller.getPseudo())).findAny().orElse(null) ;
+        return sellers.stream().filter(seller -> pseudo.equals(seller.getPseudo())).findAny().orElse(null);
     }
 
     public List<Seller> findSellersByProductType(ProductType type) {
@@ -97,8 +97,8 @@ public class SellerManager {
 
     public boolean getSellerServiceInfo(Seller seller) {
 
-        boolean repeat = true ;
-        while(repeat) {
+        boolean repeat = true;
+        while (repeat) {
             System.out.println("Selectionner la tache que vous voulez effectuer: ");
             System.out.println("1. Offrir un produit: ");
             System.out.println("2. Changer l'etat d'une commande: ");
@@ -129,16 +129,15 @@ public class SellerManager {
                         System.out.println("1. Oui");
                         System.out.println("2. Non");
 
-                        if (input.getOption(1, 2) == 1&&!inProd.isEmpty()) {
+                        if (input.getOption(1, 2) == 1 && !inProd.isEmpty()) {
                             System.out.println("Entrer le # de l'item que vous voulez expédier");
                             int choice = input.getOption(0, inProd.size() - 1);
                             inProd.get(choice).setShipped(true);
                             System.out.println("Confirmation de l'expédition du produit");
-                        }else if(inProd.isEmpty()){
+                        } else if (inProd.isEmpty()) {
                             System.out.println("Vous n'avez aucun item en production");
                             break;
-                        }
-                        else {
+                        } else {
                             break;
                         }
                     }
@@ -161,36 +160,36 @@ public class SellerManager {
                     }
                 case 4:
                     System.out.println("Liste des retours");
-                    ArrayList<ReturnItem> returnItems = seller.getReturnItems() ;
-                    if(returnItems == null ) {
+                    ArrayList<ReturnItem> returnItems = seller.getReturnItems();
+                    if (returnItems == null) {
                         System.out.println("Vous n'avez aucun retour à confirmer");
-                        break ;
+                        break;
                     }
-                    for(ReturnItem returnItem : returnItems) {
+                    for (ReturnItem returnItem : returnItems) {
                         System.out.println(returnItem);
                     }
                     System.out.println("Entrer le id du produit dont vous voulez confirmer le retour");
-                    int id = input.getUserNumInfo("Id",0, Integer.MAX_VALUE) ;
-                    ReturnItem returnItem = seller.getReturnItem(id) ;
-                    if(returnItem.isDelivered()) {
+                    int id = input.getUserNumInfo("Id", 0, Integer.MAX_VALUE);
+                    ReturnItem returnItem = seller.getReturnItem(id);
+                    if (returnItem.isDelivered()) {
                         System.out.println("Ce retour est déjà confirmé");
-                        break ;
+                        break;
                     }
-                    while(returnItem == null) {
+                    while (returnItem == null) {
                         System.out.println("Id indisponible. veuillez reessayer svp");
-                        id = input.getUserNumInfo("Id",0, Integer.MAX_VALUE) ;
-                        returnItem = seller.getReturnItem(id) ;
+                        id = input.getUserNumInfo("Id", 0, Integer.MAX_VALUE);
+                        returnItem = seller.getReturnItem(id);
                     }
-                    confirmReturnReception(returnItem,seller);
+                    confirmReturnReception(returnItem, seller);
                     System.out.println("Retour confirmé avec succès");
-                    break ;
+                    break;
                 case 5:
-                    System.out.println("Merci d'avoir utilisé notre service. Au revoir!") ;
-                    repeat = false ;
-                    return repeat ;
+                    System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
+                    repeat = false;
+                    return repeat;
             }
         }
-        return !repeat ;
+        return !repeat;
     }
 
     public void modifySellerInfo(Seller seller) {
@@ -276,7 +275,7 @@ public class SellerManager {
 
         long number = input.getUserNumInfo("Numero", 1, Integer.MAX_VALUE);
 
-        String password = input.getUserStrInfo("Mot de passe") ;
+        String password = input.getUserStrInfo("Mot de passe");
         while (isPasswordAlreadyUsed(password)) {
             System.out.println("Ce mot de passe est déjà utilisé. Veuillez entrer un nouveau.");
             password = input.getUserStrInfo("Mot de passe");
@@ -284,7 +283,7 @@ public class SellerManager {
 
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        Seller seller = new Seller(firstName, lastName, email, pseudo, number, products,password);
+        Seller seller = new Seller(firstName, lastName, email, pseudo, number, products, password);
 
         int option = 2;
         while (option == 2) {
@@ -313,20 +312,22 @@ public class SellerManager {
 
     public boolean isEmailAlreadyUsed(String email) {
         for (Client client : clientManager.getClients()) {
-            if(client.getEmail().equals(email)) return true ;
+            if (client.getEmail().equals(email)) return true;
         }
         return sellers.stream().anyMatch(user -> email.equals(user.getEmail()));
     }
 
     public boolean isPasswordAlreadyUsed(String password) {
         for (Client client : clientManager.getClients()) {
-            if(client.getPassword().equals(password)) return true ;
+            if (client.getPassword().equals(password)) return true;
         }
         return sellers.stream().anyMatch(user -> password.equals(user.getPassword()));
     }
-    public void updateSellerOrderItems(Order order){
-        for(OrderItem item:order.getItems()){
-            Seller seller=Catalog.getProductSeller(item.getProductId());
+
+    public void updateSellerOrderItems(Order order) {
+        for (OrderItem item : order.getItems()) {
+            //to fix
+            Seller seller = Catalog.getProductSeller(item.getProductId());
             seller.addOrderItem(item);
         }
     }

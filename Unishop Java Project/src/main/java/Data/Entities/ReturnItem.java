@@ -5,6 +5,7 @@ import Data.Entities.Users.Seller;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
 import java.util.List;
 
 public class ReturnItem extends OrderItem {
@@ -17,8 +18,9 @@ public class ReturnItem extends OrderItem {
                       @JsonProperty("reason") String reason,
                       @JsonProperty("delivered") Boolean delivered,
                       @JsonProperty("shipped") Boolean shipped,
-                      @JsonProperty("returned") Boolean returned) {
-        super(returnedProductId,returnedQuantity,sellerPseudo,clientPseudo,reason,delivered,shipped,returned);
+                      @JsonProperty("returned") Boolean returned,
+                      @JsonProperty("shipDate") Date shipDate) {
+        super(returnedProductId,returnedQuantity,sellerPseudo,clientPseudo,reason,delivered,shipped,returned,shipDate);
     }
 
 

@@ -98,7 +98,8 @@ public class Order {
 
 
     public Boolean isDelivered() {
-        return delivered;
+        for(OrderItem orderItem:items) if(!orderItem.isDelivered()) return false;
+        return true;
     }
     @JsonIgnore
     public boolean isSignalable(){
@@ -117,7 +118,17 @@ public class Order {
     }
 
     public Boolean isShipped() {
-        return shipped;
+        for(OrderItem orderItem:items) {
+            System.out.println(orderItem);
+            System.out.println(orderItem.isShipped());
+            if(!orderItem.isShipped()) return false;
+        }
+        //set ship date the max orderitem shipped date
+        shippedDate = items.stream()
+                .map(OrderItem::getShipDate)
+                .max(Date::compareTo)
+                .orElse(Calendar.getInstance().getTime());
+        return true;
     }
 
     public void setShipped(Boolean shipped) {
@@ -140,6 +151,7 @@ public class Order {
         this.deliveryDate = deliveryDate;
     }
 
+
     @Override
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -147,8 +159,8 @@ public class Order {
         StringBuilder sb = new StringBuilder();
         sb.append("Order Number: ").append(orderNumber).append("\n");
         sb.append("Order Date: ").append(dateFormat.format(orderDate)).append("\n");
-        sb.append("Delivered: ").append(delivered).append("\n");
-        sb.append("Shipped: ").append(shipped).append("\n");
+        sb.append("Delivered: ").append(isDelivered()).append("\n");
+        sb.append("Shipped: ").append(isShipped()).append("\n");
 
         if (shipped) {
             sb.append("Shipped Date: ").append(dateFormat.format(shippedDate)).append("\n");

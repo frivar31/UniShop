@@ -66,6 +66,7 @@ public class App {
         if (clientsFile.exists()) {
             List<Client> clients = objectMapper.readValue(clientsFile, new TypeReference<List<Client>>() {});
             clientManager.setClients(new ArrayList<>(clients));
+
         }
 
 

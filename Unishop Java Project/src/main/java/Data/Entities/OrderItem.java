@@ -5,15 +5,27 @@ import Data.Entities.Users.Seller;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class OrderItem {
-    private int productId;
+    private final int productId;
+    private final String sellerPseudo;
     private int quantity;
-    private String sellerPseudo;
     private String clientPseudo;
     private String reason;
     private Boolean shipped;
     private Boolean delivered;
-    private boolean returned ;
+    private boolean returned;
+    private Date shipDate;
+
+    public Boolean getShipped() {
+        return shipped;
+    }
+
+    public Boolean getDelivered() {
+        return delivered;
+    }
 
     @JsonCreator
     public OrderItem(@JsonProperty("productId") int productId,
@@ -23,7 +35,8 @@ public class OrderItem {
                      @JsonProperty("reason") String reason,
                      @JsonProperty("delivered") Boolean delivered,
                      @JsonProperty("shipped") Boolean shipped,
-                     @JsonProperty("returned") Boolean returned) {
+                     @JsonProperty("returned") Boolean returned,
+                     @JsonProperty("shipDate") Date shipDate) {
         this.productId = productId;
         this.quantity = quantity;
         this.sellerPseudo = sellerPseudo;
@@ -31,6 +44,15 @@ public class OrderItem {
         this.shipped = shipped;
         this.delivered = delivered;
         this.reason = reason;
+        this.shipDate = shipDate;
+    }
+
+    public Date getShipDate() {
+        return shipDate;
+    }
+
+    public void setShipDate(Date shipDate) {
+        this.shipDate = shipDate;
     }
 
     public String getClientPseudo() {
@@ -47,6 +69,7 @@ public class OrderItem {
 
     public void setShipped(Boolean shipped) {
         this.shipped = shipped;
+        shipDate=Calendar.getInstance().getTime();
     }
 
     public Boolean isDelivered() {
@@ -63,11 +86,11 @@ public class OrderItem {
 
     public void setReason(String reason) {
         this.reason = reason;
-        this.clientPseudo = clientPseudo ;
-        this.shipped = shipped ;
-        this.delivered = delivered ;
-        this.reason = reason ;
-        this.returned = returned ;
+        this.clientPseudo = clientPseudo;
+        this.shipped = shipped;
+        this.delivered = delivered;
+        this.reason = reason;
+        this.returned = returned;
     }
 
     public String getSellerPseudo() {
@@ -86,6 +109,7 @@ public class OrderItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
     public boolean isReturned() {
         return returned;
     }
@@ -96,19 +120,19 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        Product product=Catalog.getProduct(getProductId());
-        String state = "" ;
-        String returnState = "" ;
-        if (!isShipped()) state = "En production" ;
-        else if(isShipped()) state = "En livraison" ;
-        if(isDelivered()) state = "Livré" ;
-        if(isReturned()) returnState = "Retourné" ;
+        Product product = Catalog.getProduct(getProductId());
+        String state = "";
+        String returnState = "";
+        if (!isShipped()) state = "En production";
+        else if (isShipped()) state = "En livraison";
+        if (isDelivered()) state = "Livré";
+        if (isReturned()) returnState = "Retourné";
         return "{" +
                 "\n- titre='" + product.getTitle() + '\'' +
                 "\n- quantité='" + getQuantity() + '\'' +
                 "\n- id='" + getProductId() + '\'' +
-                "\n- état='" + state + '\'' +
                 "\n- " + returnState + '\'' +
+                "\n- " + shipDate + '\'' +
                 "\n}";
     }
 }
