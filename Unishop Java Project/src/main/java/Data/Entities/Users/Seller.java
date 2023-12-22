@@ -4,6 +4,7 @@ import Data.Entities.*;
 import Data.Entities.Products.Product;
 import Data.Entities.Products.ProductType;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -97,14 +98,7 @@ public class Seller extends User {
     public Product getProduct(int index) {
         return products.get(index);
     }
-    /*@Override
-    public String toString() {
-        StringBuilder sb=new StringBuilder();
-        for(Product product:products){
-            sb.append(product.toString()).append("\n");
-        }
-        return sb.toString();
-    }*/
+
 
     @Override
     public String toString() {
@@ -119,6 +113,22 @@ public class Seller extends User {
 
     @Override
     public void displayActivityStat() {
+    }
+    @JsonIgnore
+    public ArrayList<OrderItem> getInProduction(){
+        ArrayList<OrderItem> inProd=new ArrayList<>();
+        for(OrderItem item:orderItems){
+            if(!item.getShipped()) inProd.add(item);
+        }
+        return inProd;
+    }
+    @JsonIgnore
+    public ArrayList<OrderItem> getInShipping(){
+        ArrayList<OrderItem> inShipping=new ArrayList<>();
+        for(OrderItem item:orderItems){
+            if(item.getShipped()&&!item.getDelivered()) inShipping.add(item);
+        }
+        return inShipping;
     }
 
 

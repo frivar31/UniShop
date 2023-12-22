@@ -245,7 +245,7 @@ public class ClientManager {
                             case 6:
                                 PriorityQueue<Product> pq=new PriorityQueue<Product>((a,b)-> b.getLikes().size()-a.getLikes().size());
                                 for (Product product : Catalog.catalogMap.values().stream().map(obj -> (Product) obj[0]).toList()) {
-                                    if(product.getLikes().size()>0) pq.add(product);
+                                    if(!product.getLikes().isEmpty()) pq.add(product);
                                 }
                                 for(Product product:pq){
                                     System.out.println(product);
@@ -413,7 +413,7 @@ public class ClientManager {
                     System.out.println("2. Non");
                     if (input.getOption(1, 2) == 1) {
                         if (isShoppingCartItemsAvailable(user.getShoppingCart())) {
-                            System.out.println(user.buy(user.getShipAddress()));
+                            System.out.println(buy(user.getShipAddress(),user));
                         }
                     }
                     break;
@@ -537,12 +537,41 @@ public class ClientManager {
                         }
                         for (OrderItem orderItem:order.getItems()) System.out.println(orderItem);
                         System.out.println("Choisissez une option");
-                        System.out.println("1. Évaluer un produit");
-                        System.out.println("2. Retourner un produit");
-                        System.out.println("3. Echanger un produit");
+                        System.out.println("1. Confirmer la réception d'une commande");
+                        System.out.println("2. Évaluer un produit");
+                        System.out.println("3. Retourner un produit");
+                        System.out.println("4. Echanger un produit");
                         choice=input.getOption(1,3);
                         switch(choice){
                             case 1:
+                                if(user.getOrder(orderNumber).isShipped()){
+                                    if(!user.getOrder(orderNumber).isDelivered()){
+                                        System.out.println("Vous confirmez la réception de la commande "+orderNumber);
+                                        System.out.println("1. oui");
+                                        System.out.println("2. non");
+                                        if(input.getOption(1,2)==1){
+                                            user.getOrder(orderNumber).setDelivered(true);
+                                            user.getOrder(orderNumber).setDeliveryDate(Calendar.getInstance().getTime());
+                                            System.out.println("Confirmation de réception confirmé");
+                                        }
+                                    }
+                                    else System.out.println("Vous avez déja confirmé la réception de cette commande");
+                                }
+                                else System.out.println("Votre commande n'a pas été livré encore");
+                                break;
+                            case 2:
+                                if(!user.getOrder(orderNumber).isDelivered()) {
+                                    System.out.println("Vous n'avez pas confirmer la reception de cette commande");
+                                    System.out.println("Voulez vous confirmer la reception de la commande ?");
+                                    System.out.println("1. oui");
+                                    System.out.println("2. non") ;
+                                    if(input.getOption(1,2) == 1) {
+                                        user.getOrder(orderNumber).setDelivered(true);
+                                        user.getOrder(orderNumber).setDeliveryDate(Calendar.getInstance().getTime());
+                                        System.out.println("Confirmation de réception confirmé");
+                                    }
+                                    else break ;
+                                }
                                 System.out.println("Entrer le numéro de l'item");
                                 int productId = input.getOption(0);
                                 product = null;
@@ -563,18 +592,16 @@ public class ClientManager {
                                 product.addEvaluation(productEvaluation);
                                 System.out.println("Évaluation ajouté merci!");
                                 break;
-                            case 2:
+                            case 3:
                                 if(!user.getOrder(orderNumber).isDelivered()) {
                                     System.out.println("Vous n'avez pas confirmer la reception de cette commande");
-                                    System.out.println("Voulez vous confirmer la reception du retour ?");
+                                    System.out.println("Voulez vous confirmer la reception de la commande ?");
                                     System.out.println("1. oui");
                                     System.out.println("2. non") ;
                                     if(input.getOption(1,2) == 1) {
                                         user.getOrder(orderNumber).setDelivered(true);
                                         user.getOrder(orderNumber).setDeliveryDate(Calendar.getInstance().getTime());
-                                        for (OrderItem orderItem : user.getOrder(orderNumber).getItems()) {
-                                            orderItem.setDelivered(true);
-                                        }
+                                        System.out.println("Confirmation de réception confirmé");
                                     }
                                     else break ;
                                 }
@@ -770,5 +797,22 @@ public class ClientManager {
         Return newReturn = new Return(returnID,returnItems, Calendar.getInstance().getTime(),false,false,null,null,"") ;
         user.addReturn(newReturn);
         return newReturn ;
+    }
+    public Order buy(String address,Client user) {
+        // Generate a unique order ID
+        String orderID = UUID.randomUUID().toString();
+        // Create an order using the current cart and customer information
+        Order newOrder = new Order(orderID, user.getShoppingCart().convertToOrderItems(), Calendar.getInstance().getTime(), false, false, null, null, address);
+        user.addOrder(newOrder);
+        user.addPoints((int)user.getShoppingCart().getNumberPoints());
+
+        // Update the product quantity
+        Catalog.update(user.getShoppingCart().getCart());
+        // Update the orderItem for sellers
+        sellerManager.updateSellerOrderItems(newOrder);
+
+        // Clear the cart after the purchase
+        user.setShoppingCart(new ShoppingCart());
+        return newOrder;
     }
 }

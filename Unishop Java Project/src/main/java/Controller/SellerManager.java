@@ -1,11 +1,8 @@
 package Controller;
 
-import Data.Entities.Catalog;
-import Data.Entities.Order;
-import Data.Entities.OrderItem;
+import Data.Entities.*;
 import Data.Entities.Products.Product;
 import Data.Entities.Products.ProductType;
-import Data.Entities.ReturnItem;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
@@ -87,17 +84,6 @@ public class SellerManager {
         return this.sellers.stream().filter(user -> name.equals(user.getFirstName())).toList() ;
     }
 
-    /*public List<Seller> findSellersByAdress() {
-        List<Seller> sellers = new ArrayList<>() ;
-        while(sellers.isEmpty()) {
-            System.out.println("Entrer l'adresse du vendeur") ;
-            String address = input.getUserStrInfo("Adresse") ;
-            for (Seller seller : this.sellers) {
-                if(seller.getA)
-            }
-        }
-        return null ; //TODO
-    }*/
 
     public Seller getSeller(String pseudo) {
         return sellers.stream().filter(seller -> pseudo.equals(seller.getPseudo())).findAny().orElse(null) ;
@@ -123,6 +109,38 @@ public class SellerManager {
                     Product product = null;
                     product = productManager.getProductInfo();
                     seller.addProduct(product);
+                    break;
+                case 2:
+                    while (true) {
+                        System.out.println("Voici l'état de vos commandes en cours");
+                        System.out.println("En production :");
+                        ArrayList<OrderItem> inProd = seller.getInProduction();
+                        for (int i = 0; i < inProd.size(); i++) {
+                            System.out.println(i + ". " + inProd.get(i));
+                        }
+                        System.out.println("En livraison :");
+                        ArrayList<OrderItem> inShipping = seller.getInShipping();
+                        for (int i = 0; i < inShipping.size(); i++) {
+                            System.out.println(i + ". " + inShipping.get(i));
+                        }
+                        System.out.println("Voulez-vous expédier un item?");
+                        System.out.println("1. Oui");
+                        System.out.println("2. Non");
+
+                        if (input.getOption(1, 2) == 1&&!inProd.isEmpty()) {
+                            System.out.println("Entrer le # de l'item que vous voulez expédier");
+                            int choice = input.getOption(0, inProd.size() - 1);
+                            inProd.get(choice).setShipped(true);
+                            System.out.println("Confirmation de l'expédition du produit");
+                        }else if(inProd.isEmpty()){
+                            System.out.println("Vous n'avez aucun item en production");
+                            break;
+                        }
+                        else {
+                            break;
+                        }
+                    }
+
                     break;
                 case 3:
                     boolean redo = true;
@@ -300,7 +318,11 @@ public class SellerManager {
         }
         return sellers.stream().anyMatch(user -> password.equals(user.getPassword()));
     }
-    public void test(){
-        sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(ProductType.Book))).collect(Collectors.toList());
+    public void updateSellerOrderItems(Order order){
+        for(OrderItem item:order.getItems()){
+            Seller seller=Catalog.getProductSeller(item.getProductId());
+            seller.addOrderItem(item);
+        }
     }
+
 }
