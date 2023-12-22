@@ -2,15 +2,11 @@ package Data.Entities.Users;
 
 import Data.Entities.*;
 import Data.Entities.Products.Product;
-import Data.Entities.Products.ProductType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.stream.Collectors;
 
 
 public class Seller extends User {
@@ -102,6 +98,9 @@ public class Seller extends User {
 
     public Product getProduct(int index) {
         return products.get(index);
+    }
+    public ArrayList<Product> getProduct(){
+        return products;
     }
 
 

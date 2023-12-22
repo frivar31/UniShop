@@ -6,7 +6,6 @@ import Data.Entities.Products.ProductType;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Service.UserInteractionService;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
