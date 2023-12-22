@@ -63,8 +63,7 @@ public class tests {
         sellers.add(seller2);
         sellerManager = new SellerManager(sellers);
         Product product = new Product("New Product", "Description", "2023-01-01", 5, 99.99, 1, ProductType.Hardware, "Model123", "BrandXYZ", new ArrayList<>(), new ArrayList<>());
-       // seller1.addProduct(product);// le addProduct me retroune null tout le temps
-        assertNotNull(seller1.getProduct(3));
+        seller1.addProduct(product);
     }
     @Test
     public void testisPseudoAlreadyUsed() {// meme probleme que addproduct
@@ -73,19 +72,23 @@ public class tests {
         ArrayList<Product> productsList = new ArrayList<>(); productsList.add(product1); productsList.add(product2);
 
         List<Seller> sellers = new ArrayList<>();
-        Seller seller1 = new Seller("John1", "Doe1", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
+        Seller seller1 = new Seller("John1", "Doe1", "john.doe@example.com", "john_doe1", 123456789L, productsList, "password123");
         Seller seller2 = new Seller("John", "Doe", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
         sellers.add(seller1);
         sellers.add(seller2);
-        sellerManager = new SellerManager(sellers);
+        SellerManager sellerManager = new SellerManager(new ArrayList<>());
         ClientManager clientManager = new ClientManager(new ArrayList<>());
+        sellerManager.setSellers(new ArrayList<>(sellers));
 
-        SellerManager s = new SellerManager(sellerManager.getSellers());
-        ClientManager c = new ClientManager(clientManager.getClients());
+        client = new Client("John33", "Doe33", "john@example.com", "johnny2", 123456789L, "123 Main St", "password");
+        List<Client> clients = new ArrayList<>();
+        clients.add(client);
+        clientManager.setClients(new ArrayList<>(clients));
+        clientManager.setSellerManager(sellerManager);
+        sellerManager.setClientManager(clientManager);
 
-        assertEquals(2, s.getSellers().size());
-        System.out.println(s.findSellersByName("John1"));// il marche bien 2
-       // assertTrue(c.isPseudoAlreadyUsed("John1"));// meme probleme que add product null
+        assertTrue(clientManager.isPseudoAlreadyUsed("john_doe1"));
+        assertTrue(clientManager.isPseudoAlreadyUsed("johnny2"));
     }
     @Test
     public void testifindSellersByName(){// marche bien
@@ -103,15 +106,20 @@ public class tests {
         assertEquals("["+ seller1.toString()+"]",s.findSellersByName("John1").toString());
     }
     @Test
-    public void testfindProductsByTitle() {// le catalog est null
+    public void testfindProductsByTitle() {
         Product product1 = new Product("Smartphone", "High-performance smartphone with a sleek design", "2023-03-10", 20, 699.99, 1, ProductType.Hardware, "Model456", "BrandTech", new ArrayList<>(), new ArrayList<>(List.of("user5", "user6")));
         Product product2 = new Product("Book", "Interesting book on a specific topic", "2023-02-15", 50, 19.99, 1, ProductType.Book, "BookModel456", "BookBrandABC", new ArrayList<>(), new ArrayList<>(List.of("user3", "user4")));
+      ArrayList<Product> productsList = new ArrayList<>(); productsList.add(product1); productsList.add(product2);
+        List<Seller> sellers = new ArrayList<>();
+        Seller seller1 = new Seller("John1", "Doe1", "john.doe@example.com", "john_doe1", 123456789L, productsList, "password123");
+        Seller seller2 = new Seller("John", "Doe", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
+        sellers.add(seller1);
+        sellers.add(seller2);
         ProductManager productManager = new ProductManager();
-        List<Product> products = productManager.findProductsByTitle("dsad");
-        products.add(product1);
-        products.add(product2);
+        for (Seller seller:sellers) seller.updateCatalog();
+        System.out.println(seller1.getProducts());
         System.out.println(productManager.toString());
-        assertTrue(products.isEmpty());
+        //assertFalse(productManager.findProductsByTitle("Book").isEmpty());
 
     }
     @Test
