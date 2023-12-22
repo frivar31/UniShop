@@ -38,7 +38,6 @@ public class Ticket {
         this.item = item;
         this.userPseudo = userPseudo;
     }
-
     public Ticket(String problemDescription, OrderItem item, String userPseudo) {
         this.problemDescription = problemDescription;
         this.solutionDescription = null;
@@ -52,7 +51,6 @@ public class Ticket {
         this.userPseudo = userPseudo;
 
     }
-
     public OrderItem getItem() {
         return item;
     }
@@ -125,7 +123,6 @@ public class Ticket {
     public void setBuyerConfirmationOfReplacementDelivery(boolean buyerConfirmationOfReplacementDelivery) {
         this.buyerConfirmationOfReplacementDelivery = buyerConfirmationOfReplacementDelivery;
     }
-
     public String getCreationDate() {
         return creationDate;
     }
