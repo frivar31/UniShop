@@ -19,8 +19,9 @@ public class ReturnItem extends OrderItem {
                       @JsonProperty("delivered") Boolean delivered,
                       @JsonProperty("shipped") Boolean shipped,
                       @JsonProperty("returned") Boolean returned,
-                      @JsonProperty("shipDate") Date shipDate) {
-        super(returnedProductId,returnedQuantity,sellerPseudo,clientPseudo,reason,delivered,shipped,returned,shipDate);
+                      @JsonProperty("shipDate") Date shipDate,
+                      @JsonProperty("signaled") Boolean signaled) {
+        super(returnedProductId,returnedQuantity,sellerPseudo,clientPseudo,reason,delivered,shipped,returned,shipDate,signaled);
     }
 
 

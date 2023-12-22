@@ -1,21 +1,32 @@
 package Data.Entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 public class Ticket {
     private final String problemDescription;
     private final String solutionDescription;
     private final OrderItem item;
+    private final String creationDate;
     private String trackingNumber;
     private boolean deliveryConfirmationBySeller;
     private String replacementProductDescription;
     private String replacementTrackingNumber;
     private boolean buyerConfirmationOfReplacementDelivery;
-    private final String creationDate;
+    private String userPseudo;
 
     // Constructeur
-    public Ticket(String problemDescription, String solutionDescription, String trackingNumber,
-                  String replacementProductDescription, String replacementTrackingNumber,OrderItem item) {
+    @JsonCreator
+    public Ticket(
+            @JsonProperty("problemDescription") String problemDescription,
+            @JsonProperty("solutionDescription") String solutionDescription,
+            @JsonProperty("trackingNumber") String trackingNumber,
+            @JsonProperty("replacementProductDescription") String replacementProductDescription,
+            @JsonProperty("replacementTrackingNumber") String replacementTrackingNumber,
+            @JsonProperty("item") OrderItem item,
+            @JsonProperty("userPseudo") String userPseudo) {
         this.problemDescription = problemDescription;
         this.solutionDescription = solutionDescription;
         this.trackingNumber = trackingNumber;
@@ -24,9 +35,11 @@ public class Ticket {
         this.replacementTrackingNumber = replacementTrackingNumber;
         this.buyerConfirmationOfReplacementDelivery = false;
         this.creationDate = LocalDate.now().toString();
-        this.item=item;
+        this.item = item;
+        this.userPseudo = userPseudo;
     }
-    public Ticket(String problemDescription,OrderItem item,String userPseudo){
+
+    public Ticket(String problemDescription, OrderItem item, String userPseudo) {
         this.problemDescription = problemDescription;
         this.solutionDescription = null;
         this.trackingNumber = null;
@@ -35,7 +48,21 @@ public class Ticket {
         this.replacementTrackingNumber = null;
         this.buyerConfirmationOfReplacementDelivery = false;
         this.creationDate = LocalDate.now().toString();
-        this.item=item;
+        this.item = item;
+        this.userPseudo = userPseudo;
+
+    }
+
+    public OrderItem getItem() {
+        return item;
+    }
+
+    public String getUserPseudo() {
+        return userPseudo;
+    }
+
+    public void setUserPseudo(String userPseudo) {
+        this.userPseudo = userPseudo;
     }
 
     // Méthode pour annuler automatiquement une demande de réexpédition après 30 jours
@@ -49,8 +76,6 @@ public class Ticket {
         }
     }
 
-    // Getters et Setters
-
     public String getProblemDescription() {
         return problemDescription;
     }
@@ -61,6 +86,12 @@ public class Ticket {
 
     public String getTrackingNumber() {
         return trackingNumber;
+    }
+
+    // Getters et Setters
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
     }
 
     public boolean isDeliveryConfirmationBySeller() {
@@ -75,8 +106,16 @@ public class Ticket {
         return replacementProductDescription;
     }
 
+    public void setReplacementProductDescription(String replacementProductDescription) {
+        this.replacementProductDescription = replacementProductDescription;
+    }
+
     public String getReplacementTrackingNumber() {
         return replacementTrackingNumber;
+    }
+
+    public void setReplacementTrackingNumber(String replacementTrackingNumber) {
+        this.replacementTrackingNumber = replacementTrackingNumber;
     }
 
     public boolean isBuyerConfirmationOfReplacementDelivery() {

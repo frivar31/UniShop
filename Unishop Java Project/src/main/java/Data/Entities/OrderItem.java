@@ -18,14 +18,7 @@ public class OrderItem {
     private Boolean delivered;
     private boolean returned;
     private Date shipDate;
-
-    public Boolean getShipped() {
-        return shipped;
-    }
-
-    public Boolean getDelivered() {
-        return delivered;
-    }
+    private Boolean signaled;
 
     @JsonCreator
     public OrderItem(@JsonProperty("productId") int productId,
@@ -36,7 +29,8 @@ public class OrderItem {
                      @JsonProperty("delivered") Boolean delivered,
                      @JsonProperty("shipped") Boolean shipped,
                      @JsonProperty("returned") Boolean returned,
-                     @JsonProperty("shipDate") Date shipDate) {
+                     @JsonProperty("shipDate") Date shipDate,
+                     @JsonProperty("signaled") Boolean signaled) {
         this.productId = productId;
         this.quantity = quantity;
         this.sellerPseudo = sellerPseudo;
@@ -45,6 +39,32 @@ public class OrderItem {
         this.delivered = delivered;
         this.reason = reason;
         this.shipDate = shipDate;
+        this.signaled = signaled;
+    }
+
+    public Boolean getShipped() {
+        return shipped;
+    }
+
+    public void setShipped(Boolean shipped) {
+        this.shipped = shipped;
+        shipDate = Calendar.getInstance().getTime();
+    }
+
+    public Boolean getDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(Boolean delivered) {
+        this.delivered = delivered;
+    }
+
+    public Boolean getSignaled() {
+        return signaled;
+    }
+
+    public void setSignaled(Boolean signaled) {
+        this.signaled = signaled;
     }
 
     public Date getShipDate() {
@@ -67,17 +87,8 @@ public class OrderItem {
         return shipped;
     }
 
-    public void setShipped(Boolean shipped) {
-        this.shipped = shipped;
-        shipDate=Calendar.getInstance().getTime();
-    }
-
     public Boolean isDelivered() {
         return delivered;
-    }
-
-    public void setDelivered(Boolean delivered) {
-        this.delivered = delivered;
     }
 
     public String getReason() {
@@ -131,7 +142,7 @@ public class OrderItem {
                 "\n- titre='" + product.getTitle() + '\'' +
                 "\n- quantité='" + getQuantity() + '\'' +
                 "\n- id='" + getProductId() + '\'' +
-                returnState+
+                returnState +
                 "\n- " + shipDate +
                 "\n}";
     }

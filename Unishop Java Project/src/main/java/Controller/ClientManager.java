@@ -638,7 +638,7 @@ public class ClientManager {
                                             break;
                                     }
                                     String sellerPseudo = user.getOrder(orderNumber).getItem(productId).getSellerPseudo();
-                                    ReturnItem returnItem = new ReturnItem(productId, returnQuantity, sellerPseudo, user.getPseudo(), reason, false, false,false,null);
+                                    ReturnItem returnItem = new ReturnItem(productId, returnQuantity, sellerPseudo, user.getPseudo(), reason, false, false,false,null,false);
                                     returnItems.add(returnItem);
                                     for (OrderItem retItem : returnItems) System.out.println(retItem);
                                     System.out.println("Confirmer le retour: ");
@@ -674,12 +674,16 @@ public class ClientManager {
                                     productId = input.getOption(0);
                                 }
                                 if (order.isSignalable()) {
-                                    System.out.println("Veuillez entrer une description du problème pour l'article ");
-                                    String problemDescription = input.getUserStrInfo("Description du problème");
-                                    Ticket ticket = new Ticket(problemDescription, orderItem, user.getPseudo());
-                                    Seller seller=Catalog.getProductSeller(orderItem.getProductId());
-                                    seller.addTicket(ticket);
-                                    System.out.println("Ticket soumis merci!");
+                                    if(!orderItem.getSignaled()){
+                                        System.out.println("Veuillez entrer une description du problème pour l'article ");
+                                        String problemDescription = input.getUserStrInfo("Description du problème");
+                                        Ticket ticket = new Ticket(problemDescription, orderItem, user.getPseudo());
+                                        Seller seller=Catalog.getProductSeller(orderItem.getProductId());
+                                        seller.addTicket(ticket);
+                                        System.out.println("Ticket soumis merci!");
+                                        orderItem.setSignaled(true);
+                                    }
+                                    else System.out.println("Vous avez déja soumis un ticket");
 
                                 } else System.out.println("Désolé le délais de 365 jours est dépassé");
                                 break;
@@ -842,7 +846,7 @@ public class ClientManager {
         // Generate a unique order ID
         String orderID = UUID.randomUUID().toString();
         // Create an order using the current cart and customer information
-        Order newOrder = new Order(orderID, user.getShoppingCart().convertToOrderItems(orderID), Calendar.getInstance().getTime(), false, false, null, null, address);
+        Order newOrder = new Order(orderID, user.getShoppingCart().convertToOrderItems(orderID,user.getPseudo()), Calendar.getInstance().getTime(), false, false, null, null, address);
         user.addOrder(newOrder);
         user.addPoints((int) user.getShoppingCart().getNumberPoints());
 
