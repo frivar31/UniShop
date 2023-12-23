@@ -1,11 +1,9 @@
 package Data.Entities.Users;
-
 import Data.Entities.*;
 import Data.Entities.Products.Product;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 
 
@@ -31,7 +29,6 @@ public class Seller extends User {
         this.orderItems = new ArrayList<OrderItem>();
         this.returnItems = returnItems;
     }
-
     public Seller(String firstName, String lastName, String email, String pseudo, long number, ArrayList<Product> products, String password) {
         super(firstName, lastName, email, pseudo, number, password, new ArrayList<Ticket>());
         this.returnItems = new ArrayList<>();
@@ -47,11 +44,9 @@ public class Seller extends User {
         Catalog.catalogMap.put(product.getId(), new Object[]{product, this});
         products.add(product);
     }
-
     public void updateCatalog() {
         for (Product product : products) Catalog.catalogMap.put(product.getId(), new Object[]{product, this});
     }
-
     public ArrayList<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -63,25 +58,21 @@ public class Seller extends User {
     /*public void setReturnItems(ArrayList<ReturnItem> returnItems) {
         this.returnItems = returnItems ;
     }*/
-
     public void addReturnItem(ReturnItem returnItem) {
         this.returnItems.add(returnItem);
     }
-
     public OrderItem getOrderItem(int productId) {
         for (OrderItem orderItem : orderItems) {
             if (orderItem.getProductId() == productId) return orderItem;
         }
         return null;
     }
-
     public ReturnItem getReturnItem(int productId) {
         for (ReturnItem returnItem : returnItems) {
             if (returnItem.getProductId() == productId) return returnItem;
         }
         return null;
     }
-
     public void addOrderItem(OrderItem orderItem) {
         this.orderItems.add(orderItem);
     }

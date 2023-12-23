@@ -71,7 +71,6 @@ public class ShoppingCart {
         return numberPoints;
     }
 
-
     public void clearCart() {
         // Clear the cart after a successful purchase
         cart.clear();
@@ -79,7 +78,6 @@ public class ShoppingCart {
         numberItems = 0;
         numberPoints = 0;
     }
-
     public boolean containsItem(int id) {
         return cart.containsKey(id);
     }

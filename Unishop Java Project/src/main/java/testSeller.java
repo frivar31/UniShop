@@ -9,7 +9,6 @@ import Data.Entities.Products.ProductType;
 import Data.Entities.Users.Seller;
 import org.junit.Test;
 
-
 public class testSeller {
     SellerManager sellerManager = new SellerManager(new ArrayList<>());
     Product product1 = new Product("Smartphone", "High-performance smartphone with a sleek design", "2023-03-10", 20, 699.99, 1, ProductType.Hardware, "Model456", "BrandTech", new ArrayList<>(), new ArrayList<>(List.of("user5", "user6")));

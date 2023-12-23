@@ -12,7 +12,6 @@ import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import org.junit.Test;
 
-
 public class testClient {
     Client client= new Client("John3", "Doe3", "john33@example.com", "johnny33", 123456789L, "123 Main St", "password");
     SellerManager sellerManager = new SellerManager(new ArrayList<>());
@@ -26,7 +25,6 @@ public class testClient {
     Seller seller1 = new Seller("John1", "Doe1", "john.doe@example.com", "john_doe11", 123456789L, productsList, "password123");
     Seller seller2 = new Seller("John", "Doe", "john.doe@example.com", "john_doe", 123456789L, productsList, "password123");
     Client client2 = new Client("John222", "Doe222", "john@example222.com", "johnn222", 123456789L, "123 Main St222", "password222");
-
     @Test
     public void addOrder() {
         client.addOrder(order);
@@ -51,6 +49,7 @@ public class testClient {
     public void testClientFollowing() {
         client.follow(client2);
         assertEquals(1, client2.getFollowers().size());
+        assertEquals(5,client.getPoints());
     }
     @Test
     public void testClientFollowingThroughClientManager() {
@@ -58,32 +57,21 @@ public class testClient {
         assertEquals(1, client.getFollowers().size());
     }
     @Test
-    public void testisSignalable(){
-        clientManager.followClient(client2, client);
-        assertEquals(1, client.getFollowers().size());
+    public void testaddLikedSeller() {
+        client.addLikedSeller("john_doe");
+        assertEquals("john_doe", client.getLikedSeller());
     }
     @Test
-        public void forMeToTest() {
-
-            productsList.add(product1);
-            productsList.add(product2);
-
-            sellers.add(seller1);
-            sellers.add(seller2);
-
-            client = new Client("John", "Doe", "john@example.com", "johnny", 123456789L, "123 Main St", "password");
-            Client client2 = new Client("John222", "Doe222", "john@exampl222e.com", "johnn222", 123456789L, "123 Main St222", "password222");
-
-
-            //client.rateProduct(product1,evaluation2); marche pas meme probleme du pointer null 10
-           // System.out.println(product1.getEvaluations());
+    public void testalreadyLikedSeller() {
+        client.addLikedSeller("john_doe");
+        assertTrue(client.alreadyLikedSeller("john_doe"));
+    }
 
 
             // reste a tester, choisir entre :
 
            // public void updateQuantity(int id, int quantity) {
            // public void deleteProduct(int id) {
-            //    public void followClient(Client follower, Client toFollow) {
             //public void displayLikedProductsByFollowing(Client user) {
             //public void removeRating(Product product) {
             //    private void followedBy(String follower) {
@@ -95,6 +83,6 @@ public class testClient {
 
         }
 
-}
+
 
 
