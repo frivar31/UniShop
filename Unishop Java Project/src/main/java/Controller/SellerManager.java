@@ -8,9 +8,7 @@ import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
 import Service.UserInteractionService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SellerManager {
@@ -100,8 +98,10 @@ public class SellerManager {
             System.out.println("3. Modifier son profile");
             System.out.println("4. Confirmer la reception d'un retour");
             System.out.println("5. Voir les évaluations de mes produits");
-            System.out.println("6. Quitter");
-            int option = input.getOption(1, 6);
+            System.out.println("6. Voir les tickets en attente");
+            System.out.println("7. Voir ses métriques");
+            System.out.println("8. Quitter");
+            int option = input.getOption(1, 8);
             switch (option) {
                 case 1:
                     Product product = null;
@@ -161,11 +161,11 @@ public class SellerManager {
                         System.out.println("Vous n'avez aucun retour à confirmer");
                         break;
                     }
-                    for(int i=0;i<returnItems.size();i++){
-                        System.out.println("#"+i+" "+returnItems.get(i));
+                    for (int i = 0; i < returnItems.size(); i++) {
+                        System.out.println("#" + i + " " + returnItems.get(i));
                     }
                     System.out.println("Entrer le # du produit dont vous voulez confirmer le retour");
-                    int index = input.getUserNumInfo("index", 0, returnItems.size()-1);
+                    int index = input.getUserNumInfo("index", 0, returnItems.size() - 1);
                     ReturnItem returnItem = returnItems.get(index);
                     if (returnItem.isDelivered()) {
                         System.out.println("Ce retour est déjà confirmé");
@@ -176,12 +176,65 @@ public class SellerManager {
                     break;
                 case 5:
                     System.out.println("Voici les reviews de vos produits");
-                    for (Product sellerProduct:seller.getProducts()){
-                        System.out.println("Review de "+sellerProduct.getTitle());
+                    for (Product sellerProduct : seller.getProducts()) {
+                        System.out.println("Review de " + sellerProduct.getTitle());
                         System.out.println(sellerProduct.getEvaluations());
                     }
                     break;
                 case 6:
+                    ArrayList<Ticket> tickets = seller.getTickets();
+                    if (tickets.isEmpty()) System.out.println("vous n'avez aucun ticket en attente!");
+                    else {
+                        System.out.println("Voici vos tickets:");
+                        for (int i = 0; i < tickets.size(); i++) {
+                            System.out.println("#" + i + " " + tickets.get(i));
+                        }
+                        System.out.println("Voulez-vous prendre action sur un ticket?");
+                        System.out.println("1. Oui");
+                        System.out.println("2. Non");
+                        if (input.getOption(1, 2) == 1) {
+                            System.out.println("Quel est le # du ticket?");
+                            Ticket currTicket = tickets.get(input.getOption(0, tickets.size() - 1));
+                            System.out.println("Choisissez l'une des options suivantes:");
+                            System.out.println("1. Proposer une solution");
+                            System.out.println("2. Confirmer l'expédition d'un produit de remplacement");
+                            System.out.println("3. Confirmer la réceptiojn du produit défectueux");
+                            int choice = input.getOption(1, 3);
+                            if (choice == 1) {
+                                if (currTicket.getTrackingNumber() != null) {
+                                    System.out.println("Veuillez entrer la description de la solution proposé");
+                                    currTicket.setSolutionDescription(input.getUserStrInfo("solution"));
+                                    currTicket.setTrackingNumber(UUID.randomUUID().toString());
+                                    currTicket.setReplacementRequestDate(Calendar.getInstance().getTime().toString());
+                                    System.out.println("Confirmation de la création de la demande de retour.");
+                                } else System.out.println("Vous avez déjà proposé une solution");
+                            } else if (choice == 2) {
+                                if (!currTicket.isDeliveryConfirmationBySeller()) {
+                                    if (currTicket.isSellerConfirmationOfReturnProductReception()) {
+                                        currTicket.setDeliveryConfirmationBySeller(true);
+                                        currTicket.setReplacementTrackingNumber(UUID.randomUUID().toString());
+                                        System.out.println("Confirmation de l'expédition du produit de remplacement");
+                                    } else
+                                        System.out.println("Vous n'avez pas confirmé la réception du produit défectueux encore");
+                                } else System.out.println("Vous avez déja confirmé l'expédition");
+                            } else if (choice == 3) {
+                                if (currTicket.isBuyerConfirmationOfReturnProductExpedition()) {
+                                    if (!currTicket.isSellerConfirmationOfReturnProductReception()) {
+                                        currTicket.setSellerConfirmationOfReturnProductReception(true);
+                                        System.out.println("Confirmation de la réception du produit défectueux");
+                                    } else System.out.println("Vous avez déjà confirmé la réception de ce produit");
+                                } else System.out.println("L'acheteur n'a pas encore expédié le produit défectueux");
+                            }
+                        }
+                    }
+                    break;
+                case 7:
+                    System.out.println("Voici vos métriques:");
+                    System.out.println("Votre nombre de ticket est: " + seller.getTickets().size());
+                    System.out.println("Votre nombre de produits affichés: " + seller.getProducts().size());
+                    System.out.println("Votre nombre de ventes effectués: " + seller.getOrderItems().size());
+                    break;
+                case 8:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
                     repeat = false;
                     return repeat;

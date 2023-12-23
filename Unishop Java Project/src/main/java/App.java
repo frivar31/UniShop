@@ -1,11 +1,8 @@
 import Controller.ClientManager;
 import Controller.ProductManager;
 import Controller.SellerManager;
-import Data.Entities.Catalog;
-import Data.Entities.Order;
-import Data.Entities.OrderItem;
+import Data.Entities.*;
 import Data.Entities.Products.*;
-import Data.Entities.Type;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Data.Entities.Users.User;
@@ -76,8 +73,12 @@ public class App {
             sellerManager.setSellers(new ArrayList<>(sellers));
             for (Seller seller:sellers) seller.updateCatalog();
         }
-        //init orderItem with link in sellers
+        //init orderItem with link in sellers and ticket with link in sellers
         for(Client client:clientManager.getClients()){
+            for(Ticket ticket:client.getTickets()){
+                Seller seller=sellerManager.getSeller(ticket.getSellerPseudo());
+                seller.addTicket(ticket);
+            }
             for(Order order:client.getOrders().values()){
                 for (OrderItem orderItem:order.getItems()){
                     Seller seller=sellerManager.getSeller(orderItem.getSellerPseudo());

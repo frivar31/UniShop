@@ -13,7 +13,8 @@ public class Seller extends User {
 
     private final ArrayList<ReturnItem> returnItems;
     private ArrayList<Product> products;
-
+    @JsonIgnore
+    private ArrayList<Ticket> tickets;
     @JsonCreator
     public Seller(@JsonProperty("firstName") String firstName,
                   @JsonProperty("lastName") String lastName,
@@ -22,18 +23,19 @@ public class Seller extends User {
                   @JsonProperty("pseudo") String pseudo,
                   @JsonProperty("number") Long number,
                   @JsonProperty("productsToSell") ArrayList<Product> productsToSell,
-                  @JsonProperty("password") String password,
-                  @JsonProperty("tickets") ArrayList<Ticket> tickets) {
-        super(firstName, lastName, email, pseudo, number, password, tickets);
+                  @JsonProperty("password") String password) {
+        super(firstName, lastName, email, pseudo, number, password, new ArrayList<>());
         products = productsToSell;
         this.orderItems = new ArrayList<OrderItem>();
         this.returnItems = returnItems;
+        this.tickets=new ArrayList<Ticket>();
     }
     public Seller(String firstName, String lastName, String email, String pseudo, long number, ArrayList<Product> products, String password) {
         super(firstName, lastName, email, pseudo, number, password, new ArrayList<Ticket>());
         this.returnItems = new ArrayList<>();
         this.orderItems = new ArrayList<>();
         this.products=products;
+        this.tickets=new ArrayList<Ticket>();
     }
 
     public ArrayList<Product> getProducts() {
@@ -90,9 +92,6 @@ public class Seller extends User {
     public Product getProduct(int index) {
         return products.get(index);
     }
-    public ArrayList<Product> getProduct(){
-        return products;
-    }
 
 
     @Override
@@ -126,10 +125,6 @@ public class Seller extends User {
             if(item.isShipped()&&!item.isDelivered()) inShipping.add(item);
         }
         return inShipping;
-    }
-
-    public void addTicket(Ticket ticket) {
-        getTickets().add(ticket);
     }
 
 
