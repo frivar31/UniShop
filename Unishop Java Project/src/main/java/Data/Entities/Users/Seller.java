@@ -15,6 +15,7 @@ public class Seller extends User {
 
     private final ArrayList<ReturnItem> returnItems;
     private ArrayList<Product> products;
+    @JsonIgnore
     private ArrayList<Ticket> tickets;
     @JsonCreator
     public Seller(@JsonProperty("firstName") String firstName,

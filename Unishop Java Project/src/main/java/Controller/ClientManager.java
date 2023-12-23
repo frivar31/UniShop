@@ -6,6 +6,7 @@ import Data.Entities.Products.ProductType;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Service.UserInteractionService;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -124,10 +125,11 @@ public class ClientManager {
             System.out.println("9. Consulter les produits aimés par les gens que je suis");
             System.out.println("10. Gérer ses commandes");
             System.out.println("11. Voir mes métriques");
-            System.out.println("12. Quitter");
+            System.out.println("12. Voir ses tickets");
+            System.out.println("13. Quitter");
 
 
-            int option = input.getOption(1, 12);
+            int option = input.getOption(1, 13);
 
             switch (option) {
                 case 1:
@@ -602,16 +604,16 @@ public class ClientManager {
                                 ArrayList<OrderItem> returnItems = new ArrayList<>();
                                 while (rep) {
                                     System.out.println("Saisir le id du produit que vous voulez retourner");
-                                    productId = input.getUserNumInfo("Id",0,Integer.MAX_VALUE) ;
-                                    OrderItem orderItem = user.getOrder(orderNumber).getItem(productId) ;
-                                    while(orderItem == null) {
+                                    productId = input.getUserNumInfo("Id", 0, Integer.MAX_VALUE);
+                                    OrderItem orderItem = user.getOrder(orderNumber).getItem(productId);
+                                    while (orderItem == null) {
                                         System.out.println("Aucune de vos commandes ne contient ce produit. veuillez reessayer svp");
-                                        productId = input.getUserNumInfo("Id",0,Integer.MAX_VALUE) ;
-                                        orderItem = user.getOrder(orderNumber).getItem(productId) ;
+                                        productId = input.getUserNumInfo("Id", 0, Integer.MAX_VALUE);
+                                        orderItem = user.getOrder(orderNumber).getItem(productId);
                                     }
-                                    if(orderItem.isReturned()) {
+                                    if (orderItem.isReturned()) {
                                         System.out.println("Ce produit est dèjà retourné");
-                                        break ;
+                                        break;
                                     }
                                     System.out.println("Saisir la quantité de ce produit que vous voulez retourner");
                                     int returnQuantity = input.getUserNumInfo("Quantité", 1, Integer.MAX_VALUE);
@@ -637,7 +639,7 @@ public class ClientManager {
                                             break;
                                     }
                                     String sellerPseudo = user.getOrder(orderNumber).getItem(productId).getSellerPseudo();
-                                    ReturnItem returnItem = new ReturnItem(productId, returnQuantity, sellerPseudo, user.getPseudo(), reason, false, false,false,null,false);
+                                    ReturnItem returnItem = new ReturnItem(productId, returnQuantity, sellerPseudo, user.getPseudo(), reason, false, false, false, null, false);
                                     returnItems.add(returnItem);
                                     for (OrderItem retItem : returnItems) System.out.println(retItem);
                                     System.out.println("Confirmer le retour: ");
@@ -673,16 +675,16 @@ public class ClientManager {
                                     productId = input.getOption(0);
                                 }
                                 if (order.isSignalable()) {
-                                    if(!orderItem.getSignaled()){
+                                    if (!orderItem.getSignaled()) {
                                         System.out.println("Veuillez entrer une description du problème pour l'article ");
                                         String problemDescription = input.getUserStrInfo("Description du problème");
-                                        Seller seller=Catalog.getProductSeller(orderItem.getProductId());
+                                        Seller seller = Catalog.getProductSeller(orderItem.getProductId());
                                         Ticket ticket = new Ticket(problemDescription, orderItem, seller.getPseudo());
                                         user.addTicket(ticket);
+                                        seller.addTicket(ticket);
                                         System.out.println("Ticket soumis merci!");
                                         orderItem.setSignaled(true);
-                                    }
-                                    else System.out.println("Vous avez déja soumis un ticket");
+                                    } else System.out.println("Vous avez déja soumis un ticket");
 
                                 } else System.out.println("Désolé le délais de 365 jours est dépassé");
                                 break;
@@ -697,6 +699,38 @@ public class ClientManager {
                     System.out.println("Le nombre d'item que vous avez liké: " + user.getLikedProduct().size());
                     break;
                 case 12:
+                    ArrayList<Ticket> tickets = user.getTickets();
+                    if (tickets.isEmpty()) System.out.println("vous n'avez aucun ticket en attente!");
+                    else {
+                        System.out.println("Voici vos tickets:");
+                        for (int i = 0; i < tickets.size(); i++) {
+                            System.out.println("#" + i + " " + tickets.get(i));
+                        }
+                        System.out.println("Voulez-vous prendre action sur un ticket?");
+                        System.out.println("1. Oui");
+                        System.out.println("2. Non");
+                        if (input.getOption(1, 2) == 1) {
+                            System.out.println("Quel est le # du ticket?");
+                            Ticket currTicket = tickets.get(input.getOption(0, tickets.size() - 1));
+                            System.out.println("Choisissez l'une des options suivantes:");
+                            System.out.println("1. Expédier le produit défectueux");
+                            System.out.println("2. Confirmer la réception du remplacement");
+                            choice = input.getOption(1, 3);
+                            if (choice == 1) {
+                                if (currTicket.getTrackingNumber() != null && !currTicket.isBuyerConfirmationOfReturnProductExpedition()) {
+                                    currTicket.setBuyerConfirmationOfReturnProductExpedition(true);
+                                    System.out.println("Confirmation de l'expédition du produit défectueux");
+                                } else System.out.println("Vous avez déjà retourné le produit");
+                            } else if (choice == 2) {
+                                if (currTicket.isDeliveryConfirmationBySeller() && !currTicket.isBuyerConfirmationOfReplacementDelivery()) {
+                                    currTicket.setBuyerConfirmationOfReplacementDelivery(true);
+                                    System.out.println("Confirmation de la réception de l'item de remplacement");
+                                } else System.out.println("Vous avez déja confirmé la réception");
+                            }
+                        }
+                    }
+                    break;
+                case 13:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
                     repeat = false;
                     return repeat;
@@ -845,7 +879,7 @@ public class ClientManager {
         // Generate a unique order ID
         String orderID = UUID.randomUUID().toString();
         // Create an order using the current cart and customer information
-        Order newOrder = new Order(orderID, user.getShoppingCart().convertToOrderItems(orderID,user.getPseudo()), Calendar.getInstance().getTime(), false, false, null, null, address);
+        Order newOrder = new Order(orderID, user.getShoppingCart().convertToOrderItems(orderID, user.getPseudo()), Calendar.getInstance().getTime(), false, false, null, null, address);
         user.addOrder(newOrder);
         user.addPoints((int) user.getShoppingCart().getNumberPoints());
 
