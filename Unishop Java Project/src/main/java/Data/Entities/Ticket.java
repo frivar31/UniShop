@@ -15,9 +15,9 @@ public class Ticket {
     private String replacementProductDescription;
     private String replacementTrackingNumber;
     private boolean buyerConfirmationOfReplacementDelivery;
-    private String userPseudo;
+    private String sellerPseudo;
 
-    // Constructeur
+    //Constructeur
     @JsonCreator
     public Ticket(
             @JsonProperty("problemDescription") String problemDescription,
@@ -26,7 +26,7 @@ public class Ticket {
             @JsonProperty("replacementProductDescription") String replacementProductDescription,
             @JsonProperty("replacementTrackingNumber") String replacementTrackingNumber,
             @JsonProperty("item") OrderItem item,
-            @JsonProperty("userPseudo") String userPseudo) {
+            @JsonProperty("sellerPseudo") String sellerPseudo) {
         this.problemDescription = problemDescription;
         this.solutionDescription = solutionDescription;
         this.trackingNumber = trackingNumber;
@@ -36,9 +36,9 @@ public class Ticket {
         this.buyerConfirmationOfReplacementDelivery = false;
         this.creationDate = LocalDate.now().toString();
         this.item = item;
-        this.userPseudo = userPseudo;
+        this.sellerPseudo = sellerPseudo;
     }
-    public Ticket(String problemDescription, OrderItem item, String userPseudo) {
+    public Ticket(String problemDescription, OrderItem item, String sellerPseudo) {
         this.problemDescription = problemDescription;
         this.solutionDescription = null;
         this.trackingNumber = null;
@@ -48,19 +48,19 @@ public class Ticket {
         this.buyerConfirmationOfReplacementDelivery = false;
         this.creationDate = LocalDate.now().toString();
         this.item = item;
-        this.userPseudo = userPseudo;
+        this.sellerPseudo = sellerPseudo;
 
     }
     public OrderItem getItem() {
         return item;
     }
 
-    public String getUserPseudo() {
-        return userPseudo;
+    public String getSellerPseudo() {
+        return sellerPseudo;
     }
 
-    public void setUserPseudo(String userPseudo) {
-        this.userPseudo = userPseudo;
+    public void setSellerPseudo(String sellerPseudo) {
+        this.sellerPseudo = sellerPseudo;
     }
 
     // Méthode pour annuler automatiquement une demande de réexpédition après 30 jours

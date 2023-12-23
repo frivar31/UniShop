@@ -676,9 +676,9 @@ public class ClientManager {
                                     if(!orderItem.getSignaled()){
                                         System.out.println("Veuillez entrer une description du problème pour l'article ");
                                         String problemDescription = input.getUserStrInfo("Description du problème");
-                                        Ticket ticket = new Ticket(problemDescription, orderItem, user.getPseudo());
                                         Seller seller=Catalog.getProductSeller(orderItem.getProductId());
-                                        seller.addTicket(ticket);
+                                        Ticket ticket = new Ticket(problemDescription, orderItem, seller.getPseudo());
+                                        user.addTicket(ticket);
                                         System.out.println("Ticket soumis merci!");
                                         orderItem.setSignaled(true);
                                     }

@@ -106,4 +106,7 @@ public abstract class User {
     public void getNotification() {
         // TODO
     }
+    public void addTicket(Ticket ticket) {
+        getTickets().add(ticket);
+    }
 }
