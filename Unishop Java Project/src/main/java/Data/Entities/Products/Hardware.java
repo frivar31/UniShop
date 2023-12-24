@@ -9,7 +9,22 @@ import java.util.ArrayList;
 public class Hardware extends Product {
     private String launchDate;
     private String subCategory;
-
+    /**
+     * Constructeur de la classe Hardware.
+     *
+     * @param title            Le titre du matériel.
+     * @param desc             La description du matériel.
+     * @param date             La date de mise en vente du matériel.
+     * @param initialQuantity  La quantité initiale du matériel.
+     * @param price            Le prix du matériel.
+     * @param points           Les points associés au matériel.
+     * @param brand            La marque du matériel.
+     * @param model            Le modèle du matériel.
+     * @param launchDate       La date de lancement du matériel.
+     * @param subCategory      La sous-catégorie du matériel.
+     * @param evaluations      Les évaluations du matériel.
+     * @param likes            La liste des likes pour le matériel.
+     */
     @JsonCreator
     public Hardware(@JsonProperty("title") String title,
                     @JsonProperty("desc") String desc,
@@ -28,22 +43,47 @@ public class Hardware extends Product {
         this.subCategory = subCategory;
     }
 
+    /**
+     * Obtient la date de lancement du matériel.
+     *
+     * @return La date de lancement du matériel.
+     */
     public String getLaunchDate() {
         return launchDate;
     }
 
+    /**
+     * Modifie la date de lancement du matériel.
+     *
+     * @param launchDate La nouvelle date de lancement du matériel.
+     */
     public void setLaunchDate(String launchDate) {
         this.launchDate = launchDate;
     }
 
+    /**
+     * Obtient la sous-catégorie du matériel.
+     *
+     * @return La sous-catégorie du matériel.
+     */
     public String getSubCategory() {
         return subCategory;
     }
 
+    /**
+     * Modifie la sous-catégorie du matériel.
+     *
+     * @param subCategory La nouvelle sous-catégorie du matériel.
+     */
     public void setSubCategory(String subCategory) {
         this.subCategory = subCategory;
     }
 
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères du matériel.
+     *
+     * @return Une chaîne de caractères représentant le matériel.
+     */
     public String toString() {
         return "{" +
                 "\n- id='" + id + '\'' +

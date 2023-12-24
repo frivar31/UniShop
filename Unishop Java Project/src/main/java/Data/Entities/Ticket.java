@@ -5,28 +5,41 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 
+/**
+ * Cette classe représente un ticket associé à une commande.
+ */
 public class Ticket {
     private final String problemDescription;
-    private final String solutionDescription;
     private final OrderItem item;
     private final String creationDate;
+    private String replacementRequestDate;
+    private String solutionDescription;
     private String trackingNumber;
     private boolean deliveryConfirmationBySeller;
     private String replacementProductDescription;
     private String replacementTrackingNumber;
     private boolean buyerConfirmationOfReplacementDelivery;
-    private String userPseudo;
+    private String sellerPseudo;
+    private boolean buyerConfirmationOfReturnProductExpedition;
+    private boolean sellerConfirmationOfReturnProductReception;
 
-    // Constructeur
+    /**
+     * Constructeur pour créer un objet Ticket.
+     *
+     * @param problemDescription                    Description du problème associé au ticket.
+     * @param solutionDescription                   Description de la solution au problème.
+     * @param trackingNumber                        Numéro de suivi associé à la livraison.
+     * @param replacementProductDescription         Description du produit de remplacement.
+     * @param replacementTrackingNumber             Numéro de suivi associé à la livraison du produit de remplacement.
+     * @param item                                  Article lié au ticket.
+     * @param sellerPseudo                          Pseudo du vendeur associé à la commande.
+     * @param replacementRequestDate               Date à laquelle la demande de remplacement a été effectuée.
+     * @param buyerConfirmationOfReturnProductExpedition Confirmation de l'expédition du produit retourné par l'acheteur.
+     * @param sellerConfirmationOfReturnProductReception Confirmation de la réception du produit retourné par le vendeur.
+     */
+    //Constructeur
     @JsonCreator
-    public Ticket(
-            @JsonProperty("problemDescription") String problemDescription,
-            @JsonProperty("solutionDescription") String solutionDescription,
-            @JsonProperty("trackingNumber") String trackingNumber,
-            @JsonProperty("replacementProductDescription") String replacementProductDescription,
-            @JsonProperty("replacementTrackingNumber") String replacementTrackingNumber,
-            @JsonProperty("item") OrderItem item,
-            @JsonProperty("userPseudo") String userPseudo) {
+    public Ticket(@JsonProperty("problemDescription") String problemDescription, @JsonProperty("solutionDescription") String solutionDescription, @JsonProperty("trackingNumber") String trackingNumber, @JsonProperty("replacementProductDescription") String replacementProductDescription, @JsonProperty("replacementTrackingNumber") String replacementTrackingNumber, @JsonProperty("item") OrderItem item, @JsonProperty("sellerPseudo") String sellerPseudo, @JsonProperty("replacementRequestDate") String replacementRequestDate, @JsonProperty("buyerConfirmationOfReturnProductExpedition") Boolean buyerConfirmationOfReturnProductExpedition, @JsonProperty("sellerConfirmationOfReturnProductReception") Boolean sellerConfirmationOfReturnProductReception) {
         this.problemDescription = problemDescription;
         this.solutionDescription = solutionDescription;
         this.trackingNumber = trackingNumber;
@@ -36,9 +49,13 @@ public class Ticket {
         this.buyerConfirmationOfReplacementDelivery = false;
         this.creationDate = LocalDate.now().toString();
         this.item = item;
-        this.userPseudo = userPseudo;
+        this.sellerPseudo = sellerPseudo;
+        this.replacementRequestDate = replacementRequestDate;
+        this.sellerConfirmationOfReturnProductReception = sellerConfirmationOfReturnProductReception;
+        this.buyerConfirmationOfReturnProductExpedition = buyerConfirmationOfReturnProductExpedition;
     }
-    public Ticket(String problemDescription, OrderItem item, String userPseudo) {
+
+    public Ticket(String problemDescription, OrderItem item, String sellerPseudo) {
         this.problemDescription = problemDescription;
         this.solutionDescription = null;
         this.trackingNumber = null;
@@ -48,22 +65,54 @@ public class Ticket {
         this.buyerConfirmationOfReplacementDelivery = false;
         this.creationDate = LocalDate.now().toString();
         this.item = item;
-        this.userPseudo = userPseudo;
+        this.sellerPseudo = sellerPseudo;
+        this.replacementRequestDate = null;
+        this.sellerConfirmationOfReturnProductReception = false;
+        this.buyerConfirmationOfReturnProductExpedition = false;
 
     }
+
+    public String getReplacementRequestDate() {
+        return replacementRequestDate;
+    }
+
+    public void setReplacementRequestDate(String replacementRequestDate) {
+        this.replacementRequestDate = replacementRequestDate;
+    }
+
+    public boolean isBuyerConfirmationOfReturnProductExpedition() {
+        return buyerConfirmationOfReturnProductExpedition;
+    }
+
+    public void setBuyerConfirmationOfReturnProductExpedition(boolean buyerConfirmationOfReturnProductExpedition) {
+        this.buyerConfirmationOfReturnProductExpedition = buyerConfirmationOfReturnProductExpedition;
+    }
+
+    public boolean isSellerConfirmationOfReturnProductReception() {
+        return sellerConfirmationOfReturnProductReception;
+    }
+
+    public void setSellerConfirmationOfReturnProductReception(boolean sellerConfirmationOfReturnProductReception) {
+        this.sellerConfirmationOfReturnProductReception = sellerConfirmationOfReturnProductReception;
+    }
+
     public OrderItem getItem() {
         return item;
     }
 
-    public String getUserPseudo() {
-        return userPseudo;
+    public String getSellerPseudo() {
+        return sellerPseudo;
     }
 
-    public void setUserPseudo(String userPseudo) {
-        this.userPseudo = userPseudo;
+    public void setSellerPseudo(String sellerPseudo) {
+        this.sellerPseudo = sellerPseudo;
     }
 
     // Méthode pour annuler automatiquement une demande de réexpédition après 30 jours
+    /**
+     * Méthode pour annuler automatiquement une demande de réexpédition après 30 jours.
+     * Si la date actuelle est postérieure de 30 jours à la date de création du ticket, la demande de réexpédition est annulée.
+     */
     public void autoCancelReshipmentRequest() {
         LocalDate thirtyDaysAfterCreation = LocalDate.parse(creationDate).plusDays(30);
         LocalDate currentDate = LocalDate.now();
@@ -82,6 +131,10 @@ public class Ticket {
         return solutionDescription;
     }
 
+    public void setSolutionDescription(String solutionDescription) {
+        this.solutionDescription = solutionDescription;
+    }
+
     public String getTrackingNumber() {
         return trackingNumber;
     }
@@ -91,7 +144,11 @@ public class Ticket {
     public void setTrackingNumber(String trackingNumber) {
         this.trackingNumber = trackingNumber;
     }
-
+    /**
+     * Vérifie si le vendeur a confirmé la livraison du produit.
+     *
+     * @return true si le vendeur a confirmé la livraison du produit, sinon false.
+     */
     public boolean isDeliveryConfirmationBySeller() {
         return deliveryConfirmationBySeller;
     }
@@ -115,7 +172,11 @@ public class Ticket {
     public void setReplacementTrackingNumber(String replacementTrackingNumber) {
         this.replacementTrackingNumber = replacementTrackingNumber;
     }
-
+    /**
+     * Vérifie si l'acheteur a confirmé la réception du produit de remplacement.
+     *
+     * @return true si l'acheteur a confirmé la réception du produit de remplacement, sinon false.
+     */
     public boolean isBuyerConfirmationOfReplacementDelivery() {
         return buyerConfirmationOfReplacementDelivery;
     }
@@ -123,7 +184,20 @@ public class Ticket {
     public void setBuyerConfirmationOfReplacementDelivery(boolean buyerConfirmationOfReplacementDelivery) {
         this.buyerConfirmationOfReplacementDelivery = buyerConfirmationOfReplacementDelivery;
     }
+
     public String getCreationDate() {
         return creationDate;
+    }
+
+    /**
+     * Obtient une représentation textuelle du ticket.
+     *
+     * @return Une chaîne représentant le ticket.
+     */
+    @Override
+    public String toString() {
+        String stringBuilder = "\nDescription du problème: " + problemDescription + "\nDescription de la solution: " + solutionDescription + "\nArticle: " + item + "\nDate de création: " + creationDate + "\nNuméro de suivi: " + trackingNumber + "\nConfirmation de livraison par le vendeur: " + deliveryConfirmationBySeller + "\nDescription du produit de remplacement: " + replacementProductDescription + "\nNuméro de suivi du remplacement: " + replacementTrackingNumber + "\nConfirmation de livraison du remplacement par l'acheteur: " + buyerConfirmationOfReplacementDelivery + "\nPseudo du vendeur: " + sellerPseudo + "\n}";
+
+        return stringBuilder;
     }
 }

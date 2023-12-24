@@ -3,7 +3,9 @@ package Data.Entities;
 import Data.Entities.Users.Client;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+/**
+ * Représente une évaluation d'un produit effectuée par un utilisateur.
+ */
 public class ProductEvaluation {
     private int rating; // Note attribuée par l'acheteur
     private String comment; // Commentaire laissé par l'acheteur
@@ -11,6 +13,14 @@ public class ProductEvaluation {
     private int pointsEarned; // Points attribués à l'acheteur pour cette évaluation
     private String pseudoOp;
     private int productId;
+    /**
+     * Constructeur de la classe ProductEvaluation.
+     *
+     * @param rating    La note attribuée par l'acheteur.
+     * @param comment   Le commentaire laissé par l'acheteur.
+     * @param pseudoOp  Le pseudonyme de l'utilisateur qui a effectué l'évaluation.
+     * @param productId L'identifiant du produit évalué.
+     */
     public ProductEvaluation(int rating,String comment,String pseudoOp,int productId){
         this.rating=rating;
         this.comment=comment;
@@ -19,6 +29,16 @@ public class ProductEvaluation {
         this.pointsEarned=0;
         this.productId=productId;
     }
+    /**
+     * Constructeur JSON de la classe ProductEvaluation.
+     *
+     * @param rating      La note attribuée par l'acheteur.
+     * @param comment     Le commentaire laissé par l'acheteur.
+     * @param isFlagged   Indique si l'évaluation a été signalée comme inappropriée.
+     * @param pointsEarned Les points attribués à l'acheteur pour cette évaluation.
+     * @param pseudoOp    Le pseudonyme de l'utilisateur qui a effectué l'évaluation.
+     * @param productId   L'identifiant du produit évalué.
+     */
     @JsonCreator
     public ProductEvaluation(@JsonProperty("rating") int rating, @JsonProperty("comment") String comment, @JsonProperty("isFlagged") boolean isFlagged, @JsonProperty("pointsEarned") int pointsEarned, @JsonProperty("pseudoOp") String pseudoOp, @JsonProperty("productId") int productId) {
         this.rating = rating;
@@ -28,6 +48,11 @@ public class ProductEvaluation {
         this.pseudoOp = pseudoOp;
         this.productId = productId;
     }
+    /**
+     * Obtient le pseudonyme de l'utilisateur qui a effectué l'évaluation.
+     *
+     * @return Le pseudonyme de l'utilisateur.
+     */
 
     public String getPseudoOp() {
         return pseudoOp;
@@ -61,6 +86,11 @@ public class ProductEvaluation {
         this.comment = comment;
     }
 
+    /**
+     * Vérifie si l'évaluation a été signalée comme inappropriée.
+     *
+     * @return {@code true} si l'évaluation a été signalée, sinon {@code false}.
+     */
     public boolean isFlagged() {
         return isFlagged;
     }
@@ -76,7 +106,11 @@ public class ProductEvaluation {
     public void setPointsEarned(int pointsEarned) {
         this.pointsEarned = pointsEarned;
     }
-
+    /**
+     * Retourne une représentation textuelle de l'évaluation du produit.
+     *
+     * @return Une chaîne de caractères représentant l'évaluation du produit.
+     */
     @Override
     public String toString() {
         return "Évaluation du produit par " + getPseudoOp() + ":\n" +

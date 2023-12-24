@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
-
+/**
+ * Classe abstraite représentant un utilisateur du système.
+ */
 public abstract class User {
-
     private String firstName;
     private String lastName;
     private String email;
@@ -15,7 +16,17 @@ public abstract class User {
     private long number;
     private ArrayList<Ticket> tickets;
     private String password;
-
+    /**
+     * Constructeur de la classe User.
+     *
+     * @param firstName Le prénom de l'utilisateur.
+     * @param lastName  Le nom de famille de l'utilisateur.
+     * @param email     L'adresse e-mail de l'utilisateur.
+     * @param pseudo    Le pseudo de l'utilisateur.
+     * @param number    Le numéro de téléphone de l'utilisateur.
+     * @param password  Le mot de passe de l'utilisateur.
+     * @param tickets   La liste des tickets associés à l'utilisateur.
+     */
     @JsonCreator
     public User(@JsonProperty("firstName") String firstName,
                 @JsonProperty("lastName") String lastName,
@@ -88,8 +99,12 @@ public abstract class User {
     public void setNumber(long number) {
         this.number = number;
     }
-    
 
+    /**
+     * Méthode pour obtenir une représentation textuelle de l'objet User.
+     *
+     * @return Une chaîne de caractères représentant l'objet User.
+     */
     @Override
     public String toString() {
         return "{" +
@@ -105,5 +120,13 @@ public abstract class User {
 
     public void getNotification() {
         // TODO
+    }
+    /**
+     * Ajoute un ticket à la liste des tickets de l'utilisateur.
+     *
+     * @param ticket Le ticket à ajouter.
+     */
+    public void addTicket(Ticket ticket) {
+        getTickets().add(ticket);
     }
 }

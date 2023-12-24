@@ -1,5 +1,4 @@
 package Data.Entities;
-
 import Data.Entities.Products.Product;
 import Data.Entities.Users.Seller;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -8,7 +7,9 @@ import shadedelta.com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * Classe représentant un élément de commande associé à un produit.
+ */
 public class OrderItem {
     private final int productId;
     private final String sellerPseudo;
@@ -28,6 +29,21 @@ public class OrderItem {
     public void setReturned(boolean returned) {
         this.returned = returned;
     }
+
+    /**
+     * Constructeur de la classe OrderItem.
+     *
+     * @param productId    Identifiant du produit associé à l'élément de commande.
+     * @param quantity     Quantité du produit commandé.
+     * @param sellerPseudo Pseudo du vendeur associé au produit.
+     * @param clientPseudo Pseudo du client qui a passé la commande.
+     * @param reason       Raison associée à l'élément de commande.
+     * @param delivered    Indique si l'élément de commande a été livré.
+     * @param shipped      Indique si l'élément de commande a été expédié.
+     * @param returned     Indique si le produit associé à l'élément de commande a été retourné.
+     * @param shipDate     Date d'expédition de l'élément de commande.
+     * @param signaled     Indique si l'élément de commande a été signalé.
+     */
 
     @JsonCreator
     public OrderItem(@JsonProperty("productId") int productId,
@@ -92,15 +108,27 @@ public class OrderItem {
     public void setClientPseudo(String clientPseudo) {
         this.clientPseudo = clientPseudo;
     }
-
+    /**
+     * Vérifie si l'élément de commande a été expédié.
+     *
+     * @return {@code true} si l'élément de commande a été expédié, sinon {@code false}.
+     */
     public Boolean isShipped() {
         return shipped;
     }
-
+    /**
+     * Vérifie si l'élément de commande a été livré.
+     *
+     * @return {@code true} si l'élément de commande a été livré, sinon {@code false}.
+     */
     public Boolean isDelivered() {
         return delivered;
     }
-
+    /**
+     * Vérifie si le produit associé à l'élément de commande a été retourné.
+     *
+     * @return {@code true} si le produit a été retourné, sinon {@code false}.
+     */
     public String getReason() {
         return reason;
     }
@@ -124,6 +152,11 @@ public class OrderItem {
 
 
 
+/**
+ * Convertit l'objet en une représentation sous forme de chaîne de caractères.
+ *
+ * @return La représentation de l'objet sous forme de chaîne de caractères.
+ */
     @Override
     public String toString() {
         Product product = Catalog.getProduct(getProductId());
