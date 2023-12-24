@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Client extends User {
     private final HashMap<String, Order> orders;
-    private final HashMap<String, Return> returns;
     private String shipAddress;
     private ArrayList<ProductEvaluation> evaluations;
     private ShoppingCart shoppingCart;
@@ -37,7 +36,6 @@ public class Client extends User {
         this.followers = new HashSet<>();
         this.orders = new HashMap<>();
         this.likedProduct = new ArrayList<>();
-        this.returns = new HashMap<>();
 
     }
 
@@ -51,7 +49,6 @@ public class Client extends User {
                   @JsonProperty("cart") ShoppingCart cart,
                   @JsonProperty("shipAddress") String shipAddress,
                   @JsonProperty("orders") HashMap<String, Order> orders,
-                  @JsonProperty("returns") HashMap<String, Return> returns,
                   @JsonProperty("points") int points,
                   @JsonProperty("followers") HashSet<String> followers,
                   @JsonProperty("following") HashSet<String> following,
@@ -68,7 +65,6 @@ public class Client extends User {
         this.followers = followers;
         this.following = following;
         this.likedProduct = likedProduct;
-        this.returns = returns;
         this.likedSeller = likedSeller;
     }
 
@@ -122,18 +118,6 @@ public class Client extends User {
 
     public HashMap<String, Order> getOrders() {
         return orders;
-    }
-
-    public HashMap<String, Return> getReturns() {
-        return returns;
-    }
-
-    public Return getReturn(String returnNumber) {
-        return returns.get(returnNumber);
-    }
-
-    public void addReturn(Return ret) {
-        this.returns.put(ret.getOrderNumber(), ret);
     }
 
     public Order getOrder(String orderNumber) {
@@ -227,7 +211,7 @@ public class Client extends User {
         // TODO
     }
 
-    public ReturnItem returnOrderItem(String orderNumber, OrderItem orderItem, int quantity) {
+    public OrderItem returnOrderItem(String orderNumber, OrderItem orderItem, int quantity) {
         Order order = orders.get(orderNumber);
         // Calculate the difference in milliseconds
         long diffInMilliseconds = Math.abs(Calendar.getInstance().getTime().getTime() - order.getDeliveryDate().getTime());
@@ -293,6 +277,24 @@ public class Client extends User {
 
     public void addLikedSeller(String pseudo) {
         likedSeller.add(pseudo);
+    }
+
+    @JsonIgnore
+    public ArrayList<Order> getInProduction(){
+        ArrayList<Order> inProd=new ArrayList<>();
+        for(Order order: orders.values()){
+            if(order.isReturned() && !order.isShipped()) inProd.add(order);
+        }
+        return inProd;
+    }
+
+    @JsonIgnore
+    public ArrayList<Order> getInShipping(){
+        ArrayList<Order> inShipping=new ArrayList<>();
+        for(Order order: orders.values()){
+            if(order.isReturned() && order.isShipped()&&!order.isDelivered()) inShipping.add(order);
+        }
+        return inShipping;
     }
 
 

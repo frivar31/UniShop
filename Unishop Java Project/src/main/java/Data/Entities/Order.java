@@ -20,6 +20,16 @@ public class Order {
     private Date shippedDate;
     private Date deliveryDate;
     private String address;
+    private Boolean returned ;
+
+    public Boolean isReturned() {
+        return this.returned;
+    }
+
+    public void setReturned(Boolean returned) {
+        this.returned = returned;
+    }
+
 
     @JsonCreator
     public Order(@JsonProperty("orderNumber") String orderNumber,
@@ -27,6 +37,7 @@ public class Order {
                  @JsonProperty("orderDate") Date orderDate,
                  @JsonProperty("delivered") Boolean delivered,
                  @JsonProperty("shipped") Boolean shipped,
+                 @JsonProperty("returned") Boolean returned,
                  @JsonProperty("shippedDate") Date shippedDate,
                  @JsonProperty("deliveryDate") Date deliveryDate,
                  @JsonProperty("address") String address) {
@@ -38,6 +49,7 @@ public class Order {
         this.shippedDate = shippedDate;
         this.deliveryDate = deliveryDate;
         this.address = address;
+        this.returned = returned ;
     }
 
     public String getAddress(){
@@ -76,13 +88,19 @@ public class Order {
 
 
     public void update(int productId,int returnQuantity) {
-        for (OrderItem item : items) {
-            if (item.getProductId() == productId) {
-                int currQuantity = item.getQuantity() ;
-                item.setQuantity(currQuantity-returnQuantity);
-                return ;
+        int removePos = 0 ;
+        for (int i = 0 ; i < items.size(); ++i) {
+            if (items.get(i).getProductId() == productId) {
+                int currQuantity = items.get(i).getQuantity() ;
+                items.get(i).setQuantity(currQuantity-returnQuantity);
+                if(items.get(i).getQuantity() == 0) {
+                    removePos = i ;
+                    break ;
+                }
+                else return ;
             }
         }
+        items.remove(removePos) ;
     }
     @JsonIgnore
     public boolean isReturnable() {
@@ -121,16 +139,21 @@ public class Order {
         for(OrderItem orderItem:items) {
             if(!orderItem.isShipped()) return false;
         }
+        this.shipped =  true ;
         //set ship date the max orderitem shipped date
         shippedDate = items.stream()
                 .map(OrderItem::getShipDate)
                 .max(Date::compareTo)
                 .orElse(Calendar.getInstance().getTime());
-        return true;
+        return this.shipped;
     }
 
     public void setShipped(Boolean shipped) {
         this.shipped = shipped;
+        for(OrderItem item:items){
+            item.setShipped(true);
+        }
+
     }
 
     public Date getShippedDate() {
@@ -157,6 +180,29 @@ public class Order {
         StringBuilder sb = new StringBuilder();
         sb.append("Order Number: ").append(orderNumber).append("\n");
         sb.append("Order Date: ").append(dateFormat.format(orderDate)).append("\n");
+        sb.append("Delivered: ").append(isDelivered()).append("\n");
+        sb.append("Shipped: ").append(isShipped()).append("\n");
+
+        if (shipped) {
+            sb.append("Shipped Date: ").append(dateFormat.format(shippedDate)).append("\n");
+        }
+
+        if (delivered) {
+            sb.append("Delivery Date: ").append(dateFormat.format(deliveryDate)).append("\n");
+        }
+
+        sb.append("Product: "+items);
+        sb.append("\n");
+
+        return sb.toString();
+    }
+
+    public String  print() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("return Number: ").append(orderNumber).append("\n");
+        sb.append("return Date: ").append(dateFormat.format(orderDate)).append("\n");
         sb.append("Delivered: ").append(isDelivered()).append("\n");
         sb.append("Shipped: ").append(isShipped()).append("\n");
 

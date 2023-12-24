@@ -125,10 +125,11 @@ public class ClientManager {
             System.out.println("9. Consulter les produits aimés par les gens que je suis");
             System.out.println("10. Gérer ses commandes");
             System.out.println("11. Voir mes métriques");
-            System.out.println("12. Quitter");
+            System.out.println("12. Changer l'etat d'un retour: ");
+            System.out.println("13. Quitter");
 
 
-            int option = input.getOption(1, 12);
+            int option = input.getOption(1, 13);
 
             switch (option) {
                 case 1:
@@ -514,7 +515,7 @@ public class ClientManager {
                     break;
                 case 10:
                     for (Order order : user.getOrders().values()) {
-                        System.out.println(order);
+                        if(!order.isReturned()) System.out.println(order);
                     }
                     System.out.println("Voulez-vous voir une commande en détail?");
                     System.out.println("1. Oui");
@@ -540,7 +541,7 @@ public class ClientManager {
                             case 1:
                                 if (user.getOrder(orderNumber).isShipped()) {
                                     if (!user.getOrder(orderNumber).isDelivered()) {
-                                        System.out.println("Vous confirmez la réception de la commande " + orderNumber);
+                                        System.out.println("Voulez vous confirmez la réception de la commande " + orderNumber);
                                         System.out.println("1. oui");
                                         System.out.println("2. non");
                                         if (input.getOption(1, 2) == 1) {
@@ -592,7 +593,7 @@ public class ClientManager {
                                     if (input.getOption(1, 2) == 1) {
                                         user.getOrder(orderNumber).setDelivered(true);
                                         user.getOrder(orderNumber).setDeliveryDate(Calendar.getInstance().getTime());
-                                        System.out.println("Confirmation de réception confirmé");
+                                        System.out.println("Confirmation de réception de commande");
                                     } else break;
                                 }
                                 if (!user.getOrder(orderNumber).isReturnable()) {
@@ -609,10 +610,6 @@ public class ClientManager {
                                         System.out.println("Aucune de vos commandes ne contient ce produit. veuillez reessayer svp");
                                         productId = input.getUserNumInfo("Id",0,Integer.MAX_VALUE) ;
                                         orderItem = user.getOrder(orderNumber).getItem(productId) ;
-                                    }
-                                    if(orderItem.isReturned()) {
-                                        System.out.println("Ce produit est dèjà retourné");
-                                        break ;
                                     }
                                     System.out.println("Saisir la quantité de ce produit que vous voulez retourner");
                                     int returnQuantity = input.getUserNumInfo("Quantité", 1, Integer.MAX_VALUE);
@@ -638,20 +635,21 @@ public class ClientManager {
                                             break;
                                     }
                                     String sellerPseudo = user.getOrder(orderNumber).getItem(productId).getSellerPseudo();
-                                    ReturnItem returnItem = new ReturnItem(productId, returnQuantity, sellerPseudo, user.getPseudo(), reason, false, false,false,null,false);
+                                    OrderItem returnItem = new OrderItem(productId, returnQuantity, sellerPseudo, user.getPseudo(), reason, false, false,null,true,false);
                                     returnItems.add(returnItem);
                                     for (OrderItem retItem : returnItems) System.out.println(retItem);
                                     System.out.println("Confirmer le retour: ");
                                     System.out.println("1. oui");
                                     System.out.println("2. non");
                                     if (input.getOption(1, 2) == 1) {
-                                        returns(returnItems, user);
+                                        returns(returnItems, user, orderNumber);
                                         System.out.println("Retour initié ave succes");
                                         System.out.println("Voulez vous retourner un autre item de cette commande ?");
                                         System.out.println("1. oui");
                                         System.out.println("2. non");
                                         if (input.getOption(1, 2) == 2) rep = false;
                                     } else break; // is it enough ?
+
                                 }
                                 break;
                             case 5:
@@ -698,6 +696,36 @@ public class ClientManager {
                     System.out.println("Le nombre d'item que vous avez liké: " + user.getLikedProduct().size());
                     break;
                 case 12:
+                    while (true) {
+                        System.out.println("Voici l'état de vos retours en cours");
+                        System.out.println("En production :");
+                        ArrayList<Order> inProd = user.getInProduction();
+                        for (int i = 0; i < inProd.size(); i++) {
+                            System.out.println(i + ". " + inProd.get(i));
+                        }
+                        System.out.println("En livraison :");
+                        ArrayList<Order> inShipping = user.getInShipping();
+                        for (int i = 0; i < inShipping.size(); i++) {
+                            System.out.println(i + ". " + inShipping.get(i));
+                        }
+                        System.out.println("Voulez-vous expédier un retour?");
+                        System.out.println("1. Oui");
+                        System.out.println("2. Non");
+
+                        if (input.getOption(1, 2) == 1 && !inProd.isEmpty()) {
+                            System.out.println("Entrer le # du retour que vous voulez expédier");
+                            choice = input.getOption(0, inProd.size() - 1);
+                            inProd.get(choice).setShipped(true);
+                            System.out.println("Confirmation de l'expédition du retour");
+                        } else if (inProd.isEmpty()) {
+                            System.out.println("Vous n'avez aucun retour en production");
+                            break;
+                        } else {
+                            break;
+                        }
+                    }
+                    break;
+                case 13:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
                     repeat = false;
                     return repeat;
@@ -831,14 +859,15 @@ public class ClientManager {
         }
     }
 
-    public Return returns(ArrayList<OrderItem> returnItems, Client user) {
+    public Order returns(ArrayList<OrderItem> returnItems, Client client,String orderNumber) {
         String returnID = UUID.randomUUID().toString();
         for (OrderItem returnItem : returnItems) {
             Seller seller = sellerManager.getSeller(returnItem.getSellerPseudo());
-            seller.addReturnItem((ReturnItem) returnItem);
+            seller.addOrderItem(returnItem);
+            client.getOrder(orderNumber).update(returnItem.getProductId(), returnItem.getQuantity());
         }
-        Return newReturn = new Return(returnID, returnItems, Calendar.getInstance().getTime(), false, false, null, null, "");
-        user.addReturn(newReturn);
+        Order newReturn = new Order(returnID, returnItems, Calendar.getInstance().getTime(), false, false,true, null, null, "");
+        client.addOrder(newReturn);
         return newReturn;
     }
 
@@ -846,7 +875,7 @@ public class ClientManager {
         // Generate a unique order ID
         String orderID = UUID.randomUUID().toString();
         // Create an order using the current cart and customer information
-        Order newOrder = new Order(orderID, user.getShoppingCart().convertToOrderItems(orderID,user.getPseudo()), Calendar.getInstance().getTime(), false, false, null, null, address);
+        Order newOrder = new Order(orderID, user.getShoppingCart().convertToOrderItems(orderID,user.getPseudo()), Calendar.getInstance().getTime(), false, false, false,null, null, address);
         user.addOrder(newOrder);
         user.addPoints((int) user.getShoppingCart().getNumberPoints());
 

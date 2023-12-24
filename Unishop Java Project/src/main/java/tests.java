@@ -42,7 +42,7 @@ public class tests {
         @Test
         public void addOrder() {// on peux avoir une commande sans produit? mais sinon marche bien
             client = new Client("John", "Doe", "john@example.com", "johnny", 123456789L, "123 Main St", "password");
-            order = new Order("123", new ArrayList<>(), new Date(), false, false, null, null, "456 Main St");
+            order = new Order("123", new ArrayList<>(), new Date(), false, false,false, null, null, "456 Main St");
             order.toString();
             System.out.println(client.toString());
             System.out.println(client.getOrders());

@@ -24,7 +24,7 @@ public class SellerManager {
         this.input = new UserInteractionService();
     }
 
-    public void confirmReturnReception(ReturnItem returnItem, Seller seller) {
+    public void confirmReturnReception(OrderItem returnItem, Seller seller) {
         // need to wipe orderItem/returnItem from both seller and client once confirmation
         // what if need full audit of returItems/OrderItems ?
         returnItem.setDelivered(true);
@@ -40,17 +40,6 @@ public class SellerManager {
                 ((Product) obj[0]).AddQuantity(returnItem.getQuantity());
             }
         }
-        String orderNumber = "";
-        for (Order order : clientManager.getClient(returnItem.getClientPseudo()).getOrders().values()) {
-            for (OrderItem orderItem : order.getItems()) {
-                if (orderItem.getProductId() == returnItem.getProductId()) {
-                    orderNumber = order.getOrderNumber();
-                    break;
-                }
-            }
-        }
-        clientManager.getClient(returnItem.getClientPseudo()).getOrder(orderNumber).update(returnItem.getProductId(), returnItem.getQuantity());
-        clientManager.getClient(returnItem.getClientPseudo()).getOrder(orderNumber).getItem(returnItem.getProductId()).setReturned(true);
         clientManager.getClient(returnItem.getClientPseudo()).removePoints((int) currentProduct.getPoints());
     }
 
@@ -156,8 +145,8 @@ public class SellerManager {
                     }
                 case 4:
                     System.out.println("Liste des retours");
-                    ArrayList<ReturnItem> returnItems = seller.getReturnItems();
-                    if (returnItems == null) {
+                    ArrayList<OrderItem> returnItems = seller.getReturnItems();
+                    if (returnItems.isEmpty()) {
                         System.out.println("Vous n'avez aucun retour à confirmer");
                         break;
                     }
@@ -166,7 +155,7 @@ public class SellerManager {
                     }
                     System.out.println("Entrer le # du produit dont vous voulez confirmer le retour");
                     int index = input.getUserNumInfo("index", 0, returnItems.size()-1);
-                    ReturnItem returnItem = returnItems.get(index);
+                    OrderItem returnItem = returnItems.get(index);
                     if (returnItem.isDelivered()) {
                         System.out.println("Ce retour est déjà confirmé");
                         break;

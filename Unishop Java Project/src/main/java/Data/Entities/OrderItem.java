@@ -4,6 +4,7 @@ import Data.Entities.Products.Product;
 import Data.Entities.Users.Seller;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import shadedelta.com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -16,9 +17,17 @@ public class OrderItem {
     private String reason;
     private Boolean shipped;
     private Boolean delivered;
-    private boolean returned;
     private Date shipDate;
     private Boolean signaled;
+    private boolean returned ;
+
+    public boolean isReturned() {
+        return returned;
+    }
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
+    }
 
     @JsonCreator
     public OrderItem(@JsonProperty("productId") int productId,
@@ -28,8 +37,8 @@ public class OrderItem {
                      @JsonProperty("reason") String reason,
                      @JsonProperty("delivered") Boolean delivered,
                      @JsonProperty("shipped") Boolean shipped,
-                     @JsonProperty("returned") Boolean returned,
                      @JsonProperty("shipDate") Date shipDate,
+                     @JsonProperty("returned") Boolean returned,
                      @JsonProperty("signaled") Boolean signaled) {
         this.productId = productId;
         this.quantity = quantity;
@@ -40,6 +49,7 @@ public class OrderItem {
         this.reason = reason;
         this.shipDate = shipDate;
         this.signaled = signaled;
+        this.returned = returned ;
     }
 
     public Boolean getShipped() {
@@ -95,15 +105,6 @@ public class OrderItem {
         return reason;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
-        this.clientPseudo = clientPseudo;
-        this.shipped = shipped;
-        this.delivered = delivered;
-        this.reason = reason;
-        this.returned = returned;
-    }
-
     public String getSellerPseudo() {
         return sellerPseudo;
     }
@@ -121,13 +122,7 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public boolean isReturned() {
-        return returned;
-    }
 
-    public void setReturned(boolean returned) {
-        this.returned = returned;
-    }
 
     @Override
     public String toString() {
@@ -137,11 +132,12 @@ public class OrderItem {
         if (!isShipped()) state = "En production";
         else if (isShipped()) state = "En livraison";
         if (isDelivered()) state = "Livré";
-        if (isReturned()) returnState = "\n- " + "retourné";
+        if (isReturned() && isDelivered()) returnState = "\n- " + "retourné";
         return "{" +
                 "\n- titre='" + product.getTitle() + '\'' +
                 "\n- quantité='" + getQuantity() + '\'' +
                 "\n- id='" + getProductId() + '\'' +
+                "\n- état='" + state + '\'' +
                 returnState +
                 "\n- " + shipDate +
                 "\n}";
