@@ -1,17 +1,25 @@
 package Controller;
-
 import Data.Entities.Catalog;
 import Data.Entities.Products.*;
 import Data.Entities.Type;
 import Service.UserInteractionService;
-
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * La classe ProductManager gère les opérations liées aux produits tels que la recherche, la création et la validation.
+ */
 public class ProductManager {
+    /** Service d'interaction utilisateur pour la saisie des données. */
     UserInteractionService input = new UserInteractionService();
+
+    /**
+     * Vérifie la disponibilité d'un identifiant de produit.
+     *
+     * @return Un identifiant de produit disponible.
+     */
 
     public int isIdAvailable() {
 
@@ -26,27 +34,58 @@ public class ProductManager {
             }
         }
     }
-
+    /**
+     * Recherche des produits par titre.
+     *
+     * @param title Le titre à rechercher.
+     * @return Une liste de produits correspondant au titre.
+     */
     public List<Product> findProductsByTitle(String title) {
         return Catalog.catalogMap.values().stream().filter(obj -> title.equals(((Product) obj[0]).getTitle())).map(obj -> (Product) obj[0]).toList() ;
     }
-
+    /**
+     * Recherche des produits par prix.
+     *
+     * @param minPrice Prix minimum.
+     * @param maxPrice Prix maximum.
+     * @return Une liste de produits dans la plage de prix spécifiée.
+     */
     public List<Product> findProductsByPrice(int minPrice, int maxPrice) {
         return Catalog.catalogMap.values().stream().filter(obj -> ((Product) obj[0]).getPrice() >= minPrice && ((Product) obj[0]).getPrice() <= maxPrice).map(obj -> (Product) obj[0]).toList() ;
     }
-
+    /**
+     * Recherche des produits par marque.
+     *
+     * @param brand La marque à rechercher.
+     * @return Une liste de produits de la marque spécifiée.
+     */
     public List<Product> findProductsByBrand(String brand) {
         return Catalog.catalogMap.values().stream().filter(obj -> brand.equals(((Product) obj[0]).getBrand())).map(obj -> (Product) obj[0]).toList() ;
     }
-
+    /**
+     * Recherche des produits par modèle.
+     *
+     * @param model Le modèle à rechercher.
+     * @return Une liste de produits du modèle spécifié.
+     */
     public List<Product> findProductsByModel(String model) {
         return Catalog.catalogMap.values().stream().filter(obj -> model.equals(((Product) obj[0]).getModel())).map(obj -> (Product) obj[0]).toList() ;
     }
 
+    /**
+     * Recherche des produits par catégorie.
+     *
+     * @param type La catégorie de produit à rechercher.
+     * @return Une liste de produits de la catégorie spécifiée.
+     */
     public List<Product> findProductsByCategory(ProductType type) {
         return Catalog.catalogMap.values().stream().filter(obj -> ((Product) obj[0]).getCategory() == type).map(obj -> (Product) obj[0]).toList() ;
     }
-
+    /**
+     * Obtient les informations d'un nouveau produit en demandant à l'utilisateur de choisir une catégorie.
+     *
+     * @return Le nouveau produit créé en fonction de la catégorie choisie par l'utilisateur.
+     */
     public Product getProductInfo() {
         System.out.println("Choisissez une categorie de produit a vendre:");
         System.out.println("1. Livres et Manuels");
@@ -68,6 +107,11 @@ public class ProductManager {
         return product;
     }
 
+    /**
+     * Collecte les informations d'un livre ou manuel à ajouter au catalogue.
+     *
+     * @return Une instance de la classe Book représentant le livre ou manuel avec les informations fournies.
+     */
     public Product getBookInfo() {
         System.out.println("Donnez les informations du Livre/Manuel: ");
         String title = input.getUserStrInfo("Titre");
@@ -297,7 +341,11 @@ public class ProductManager {
         }
         return product;
     }
-
+    /**
+     * Obtient les informations d'un nouvel article en demandant à l'utilisateur de fournir les détails nécessaires.
+     *
+     * @return Le nouvel article créé avec les informations fournies par l'utilisateur.
+     */
     public Product getArticleInfo() {
         System.out.println("Donnez les informations de l'Article: ");
         String title = input.getUserStrInfo("Titre");
@@ -373,7 +421,11 @@ public class ProductManager {
         return product;
 
     }
-
+    /**
+     * Obtient les informations d'un nouveau matériel en demandant à l'utilisateur de fournir les détails nécessaires.
+     *
+     * @return Le nouveau matériel créé avec les informations fournies par l'utilisateur.
+     */
     public Product getMaterialInfo() {
         System.out.println("Donnez les informations du materiel: ");
         String title = input.getUserStrInfo("Titre");
@@ -449,7 +501,11 @@ public class ProductManager {
 
         return product;
     }
-
+    /**
+     * Obtient les informations d'un nouvel équipement en demandant à l'utilisateur de fournir les détails nécessaires.
+     *
+     * @return Le nouvel équipement créé avec les informations fournies par l'utilisateur.
+     */
     public Product getEquipmentInfo() {
         System.out.println("Donnez les informations de l'equipement");
         String title = input.getUserStrInfo("Titre");

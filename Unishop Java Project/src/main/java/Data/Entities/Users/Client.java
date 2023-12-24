@@ -5,11 +5,14 @@ import Data.Entities.Products.Product;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * La classe Client représente un utilisateur du système qui peut effectuer des achats, évaluer des produits,
+ * gérer son panier, suivre d'autres utilisateurs, etc.
+ */
 public class Client extends User {
     private final HashMap<String, Order> orders;
     private final HashMap<String, Return> returns;
@@ -21,7 +24,17 @@ public class Client extends User {
     private HashSet<String> following;
     private ArrayList<Integer> likedProduct;
     private ArrayList<String> likedSeller;
-
+    /**
+     * Constructeur pour créer une nouvelle instance de Client avec les informations de base.
+     *
+     * @param firstName    Le prénom du client.
+     * @param lastName     Le nom de famille du client.
+     * @param email        L'adresse e-mail du client.
+     * @param pseudo       Le pseudonyme unique du client.
+     * @param number       Le numéro associé au client.
+     * @param shipAddress  L'adresse de livraison du client.
+     * @param password     Le mot de passe associé au compte du client.
+     */
     public Client(String firstName,
                   String lastName,
                   String email,
@@ -40,6 +53,27 @@ public class Client extends User {
         this.returns = new HashMap<>();
 
     }
+    /**
+     * Constructeur pour la désérialisation de l'instance de Client à partir du format JSON.
+     *
+     * @param firstName     Le prénom du client.
+     * @param lastName      Le nom de famille du client.
+     * @param email         L'adresse e-mail du client.
+     * @param pseudo        Le pseudonyme unique du client.
+     * @param number        Le numéro associé au client.
+     * @param password      Le mot de passe associé au compte du client.
+     * @param cart          Le panier du client.
+     * @param shipAddress   L'adresse de livraison du client.
+     * @param orders        Les commandes effectuées par le client.
+     * @param returns       Les retours effectués par le client.
+     * @param points        Les points de récompense du client.
+     * @param followers     Les utilisateurs qui suivent ce client.
+     * @param following     Les utilisateurs que ce client suit.
+     * @param evaluations   Les évaluations de produits effectuées par le client.
+     * @param likedProduct  Les produits que le client a aimés.
+     * @param likedSeller   Les vendeurs que le client a aimés.
+     * @param tickets       Les tickets associés au compte du client.
+     */
 
     @JsonCreator
     public Client(@JsonProperty("firstName") String firstName,
@@ -71,7 +105,11 @@ public class Client extends User {
         this.returns = returns;
         this.likedSeller = likedSeller;
     }
-
+    /**
+     * Obtient la liste des produits que le client a aimés.
+     *
+     * @return La liste des identifiants des produits aimés par le client.
+     */
     public ArrayList<Integer> getLikedProduct() {
         return likedProduct;
     }
@@ -100,6 +138,11 @@ public class Client extends User {
         this.following = following;
     }
 
+    /**
+     * Obtient la liste des vendeurs que le client a aimés.
+     *
+     * @return La liste des pseudonymes des vendeurs aimés par le client.
+     */
     public ArrayList<String> getLikedSeller() {
         return likedSeller;
     }
@@ -160,7 +203,11 @@ public class Client extends User {
         this.shoppingCart = shoppingCart;
     }
 
-
+    /**
+     * Affiche une représentation textuelle des informations du client.
+     *
+     * @return Une chaîne de caractères représentant les informations du client.
+     */
     @Override
     public String toString() {
         return "{" +
@@ -175,6 +222,11 @@ public class Client extends User {
                 "\n- points='" + this.getPoints() + '\'' +
                 "\n}";
     }
+    /**
+     * Évalue un produit donné. Si l'utilisateur a déjà évalué le produit, un message est affiché.
+     * @param product Le produit à évaluer.
+     * @param evaluation L'évaluation du produit.
+     */
     public void rateProduct(Product product, ProductEvaluation evaluation) {
         for (ProductEvaluation eval : evaluations) {
             if (eval.getProductId() == product.getId()) {
@@ -185,6 +237,10 @@ public class Client extends User {
         evaluations.add(evaluation);
         product.addEvaluation(evaluation);
     }
+    /**
+     * Supprime l'évaluation d'un produit. Si l'utilisateur n'a pas évalué le produit, un message est affiché.
+     * @param product Le produit duquel l'évaluation doit être retirée.
+     */
     public void removeRating(Product product) {
         for (ProductEvaluation eval : evaluations) {
             if (eval.getProductId() == product.getId()) {
@@ -203,6 +259,10 @@ public class Client extends User {
     public void manageOrder() {
         // TODO
     }
+    /**
+     * Confirme la réception d'une commande. Si la commande n'est pas expédiée ou est déjà confirmée, un message est affiché.
+     * @param orderNumber Le numéro de commande à confirmer.
+     */
     public void confirmOrderReception(String orderNumber) {
         Order order = orders.get(orderNumber);
         if (order.isShipped() && !order.isDelivered()) {
@@ -219,6 +279,13 @@ public class Client extends User {
     public void swapOrderItem(Product swapProduct) {
         // TODO
     }
+    /**
+     * Demande le retour d'un article de commande. La demande de retour est soumise à une période de 30 jours à partir de la date de la commande.
+     * @param orderNumber Le numéro de commande concerné.
+     * @param orderItem L'article de commande à retourner.
+     * @param quantity La quantité à retourner.
+     * @return Un objet ReturnItem représentant la demande de retour.
+     */
     public ReturnItem returnOrderItem(String orderNumber, OrderItem orderItem, int quantity) {
         Order order = orders.get(orderNumber);
         // Calculate the difference in milliseconds
@@ -230,12 +297,22 @@ public class Client extends User {
         //else return new ReturnItem(orderItem.getProduct(), quantity, orderItem.getSeller());
         return null;
     }
+    /**
+     * Obtient le statut d'une commande en fonction de son numéro. Les statuts possibles sont "En production", "En livraison" ou "Livré".
+     * @param orderNumber Le numéro de commande.
+     * @return Le statut de la commande.
+     */
     public String getStatus(String orderNumber) {
         Order order = orders.get(orderNumber);
         if (!order.isShipped()) return "En production";
         else if (order.isShipped() && !order.isDelivered()) return "En livraison";
         return "Livré";
     }
+    /**
+     * Permet à l'utilisateur de suivre un autre client. Si l'utilisateur suit déjà le client, un message est affiché.
+     * Gagne également 5 points et informe l'autre client de ce suivi.
+     * @param otherClient Le client à suivre.
+     */
     public void follow(Client otherClient) {
         if (!following.contains(otherClient.getPseudo())) {
             following.add(otherClient.getPseudo());
@@ -243,6 +320,11 @@ public class Client extends User {
             otherClient.followedBy(this.getPseudo()); // Pour que les deux clients gagnent des points
         } else System.out.println("Vous suivez déja cette personne");
     }
+    /**
+     * Permet à l'utilisateur d'arrêter de suivre un autre client. Si l'utilisateur ne suit pas le client, un message est affiché.
+     * Perd également 5 points et informe l'autre client de la cessation du suivi.
+     * @param otherClient Le client à ne plus suivre.
+     */
     public void unfollow(Client otherClient) {
         if (following.contains(otherClient.getPseudo())) {
             following.remove(otherClient.getPseudo());
@@ -251,10 +333,22 @@ public class Client extends User {
         } else System.out.println("Vous ne suivez pas cette personne");
     }
 
+    /**
+     * Notifie le client du suivi d'un autre client.
+     *
+     * @param follower Le pseudonyme du client qui suit ce client.
+     *                Ajoute le suiveur à la liste des followers et ajoute des points au client.
+     */
     private void followedBy(String follower) {
         followers.add(follower);
         points = +5;
     }
+    /**
+     * Notifie le client de l'arrêt du suivi par un autre client.
+     *
+     * @param unfollower Le pseudonyme du client qui ne suit plus ce client.
+     *                   Retire le suiveur de la liste des followers et retire des points au client.
+     */
     private void unfollowedBy(String unfollower) {
         followers.remove(unfollower);
         points -= 5;
@@ -270,11 +364,20 @@ public class Client extends User {
     public void addEvaluation(ProductEvaluation productEvaluation) {
         this.evaluations.add(productEvaluation);
     }
-
+    /**
+     * Vérifie si le client a déjà aimé un vendeur spécifique.
+     *
+     * @param pseudo Le pseudonyme du vendeur à vérifier.
+     * @return True si le client a déjà aimé ce vendeur, sinon False.
+     */
     public boolean alreadyLikedSeller(String pseudo) {
         return likedSeller.contains(pseudo);
     }
-
+    /**
+     * Ajoute un vendeur à la liste des vendeurs aimés par le client.
+     *
+     * @param pseudo Le pseudonyme du vendeur à ajouter.
+     */
     public void addLikedSeller(String pseudo) {
         likedSeller.add(pseudo);
     }

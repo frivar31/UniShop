@@ -10,18 +10,32 @@ import Service.UserInteractionService;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+/**
+ * Gère les opérations spécifiques aux vendeurs, telles que la confirmation de la réception d'un retour,
+ * la gestion des produits, la modification du profil, etc.
+ */
 public class SellerManager {
     public UserInteractionService input;
     private ProductManager productManager;
     private ClientManager clientManager;
     private List<Seller> sellers;
 
+    /**
+     * Constructeur de la classe SellerManager.
+     *
+     * @param sellers Liste des vendeurs.
+     */
     public SellerManager(List<Seller> sellers) {
         this.sellers = sellers;
         this.input = new UserInteractionService();
     }
 
+    /**
+     * Confirme la réception d'un article retourné par un client.
+     *
+     * @param returnItem L'article retourné.
+     * @param seller Le vendeur qui confirme la réception.
+     */
     public void confirmReturnReception(ReturnItem returnItem, Seller seller) {
         // need to wipe orderItem/returnItem from both seller and client once confirmation
         // what if need full audit of returItems/OrderItems ?
@@ -67,14 +81,24 @@ public class SellerManager {
     public void setProductManager(ProductManager productManager) {
         this.productManager = productManager;
     }
-
+    /**
+     * Vérifie si un pseudonyme est déjà utilisé par un client ou un vendeur.
+     *
+     * @param pseudo Le pseudonyme à vérifier.
+     * @return True si le pseudonyme est déjà utilisé, false sinon.
+     */
     public boolean isPseudoAlreadyUsed(String pseudo) {
         for (Client client : clientManager.getClients()) {
             if (client.getPseudo().equals(pseudo)) return true;
         }
         return sellers.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
     }
-
+    /**
+     * Recherche des vendeurs par leur nom.
+     *
+     * @param name Le nom à rechercher parmi les vendeurs.
+     * @return Une liste des vendeurs correspondant au nom spécifié.
+     */
     public List<Seller> findSellersByName(String name) {
         return this.sellers.stream().filter(user -> name.equals(user.getFirstName())).toList();
     }
@@ -83,11 +107,22 @@ public class SellerManager {
     public Seller getSeller(String pseudo) {
         return sellers.stream().filter(seller -> pseudo.equals(seller.getPseudo())).findAny().orElse(null);
     }
-
+    /**
+     * Recherche des vendeurs qui proposent des produits du type spécifié.
+     *
+     * @param type Le type de produit à rechercher parmi les vendeurs.
+     * @return Une liste des vendeurs proposant des produits du type spécifié.
+     */
     public List<Seller> findSellersByProductType(ProductType type) {
         return this.sellers.stream().filter(seller -> seller.getProducts().stream().anyMatch(product -> product.getCategory().equals(type))).collect(Collectors.toList());
     }
 
+    /**
+     * Obtient les informations de service pour un vendeur.
+     *
+     * @param seller Le vendeur pour lequel obtenir les informations de service.
+     * @return True si l'utilisateur souhaite répéter, false sinon.
+     */
     public boolean getSellerServiceInfo(Seller seller) {
 
         boolean repeat = true;
@@ -242,7 +277,11 @@ public class SellerManager {
         }
         return !repeat;
     }
-
+    /**
+     * Modifie les informations du vendeur en fonction de l'option choisie.
+     *
+     * @param seller Le vendeur dont les informations doivent être modifiées.
+     */
     public void modifySellerInfo(Seller seller) {
         System.out.println("Choisir information a modifier: ");
         System.out.println("1. Prenom");
@@ -293,11 +332,20 @@ public class SellerManager {
                 break;
         }
     }
-
+    /**
+     * Récupère un utilisateur (Seller) par son pseudo.
+     *
+     * @param pseudo Le pseudo de l'utilisateur à récupérer.
+     * @return L'utilisateur correspondant au pseudo, ou null s'il n'existe pas.
+     */
     public User getUserByPseudo(String pseudo) {
         return sellers.stream().filter(u -> pseudo.equals(u.getPseudo())).findAny().orElse(null);
     }
-
+    /**
+     * Obtient les informations d'inscription d'un vendeur, y compris la création d'un produit.
+     *
+     * @return Le vendeur nouvellement créé.
+     */
     public Seller getSellerRegistrationInfo() {
         System.out.println("Vous devez offrir au moins un produit à vendre au prealable");
         System.out.println("1. Offrir un produit à vendre:");
@@ -360,21 +408,35 @@ public class SellerManager {
         }
         return seller;
     }
-
+    /**
+     * Vérifie si l'adresse e-mail est déjà utilisée par un client ou un vendeur.
+     *
+     * @param email L'adresse e-mail à vérifier.
+     * @return true si l'adresse e-mail est déjà utilisée, sinon false.
+     */
     public boolean isEmailAlreadyUsed(String email) {
         for (Client client : clientManager.getClients()) {
             if (client.getEmail().equals(email)) return true;
         }
         return sellers.stream().anyMatch(user -> email.equals(user.getEmail()));
     }
-
+    /**
+     * Vérifie si le mot de passe est déjà utilisé par un client ou un vendeur.
+     *
+     * @param password Le mot de passe à vérifier.
+     * @return true si le mot de passe est déjà utilisé, sinon false.
+     */
     public boolean isPasswordAlreadyUsed(String password) {
         for (Client client : clientManager.getClients()) {
             if (client.getPassword().equals(password)) return true;
         }
         return sellers.stream().anyMatch(user -> password.equals(user.getPassword()));
     }
-
+    /**
+     * Met à jour les articles de commande du vendeur en ajoutant les articles de la commande spécifiée.
+     *
+     * @param order La commande dont les articles doivent être ajoutés au vendeur.
+     */
     public void updateSellerOrderItems(Order order) {
         for (OrderItem item : order.getItems()) {
             //to fix

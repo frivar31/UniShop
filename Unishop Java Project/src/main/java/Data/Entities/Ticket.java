@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 
+/**
+ * Cette classe représente un ticket associé à une commande.
+ */
 public class Ticket {
     private final String problemDescription;
     private final OrderItem item;
@@ -20,6 +23,20 @@ public class Ticket {
     private boolean buyerConfirmationOfReturnProductExpedition;
     private boolean sellerConfirmationOfReturnProductReception;
 
+    /**
+     * Constructeur pour créer un objet Ticket.
+     *
+     * @param problemDescription                    Description du problème associé au ticket.
+     * @param solutionDescription                   Description de la solution au problème.
+     * @param trackingNumber                        Numéro de suivi associé à la livraison.
+     * @param replacementProductDescription         Description du produit de remplacement.
+     * @param replacementTrackingNumber             Numéro de suivi associé à la livraison du produit de remplacement.
+     * @param item                                  Article lié au ticket.
+     * @param sellerPseudo                          Pseudo du vendeur associé à la commande.
+     * @param replacementRequestDate               Date à laquelle la demande de remplacement a été effectuée.
+     * @param buyerConfirmationOfReturnProductExpedition Confirmation de l'expédition du produit retourné par l'acheteur.
+     * @param sellerConfirmationOfReturnProductReception Confirmation de la réception du produit retourné par le vendeur.
+     */
     //Constructeur
     @JsonCreator
     public Ticket(@JsonProperty("problemDescription") String problemDescription, @JsonProperty("solutionDescription") String solutionDescription, @JsonProperty("trackingNumber") String trackingNumber, @JsonProperty("replacementProductDescription") String replacementProductDescription, @JsonProperty("replacementTrackingNumber") String replacementTrackingNumber, @JsonProperty("item") OrderItem item, @JsonProperty("sellerPseudo") String sellerPseudo, @JsonProperty("replacementRequestDate") String replacementRequestDate, @JsonProperty("buyerConfirmationOfReturnProductExpedition") Boolean buyerConfirmationOfReturnProductExpedition, @JsonProperty("sellerConfirmationOfReturnProductReception") Boolean sellerConfirmationOfReturnProductReception) {
@@ -92,6 +109,10 @@ public class Ticket {
     }
 
     // Méthode pour annuler automatiquement une demande de réexpédition après 30 jours
+    /**
+     * Méthode pour annuler automatiquement une demande de réexpédition après 30 jours.
+     * Si la date actuelle est postérieure de 30 jours à la date de création du ticket, la demande de réexpédition est annulée.
+     */
     public void autoCancelReshipmentRequest() {
         LocalDate thirtyDaysAfterCreation = LocalDate.parse(creationDate).plusDays(30);
         LocalDate currentDate = LocalDate.now();
@@ -123,7 +144,11 @@ public class Ticket {
     public void setTrackingNumber(String trackingNumber) {
         this.trackingNumber = trackingNumber;
     }
-
+    /**
+     * Vérifie si le vendeur a confirmé la livraison du produit.
+     *
+     * @return true si le vendeur a confirmé la livraison du produit, sinon false.
+     */
     public boolean isDeliveryConfirmationBySeller() {
         return deliveryConfirmationBySeller;
     }
@@ -147,7 +172,11 @@ public class Ticket {
     public void setReplacementTrackingNumber(String replacementTrackingNumber) {
         this.replacementTrackingNumber = replacementTrackingNumber;
     }
-
+    /**
+     * Vérifie si l'acheteur a confirmé la réception du produit de remplacement.
+     *
+     * @return true si l'acheteur a confirmé la réception du produit de remplacement, sinon false.
+     */
     public boolean isBuyerConfirmationOfReplacementDelivery() {
         return buyerConfirmationOfReplacementDelivery;
     }
@@ -160,6 +189,11 @@ public class Ticket {
         return creationDate;
     }
 
+    /**
+     * Obtient une représentation textuelle du ticket.
+     *
+     * @return Une chaîne représentant le ticket.
+     */
     @Override
     public String toString() {
         String stringBuilder = "\nDescription du problème: " + problemDescription + "\nDescription de la solution: " + solutionDescription + "\nArticle: " + item + "\nDate de création: " + creationDate + "\nNuméro de suivi: " + trackingNumber + "\nConfirmation de livraison par le vendeur: " + deliveryConfirmationBySeller + "\nDescription du produit de remplacement: " + replacementProductDescription + "\nNuméro de suivi du remplacement: " + replacementTrackingNumber + "\nConfirmation de livraison du remplacement par l'acheteur: " + buyerConfirmationOfReplacementDelivery + "\nPseudo du vendeur: " + sellerPseudo + "\n}";

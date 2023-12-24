@@ -11,7 +11,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +18,23 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+
+
+/**
+ * Cette classe représente l'application principale qui gère l'interaction entre les clients et les vendeurs.
+ * Elle inclut des fonctionnalités d'inscription, de connexion et de navigation dans les menus principaux.
+ */
 public class App {
+
+    /** Service d'interaction utilisateur pour la saisie depuis la console. */
     public static UserInteractionService input = new UserInteractionService();
 
+    /**
+     * Obtient les informations d'inscription pour un nouveau client ou vendeur.
+     * @param clientManager Gestionnaire des clients.
+     * @param sellerManager Gestionnaire des vendeurs.
+     * @return Une instance de la classe User représentant le nouvel utilisateur.
+     */
     private static User getRegistrationStream(ClientManager clientManager, SellerManager sellerManager) {
         System.out.println("Choisissez une option d'inscription");
         System.out.println("1. Vendeur");
@@ -33,7 +46,12 @@ public class App {
         //define a seller
         return sellerManager.getSellerRegistrationInfo();
     }
-
+    /**
+     * Gère le processus de connexion pour un utilisateur existant.
+     * @param clientManager Gestionnaire des clients.
+     * @param sellerManager Gestionnaire des vendeurs.
+     * @return L'utilisateur connecté.
+     */
     private static User login(ClientManager clientManager, SellerManager sellerManager) {
         User user = null;
         String pseudo=input.getUserStrInfo("Pseudo");
@@ -49,7 +67,11 @@ public class App {
 
         return user;
     }
-
+    /**
+     * Le point d'entrée principal de l'application.
+     * @param args Les arguments de la ligne de commande.
+     * @throws IOException En cas d'erreur lors de la lecture/écriture des fichiers.
+     */
     public static void main(String[] args) throws IOException {
         PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
                 .allowIfBaseType(Product.class)

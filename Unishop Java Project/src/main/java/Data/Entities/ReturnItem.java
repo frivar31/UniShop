@@ -9,7 +9,20 @@ import java.util.Date;
 import java.util.List;
 
 public class ReturnItem extends OrderItem {
-
+    /**
+     * Constructeur de la classe ReturnItem.
+     *
+     * @param returnedProductId ID du produit retourné.
+     * @param returnedQuantity  Quantité du produit retourné.
+     * @param sellerPseudo      Pseudo du vendeur.
+     * @param clientPseudo      Pseudo du client.
+     * @param reason            Raison du retour.
+     * @param delivered         Statut de livraison.
+     * @param shipped           Statut d'expédition.
+     * @param returned          Statut du retour.
+     * @param shipDate          Date d'expédition.
+     * @param signaled          Statut de signalement.
+     */
     @JsonCreator
     public ReturnItem(@JsonProperty("returnedProductId") int returnedProductId,
                      @JsonProperty("returnedQuantity") int returnedQuantity,
@@ -25,7 +38,11 @@ public class ReturnItem extends OrderItem {
     }
 
 
-
+    /**
+     * Retourne une représentation textuelle de l'objet ReturnItem.
+     *
+     * @return Une chaîne de caractères représentant l'élément de retour.
+     */
     @Override
     public String toString() {
         Product product=Catalog.getProduct(getProductId());

@@ -8,7 +8,18 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Return extends Order{
-
+    /**
+     * Constructeur de la classe Return.
+     *
+     * @param returnNumber   Numéro du retour.
+     * @param returnItems    Liste des articles retournés.
+     * @param returnDate     Date du retour.
+     * @param delivered      Statut de livraison du retour.
+     * @param shipped        Statut d'expédition du retour.
+     * @param shipDate       Date d'expédition du retour.
+     * @param deliveryDate   Date de livraison du retour.
+     * @param returnAddress  Adresse de retour.
+     */
     @JsonCreator
     public Return(@JsonProperty("returnNumber") String returnNumber,
                  @JsonProperty("returnItems") ArrayList<OrderItem> returnItems,
@@ -20,7 +31,11 @@ public class Return extends Order{
                  @JsonProperty("returnAddress") String returnAddress) {
         super(returnNumber, returnItems, returnDate, delivered, shipped, shipDate, deliveryDate, returnAddress);
     }
-
+    /**
+     * Retourne une représentation textuelle de l'objet Return.
+     *
+     * @return Une chaîne de caractères représentant le retour.
+     */
     @Override
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

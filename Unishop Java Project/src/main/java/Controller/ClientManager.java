@@ -1,21 +1,28 @@
 package Controller;
-
 import Data.Entities.*;
 import Data.Entities.Products.Product;
 import Data.Entities.Products.ProductType;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import Service.UserInteractionService;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * La classe ClientManager gère les opérations liées aux clients dans le système.
+ * Elle permet l'interaction avec les clients, la gestion des vendeurs associés,
+ * ainsi que la manipulation des produits.
+ */
 public class ClientManager {
     public UserInteractionService input;
     private SellerManager sellerManager;
     private ProductManager productManager;
     private List<Client> clients;
-
+    /**
+     * Constructeur de la classe ClientManager.
+     *
+     * @param clients La liste initiale des clients dans le système.
+     */
     public ClientManager(List<Client> clients) {
         this.clients = clients;
         this.input = new UserInteractionService();
@@ -37,7 +44,13 @@ public class ClientManager {
     public void setProductManager(ProductManager productManager) {
         this.productManager = productManager;
     }
-
+    /**
+     * Modifie les informations du client en fonction de l'option sélectionnée.
+     * Les options comprennent la modification du prénom, du nom, de l'e-mail,
+     * du pseudo, du numéro, de l'adresse de livraison et du mot de passe.
+     *
+     * @param client Le client dont les informations doivent être modifiées.
+     */
     public void modifyClientInfo(Client client) {
 
         System.out.println("Choisir information a modifier: ");
@@ -93,21 +106,36 @@ public class ClientManager {
                 break;
         }
     }
-
+    /**
+     * Vérifie si un pseudo est déjà utilisé par un vendeur ou un client.
+     *
+     * @param pseudo Le pseudo à vérifier.
+     * @return true si le pseudo est déjà utilisé, false sinon.
+     */
     public boolean isPseudoAlreadyUsed(String pseudo) {
         for (Seller seller : sellerManager.getSellers()) {
             if (seller.getPseudo().equals(pseudo)) return true;
         }
         return clients.stream().anyMatch(user -> pseudo.equals(user.getPseudo()));
     }
-
+    /**
+     * Vérifie si une adresse e-mail est déjà utilisée par un vendeur ou un client.
+     *
+     * @param email L'adresse e-mail à vérifier.
+     * @return true si l'e-mail est déjà utilisé, false sinon.
+     */
     public boolean isEmailAlreadyUsed(String email) {
         for (Seller seller : sellerManager.getSellers()) {
             if (seller.getEmail().equals(email)) return true;
         }
         return clients.stream().anyMatch(user -> email.equals(user.getEmail()));
     }
-
+    /**
+     * Affiche le menu principal pour un client et gère les différentes options.
+     *
+     * @param user Le client actuellement connecté.
+     * @return true si l'utilisateur souhaite répéter le menu, false sinon.
+     */
     public boolean principalMenu(Client user) {
 
         boolean repeat = true;
@@ -740,7 +768,12 @@ public class ClientManager {
         }
         return !repeat;
     }
-
+    /**
+     * Vérifie si les articles du panier sont disponibles en quantité suffisante dans le catalogue.
+     *
+     * @param shoppingCart Le panier d'achat à vérifier.
+     * @return true si tous les articles sont disponibles, false sinon.
+     */
     private boolean isShoppingCartItemsAvailable(ShoppingCart shoppingCart) {
         for (int id : shoppingCart.getCart().keySet()) {
             Product product = Catalog.getProduct(id);
@@ -753,26 +786,53 @@ public class ClientManager {
         }
         return true;
     }
-
+    /**
+     * Récupère un client en utilisant son pseudo.
+     *
+     * @param pseudo Le pseudo du client à récupérer.
+     * @return Le client correspondant au pseudo, ou null s'il n'existe pas.
+     */
     public Client getUserByPseudo(String pseudo) {
         return clients.stream().filter(u -> pseudo.equals(u.getPseudo())).findAny().orElse(null);
     }
-
+    /**
+     * Récupère une commande à partir de son numéro pour un client donné.
+     *
+     * @param orderNumber Le numéro de la commande à récupérer.
+     * @param user Le client pour lequel récupérer la commande.
+     * @return La commande correspondant au numéro, ou null si elle n'existe pas pour le client.
+     */
     public Order getOrderFromNumber(String orderNumber, Client user) {
         return user.getOrders().getOrDefault(orderNumber, null);
     }
-
+    /**
+     * Récupère un produit à partir de son ID dans une commande.
+     *
+     * @param order La commande dans laquelle rechercher le produit.
+     * @param productId L'ID du produit à récupérer.
+     * @return Le produit correspondant à l'ID, ou null s'il n'est pas présent dans la commande.
+     */
     public Product getProductInOrder(Order order, int productId) {
         if (order.getItems().stream().anyMatch(item -> item.getProductId() == productId)) {
             return Catalog.getProduct(productId);
         }
         return null;
     }
-
+    /**
+     * Récupère un élément de commande à partir de l'ID du produit dans une commande.
+     *
+     * @param order La commande dans laquelle rechercher l'élément de commande.
+     * @param productId L'ID du produit associé à l'élément de commande.
+     * @return L'élément de commande correspondant à l'ID du produit, ou null s'il n'est pas présent dans la commande.
+     */
     public OrderItem getOrderItemInOrder(Order order, int productId) {
         return order.getItems().stream().filter(item -> item.getProductId() == productId).findAny().orElse(null);
     }
-
+    /**
+     * Obtient les informations d'inscription d'un client en demandant des informations à l'utilisateur.
+     *
+     * @return Le client nouvellement créé avec les informations fournies.
+     */
     public Client getClientRegistrationInfo() {
         System.out.println("Saisissez vos informations");
         String firstName = input.getUserStrInfo("Prenom");
@@ -826,31 +886,60 @@ public class ClientManager {
         }
         return client;
     }
-
+    /**
+     * Vérifie si un mot de passe est déjà utilisé par un vendeur ou un client.
+     *
+     * @param password Le mot de passe à vérifier.
+     * @return true si le mot de passe est déjà utilisé, false sinon.
+     */
     public boolean isPasswordAlreadyUsed(String password) {
         for (Seller seller : sellerManager.getSellers()) {
             if (seller.getPassword().equals(password)) return true;
         }
         return clients.stream().anyMatch(user -> password.equals(user.getPassword()));
     }
-
+    /**
+     * Récupère un client à partir de son pseudo.
+     *
+     * @param pseudo Le pseudo du client à récupérer.
+     * @return Le client correspondant au pseudo, ou null s'il n'existe pas.
+     */
     public Client getClient(String pseudo) {
         return clients.stream().filter(client -> pseudo.equals(client.getPseudo())).findAny().orElse(null);
     }
-
+    /**
+     * Permet à un client de suivre un autre client.
+     *
+     * @param follower Le client qui souhaite suivre.
+     * @param toFollow Le client à suivre.
+     */
     public void followClient(Client follower, Client toFollow) {
         follower.follow(toFollow);
     }
-
+    /**
+     * Permet à un client de ne plus suivre un autre client.
+     *
+     * @param unfollower Le client qui souhaite arrêter de suivre.
+     * @param toUnfollow Le client à ne plus suivre.
+     */
     public void unfollowClient(Client unfollower, Client toUnfollow) {
         unfollower.unfollow(toUnfollow);
     }
-
+    /**
+     * Récupère un client à partir de son pseudo.
+     *
+     * @param pseudo Le pseudo du client à récupérer.
+     * @return Le client correspondant au pseudo, ou null s'il n'existe pas.
+     */
     public Client getClientFromPseudo(String pseudo) {
         for (Client client : clients) if (client.getPseudo().equals(pseudo)) return client;
         return null;
     }
-
+    /**
+     * Affiche les produits aimés par les clients suivis par un utilisateur donné.
+     *
+     * @param user L'utilisateur pour lequel afficher les produits aimés.
+     */
     public void displayLikedProductsByFollowing(Client user) {
         for (String followingClient : user.getFollowing()) {
             System.out.println("Items aimés par: " + followingClient);
@@ -863,7 +952,13 @@ public class ClientManager {
 
         }
     }
-
+    /**
+     * Traite un retour d'articles par un client.
+     *
+     * @param returnItems Les articles à retourner.
+     * @param user Le client effectuant le retour.
+     * @return L'objet Return représentant le retour.
+     */
     public Return returns(ArrayList<OrderItem> returnItems, Client user) {
         String returnID = UUID.randomUUID().toString();
         for (OrderItem returnItem : returnItems) {
@@ -874,7 +969,13 @@ public class ClientManager {
         user.addReturn(newReturn);
         return newReturn;
     }
-
+    /**
+     * Effectue un achat en créant une nouvelle commande pour un utilisateur donné.
+     *
+     * @param address L'adresse de livraison pour la commande.
+     * @param user L'utilisateur effectuant l'achat.
+     * @return La nouvelle commande générée.
+     */
     public Order buy(String address, Client user) {
         // Generate a unique order ID
         String orderID = UUID.randomUUID().toString();
