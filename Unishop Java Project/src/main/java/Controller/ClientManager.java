@@ -563,9 +563,8 @@ public class ClientManager {
                         System.out.println("1. Confirmer la réception d'une commande");
                         System.out.println("2. Évaluer un produit");
                         System.out.println("3. Retourner un produit");
-                        System.out.println("4. Echanger un produit");
-                        System.out.println("5. Signaler un problème avec un produit");
-                        choice = input.getOption(1, 5);
+                        System.out.println("4. Signaler un problème avec un produit");
+                        choice = input.getOption(1, 4);
                         switch (choice) {
                             case 1:
                                 if (user.getOrder(orderNumber).isShipped()) {
@@ -681,7 +680,7 @@ public class ClientManager {
 
                                 }
                                 break;
-                            case 5:
+                            case 4:
                                 if (!user.getOrder(orderNumber).isDelivered()) {
                                     System.out.println("Vous n'avez pas confirmer la reception de cette commande");
                                     System.out.println("Voulez vous confirmer la reception de la commande ?");
@@ -755,6 +754,38 @@ public class ClientManager {
                     }
                     break;
                 case 13:
+                    ArrayList<Ticket> tickets = user.getTickets();
+                    if (tickets.isEmpty()) System.out.println("vous n'avez aucun ticket en attente!");
+                    else {
+                        System.out.println("Voici vos tickets:");
+                        for (int i = 0; i < tickets.size(); i++) {
+                            System.out.println("#" + i + " " + tickets.get(i));
+                        }
+                        System.out.println("Voulez-vous prendre action sur un ticket?");
+                        System.out.println("1. Oui");
+                        System.out.println("2. Non");
+                        if (input.getOption(1, 2) == 1) {
+                            System.out.println("Quel est le # du ticket?");
+                            Ticket currTicket = tickets.get(input.getOption(0, tickets.size() - 1));
+                            System.out.println("Choisissez l'une des options suivantes:");
+                            System.out.println("1. Expédier le produit défectueux");
+                            System.out.println("2. Confirmer la réception du remplacement");
+                            choice = input.getOption(1, 3);
+                            if (choice == 1) {
+                                if (currTicket.getTrackingNumber() != null && !currTicket.isBuyerConfirmationOfReturnProductExpedition()) {
+                                    currTicket.setBuyerConfirmationOfReturnProductExpedition(true);
+                                    System.out.println("Confirmation de l'expédition du produit défectueux");
+                                } else System.out.println("Vous avez déjà retourné le produit");
+                            } else if (choice == 2) {
+                                if (currTicket.isDeliveryConfirmationBySeller() && !currTicket.isBuyerConfirmationOfReplacementDelivery()) {
+                                    currTicket.setBuyerConfirmationOfReplacementDelivery(true);
+                                    System.out.println("Confirmation de la réception de l'item de remplacement");
+                                } else System.out.println("Vous avez déja confirmé la réception");
+                            }
+                        }
+                    }
+                    break;
+                case 14:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
                     repeat = false;
                     return repeat;
@@ -952,7 +983,7 @@ public class ClientManager {
      * Traite un retour d'articles par un client.
      *
      * @param returnItems Les articles à retourner.
-     * @param user Le client effectuant le retour.
+     * @param client Le client effectuant le retour.
      * @return L'objet Return représentant le retour.
      */
     public Order returns(ArrayList<OrderItem> returnItems, Client client,String orderNumber) {
@@ -991,3 +1022,4 @@ public class ClientManager {
         return newOrder;
     }
 }
+

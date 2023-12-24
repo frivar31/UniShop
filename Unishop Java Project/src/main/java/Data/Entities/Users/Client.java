@@ -365,6 +365,7 @@ public class Client extends User {
         likedSeller.add(pseudo);
     }
 
+
     @JsonIgnore
     public ArrayList<Order> getInProduction(){
         ArrayList<Order> inProd=new ArrayList<>();

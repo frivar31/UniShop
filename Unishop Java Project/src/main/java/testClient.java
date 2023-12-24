@@ -16,7 +16,7 @@ public class testClient {
     Client client= new Client("John3", "Doe3", "john33@example.com", "johnny33", 123456789L, "123 Main St", "password");
     SellerManager sellerManager = new SellerManager(new ArrayList<>());
     ClientManager clientManager = new ClientManager(new ArrayList<>());
-    Order order = new Order("123", new ArrayList<>(), new Date(), false, false, null, null, "456 Main St");
+    Order order = new Order("123", new ArrayList<>(), new Date(), false, false, false, null,null, "456 Main St");
     Product product1 = new Product("Smartphone", "High-performance smartphone with a sleek design", "2023-03-10", 20, 699.99, 1, ProductType.Hardware, "Model456", "BrandTech", new ArrayList<>(), new ArrayList<>(List.of("user5", "user6")));
     Product product2 = new Product("Book", "Interesting book on a specific topic", "2023-02-15", 50, 19.99, 1, ProductType.Book, "BookModel456", "BookBrandABC", new ArrayList<>(), new ArrayList<>(List.of("user3", "user4")));
     ArrayList<Product> productsList = new ArrayList<>();

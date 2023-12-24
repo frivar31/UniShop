@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 
+
 /**
  * Classe représentant un vendeur dans le système.
  * Les vendeurs peuvent gérer leurs produits à vendre, suivre les commandes et gérer les retours.
@@ -21,7 +22,6 @@ public class Seller extends User {
      * @param firstName Prénom du vendeur.
      * @param lastName Nom du vendeur.
      * @param email Adresse e-mail du vendeur.
-     * @param returnItems Liste des articles à retourner.
      * @param pseudo Pseudo du vendeur.
      * @param number Numéro de téléphone du vendeur.
      * @param productsToSell Liste des produits à vendre.
