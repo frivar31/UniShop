@@ -28,19 +28,34 @@ public class ClientManager {
         this.input = new UserInteractionService();
     }
 
-
+    /**
+     * Retourne la liste des clients
+     * @return
+     */
     public List<Client> getClients() {
         return clients;
     }
 
+    /**
+     *Définit la liste des clients
+     * @param clients
+     */
     public void setClients(List<Client> clients) {
         this.clients = clients;
     }
 
+    /**
+     *Définit le vendeurs associé aux clients.
+     * @param sellerManager
+     */
     public void setSellerManager(SellerManager sellerManager) {
         this.sellerManager = sellerManager;
     }
 
+    /**
+     *
+     * @param productManager
+     */
     public void setProductManager(ProductManager productManager) {
         this.productManager = productManager;
     }
@@ -1022,4 +1037,5 @@ public class ClientManager {
         return newOrder;
     }
 }
+
 
