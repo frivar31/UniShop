@@ -165,21 +165,6 @@ public class Product {
     }
 
 
-    /*
-    @Override
-    public String toString() {
-        return "{" +
-                "\n- id='" + id + '\'' +
-                "\n- title='" + title + '\'' +
-                "\n- desc='" + desc + '\'' +
-                "\n- category='" + category + '\'' +
-                "\n- date=" + date +
-                "\n- quantity=" + quantity +
-                "\n- price=" + (double) Math.round(price * 100) / 100 + "$" +
-                "\n- points=" + points +
-                "\n}";
-    }
-*/
     /**
      * Retourne une représentation sous forme de chaîne de caractères du produit avec une quantité spécifiée.
      *
