@@ -1,325 +1,215 @@
 package Data.Entities;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDate;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-
-public class Order {
-
-    private String orderNumber;
-    private ArrayList<OrderItem> items;
-    private Date orderDate;
-    private Boolean delivered;
-    private Boolean shipped;
-    private Date shippedDate;
-    private Date deliveryDate;
-    private String address;
-    private Boolean returned ;
-
-    public Boolean isReturned() {
-        return this.returned;
-    }
-
-    public void setReturned(Boolean returned) {
-        this.returned = returned;
-    }
+/**
+ * Cette classe représente un ticket associé à une commande.
+ */
+public class Ticket {
+    private final String problemDescription;
+    private final OrderItem item;
+    private final String creationDate;
+    private String replacementRequestDate;
+    private String solutionDescription;
+    private String trackingNumber;
+    private boolean deliveryConfirmationBySeller;
+    private String replacementProductDescription;
+    private String replacementTrackingNumber;
+    private boolean buyerConfirmationOfReplacementDelivery;
+    private String sellerPseudo;
+    private boolean buyerConfirmationOfReturnProductExpedition;
+    private boolean sellerConfirmationOfReturnProductReception;
 
     /**
-     * constructeur:
+     * Constructeur pour créer un objet Ticket.
      *
-     * @param orderNumber
-     * @param items
-     * @param orderDate
-     * @param delivered
-     * @param shipped
-     * @param returned
-     * @param shippedDate
-     * @param deliveryDate
-     * @param address
+     * @param problemDescription                    Description du problème associé au ticket.
+     * @param solutionDescription                   Description de la solution au problème.
+     * @param trackingNumber                        Numéro de suivi associé à la livraison.
+     * @param replacementProductDescription         Description du produit de remplacement.
+     * @param replacementTrackingNumber             Numéro de suivi associé à la livraison du produit de remplacement.
+     * @param item                                  Article lié au ticket.
+     * @param sellerPseudo                          Pseudo du vendeur associé à la commande.
+     * @param replacementRequestDate               Date à laquelle la demande de remplacement a été effectuée.
+     * @param buyerConfirmationOfReturnProductExpedition Confirmation de l'expédition du produit retourné par l'acheteur.
+     * @param sellerConfirmationOfReturnProductReception Confirmation de la réception du produit retourné par le vendeur.
      */
+    //Constructeur
     @JsonCreator
-    public Order(@JsonProperty("orderNumber") String orderNumber,
-                 @JsonProperty("items") ArrayList<OrderItem> items,
-                 @JsonProperty("orderDate") Date orderDate,
-                 @JsonProperty("delivered") Boolean delivered,
-                 @JsonProperty("shipped") Boolean shipped,
-                 @JsonProperty("returned") Boolean returned,
-                 @JsonProperty("shippedDate") Date shippedDate,
-                 @JsonProperty("deliveryDate") Date deliveryDate,
-                 @JsonProperty("address") String address) {
-        this.orderNumber = orderNumber;
-        this.items = items;
-        this.orderDate = orderDate;
-        this.delivered = delivered;
-        this.shipped = shipped;
-        this.shippedDate = shippedDate;
-        this.deliveryDate = deliveryDate;
-        this.address = address;
-        this.returned = returned ;
+    public Ticket(@JsonProperty("problemDescription") String problemDescription, @JsonProperty("solutionDescription") String solutionDescription, @JsonProperty("trackingNumber") String trackingNumber, @JsonProperty("replacementProductDescription") String replacementProductDescription, @JsonProperty("replacementTrackingNumber") String replacementTrackingNumber, @JsonProperty("item") OrderItem item, @JsonProperty("sellerPseudo") String sellerPseudo, @JsonProperty("replacementRequestDate") String replacementRequestDate, @JsonProperty("buyerConfirmationOfReturnProductExpedition") Boolean buyerConfirmationOfReturnProductExpedition, @JsonProperty("sellerConfirmationOfReturnProductReception") Boolean sellerConfirmationOfReturnProductReception) {
+        this.problemDescription = problemDescription;
+        this.solutionDescription = solutionDescription;
+        this.trackingNumber = trackingNumber;
+        this.deliveryConfirmationBySeller = false;
+        this.replacementProductDescription = replacementProductDescription;
+        this.replacementTrackingNumber = replacementTrackingNumber;
+        this.buyerConfirmationOfReplacementDelivery = false;
+        this.creationDate = LocalDate.now().toString();
+        this.item = item;
+        this.sellerPseudo = sellerPseudo;
+        this.replacementRequestDate = replacementRequestDate;
+        this.sellerConfirmationOfReturnProductReception = sellerConfirmationOfReturnProductReception;
+        this.buyerConfirmationOfReturnProductExpedition = buyerConfirmationOfReturnProductExpedition;
     }
 
     /**
      *
-     * @return L'adresse de livraison de la commande
+     * @param problemDescription    La description du problème signalé dans le ticket.
+     * @param item                  L'article associé au problème
+     * @param sellerPseudo          Le pseudo du vendeur lié à l'article
      */
-    public String getAddress(){
-        return address;
+    public Ticket(String problemDescription, OrderItem item, String sellerPseudo) {
+        this.problemDescription = problemDescription;
+        this.solutionDescription = null;
+        this.trackingNumber = null;
+        this.deliveryConfirmationBySeller = false;
+        this.replacementProductDescription = null;
+        this.replacementTrackingNumber = null;
+        this.buyerConfirmationOfReplacementDelivery = false;
+        this.creationDate = LocalDate.now().toString();
+        this.item = item;
+        this.sellerPseudo = sellerPseudo;
+        this.replacementRequestDate = null;
+        this.sellerConfirmationOfReturnProductReception = false;
+        this.buyerConfirmationOfReturnProductExpedition = false;
+
+    }
+
+    public String getReplacementRequestDate() {
+        return replacementRequestDate;
+    }
+
+    public void setReplacementRequestDate(String replacementRequestDate) {
+        this.replacementRequestDate = replacementRequestDate;
     }
 
     /**
-     * Obtient le numéro de commande
-     * @return
+     * Vérifie si l'acheteur a confirmé l'expédition du produit retourné
+     * @return  Vrai si l'acheteur a confirmé l'expédition
      */
-    public String getOrderNumber() {
-        return orderNumber;
+    public boolean isBuyerConfirmationOfReturnProductExpedition() {
+        return buyerConfirmationOfReturnProductExpedition;
+    }
+
+    public void setBuyerConfirmationOfReturnProductExpedition(boolean buyerConfirmationOfReturnProductExpedition) {
+        this.buyerConfirmationOfReturnProductExpedition = buyerConfirmationOfReturnProductExpedition;
     }
 
     /**
-     *Définit le numéro de commande.
-     * @param orderNumber
+     * Vérifie si le vendeur a confirmé la réception
+     * @return Vrai si le vendeur a confirmé la réception du produit retourné, sinon faux
      */
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public boolean isSellerConfirmationOfReturnProductReception() {
+        return sellerConfirmationOfReturnProductReception;
     }
 
-    /**
-     *Renvoie la liste des articles de cette commande
-     * @return  La liste des articles de la commande
-     */
-    public ArrayList<OrderItem> getItems() {
-        return items;
+    public void setSellerConfirmationOfReturnProductReception(boolean sellerConfirmationOfReturnProductReception) {
+        this.sellerConfirmationOfReturnProductReception = sellerConfirmationOfReturnProductReception;
     }
 
-    /**
-     *Renvoie la date de la commande
-     * @return
-     */
-    public Date getOrderDate() {
-        return orderDate;
+    public OrderItem getItem() {
+        return item;
     }
 
-    /**
-     * Définit la date de la commande.
-     * @param orderDate orderDate La nouvelle date de la commande.
-     */
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public String getSellerPseudo() {
+        return sellerPseudo;
     }
 
-    /**
-     *Vérifie si la commande contient une quantité spécifiée.
-     * @param productId L'identifiant du produit.
-     * @param quantity La quantité à vérifier.
-     * @return Vrai si la commande contient la quantité spécifiée
-     */
-    public boolean containsQuantity(int productId, int quantity) {
-        return items.stream().anyMatch(orderIt -> orderIt.getProductId() == productId && orderIt.getQuantity() >= quantity) ;
+    public void setSellerPseudo(String sellerPseudo) {
+        this.sellerPseudo = sellerPseudo;
     }
 
+    // Méthode pour annuler automatiquement une demande de réexpédition après 30 jours
     /**
-     * Récupère l'élément de commande correspondant à un produit spécifié.
-     * @param productId
-     * @return L'objet OrderItem associé au produit, ou null s'il n'est pas trouvé
+     * Méthode pour annuler automatiquement une demande de réexpédition après 30 jours.
+     * Si la date actuelle est postérieure de 30 jours à la date de création du ticket, la demande de réexpédition est annulée.
      */
-    public OrderItem getItem(int productId) {
-        for (OrderItem item : items) {
-            if (item.getProductId() == productId) return item ;
-        }
-        return null ;
-    }
+    public void autoCancelReshipmentRequest() {
+        LocalDate thirtyDaysAfterCreation = LocalDate.parse(creationDate).plusDays(30);
+        LocalDate currentDate = LocalDate.now();
 
-    /**
-     * Met à jour la quantité
-     * @param productId identifiant du produit
-     * @param returnQuantity la quantité à soustraire de la quantité actuelle du produit
-     */
-    public void update(int productId,int returnQuantity) {
-        int removePos = 0 ;
-        for (int i = 0 ; i < items.size(); ++i) {
-            if (items.get(i).getProductId() == productId) {
-                int currQuantity = items.get(i).getQuantity() ;
-                items.get(i).setQuantity(currQuantity-returnQuantity);
-                if(items.get(i).getQuantity() == 0) {
-                    removePos = i ;
-                    break ;
-                }
-                else return ;
-            }
-        }
-        items.remove(removePos) ;
-    }
-
-    /**
-     * Vérifie si la commande est retournée en fonction de la date de livraison.
-     * @return vrai si la commande est retournee ,sinon faux
-     */
-    @JsonIgnore
-    public boolean isReturnable() {
-        // Calculate the difference in milliseconds
-        long diffInMilliseconds = Math.abs(Calendar.getInstance().getTime().getTime() - deliveryDate.getTime());
-        // Convert milliseconds to days
-        long daysDifference = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
-        return daysDifference < 30  ;
-    }
-
-
-    /**
-     * virifier si tous les articles de la commande ont ete bien liver
-     * @return vrai si tuous les artciles ont ete livrés, sinon faux.
-     */
-
-
-    public Boolean isDelivered() {
-        for(OrderItem orderItem:items) if(!orderItem.isDelivered()) return false;
-        return true;
-    }
-
-    /**
-     *  Vérifie si la commande peut être signalée en fonction de la date de livraison
-     * @return
-     */
-    @JsonIgnore
-    public boolean isSignalable(){
-        long diffInMilliseconds = Math.abs(Calendar.getInstance().getTime().getTime() - deliveryDate.getTime());
-        // Convert milliseconds to days
-        long daysDifference = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
-        return daysDifference < 365 ;
-    }
-
-    /**
-     *Définit l'état de livraison
-     * @param delivered
-     */
-    public void setDelivered(Boolean delivered) {
-
-        this.delivered = delivered;
-        for(OrderItem item:items){
-            item.setDelivered(true);
+        if (currentDate.isAfter(thirtyDaysAfterCreation)) {
+            // Annuler la demande de réexpédition
+            trackingNumber = null;
         }
     }
 
-    /**
-     * Vérifie si tous les articles de la commande ont été expédiés
-     * @return vrai si tous les articles ont ete expedies
-     */
-    public Boolean isShipped() {
-        for(OrderItem orderItem:items) {
-            if(!orderItem.isShipped()) return false;
-        }
-        this.shipped =  true ;
-        //set ship date the max orderitem shipped date
-        shippedDate = items.stream()
-                .map(OrderItem::getShipDate)
-                .max(Date::compareTo)
-                .orElse(Calendar.getInstance().getTime());
-        return this.shipped;
+    public String getProblemDescription() {
+        return problemDescription;
     }
 
-    /**
-     * Définit l'état d'expédition
-     * @param shipped vrai si la commande a ete expediee , sinon faux.
-     */
-    public void setShipped(Boolean shipped) {
-        this.shipped = shipped;
-        for(OrderItem item:items){
-            item.setShipped(true);
-        }
-
+    public String getSolutionDescription() {
+        return solutionDescription;
     }
 
-    /**
-     * renvoie la date d'expedition de la commande
-     * @return la date d'expedition de la commande
-     */
-    public Date getShippedDate() {
-        return shippedDate;
+    public void setSolutionDescription(String solutionDescription) {
+        this.solutionDescription = solutionDescription;
     }
 
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    // Getters et Setters
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
     /**
+     * Vérifie si le vendeur a confirmé la livraison du produit.
      *
-     * @param shippedDate la vouelle date d'expedition de la commande
+     * @return true si le vendeur a confirmé la livraison du produit, sinon false.
      */
-    public void setShippedDate(Date shippedDate) {
-        this.shippedDate = shippedDate;
+    public boolean isDeliveryConfirmationBySeller() {
+        return deliveryConfirmationBySeller;
+    }
+
+    public void setDeliveryConfirmationBySeller(boolean deliveryConfirmationBySeller) {
+        this.deliveryConfirmationBySeller = deliveryConfirmationBySeller;
+    }
+
+    public String getReplacementProductDescription() {
+        return replacementProductDescription;
+    }
+
+    public void setReplacementProductDescription(String replacementProductDescription) {
+        this.replacementProductDescription = replacementProductDescription;
+    }
+
+    public String getReplacementTrackingNumber() {
+        return replacementTrackingNumber;
+    }
+
+    public void setReplacementTrackingNumber(String replacementTrackingNumber) {
+        this.replacementTrackingNumber = replacementTrackingNumber;
+    }
+    /**
+     * Vérifie si l'acheteur a confirmé la réception du produit de remplacement.
+     *
+     * @return true si l'acheteur a confirmé la réception du produit de remplacement, sinon false.
+     */
+    public boolean isBuyerConfirmationOfReplacementDelivery() {
+        return buyerConfirmationOfReplacementDelivery;
+    }
+
+    public void setBuyerConfirmationOfReplacementDelivery(boolean buyerConfirmationOfReplacementDelivery) {
+        this.buyerConfirmationOfReplacementDelivery = buyerConfirmationOfReplacementDelivery;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
     }
 
     /**
+     * Obtient une représentation textuelle du ticket.
      *
-     * @return date de livraison.
-     */
-    public Date getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    /**
-     *
-     * @param deliveryDate la nouvelle date de livraison
-     */
-    public void setDeliveryDate(Date deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
-    /**
-     *
-     * @return retourne la commande sous forme de chaine de characteres
+     * @return Une chaîne représentant le ticket.
      */
     @Override
     public String toString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String stringBuilder = "\nDescription du problème: " + problemDescription + "\nDescription de la solution: " + solutionDescription + "\nArticle: " + item + "\nDate de création: " + creationDate + "\nNuméro de suivi: " + trackingNumber + "\nConfirmation de livraison par le vendeur: " + deliveryConfirmationBySeller + "\nDescription du produit de remplacement: " + replacementProductDescription + "\nNuméro de suivi du remplacement: " + replacementTrackingNumber + "\nConfirmation de livraison du remplacement par l'acheteur: " + buyerConfirmationOfReplacementDelivery + "\nPseudo du vendeur: " + sellerPseudo + "\n}";
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("Order Number: ").append(orderNumber).append("\n");
-        sb.append("Order Date: ").append(dateFormat.format(orderDate)).append("\n");
-        sb.append("Delivered: ").append(isDelivered()).append("\n");
-        sb.append("Shipped: ").append(isShipped()).append("\n");
-
-        if (shipped) {
-            sb.append("Shipped Date: ").append(dateFormat.format(shippedDate)).append("\n");
-        }
-
-        if (delivered) {
-            sb.append("Delivery Date: ").append(dateFormat.format(deliveryDate)).append("\n");
-        }
-
-        sb.append("Product: "+items);
-        sb.append("\n");
-
-        return sb.toString();
+        return stringBuilder;
     }
-
-    /**
-     *
-     * @return La représentation de la commande retournée sous forme de chaîne de caractères.
-     */
-    public String  print() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("return Number: ").append(orderNumber).append("\n");
-        sb.append("return Date: ").append(dateFormat.format(orderDate)).append("\n");
-        sb.append("Delivered: ").append(isDelivered()).append("\n");
-        sb.append("Shipped: ").append(isShipped()).append("\n");
-
-        if (shipped) {
-            sb.append("Shipped Date: ").append(dateFormat.format(shippedDate)).append("\n");
-        }
-
-        if (delivered) {
-            sb.append("Delivery Date: ").append(dateFormat.format(deliveryDate)).append("\n");
-        }
-
-        sb.append("Product: "+items);
-        sb.append("\n");
-
-        return sb.toString();
-    }
-
 }
-

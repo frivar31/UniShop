@@ -362,8 +362,9 @@ public class Client extends User {
      * @param pseudo Le pseudonyme du vendeur à ajouter.
      */
     public void addLikedSeller(String pseudo) {
-        likedSeller.add(pseudo);
+
     }
+
 
     @JsonIgnore
     public ArrayList<Order> getInProduction(){
