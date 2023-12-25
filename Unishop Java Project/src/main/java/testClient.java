@@ -58,30 +58,17 @@ public class testClient {
     }
     @Test
     public void testaddLikedSeller() {
+        client.setLikedSeller( new ArrayList<>());
         client.addLikedSeller("john_doe");
-        assertEquals("john_doe", client.getLikedSeller());
+        assertEquals( "[john_doe]", client.getLikedSeller().toString());
     }
     @Test
     public void testalreadyLikedSeller() {
+        client.setLikedSeller( new ArrayList<>());
         client.addLikedSeller("john_doe");
         assertTrue(client.alreadyLikedSeller("john_doe"));
     }
-
-
-            // reste a tester, choisir entre :
-
-           // public void updateQuantity(int id, int quantity) {
-           // public void deleteProduct(int id) {
-            //public void displayLikedProductsByFollowing(Client user) {
-            //public void removeRating(Product product) {
-            //    private void followedBy(String follower) {
-            // convertToOrderItems()
-            // public void clearCart() {
-            //    public boolean containsItem(int id) {
-
-
-
-        }
+}
 
 
 

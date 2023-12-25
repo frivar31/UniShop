@@ -43,7 +43,6 @@ public class testProduct {
     public void testclearcart() {
         Catalog.catalogMap.put(product.getId(), new Object[]{product, null});
         cart.add(product.getId());
-        System.out.println(cart.getCart().toString());
         assertTrue(cart.containsItem(product.getId()));
         assertEquals(1, cart.getCart().size());
         assertEquals(99.99, cart.getTotal(), 0.01);
