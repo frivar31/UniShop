@@ -1,5 +1,4 @@
 package Data.Entities.Users;
-
 import Data.Entities.*;
 import Data.Entities.Products.Product;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -362,7 +361,7 @@ public class Client extends User {
      * @param pseudo Le pseudonyme du vendeur à ajouter.
      */
     public void addLikedSeller(String pseudo) {
-
+        likedSeller.add(pseudo);
     }
 
 
