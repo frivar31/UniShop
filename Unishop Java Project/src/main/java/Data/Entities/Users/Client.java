@@ -363,8 +363,6 @@ public class Client extends User {
     public void addLikedSeller(String pseudo) {
         likedSeller.add(pseudo);
     }
-
-
     @JsonIgnore
     public ArrayList<Order> getInProduction(){
         ArrayList<Order> inProd=new ArrayList<>();

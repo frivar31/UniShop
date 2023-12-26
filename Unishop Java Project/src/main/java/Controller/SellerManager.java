@@ -368,7 +368,6 @@ public class SellerManager {
             System.out.println("Ce mot de passe est déjà utilisé. Veuillez entrer un nouveau.");
             password = input.getUserStrInfo("Mot de passe");
         }
-
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
         Seller seller = new Seller(firstName, lastName, email, pseudo, number, products, password);
@@ -428,10 +427,23 @@ public class SellerManager {
      */
     public void updateSellerOrderItems(Order order) {
         for (OrderItem item : order.getItems()) {
-            //to fix
             Seller seller = Catalog.getProductSeller(item.getProductId());
             seller.addOrderItem(item);
         }
     }
 
+    public Seller getSellerFromName(String name) {
+        for (Seller seller : sellers) if (seller.getFirstName().equals(name)) return seller;
+        return null;
+    }
+    public Seller getSellerFromAdress(String Adress) {
+        for (Seller seller : sellers) if (seller.getEmail().equals(Adress)) return seller;
+        return null;
+    }
+    public Seller getSellerFromProduct(ProductType category) {
+         for (Seller seller : sellers)
+             for (Product product : seller.getProducts())
+                if (product.getCategory().equals(category)) return seller;
+        return null;
+    }
 }
