@@ -138,7 +138,6 @@ public class OrderItem {
         return sellerPseudo;
     }
 
-
     public int getProductId() {
         return productId;
     }
@@ -150,8 +149,6 @@ public class OrderItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-
 
 /**
  * Convertit l'objet en une représentation sous forme de chaîne de caractères.

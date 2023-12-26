@@ -33,15 +33,9 @@ public class testProduct {
         assertEquals(4, (int) averageRating);
     }
     @Test
-    public void testContainsItem() {
+    public void testContainsItemShoppingCart() {
         Catalog.catalogMap.put(product.getId(), new Object[]{product, null});
         assertFalse(cart.containsItem(product.getId()));
-        cart.add(product.getId());
-        assertTrue(cart.containsItem(product.getId()));
-    }
-    @Test
-    public void testclearcart() {
-        Catalog.catalogMap.put(product.getId(), new Object[]{product, null});
         cart.add(product.getId());
         assertTrue(cart.containsItem(product.getId()));
         assertEquals(1, cart.getCart().size());
@@ -50,18 +44,18 @@ public class testProduct {
         assertEquals(99, cart.getNumberPoints());
     }
     @Test
-    public void testDeleteProduct() {
+    public void testDeleteProductfromShoppingCart() {
         Product product1 = new Product("Product 1", "Description 1", "2023-01-01", 10, 20.0, 2, ProductType.Article, "Model 1", "Brand 1", new ArrayList<>(), new ArrayList<>());
         Catalog.catalogMap.put(product1.getId(), new Object[]{product1, null});
         cart.add(product1.getId());
         cart.deleteProduct(product1.getId());
         assertFalse(cart.getCart().isEmpty());
-        assertEquals(0,(int) cart.getTotal());
+        assertEquals(  0.0, cart.getTotal(),0.01);
         assertEquals(0, cart.getNumberItems());
         assertEquals(0, cart.getNumberPoints());
     }
     @Test
-    public void testClearCart() {
+    public void testClearShoppingCart() {
         Product product1 = new Product("Product 1", "Description 1", "2023-01-01", 10, 20.0, 2, ProductType.Article, "Model 1", "Brand 1", new ArrayList<>(), new ArrayList<>());
         Product product2 = new Product("Product 2", "Description 2", "2023-01-02", 15, 30.0, 3, ProductType.Article, "Model 2", "Brand 2", new ArrayList<>(), new ArrayList<>());
         Catalog.catalogMap.put(product1.getId(), new Object[]{product1, null});
