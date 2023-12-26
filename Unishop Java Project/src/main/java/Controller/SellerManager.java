@@ -124,13 +124,12 @@ public class SellerManager {
             System.out.println("5. Voir les évaluations de mes produits");
             System.out.println("6. Voir les tickets en attente");
             System.out.println("7. Voir ses métriques");
-
             System.out.println("8. Chercher un produit");
             System.out.println("9. Chercher un vendeur");
             System.out.println("10. Chercher un acheteur");
 
             System.out.println("11. Quitter");
-            int option = input.getOption(1, 8);
+            int option = input.getOption(1, 11);
             switch (option) {
                 case 1:
                     Product product = null;
