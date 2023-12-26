@@ -20,7 +20,7 @@ public class SellerManager {
     private ProductManager productManager;
     private ClientManager clientManager;
     private List<Seller> sellers;
-
+    private List<Client> clients;
     /**
      * Constructeur de la classe SellerManager.
      *
@@ -124,7 +124,12 @@ public class SellerManager {
             System.out.println("5. Voir les évaluations de mes produits");
             System.out.println("6. Voir les tickets en attente");
             System.out.println("7. Voir ses métriques");
-            System.out.println("8. Quitter");
+
+            System.out.println("8. Chercher un produit");
+            System.out.println("9. Chercher un vendeur");
+            System.out.println("10. Chercher un acheteur");
+
+            System.out.println("11. Quitter");
             int option = input.getOption(1, 8);
             switch (option) {
                 case 1:
@@ -259,13 +264,273 @@ public class SellerManager {
                     System.out.println("Votre nombre de ventes effectués: " + seller.getOrderItems().size());
                     break;
                 case 8:
+                    redo = true;
+                    while (redo) {
+
+                        System.out.println("Choisissez votre option de filtre:");
+                        System.out.println("1. Catégorie");
+                        System.out.println("2. Prix");
+                        System.out.println("3. Marque");
+                        System.out.println("4. Titre");
+                        System.out.println("5. Modèle");
+                        System.out.println("6. Notes");
+                        System.out.println("7. Aucune");
+
+                        int filterOption = input.getOption(1, 7);
+                        List<Product> products = new ArrayList<>();
+                        switch (filterOption) {
+                            case 1:
+                                boolean redoChoice = true;
+                                while (redoChoice) {
+                                    System.out.println("Entrer la categorie de produit :");
+                                    System.out.println("1. Livres et Manuels");
+                                    System.out.println("2. Ressource d'apprentissage");
+                                    System.out.println("3. Article de papeterie");
+                                    System.out.println("4. Materiel informatique");
+                                    System.out.println("5. Equipement de bureau");
+                                    int choice = input.getOption(1, 5);
+                                    switch (choice) {
+                                        case 1:
+                                            products = productManager.findProductsByCategory(ProductType.Book);
+                                            if (products.isEmpty()) {
+                                                System.out.println("Aucun produit dans la catégorie " + ProductType.Book + ". Veuillez reessayer svp");
+                                            } else redoChoice = false;
+                                            break;
+                                        case 2:
+                                            products = productManager.findProductsByCategory(ProductType.LearningResource);
+                                            if (products.isEmpty()) {
+                                                System.out.println("Aucun produit dans la catégorie " + ProductType.LearningResource + ". Veuillez reessayer svp");
+                                            } else redoChoice = false;
+                                            break;
+                                        case 3:
+                                            products = productManager.findProductsByCategory(ProductType.Article);
+                                            if (products.isEmpty()) {
+                                                System.out.println("Aucun produit dans la catégorie " + ProductType.Article + ". Veuillez reessayer svp");
+                                            } else redoChoice = false;
+                                            break;
+                                        case 4:
+                                            products = productManager.findProductsByCategory(ProductType.Hardware);
+                                            if (products.isEmpty()) {
+                                                System.out.println("Aucun produit dans la catégorie " + ProductType.Hardware + ". Veuillez reessayer svp");
+                                            } else redoChoice = false;
+                                            break;
+                                        case 5:
+                                            products = productManager.findProductsByCategory(ProductType.DesktopTool);
+                                            if (products.isEmpty()) {
+                                                System.out.println("Aucun produit dans la catégorie " + ProductType.DesktopTool + ". Veuillez reessayer svp");
+                                            } else redoChoice = false;
+                                            break;
+                                    }
+                                }
+                                for (Product productSeller : products) System.out.println(productSeller);
+                                break;
+                            case 2:
+                                System.out.println("Specifier les prix max et min");
+                                int minPrice = input.getUserNumInfo("Prix min", 1, Integer.MAX_VALUE);
+                                int maxPrice = input.getUserNumInfo("Prix max", 1, Integer.MAX_VALUE);
+                                products = productManager.findProductsByPrice(minPrice, maxPrice);
+                                while (products.isEmpty()) {
+                                    System.out.println("Produits avec prix min: " + minPrice + " et prix max: " + maxPrice + " indisponible. Veuillez reessayer svp");
+                                    minPrice = input.getUserNumInfo("Prix min", 1, Integer.MAX_VALUE);
+                                    maxPrice = input.getUserNumInfo("Prix max", 1, Integer.MAX_VALUE);
+                                    products = productManager.findProductsByPrice(minPrice, maxPrice);
+                                }
+                                for (Product productSeller : products) System.out.println(productSeller);
+                                break;
+                            case 4:
+                                System.out.println("Entrer le titre du produit");
+                                String title = input.getUserStrInfo("Titre");
+                                products = productManager.findProductsByTitle(title);
+                                while (products.isEmpty()) {
+                                    System.out.println("Produits avec titre: " + title + " indisponible. Veuillez reessayer svp");
+                                    title = input.getUserStrInfo("Titre");
+                                    products = productManager.findProductsByTitle(title);
+                                }
+                                for (Product productSeller : products) System.out.println(productSeller);
+                                break;
+                            case 3:
+                                System.out.println("Entrer la marque du produit");
+                                String brand = input.getUserStrInfo("Marque");
+                                products = productManager.findProductsByBrand(brand);
+                                while (products.isEmpty()) {
+                                    System.out.println("Produits avec marque: " + brand + " indisponible. Veuillez reessayer svp");
+                                    brand = input.getUserStrInfo("Marque");
+                                    products = productManager.findProductsByBrand(brand);
+                                }
+                                for (Product productSeller : products) System.out.println(productSeller);
+                                break;
+                            case 5:
+                                System.out.println("Entrer le modèle du produit");
+                                String model = input.getUserStrInfo("Modèle");
+                                products = productManager.findProductsByModel(model);
+                                while (products.isEmpty()) {
+                                    System.out.println("Produits avec modèle: " + model + " indisponible.Veuillez reessayer svp");
+                                    model = input.getUserStrInfo("Modèle");
+                                    products = productManager.findProductsByModel(model);
+                                }
+                                for (Product productSeller : products) System.out.println(productSeller);
+                                break;
+                            case 6:
+                                PriorityQueue<Product> pq = new PriorityQueue<Product>((a, b) -> b.getLikes().size() - a.getLikes().size());
+                                for (Product productSeller : Catalog.catalogMap.values().stream().map(obj -> (Product) obj[0]).toList()) {
+                                    if (!productSeller.getLikes().isEmpty()) pq.add(productSeller);
+                                }
+                                for (Product productSeller : pq) {
+                                    System.out.println(productSeller);
+                                }
+                                break;
+                            case 7:
+                                System.out.println("Liste des produits disponibles :");
+                                for (Product productSeller : Catalog.catalogMap.values().stream().map(obj -> (Product) obj[0]).toList()) {
+                                    System.out.println(productSeller);
+                                }
+                                break;
+                        }
+                        break;
+                    }
+
+                case 9:
+                    System.out.println("Choisissez votre option de filtre:");
+                    System.out.println("1. Nom");
+                    System.out.println("2. Adresse");
+                    System.out.println("3. Type de produit");
+                    System.out.println("4. Aucune");
+
+                    int filterOption = input.getOption(1, 4);
+                    List<Seller> sellers = new ArrayList<>();
+                    SellerManager sellerManager = null;
+                    switch (filterOption) {
+                        case 1:
+                            System.out.println("Entrer le nom du vendeur");
+                            String name = input.getUserStrInfo("Nom");
+                            sellers = sellerManager.findSellersByName(name);
+                            while (sellers.isEmpty()) {
+                                System.out.println("Vendeurs nommés: " + name + " indisponible. Veuillez reessayer svp");
+                                name = input.getUserStrInfo("Nom");
+                                sellers = sellerManager.findSellersByName(name);
+                            }
+                            for (Seller seller1 : sellers) System.out.println(seller1);
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+                            boolean redoChoice = true;
+                            while (redoChoice) {
+                                System.out.println("Entrer la catégorie du produit vendu par le vendeur");
+                                System.out.println("1. Livres et Manuels");
+                                System.out.println("2. Ressource d'apprentissage");
+                                System.out.println("3. Article de papeterie");
+                                System.out.println("4. Materiel informatique");
+                                System.out.println("5. Equipement de bureau");
+                                int choice = input.getOption(1, 5);
+                                switch (choice) {
+                                    case 1:
+                                        sellers = sellerManager.findSellersByProductType(ProductType.Book);
+                                        if (sellers.isEmpty()) {
+                                            System.out.println("Vendeurs avec categorie de produit : " + ProductType.Book + " indisponible. Veuillez reessayer svp");
+                                        } else redoChoice = false;
+                                        break;
+                                    case 2:
+                                        sellers = sellerManager.findSellersByProductType(ProductType.LearningResource);
+                                        if (sellers.isEmpty()) {
+                                            System.out.println("Vendeurs avec categorie de produit : " + ProductType.LearningResource + " indisponible. Veuillez reessayer svp");
+                                        } else redoChoice = false;
+                                        break;
+                                    case 3:
+                                        sellers = sellerManager.findSellersByProductType(ProductType.Article);
+                                        if (sellers.isEmpty()) {
+                                            System.out.println("Vendeurs avec categorie de produit : " + ProductType.Article + " indisponible. Veuillez reessayer svp");
+                                        } else redoChoice = false;
+                                        break;
+                                    case 4:
+                                        sellers = sellerManager.findSellersByProductType(ProductType.Hardware);
+                                        if (sellers.isEmpty()) {
+                                            System.out.println("Vendeurs avec categorie de produit : " + ProductType.Hardware + " indisponible. Veuillez reessayer svp");
+                                        } else redoChoice = false;
+                                        break;
+                                    case 5:
+                                        sellers = sellerManager.findSellersByProductType(ProductType.DesktopTool);
+                                        if (sellers.isEmpty()) {
+                                            System.out.println("Vendeurs avec categorie de produit : " + ProductType.DesktopTool + " indisponible. Veuillez reessayer svp");
+                                        } else redoChoice = false;
+                                        break;
+                                }
+                            }
+
+                            for (Seller seller1 : sellers) System.out.println(seller1);
+                            break;
+                        case 4:
+                            System.out.println("Liste des vendeurs disponibles");
+                            for (Seller seller1 : sellerManager.getSellers()) {
+                                System.out.println(seller1);
+                            }
+                            break;
+                    }
+                    System.out.println("Voulez-vous voir le profil d'un vendeur?");
+                    System.out.println("1. oui");
+                    System.out.println("2. non");
+                    if (input.getOption(1, 2) == 1) {
+                        System.out.println("Entrer le pseudo du vendeur");
+                        String pseudo = input.getUserStrInfo("Pseudo");
+                        Seller seller1 = sellerManager.getSeller(pseudo);
+                        while (seller1 == null) {
+                            System.out.println("Pseudo invalide. veuillez reessayer svp");
+                            pseudo = input.getUserStrInfo("Pseudo");
+                            seller1 = sellerManager.getSeller(pseudo);
+                        }
+                        System.out.println(seller1);
+                        System.out.println("Liste des produits vendus par " + seller1.getFirstName() + ":");
+                        for (Product product1 : seller.getProducts()) System.out.println(product1);
+                        break;
+                    }
+
+            case 10:
+                    System.out.println("Choisissez votre option de filtre:");
+                    System.out.println("1. Pseudo");
+                    System.out.println("2. Parmi la liste des suiveurs d'un acheteur");
+                    System.out.println("3. Aucune");
+                    filterOption = input.getOption(1, 3);
+                    switch (filterOption) {
+                        case 1:
+                            String recherche = input.getUserStrInfo("Chaine de character à rechercher");
+                            ArrayList<Client> clientTrouve = new ArrayList<>();
+                            for (Client client : clients) {
+                                if (client.getPseudo().toLowerCase().contains(recherche.toLowerCase())) {
+                                    clientTrouve.add(client);
+                                }
+                            }
+                            for (Client client : clientTrouve) System.out.println(client);
+                            break;
+                        case 2:
+                            for (Client acheteur : clients) System.out.println(acheteur);
+                            System.out.println("Choisir vous voulez voir les suiveurs de quel acheteur");
+                            String pseudo = input.getUserStrInfo("Pseudo");
+                            Client client = null;
+                            while ((client = (Client) getUserByPseudo(pseudo)) == null ) {
+                                System.out.println("Ce compte n'existe pas");
+                                pseudo = input.getUserStrInfo("Pseudo");
+                            }
+                            System.out.println("Voici les suiveurs de " + pseudo);
+                            for (String suiveur : client.getFollowers()) {
+                                System.out.println(getUserByPseudo(suiveur));
+                            }
+                            break;
+                        case 3:
+                            for (Client acheteur : clients) System.out.println(acheteur);
+                            break;
+                    }
+                    case 11:
                     System.out.println("Merci d'avoir utilisé notre service. Au revoir!");
                     repeat = false;
                     return repeat;
-            }
-        }
+
+        }}
+
         return !repeat;
     }
+
+
     /**
      * Modifie les informations du vendeur en fonction de l'option choisie.
      *

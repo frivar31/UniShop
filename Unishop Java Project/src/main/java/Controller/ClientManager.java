@@ -351,6 +351,7 @@ public class ClientManager {
                             for (Seller seller : sellers) System.out.println(seller);
                             break;
                         case 2:
+
                             break;
                         case 3:
                             boolean redoChoice = true;
