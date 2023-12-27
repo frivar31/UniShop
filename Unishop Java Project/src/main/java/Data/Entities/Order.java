@@ -291,31 +291,5 @@ public class Order {
         return sb.toString();
     }
 
-    /**
-     *
-     * @return La représentation de la commande retournée sous forme de chaîne de caractères.
-     */
-    public String  print() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("return Number: ").append(orderNumber).append("\n");
-        sb.append("return Date: ").append(dateFormat.format(orderDate)).append("\n");
-        sb.append("Delivered: ").append(isDelivered()).append("\n");
-        sb.append("Shipped: ").append(isShipped()).append("\n");
-
-        if (shipped) {
-            sb.append("Shipped Date: ").append(dateFormat.format(shippedDate)).append("\n");
-        }
-
-        if (delivered) {
-            sb.append("Delivery Date: ").append(dateFormat.format(deliveryDate)).append("\n");
-        }
-
-        sb.append("Product: "+items);
-        sb.append("\n");
-
-        return sb.toString();
-    }
 
 }

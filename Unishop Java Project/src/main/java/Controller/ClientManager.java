@@ -351,7 +351,15 @@ public class ClientManager {
                             for (Seller seller : sellers) System.out.println(seller);
                             break;
                         case 2:
-
+                            System.out.println("Entrer L'adresse email du vendeur");
+                            String adress = input.getUserStrInfo("Adresse");
+                            sellers = sellerManager.findSellersByAdress(adress);
+                            while (sellers.isEmpty()) {
+                                System.out.println("Vendeurs email est: " + adress + " indisponible. Veuillez reessayer svp");
+                                adress = input.getUserStrInfo("adress");
+                                sellers = sellerManager.findSellersByAdress(adress);
+                            }
+                            for (Seller seller : sellers) System.out.println(seller);
                             break;
                         case 3:
                             boolean redoChoice = true;

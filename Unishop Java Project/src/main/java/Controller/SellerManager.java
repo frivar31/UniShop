@@ -91,7 +91,9 @@ public class SellerManager {
     public List<Seller> findSellersByName(String name) {
         return this.sellers.stream().filter(user -> name.equals(user.getFirstName())).toList();
     }
-
+    public List<Seller> findSellersByAdress(String Adress) {
+        return this.sellers.stream().filter(user -> Adress.equals(user.getEmail())).toList();
+    }
 
     public Seller getSeller(String pseudo) {
         return sellers.stream().filter(seller -> pseudo.equals(seller.getPseudo())).findAny().orElse(null);
@@ -411,7 +413,15 @@ public class SellerManager {
                             for (Seller seller1 : sellers) System.out.println(seller1);
                             break;
                         case 2:
-
+                            System.out.println("Entrer le L'adresse du vendeur");
+                            String adress = input.getUserStrInfo("Adresse");
+                            sellers = sellerManager.findSellersByAdress(adress);
+                            while (sellers.isEmpty()) {
+                                System.out.println("Vendeurs adress est: " + adress + " indisponible. Veuillez reessayer svp");
+                                adress = input.getUserStrInfo("adress");
+                                sellers = sellerManager.findSellersByAdress(adress);
+                            }
+                            for (Seller seller1 : sellers) System.out.println(seller1);
                             break;
                         case 3:
                             boolean redoChoice = true;
@@ -696,18 +706,4 @@ public class SellerManager {
         }
     }
 
-    public Seller getSellerFromName(String name) {
-        for (Seller seller : sellers) if (seller.getFirstName().equals(name)) return seller;
-        return null;
-    }
-    public Seller getSellerFromAdress(String Adress) {
-        for (Seller seller : sellers) if (seller.getEmail().equals(Adress)) return seller;
-        return null;
-    }
-    public Seller getSellerFromProduct(ProductType category) {
-         for (Seller seller : sellers)
-             for (Product product : seller.getProducts())
-                if (product.getCategory().equals(category)) return seller;
-        return null;
-    }
 }
