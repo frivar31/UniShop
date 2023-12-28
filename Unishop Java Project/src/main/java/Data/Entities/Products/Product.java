@@ -184,13 +184,4 @@ public class Product {
         return (double) evaluations.stream().mapToInt(ProductEvaluation::getRating).sum() / evaluations.size();
     }
 
-    /**
-     * Définit la promotion du produit en spécifiant les points de réduction et le prix réduit.
-     *
-     * @param points Les points de réduction.
-     * @param price  Le prix réduit.
-     */
-    public void setPromotion(long points, double price) {
-        // TODO:
-    }
 }

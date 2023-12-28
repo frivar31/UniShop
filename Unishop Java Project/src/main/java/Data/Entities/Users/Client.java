@@ -181,24 +181,22 @@ public class Client extends User {
         return this.shoppingCart;
     }
 
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
-    }
-
+    public void setShoppingCart(ShoppingCart shoppingCart) {this.shoppingCart = shoppingCart;}
     /**
      * Affiche une représentation textuelle des informations du client.
      *
      * @return Une chaîne de caractères représentant les informations du client.
      */
+
     @Override
     public String toString() {
         return "{" +
                 "\n- firstName='" + this.getFirstName() + '\'' +
                 "\n- lastName='" + this.getLastName() + '\'' +
-                /*"\n- email='" + this.getEmail() + '\'' +*/
+                "\n- email='" + this.getEmail() + '\'' +
                 "\n- pseudo='" + this.getPseudo() + '\'' +
-                /*"\n- number=" + this.getNumber() +
-                "\n- shipAddress='" + this.getShipAddress() + '\'' +*/
+                "\n- number=" + this.getNumber() +
+                "\n- shipAddress='" + this.getShipAddress() + '\'' +
                 "\n- followers='" + this.followers.size() + '\'' +
                 "\n- following='" + this.following.size() + '\'' +
                 "\n- points='" + this.getPoints() + '\'' +
@@ -238,9 +236,7 @@ public class Client extends User {
     public void displayActivityStat() {
 
     }
-    public void manageOrder() {
-        // TODO
-    }
+
     /**
      * Confirme la réception d'une commande. Si la commande n'est pas expédiée ou est déjà confirmée, un message est affiché.
      * @param orderNumber Le numéro de commande à confirmer.
@@ -255,12 +251,7 @@ public class Client extends User {
             System.out.println("Cannot confirm order reception. The order is not shipped or is already confirmed.");
         }
     }
-    public void complain() {
-        // TODO
-    }
-    public void swapOrderItem(Product swapProduct) {
-        // TODO
-    }
+
     /**
      * Demande le retour d'un article de commande. La demande de retour est soumise à une période de 30 jours à partir de la date de la commande.
      * @param orderNumber Le numéro de commande concerné.
@@ -276,7 +267,6 @@ public class Client extends User {
         long daysDifference = TimeUnit.MILLISECONDS.toDays(diffInMilliseconds);
         if (daysDifference < 30)
             System.out.println("La période de retour pour les articles est limitée à 30 jours à partir de la date de la commande.");
-        //else return new ReturnItem(orderItem.getProduct(), quantity, orderItem.getSeller());
         return null;
     }
     /**
@@ -363,6 +353,16 @@ public class Client extends User {
     public void addLikedSeller(String pseudo) {
         likedSeller.add(pseudo);
     }
+
+    /**
+     * Récupère la liste des commandes en cours de production.
+     *
+     * Cette méthode parcourt toutes les commandes existantes et filtre celles qui sont à la fois
+     * retournées et non expédiées. Les commandes correspondantes sont ajoutées à une liste qui est
+     * ensuite renvoyée.
+     *
+     * @return Une ArrayList d'objets Order représentant les commandes en cours de production.
+     */
     @JsonIgnore
     public ArrayList<Order> getInProduction(){
         ArrayList<Order> inProd=new ArrayList<>();
@@ -371,7 +371,15 @@ public class Client extends User {
         }
         return inProd;
     }
-
+    /**
+     * Récupère la liste des commandes en cours d'expédition.
+     *
+     * Cette méthode parcourt toutes les commandes existantes et filtre celles qui sont à la fois
+     * retournées, expédiées mais non encore livrées. Les commandes correspondantes sont ajoutées à
+     * une liste qui est ensuite renvoyée.
+     *
+     * @return Une ArrayList d'objets Order représentant les commandes en cours d'expédition.
+     */
     @JsonIgnore
     public ArrayList<Order> getInShipping(){
         ArrayList<Order> inShipping=new ArrayList<>();

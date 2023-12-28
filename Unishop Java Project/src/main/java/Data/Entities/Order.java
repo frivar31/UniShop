@@ -8,6 +8,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Représente une commande avec des détails tels que le numéro de commande, les articles, la date de commande,
+ * les informations de livraison et le statut.
+ */
 public class Order {
 
     private String orderNumber;
@@ -171,8 +175,6 @@ public class Order {
      * virifier si tous les articles de la commande ont ete bien liver
      * @return vrai si tuous les artciles ont ete livrés, sinon faux.
      */
-
-
     public Boolean isDelivered() {
         for(OrderItem orderItem:items) if(!orderItem.isDelivered()) return false;
         return true;

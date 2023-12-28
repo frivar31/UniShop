@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
-
+/**
+ * Représente un outil de bureau qui étend la classe de base des produits.
+ */
 public class DesktopTool extends Product {
     private String subCategory;
     /**

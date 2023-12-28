@@ -1,19 +1,26 @@
 import Data.Entities.Catalog;
+import Data.Entities.Order;
 import Data.Entities.ProductEvaluation;
 import Data.Entities.Products.Product;
 import Data.Entities.Products.ProductType;
 import Data.Entities.ShoppingCart;
+import Data.Entities.Users.Client;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
+import java.util.Calendar;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+/**
+ * Représente les tests relier aux produits.
+ */
 public class testProduct {
-     ShoppingCart cart = new ShoppingCart();
+    ShoppingCart cart = new ShoppingCart();
      Product product = new Product("New Product", "Description", "2023-01-01", 5, 99.99, 1, ProductType.Hardware, "Model123", "BrandXYZ", new ArrayList<>(), new ArrayList<>());
     ProductEvaluation evaluation = new ProductEvaluation(4, "Great product!", "user1", 1);
     ProductEvaluation evaluation2 = new ProductEvaluation(5, "Excellent service!", "user2", 2);
+
     @Test
     public void testProductEvaluation() {
         product.addEvaluation(evaluation);

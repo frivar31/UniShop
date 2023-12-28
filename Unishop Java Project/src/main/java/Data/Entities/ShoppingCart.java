@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * Représente un panier d'achats contenant des produits, leurs quantités et des informations associées.
+ */
 public class ShoppingCart {
     private HashMap<Integer, Integer> cart;
     private double total;
@@ -114,7 +116,6 @@ public class ShoppingCart {
      * Vide le panier d'achats après un achat réussi.
      */
     public void clearCart() {
-        // Clear the cart after a successful purchase
         cart.clear();
         total = 0.0;
         numberItems = 0;

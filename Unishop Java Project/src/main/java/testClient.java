@@ -11,7 +11,9 @@ import Data.Entities.Products.ProductType;
 import Data.Entities.Users.Client;
 import Data.Entities.Users.Seller;
 import org.junit.Test;
-
+/**
+ * Représente les tests relier aux client.
+ */
 public class testClient {
     Client client= new Client("John3", "Doe3", "john33@example.com", "johnny33", 123456789L, "123 Main St", "password");
     SellerManager sellerManager = new SellerManager(new ArrayList<>());

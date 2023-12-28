@@ -73,6 +73,11 @@ public class App {
      * @throws IOException En cas d'erreur lors de la lecture/écriture des fichiers.
      */
     public static void main(String[] args) throws IOException {
+        System.out.println("-----------------------------------------------------");
+        System.out.println("-----------------------------------------------------");
+        System.out.println("-----------------WELCOME TO UNISHOP------------------");
+        System.out.println("-----------------------------------------------------");
+        System.out.println("-----------------------------------------------------");
         PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
                 .allowIfBaseType(Product.class)
                 .build();

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
-
+/**
+ * Représente du matériel qui étend la classe de base des produits.
+ */
 public class Hardware extends Product {
     private String launchDate;
     private String subCategory;

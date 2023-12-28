@@ -131,9 +131,9 @@ public class Seller extends User {
         return "{" +
                 "\n- firstName='" + this.getFirstName() + '\'' +
                 "\n- lastName='" + this.getLastName() + '\'' +
-                /*"\n- email='" + this.getEmail() + '\'' +*/
+                "\n- email='" + this.getEmail() + '\'' +
                 "\n- pseudo='" + this.getPseudo() + '\'' +
-                /*"\n- number=" + this.getNumber() +*/
+                "\n- number=" + this.getNumber() +
                 "\n}";
     }
 
